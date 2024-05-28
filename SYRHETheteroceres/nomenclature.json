@@ -18,21 +18,70 @@
       "mnemonique": "piège proche",
       "label_default": "01 : Piège proche du lit mineur",
       "label_fr": "Piège proche du lit mineur",
-      "definition_default": "Piège proche du lit mineur (protocole SYRHET syrphes)"
+      "definition_default": "Piège proche du lit mineur (protocole SYRHET hétérocères)"
     },{
       "type":"LOCA_PIEGE",
       "cd_nomenclature": "02",
       "mnemonique": "piège éloigné",
       "label_default": "02 : Piège éloigné du lit mineur",
       "label_fr": "Piège éloigné du lit mineur",
-      "definition_default": "Piège éloigné du lit mineur (protocole SYRHET syrphes)"
+      "definition_default": "Piège éloigné du lit mineur (protocole SYRHET hétérocères)"
+    },{
+      "type":"LOCA_PIEGE_OBS",
+      "cd_nomenclature": "A",
+      "mnemonique": "Autour du drap",
+      "label_default": "A : Autour du drap",
+      "label_fr": "Individu récolté autour du drap",
+      "definition_default": "Individu récolté autour du drap (protocole SYRHET hétérocères)"
+    },{
+      "type":"LOCA_PIEGE_OBS",
+      "cd_nomenclature": "B",
+      "mnemonique": "Dans le piège",
+      "label_default": "B : Dans le piège",
+      "label_fr": "Individu récolté dans le piège",
+      "definition_default": "Individu récolté dans piège (protocole SYRHET hétérocères)"
+    },{
+      "type":"LOCA_PIEGE_OBS",
+      "cd_nomenclature": "C",
+      "mnemonique": "Sous les boîtes",
+      "label_default": "C : Sous les boîtes",
+      "label_fr": "Individu récolté sous les boîtes",
+      "definition_default": "Individu récolté sous les boîtes (protocole SYRHET hétérocères)"
+    },{
+      "type":"LOCA_PIEGE_OBS",
+      "cd_nomenclature": "D",
+      "mnemonique": "Sous le drap",
+      "label_default": "D : Sous le drap",
+      "label_fr": "Individu récolté sous le drap",
+      "definition_default": "Individu récolté sous le drap (protocole SYRHET hétérocères)"
+    },{
+      "type":"LOCA_PIEGE_OBS",
+      "cd_nomenclature": "E",
+      "mnemonique": "Sur les boîtes",
+      "label_default": "E : Sur les boîtes",
+      "label_fr": "Individu récolté sur les boîtes",
+      "definition_default": "Individu récolté sur les boîtes (protocole SYRHET hétérocères)"
+    },{
+      "type":"LOCA_PIEGE_OBS",
+      "cd_nomenclature": "F",
+      "mnemonique": "Sur le drap",
+      "label_default": "F : Sur le drap",
+      "label_fr": "Individu récolté sur le drap",
+      "definition_default": "Individu récolté sur le drap (protocole SYRHET hétérocères)"
+    },{
+      "type":"LOCA_PIEGE_OBS",
+      "cd_nomenclature": "G",
+      "mnemonique": "Sur le piège",
+      "label_default": "G : Sur le piège",
+      "label_fr": "Individu récolté sur le piège",
+      "definition_default": "Individu récolté sur le piège (protocole SYRHET hétérocères)"
     },
     {
       "type": "TYPE_SITE",
-      "cd_nomenclature": "SYRHET_Syr",
-      "mnemonique": "Site SYRHET Syrphe",
-      "label_default": "Site SYRHET Syrphe",
-      "definition_default": "Site de relevé du protocole SYRHET syrphes"
+      "cd_nomenclature": "SYRHET_Het",
+      "mnemonique": "Site SYRHET Hétérocères",
+      "label_default": "Site SYRHET Hétérocères",
+      "definition_default": "Site de relevé du protocole SYRHET hétérocères"
     }
   ]
 }
