@@ -16,9 +16,7 @@
     "id_inventor",
     "first_use_date",
     "typ_geom",
-    "id_nomenclature_hab_odo",
-    "detail_hab_odo",
-    "surf_obs",
+    "id_nomenclature_type_site",
     "area_name"
  ],
   "display_list": [
@@ -26,7 +24,7 @@
     "id_inventor",
     "first_use_date",
     "nb_visits",
-    "id_nomenclature_hab_odo"
+    "id_nomenclature_tech_collect_campanule"
   ],
   "specific": {
     "base_site_code": {
@@ -57,20 +55,30 @@
       "attribut_label": "Surface d'observation",
       "hidden": true
     },
-    "id_nomenclature_hab_odo": {
+    "id_nomenclature_loca_piege": {
+      "type_widget": "nomenclature",
+      "attribut_label": "Nature de l'observation",
+      "code_nomenclature_type": "LOCA_PIEGE",
+      "required": true,
+      "type_util": "nomenclature"
+    },
+    "id_nomenclature_tech_collect_campanule": {
       "type_widget": "datalist",
-      "attribut_label": "Habitat odonatologique",
-      "api": "nomenclatures/nomenclature/HABITAT_ODO",
+      "attribut_label": "Stade de vie",
+      "api": "nomenclatures/nomenclature/TECHNIQUE_OBS",
       "application": "GeoNature",
       "keyValue": "id_nomenclature",
-      "keyLabel": "label_default",
+      "keyLabel": "label_fr",
+      "keyTitle": "definition_fr",
       "data_path": "values",
       "type_util": "nomenclature",
       "params": {
-          "orderby": "cd_nomenclature"
+          "regne": "Animalia",
+          "group2_inpn": "Insectes"
       },
-      "default": null,
-      "required": true
+      "default": {
+        "cd_nomenclature": "94"
+      }
     },
     "area_name": {
       "type_widget": "text",
@@ -82,7 +90,7 @@
       "type_util": "nomenclature",
       "value": {
           "code_nomenclature_type": "TYPE_SITE",
-          "cd_nomenclature": "RHOMEO_ODO"
+          "cd_nomenclature": "SYRHET_Het"
       },
       "hidden": true
     }
