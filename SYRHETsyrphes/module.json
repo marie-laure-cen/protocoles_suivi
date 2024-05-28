@@ -1,10 +1,10 @@
 {
-  "module_label":"RHOMEOOdonate",
-  "module_desc":"Module pour le protocole de suivi RhoMeO des odonates",
+  "module_label":"SYRHETsyrphe",
+  "module_desc":"Module pour le protocole de suivi SYRHET des syrphes",
   "color": "#e5fffe",
   "export_csv": [
     { "label": "Format standard CSV", "type":"csv" , "method": "standard" },
-    { "label": "RHOMEO calculette CSV", "type":"csv" , "method": "calculette" }
+    { "label": "SYRHET calculette CSV", "type":"csv" , "method": "calculette" }
   ],
   "specific": {
     "b_draw_sites_group": {

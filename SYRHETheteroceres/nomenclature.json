@@ -1,0 +1,38 @@
+{
+  "types": [
+    {
+      "mnemonique": "LOCA_PIEGE",
+      "label_default": "Localisation du piège par rapport au lit mineur",
+      "definition_default": "Localisation de l'observation sur le piège (SYRHET)"
+    },
+    {
+      "mnemonique": "TYPE_SITE",
+      "label_default": "Type de sites",
+      "definition_default": "Nomenclature des types de sites suivi dans gn_monitoring."
+    }
+  ],
+  "nomenclatures": [
+    {
+      "type":"LOCA_PIEGE",
+      "cd_nomenclature": "01",
+      "mnemonique": "piège proche",
+      "label_default": "01 : Piège proche du lit mineur",
+      "label_fr": "Piège proche du lit mineur",
+      "definition_default": "Piège proche du lit mineur (protocole SYRHET syrphes)"
+    },{
+      "type":"LOCA_PIEGE",
+      "cd_nomenclature": "02",
+      "mnemonique": "piège éloigné",
+      "label_default": "02 : Piège éloigné du lit mineur",
+      "label_fr": "Piège éloigné du lit mineur",
+      "definition_default": "Piège éloigné du lit mineur (protocole SYRHET syrphes)"
+    },
+    {
+      "type": "TYPE_SITE",
+      "cd_nomenclature": "SYRHET_Syr",
+      "mnemonique": "Site SYRHET Syrphe",
+      "label_default": "Site SYRHET Syrphe",
+      "definition_default": "Site de relevé du protocole SYRHET syrphes"
+    }
+  ]
+}
