@@ -15,12 +15,14 @@
     "id_sites_group",
     "id_inventor",
     "first_use_date",
-    "typ_geom",
-    "id_nomenclature_type_site",
-    "area_name"
+    "id_nomenclature_loca_piege",
+    "id_nomenclature_tech_collect_campanule",
+    "area_name",
+    "id_nomenclature_type_site"
  ],
   "display_list": [
     "base_site_name",
+    "id_nomenclature_loca_piege",
     "id_inventor",
     "first_use_date",
     "nb_visits",
@@ -42,18 +44,6 @@
       "required": false,
       "hidden": false,
       "definition": "Liste des zones de prospections définies pour le protocole."
-    },
-    "typ_geom": {
-      "type_widget": "radio",
-      "attribut_label": "Type d'observation",
-      "multiple": true,
-      "values": ["Transect", "Point"],
-      "required": true
-    },
-    "surf_obs": {
-      "type_widget": "text",
-      "attribut_label": "Surface d'observation",
-      "hidden": true
     },
     "id_nomenclature_loca_piege": {
       "type_widget": "nomenclature",

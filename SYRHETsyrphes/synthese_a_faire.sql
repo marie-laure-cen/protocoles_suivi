@@ -73,17 +73,11 @@ WITH source AS (
 ), obsc AS (
 SELECT 
 	oc.id_observation,
-	unnest(
-        (SELECT array_agg("key"||':'||t.val) FROM (SELECT "key",jsonb_array_elements(val||'[]') val FROM jsonb_each(oc."data") as value("key",val) WHERE  "key" IN ('id_nomenclature_behaviour', 'id_nomenclature_life_stage','nb_exuvie')) as t WHERE val != 'null')
-    ) obs,
 	(oc."data"->'id_nomenclature_sex')::integer AS id_nomenclature_sex,
-	CASE WHEN (oc.data->>'nombre_compte') IS NULL THEN (oc.data->>'nombre')
-		ELSE (oc.data->>'nombre_compte')
-	END AS effectif_obs,
-	(oc."data"->>'nb_adulte') nb_adulte,
-	CASE WHEN (oc."data"->>'num_tranche')::int = 0 THEN 6
-		WHEN (oc."data"->>'num_tranche') IS NULL THEN NULL
-		ELSE 6 + 2 * (oc."data"->>'num_tranche')::int END AS tranche
+	oc.data->>'count_min'AS count_min,
+	oc.data->>'count_max'AS count_max,
+	CASE WHEN (oc."data"->>'tranche_horaire') is true THEN 'Dans les 2h après le couché du soleil'
+		ELSE 'Plus de 2h après le couché du soleil' END AS tranche
 	FROM gn_monitoring.t_observation_complements oc
 ), obsc_2 AS (
 SELECT

@@ -3,10 +3,11 @@
   "genre":"F",
   "display_properties": [
     "cd_nom",
-    "id_nomenclature_loca_piege",
     "tranche_horaire",
     "count_min",
     "count_max",
+    "id_nomenclature_loca_obs",
+    "id_nomenclature_obs_technique",
     "id_nomenclature_determination_method",
     "id_nomenclature_life_stage",
     "id_nomenclature_sex",
@@ -14,9 +15,13 @@
   ],
   "display_list": [
     "cd_nom",
-    "num_tranche",
-    "nombre",
-    "nombre_compte"
+    "id_nomenclature_loca_obs"
+  ],
+  "keep": [
+    "tranche_horaire",
+    "id_nomenclature_obs_technique",
+    "id_nomenclature_determination_method",
+    "visit_time"
   ],
   "specific": {
     "cd_nom": {
@@ -28,33 +33,36 @@
       "required": true,
       "type_util": "taxonomy"
     },
-    "id_nomenclature_loca_piege": {
-      "type_widget": "nomenclature",
-      "attribut_label": "Nature de l'observation",
-      "code_nomenclature_type": "LOCA_PIEGE_OBS",
-      "required": true,
-      "type_util": "nomenclature"
-    },
     "tranche_horaire": {
       "type_widget": "radio",
       "attribut_label": "Observation dans les 2 premières heures après le coucher du soleil",
-      "values": ["Oui", "Non"]
+      "values": ["Oui", "Non"],
+      "required": true
   },
     "count_min": {
       "type_widget": "number",
       "attribut_label": "Effectifs minimum",
       "min": 0,
+      "required": false,
       "definition": "Effectifs minimum"
     },
     "count_max": {
       "type_widget": "number",
       "attribut_label": "Effectifs max",
       "min": 0,
-      "definition": "Effectifs minimum"
+      "required": false,
+      "definition": "Effectifs maximum"
     },
-    "id_nomenclature_determination_method": {
+    "id_nomenclature_loca_obs": {
+      "type_widget": "nomenclature",
+      "attribut_label": "Nature de l'observation",
+      "code_nomenclature_type": "LOCA_PIEGE_OBS",
+      "required": true,
+      "type_util": "nomenclature"
+    },
+    "id_nomenclature_obs_technique": {
       "type_widget": "datalist",
-      "attribut_label": "Méthode de détermination",
+      "attribut_label": "Technique d'observation",
       "api": "nomenclatures/nomenclature/METH_OBS",
       "application": "GeoNature",
       "keyValue": "id_nomenclature",
@@ -64,6 +72,20 @@
       "required": true,
       "default": {
         "cd_nomenclature": "0"
+      }
+    },
+    "id_nomenclature_determination_method": {
+      "type_widget": "datalist",
+      "attribut_label": "Méthode de détermination",
+      "api": "nomenclatures/nomenclature/METH_DETERMIN",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": true,
+      "default": {
+        "cd_nomenclature": "21"
       }
     },
     "id_nomenclature_life_stage": {
@@ -76,6 +98,7 @@
       "keyTitle": "definition_fr",
       "data_path": "values",
       "type_util": "nomenclature",
+      "required": false,
       "params": {
           "regne": "Animalia",
           "group2_inpn": "Insectes"
@@ -90,6 +113,7 @@
       "keyLabel": "label_fr",
       "data_path": "values",
       "type_util": "nomenclature",
+      "required": false,
       "params": {
           "regne": "Animalia",
           "group2_inpn": "Insectes"
