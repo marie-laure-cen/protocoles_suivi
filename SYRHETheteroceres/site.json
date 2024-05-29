@@ -16,7 +16,6 @@
     "id_inventor",
     "first_use_date",
     "id_nomenclature_loca_piege",
-    "id_nomenclature_tech_collect_campanule",
     "area_name",
     "id_nomenclature_type_site"
  ],
@@ -51,24 +50,6 @@
       "code_nomenclature_type": "LOCA_PIEGE",
       "required": true,
       "type_util": "nomenclature"
-    },
-    "id_nomenclature_tech_collect_campanule": {
-      "type_widget": "datalist",
-      "attribut_label": "Stade de vie",
-      "api": "nomenclatures/nomenclature/TECHNIQUE_OBS",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "keyTitle": "definition_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "params": {
-          "regne": "Animalia",
-          "group2_inpn": "Insectes"
-      },
-      "default": {
-        "cd_nomenclature": "94"
-      }
     },
     "area_name": {
       "type_widget": "text",

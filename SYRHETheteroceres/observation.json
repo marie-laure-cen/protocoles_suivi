@@ -118,10 +118,6 @@
           "regne": "Animalia",
           "group2_inpn": "Insectes"
       }
-    },
-    "comments": {
-      "type_widget": "textarea",
-      "attribut_label": "Commentaire"
     }
   }
 }

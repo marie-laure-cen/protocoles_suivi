@@ -15,7 +15,8 @@
   ],
   "display_properties": [
     "sites_group_name",
-    "sites_group_code"
+    "sites_group_code",
+    "site_group_description"
   ],
   "display_list": [
     "sites_group_name",
