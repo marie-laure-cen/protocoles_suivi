@@ -12,11 +12,11 @@
   ],
   "display_properties": [
     "base_site_name",
+    "base_site_name",
     "id_sites_group",
     "id_inventor",
     "first_use_date",
     "id_nomenclature_loca_piege",
-    "area_name",
     "id_nomenclature_type_site"
  ],
   "display_list": [
@@ -29,8 +29,8 @@
   ],
   "specific": {
     "base_site_code": {
-      "hidden": true,
-      "required": false
+      "hidden": false,
+      "required": true
     },
     "id_sites_group": {
       "type_widget": "datalist",
@@ -50,11 +50,6 @@
       "code_nomenclature_type": "LOCA_PIEGE",
       "required": true,
       "type_util": "nomenclature"
-    },
-    "area_name": {
-      "type_widget": "text",
-      "attribut_label": "Nom de l'ensemble fonctionnel",
-      "definition": "Nom courant de la zone prospectée (l'étang, la mare, le ruisseau, ...)"
     },
     "id_nomenclature_type_site": {
       "attribut_label": "Type site",

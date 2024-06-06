@@ -33,11 +33,18 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 	), 
 	sites AS (
 		SELECT
+			id_sites_groups,
 			id_base_site,
+			base_site_name,
+			base_site_code,
+			id_nomenclature_type_site,
+			altitude_min,
+			altitude_max,
 			geom AS the_geom_4326,
 			ST_CENTROID(geom) AS the_geom_point,
 			geom_local as the_geom_local 
 		FROM gn_monitoring.t_base_sites
+		LEFT JOIN gn_monitoring.t_site_complements USING (id_base_site)
 	), 
 	visits AS (
 		SELECT
@@ -86,14 +93,20 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 		JOIN obsc USING (id_observation)
 	)
 	SELECT
+		-- uuids
 		o.uuid_observation AS unique_id_sinp, 
 		v.uuid_base_visit AS unique_id_sinp_grp,
 		source.id_source,
 		o.id_observation AS entity_source_pk_value,
+		-- groupe de site
+		sg.sites_group_name,
+   		sg.sites_group_code,
 		-- site
 		s.id_nomenclature_type_site,
-		alt.altitude_min,
-		alt.altitude_max,
+		s.base_site_name,
+		s.base_site_code,
+		s.altitude_min,
+		s.altitude_max,
 		-- visit
 		v.id_dataset,
 		v.id_base_site,
@@ -147,7 +160,6 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 		ON TRUE
 	JOIN observers obs 
 		ON obs.id_base_visit = v.id_base_visit
-	LEFT JOIN LATERAL ref_geo.fct_get_altitude_intersection(s.the_geom_local) alt (altitude_min, altitude_max)
-		ON TRUE
+	LEFT JOIN gn_monitoring.t_sites_groups sg USING (id_sites_group)
 	WHERE m.module_code = :'module_code'
 ;
