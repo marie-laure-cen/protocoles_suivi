@@ -1,7 +1,6 @@
 {
   "module_label":"SYRHET syrphes",
   "module_desc":"Module pour le protocole de suivi SYRHET des syrphes",
-  "color": "#e5fffe",
   "export_csv": [
     { "label": "Format standard CSV", "type":"csv" , "method": "standard" },
     { "label": "SYRHET calculette CSV", "type":"csv" , "method": "calculette" }

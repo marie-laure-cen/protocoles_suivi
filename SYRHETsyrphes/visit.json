@@ -3,7 +3,6 @@
   "label": "Passage",
   "label_list": "Passages",
   "display_properties": [
-    "id_dataset",
     "observers",
     "num_passage",
     "visit_date_min",
@@ -25,6 +24,9 @@
     "nb_observations"
   ],
   "specific": {
+    "id_dataset":{
+      "hidden": true
+    },
     "num_passage": {
       "type_widget": "number",
       "attribut_label": "Numéro de passage",
