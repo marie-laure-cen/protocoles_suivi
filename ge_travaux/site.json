@@ -1,8 +1,8 @@
 {
-  "genre":"M",
-  "label": "piège",
-  "label_list": "Pièges",
-  "geometry_type": "Point",
+  "genre":"F",
+  "label": "parcelle",
+  "label_list": "Parcelles",
+  "geometry_type": "Polygon",
   "map_label_field_name": "base_site_name",
   "export_pdf": [
       { "template": "fiche_aire.html", "label": "Export PDF" }

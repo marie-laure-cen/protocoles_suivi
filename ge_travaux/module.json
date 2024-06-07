@@ -1,6 +1,6 @@
 {
-  "module_label":"SYRHET Hétérocères",
-  "module_desc":"Module pour le protocole de suivi SYRHET des hétérocères",
+  "module_label":"GE Travaux",
+  "module_desc":"Module de suivi des travaux du CENN",
   "specific": {
     "b_draw_sites_group": {
       "hidden": false
