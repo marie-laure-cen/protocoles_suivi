@@ -1,0 +1,50 @@
+
+{
+  "label": "Dénombrement",
+  "genre": "M",
+  "display_properties": [
+    "id_nomenclature_life_stage",
+    "id_nomenclature_sex",
+    "effectif"
+  ],
+  "specific": {
+    "effectif": {
+      "type_widget": "number",
+      "attribut_label": "Effectifs",
+      "min": 0,
+      "required": false,
+      "definition": "Effectifs"
+    },
+    "id_nomenclature_life_stage": {
+      "type_widget": "datalist",
+      "attribut_label": "Stade de vie",
+      "api": "nomenclatures/nomenclature/STADE_VIE",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "keyTitle": "definition_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": false,
+      "params": {
+          "regne": "Animalia",
+          "group2_inpn": "Insectes"
+      }
+    },
+    "id_nomenclature_sex": {
+      "type_widget": "datalist",
+      "attribut_label": "Sexe",
+      "api": "nomenclatures/nomenclature/SEXE",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": false,
+      "params": {
+          "regne": "Animalia",
+          "group2_inpn": "Insectes"
+      }
+    }
+  }
+}

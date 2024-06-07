@@ -8,10 +8,13 @@
     "num_passage",
     "visit_date_min",
     "visit_date_max",
+    "heure_ext",
     "heure_debut",
     "heure_fin",
-    "visit_time",
-    "id_nomenclature_tech_collect_campanule",
+    "meteo",
+    "pluviosite",
+    "vent",
+    "temperature",
     "comments"
   ],
   "display_list": [
@@ -29,24 +32,60 @@
       "max": 8,
       "required": true
     },
+    "heure_ext": {
+      "type_widget": "time",
+      "attribut_label": "Heure d'extinction",
+      "required": false
+    },
     "heure_debut": {
       "type_widget": "time",
-      "attribut_label": "Heure de début",
+      "attribut_label": "Heure d'arrivée",
       "required": true
     },
     "heure_fin": {
       "type_widget": "time",
-      "attribut_label": "Heure de fin",
+      "attribut_label": "Heure de départ",
       "required": true
     },
-    "id_nomenclature_tech_collect_campanule":{
-      "hidden" : false,
-      "default": {
-        "cd_nomenclature": "94"
-      }
+    "meteo": {
+      "type_widget": "datalist",
+      "attribut_label": "Météo",
+      "api": "nomenclatures/nomenclature/METEO",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": false
     },
-    "id_nomenclature_grp_type":{
-      "hidden" : false
+    "pluviosite": {
+      "type_widget": "datalist",
+      "attribut_label": "Pluviosité",
+      "api": "nomenclatures/nomenclature/PLUVIOSITE",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": false
+    },
+    "vent": {
+      "type_widget": "datalist",
+      "attribut_label": "Vent (échelle de Beaufort)",
+      "api": "nomenclatures/nomenclature/BEAUFORT",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": false
+    },
+    "temperature":{
+      "type_widget": "number",
+      "attribut_label": "Température",
+      "min" : 10,
+      "max": 40,
+      "required": false
     }
   }
 }

@@ -128,15 +128,12 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 		id_observation,
 		oc.id_nomenclature_obs_technique,
 		oc.id_nomenclature_determination_method,
-		oc.id_nomenclature_life_stage,
-		oc.id_nomenclature_sex,
+		--oc.id_nomenclature_life_stage,
+		--oc.id_nomenclature_sex,
 		oc.ids_observers,
 		oc.observers,
 		t.cd_nom,
 		t.nom_complet AS nom_cite,
-		jsonb_build_object(
-			'tranche_horaire', oc2.tranche_horaire, 'loca_obs', oc2.id_nomenclature_loca_obs,
-		) as additional_data,
 		o.comments AS comment_description,
 		-- géométries
 		s.the_geom_4326,

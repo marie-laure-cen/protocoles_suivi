@@ -2,15 +2,15 @@
   "description_field_name":"cd_nom",
   "genre":"F",
   "display_properties": [
+    "observers",
     "cd_nom",
-    "tranche_horaire",
     "count_min",
     "count_max",
     "id_nomenclature_loca_obs",
     "id_nomenclature_obs_technique",
     "id_nomenclature_determination_method",
-    "id_nomenclature_life_stage",
-    "id_nomenclature_sex",
+    "conservation",
+    "id_echantillon",
     "comments"
   ],
   "display_list": [
@@ -18,12 +18,22 @@
     "id_nomenclature_loca_obs"
   ],
   "keep": [
-    "tranche_horaire",
     "id_nomenclature_obs_technique",
     "id_nomenclature_determination_method",
     "visit_time"
   ],
   "specific": {
+    "observers":{
+      "type_widget": "datalist",
+      "attribut_label": "Déterminateur",
+      "api": "users/menu/__MODULE.ID_LIST_OBSERVER",
+      "application": "GeoNature",
+      "keyValue": "id_role",
+      "keyLabel": "nom_complet",
+      "type_util": "user",
+      "multiple": false,
+      "required": true
+    },
     "cd_nom": {
       "type_widget": "taxonomy",
       "attribut_label": "Espèce observée",
@@ -33,12 +43,6 @@
       "required": true,
       "type_util": "taxonomy"
     },
-    "tranche_horaire": {
-      "type_widget": "radio",
-      "attribut_label": "Observation dans les 2 premières heures après le coucher du soleil",
-      "values": ["Oui", "Non"],
-      "required": true
-  },
     "count_min": {
       "type_widget": "number",
       "attribut_label": "Effectifs minimum",
@@ -88,36 +92,17 @@
         "cd_nomenclature": "21"
       }
     },
-    "id_nomenclature_life_stage": {
-      "type_widget": "datalist",
-      "attribut_label": "Stade de vie",
-      "api": "nomenclatures/nomenclature/STADE_VIE",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "keyTitle": "definition_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "required": false,
-      "params": {
-          "regne": "Animalia",
-          "group2_inpn": "Insectes"
-      }
+    "conservation":{
+      "type_widget": "radio",
+      "required": true,
+      "attribut_label": "Collecte de l'individu",
+      "values": ["Oui", "Non"]
     },
-    "id_nomenclature_sex": {
-      "type_widget": "datalist",
-      "attribut_label": "Sexe",
-      "api": "nomenclatures/nomenclature/SEXE",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "required": false,
-      "params": {
-          "regne": "Animalia",
-          "group2_inpn": "Insectes"
-      }
+    "id_echantillon":{
+      "type_widget": "text",
+      "attribut_label": "Identifiant de l'échantillon collecté",
+      "hidden": false,
+      "required": false
     }
   }
 }

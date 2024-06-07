@@ -1,5 +1,5 @@
 {
-  "module_label":"SYRHETsyrphe",
+  "module_label":"SYRHET syrphes",
   "module_desc":"Module pour le protocole de suivi SYRHET des syrphes",
   "color": "#e5fffe",
   "export_csv": [

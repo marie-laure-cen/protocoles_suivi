@@ -1,7 +1,7 @@
 {
   "genre":"F",
-  "label": "zone",
-  "label_list": "Prospect zone",
+  "label": "Zone",
+  "label_list": "Zone de prospection",
   "map_label_field_name": "base_site_name",
   "b_draw_sites_group": true,
   "sorts": [
@@ -15,7 +15,8 @@
   ],
   "display_properties": [
     "sites_group_name",
-    "sites_group_code"
+    "sites_group_code",
+    "site_group_description"
   ],
   "display_list": [
     "sites_group_name",

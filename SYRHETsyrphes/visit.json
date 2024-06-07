@@ -7,12 +7,14 @@
     "observers",
     "num_passage",
     "visit_date_min",
+    "visit_date_max",
+    "heure_ext",
     "heure_debut",
-    "visit_time",
-    "exuvie_exist",
+    "heure_fin",
+    "meteo",
+    "pluviosite",
+    "vent",
     "temperature",
-    "nebulosite",
-    "vvent",
     "comments"
   ],
   "display_list": [
@@ -22,83 +24,68 @@
     "observers",
     "nb_observations"
   ],
-  "keep": [
-    "visit_date_min",
-    "Heure_debut",
-    "visit_time",
-    "exuvie_exist",
-    "temperature",
-    "nebulosite"
-  ],
   "specific": {
     "num_passage": {
-      "type_widget": "radio",
+      "type_widget": "number",
       "attribut_label": "Numéro de passage",
-      "values": [1, 2, 3],
+      "min" : 1,
+      "max": 8,
       "required": true
+    },
+    "heure_ext": {
+      "type_widget": "time",
+      "attribut_label": "Heure d'extinction",
+      "required": false
     },
     "heure_debut": {
       "type_widget": "time",
-      "attribut_label": "Heure de début",
+      "attribut_label": "Heure d'arrivée",
       "required": true
     },
-    "visit_time": {
-      "type_widget": "number",
-      "attribut_label": "Durée de la visite (min)",
-      "required": true,
-      "min": 0,
-      "max": 60,
-      "value": 6
-    },
-    "exuvie_exist": {
-      "type_widget": "radio",
-      "attribut_label": "Présence d'exuvie",
-      "values": ["Oui","Non"],
-	    "required": true
-    },
-    "temperature": {
-      "type_widget": "number",
-      "attribut_label": "Temperature de l'air (°C)",
-      "required": true,
-      "min": 0,
-      "max": 60
-    },
-    "nebulosite": {
-      "type_widget": "radio",
-      "attribut_label": "Couverture nuageuse (Nebulosité)",
-      "values": ["0","1/4", "1/2", "3/4"],
+    "heure_fin": {
+      "type_widget": "time",
+      "attribut_label": "Heure de départ",
       "required": true
     },
-    "vvent": {
+    "meteo": {
       "type_widget": "datalist",
-      "attribut_label": "Force de vent (beaufort)",
-      "values": [
-        {
-          "label":"0 : Calme (< 1 km/h)",
-          "value": 0
-        }, {
-          "label":"1 : Très légère brise (1 à 5 km/h)",
-          "value": 1
-        }, {
-          "label":"2 : Légère brise (6 à 11 km/h)",
-          "value": 2
-        }, {
-          "label":"3 : Petite brise (12 à 19 km/h)",
-          "value": 3
-        }, {
-          "label":"4 : Jolie brise (20 à 28 km/h)",
-          "value": 4
-        }, {
-          "label":"5 : Bonne brise (19 à 38 km/h)",
-          "value": 5
-        }
-      ],
-      "required": true
+      "attribut_label": "Météo",
+      "api": "nomenclatures/nomenclature/METEO",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": false
     },
-    "visit_date_min": {
-      "type_widget": "date",
-      "attribut_label": "Date du passage",
-      "required": true
+    "pluviosite": {
+      "type_widget": "datalist",
+      "attribut_label": "Pluviosité",
+      "api": "nomenclatures/nomenclature/PLUVIOSITE",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": false
+    },
+    "vent": {
+      "type_widget": "datalist",
+      "attribut_label": "Vent (échelle de Beaufort)",
+      "api": "nomenclatures/nomenclature/BEAUFORT",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": false
+    },
+    "temperature":{
+      "type_widget": "number",
+      "attribut_label": "Température",
+      "min" : 10,
+      "max": 40,
+      "required": false
     }
   }
 }

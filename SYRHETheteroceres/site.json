@@ -1,7 +1,7 @@
 {
   "genre":"M",
-  "label": "site",
-  "label_list": "Sites",
+  "label": "piège",
+  "label_list": "Pièges",
   "geometry_type": "Point",
   "map_label_field_name": "base_site_name",
   "export_pdf": [
@@ -23,8 +23,7 @@
     "id_nomenclature_loca_piege",
     "id_inventor",
     "first_use_date",
-    "nb_visits",
-    "id_nomenclature_tech_collect_campanule"
+    "nb_visits"
   ],
   "specific": {
     "base_site_code": {
