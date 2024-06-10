@@ -1,106 +1,275 @@
 {
-  "genre":"M",
-  "label": "Passage",
-  "label_list": "Passages",
+  "genre":"F",
+  "label": "Action",
+  "label_list": "Action de travaux",
   "display_properties": [
+    "nom",
+    "etat",
+    "objectif",
     "observers",
-    "num_passage",
     "visit_date_min",
     "visit_date_max",
-    "heure_debut",
-    "heure_fin",
-    "heure_ext",
-    "meteo",
-    "pluviosite",
-    "vent",
-    "temperature",
-    "comments"
+    "nb_jours",
+    "comments",
+    "objet",
+    "tvx_aqua",
+    "tvx_tourb",
+    "type_prairie",
+    "tvx_prairie",
+    "type_lande",
+    "tvx_lande",
+    "tvx_bois",
+    "type_am",
+    "tvx_am",
+    "tvx_autre",
+    "produit",
+    "materiel"
   ],
   "display_list": [
-    "num_passage",
-    "visit_date_min",
+    "objectif",
     "observers",
-    "nb_observations"
+    "nb_jours",
+    "objectif"
+  ],
+  "keep":[
+    "observers",
+    "visit_date_min",
+    "visit_date_max",
+    "nb_jours",
+    "objectif"
   ],
   "specific": {
-    "num_passage": {
-      "type_widget": "number",
-      "attribut_label": "Numéro de passage",
-      "min" : 1,
-      "max": 8,
-      "required": true
+    "nom": {
+      "type_widget": "text",
+      "attribut_label": "Nom de la fiche travaux"
     },
-    "dataset": {
-      "required":false,
-      "hidden": true
+    "observers":{
+      "attribut_label": "Intervenant(s)"
+    },
+    "id_dataset": {
+        "required": false,
+        "hidden": "({meta}) => meta.dataset && Object.keys(meta.dataset).length == 1"
     },
     "visit_date_min":{
-      "attribut_label": "Date de début du passage",
+      "attribut_label": "Date de début des travaux",
       "required": true
     },
     "visit_date_max":{
-      "attribut_label": "Date de fin du passage" ,  
-      "definition": "Date de fin de passage (à remplir si différente de la date de début du passage)",
-      "required": false   
+      "attribut_label": "Date de fin des travaux" ,
+      "required": true   
     },
-    "heure_debut": {
-      "type_widget": "time",
-      "attribut_label": "Heure d'arrivée",
-      "required": true
-    },
-    "heure_fin": {
-      "type_widget": "time",
-      "attribut_label": "Heure de départ",
-      "required": true
-    },
-    "heure_ext": {
-      "type_widget": "time",
-      "attribut_label": "Heure d'extinction du piège",
-      "required": false
-    },
-    "meteo": {
-      "type_widget": "datalist",
-      "attribut_label": "Météo",
-      "api": "nomenclatures/nomenclature/METEO",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "definition": "Météo selon la nomenclature Pop Amphibien",
-      "required": false
-    },
-    "pluviosite": {
-      "type_widget": "datalist",
-      "attribut_label": "Pluviosité",
-      "api": "nomenclatures/nomenclature/PLUVIOSITE",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "definition": "Pluviosité selon la nomenclature Pop Amphibien",
-      "required": false
-    },
-    "vent": {
-      "type_widget": "datalist",
-      "attribut_label": "Vent",
-      "api": "nomenclatures/nomenclature/BEAUFORT",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "definition": "Vent selon l'échelle de Beaufort",
-      "required": false
-    },
-    "temperature":{
+    "nb_jours":{
       "type_widget": "number",
-      "attribut_label": "Température",
-      "min" : 10,
-      "max": 40,
-      "definition": "Température en degrés Celsius",
-      "required": false
+      "attribut_label": "Nombre de jours de travaux",
+      "min" : 1,
+      "max": 365,
+      "required": true
+    },
+    "objectif": {
+      "type_widget": "datalist",
+      "attribut_label": "Objectif(s)",
+      "api": "nomenclatures/nomenclature/OBJ_GESTION",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "definition": "Objectif(s) de gestion des travaux",
+      "multiple": true,
+      "required": true
+    },
+    "objet":{
+      "type_widget": "select",
+      "required": true,
+      "attribut_label": "Objet de l'action de travaux",
+      "values": ["Milieu aquatique", "Tourbière","Prairie/pelouse","Lande/fourré/haie","Bois","Aménagement","Evacuation d'ordures","Autre"]
+    },
+    "tvx_aqua":{
+      "type_widget": "datalist",
+      "attribut_label": "Travaux sur milieu aquatique",
+      "api": "nomenclatures/nomenclature/TVX_TYPE",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": "({value}) => value.objet === 'Milieu aquatique'",
+      "filters": {
+        "cd_nomenclature": ["TVX_CR","TVX_CU","TVX_FASC","TVX_EMB","TVX_FOS"]
+      },
+      "hidden": "({value}) => value.objet.Contains('Milieu aquatique') != true",
+      "multiple": true
+    },
+    "tvx_tourb":{
+      "type_widget": "datalist",
+      "attribut_label": "Travaux sur tourbière",
+      "api": "nomenclatures/nomenclature/TVX_TYPE",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": "({value}) => value.objet.Contains('Tourbière') == true",
+      "filters": {
+        "cd_nomenclature": ["TVX_EEE"]
+      },
+      "hidden": "({value}) => value.objet.Contains('Tourbière') != true",
+      "multiple": true
+    },
+    "type_prairie":{
+      "type_widget": "radio",
+      "required": true,
+      "attribut_label": "Type d'espace herbacé",
+      "values": ["Sèche", "Mésophile", "Humide"],
+      "hidden": "({value}) => value.objet.Contains('Prairie/pelouse') != true"
+    },
+    "tvx_prairie":{
+      "type_widget": "datalist",
+      "attribut_label": "Travaux sur des prairies ou des pelouses",
+      "api": "nomenclatures/nomenclature/TVX_TYPE",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": "({value}) => value.objet.Contains('Prairie/pelouse') == true",
+      "filters": {
+        "cd_nomenclature": ["TVX_AR","TVX_DEBR","TVX_DESO","TVX_DECH","TVX_EEE","TVX_FAN","TVX_FAU","TVX_GYR"]
+      },
+      "hidden": "({value}) => value.objet.Contains('Prairie/pelouse') != true",
+      "multiple": true
+    },
+    "type_lande":{
+      "type_widget": "radio",
+      "required": true,
+      "attribut_label": "Type d'espace herbacé",
+      "values": ["Lande", "Fourré", "Haie"],
+      "hidden": "({value}) => value.objet.Contains('Lande/fourré/haie') != true"
+    },
+    "tvx_lande":{
+      "type_widget": "datalist",
+      "attribut_label": "Travaux sur des landes, fourré, haies",
+      "api": "nomenclatures/nomenclature/TVX_TYPE",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": "({value}) => value.objet.Contains('Lande/fourré/haie') == true",
+      "filters": {
+        "cd_nomenclature": ["TVX_AR","TVX_DEBR","TVX_DESO","TVX_ECO","TVX_EEE","TVX_GYR","TVX_ET","TVX_PL","TVX_TA"]
+      },
+      "hidden": "({value}) => value.objet.Contains('Lande/fourré/haie') != true",
+      "multiple": true
+    },
+    "tvx_bois":{
+      "type_widget": "datalist",
+      "attribut_label": "Travaux sur des boisements",
+      "api": "nomenclatures/nomenclature/TVX_TYPE",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": "({value}) => value.objet.Contains('Bois') == true",
+      "filters": {
+        "cd_nomenclature": ["TVX_AB","TVX_DEBA","TVX_DESO","TVX_ECO","TVX_ELA","TVX_PL"]
+      },
+      "hidden": "({value}) => value.objet.Contains('Bois') != true",
+      "multiple": true
+    },
+    "type_am":{
+      "type_widget": "radio",
+      "required": true,
+      "attribut_label": "Type d'espace herbacé",
+      "values": ["Abri","Chemin","Clôture","Mobilier","Signalétique"],
+      "hidden": "({value}) => value.objet.Contains('Aménagement') != true"
+    },
+    "tvx_am":{
+      "type_widget": "datalist",
+      "attribut_label": "Travaux sur des prairies ou des pelouses",
+      "api": "nomenclatures/nomenclature/TVX_TYPE",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": "({value}) => value.objet.Contains('Aménagement') == true",
+      "filters": {
+        "cd_nomenclature": ["TVX_CR","TVX_DEM","TVX_ENT","TVX_RE"]
+      },
+      "hidden": "({value}) => value.objet.Contains('Aménagement') != true",
+      "multiple": true
+    },
+    "tvx_autre":{
+      "type_widget": "textarea",
+      "required": true,
+      "attribut_label": "Autres travaux",
+      "hidden": "({value}) => value.objet.Contains('Autre') != true"
+    },
+    "materiel":{
+      "type_widget": "multiselect",
+      "required" : true,
+      "attribut_label": "Matériel utilisé",
+      "values":[
+        "Accessoires arrimage",
+        "Andaineuse",
+        "Bâche",
+        "Balai",
+        "Bateau/barque",
+        "Batte à feu",
+        "Bec",
+        "Brouette à chenille",
+        "Broyeur à branche",
+        "Broyeur Saelen",
+        "Caisse à outils",
+        "Coin d'abattage",
+        "Coin éclateur",
+        "Coradage escalade",
+        "Crocs",
+        "Débrousailleuse",
+        "Disqueuse",
+        "Faucheuse (barre de coupe)",
+        "Fontaine de nettoyage",
+        "Fourche",
+        "Girobroyeur",
+        "Groupe électrogène",
+        "Harnais",
+        "Houe",
+        "Masse",
+        "Matériel clotûre",
+        "Merlin",
+        "Mini-presse",
+        "Nettoyeur haute-pression thermique",
+        "Panneaux de signalisation sécurité",
+        "Pelle",
+        "Perceuse",
+        "Perche thermique",
+        "Pioche",
+        "Ponceuse",
+        "Quad et remorque forestière",
+        "Râteau",
+        "Rogneuse de souches",
+        "Sac de transport",
+        "Scie à main",
+        "Souffleur",
+        "Taille-haie",
+        "Tire-fort 3 tonnes",
+        "Tire-fort 750 kg",
+        "Tondeuse",
+        "Tondeuse broyeur",
+        "Treuil thermique",
+        "Tronçonneuse",
+        "Visseuse",
+        "Autre matériel"
+      ]
+    },
+    "produit":{
+      "type_widget": "multiselect",
+      "required" : true,
+      "attribut_label": "Devenir des produits végétaux",
+      "value": "Pas de produit",
+      "values":["Broyage","Brûlage au sol","Brûlage sur tôle","Exportation","Stockage sur place","Mise en stère","Autre","Pas de produit"]
     }
   }
 }

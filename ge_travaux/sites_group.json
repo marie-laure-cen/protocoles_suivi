@@ -1,7 +1,7 @@
 {
-  "genre":"F",
-  "label": "Zone de prospection",
-  "label_list": "Zones de prospection",
+  "genre":"M",
+  "label": "Site",
+  "label_list": "Site rattaché aux travaux",
   "map_label_field_name": "base_site_name",
   "b_draw_sites_group": true,
   "sorts": [
@@ -56,8 +56,11 @@
       "definition": "Nom du site CEN dans lequelle sont localisées les parcelles" 
     },
     "nb_sites": {
-      "attribut_label": "Nombre de parcelles travaux",
+      "attribut_label": "Nb. fiches travaux",
       "hidden": false
+    },
+    "nb_visits": {
+      "attribut_label": "Nb. actions travaux"
     }
   },
   "change": [

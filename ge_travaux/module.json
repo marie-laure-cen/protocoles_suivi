@@ -1,4 +1,5 @@
 {
+  "module_code": "travaux",
   "module_label":"GE Travaux",
   "module_desc":"Module de suivi des travaux du CENN",
   "specific": {

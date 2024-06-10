@@ -23,126 +23,137 @@ DROP VIEW IF EXISTS gn_monitoring.v_synthese_:module_code;
 
 CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 	WITH 
-	source AS (
+	sites AS (
+    	SELECT
+			sg.id_sites_group,
+			sg.sites_group_name as site_nom,
+			la.area_code as site_code,
+			s.id_base_site,
+			s.base_site_name as fiche_nom,
+			s.id_inventor as fiche_responsable,
+			s.id_digitiser as fiche_numerisateur,
+			s.base_site_description as fiche_comments,
+			(tsg.data->'annee') as fiche_annee,
+			(tsg.data->'etat') as fiche_etat,
+			(tsg.data->'objectif') as fiche_obj,
+			(tsg.data->'bilan') as fiche_bilan,
+			(tsg.data->'reajust') as fiche_reaj,
+			altitude_min,
+			altitude_max,
+			s.geom AS the_geom_4326,
+			ST_CENTROID(s.geom) AS the_geom_point,
+			s.geom_local as geom_local
+        FROM gn_monitoring.t_base_sites s
+		LEFT JOIN gn_monitoring.t_site_complements tsg USING (id_base_site)
+		LEFT JOIN gn_monitoring.t_sites_groups sg USING (id_sites_group)
+		LEFT JOIN ref_geo.l_areas la ON sg.sites_group_name = la.area_name
+	), visits AS (
 		SELECT
-			id_source
-		FROM gn_synthese.t_sources
-		WHERE name_source = CONCAT('MONITORING_', UPPER(:'module_code'))
-		LIMIT 1
-
-	), sites AS (
-    SELECT
-        id_base_site,
-		altitude_min,
-		altitude_max,
-        geom AS the_geom_4326,
-	    ST_CENTROID(geom) AS the_geom_point,
-	    geom_local as geom_local
-
-        FROM gn_monitoring.t_base_sites
-
-), visits AS (
-
-    SELECT
-
-        id_base_visit,
-        uuid_base_visit,
-        id_module,
-        id_base_site,
-        id_dataset,
-        id_digitiser,
-
-        visit_date_min AS date_min,
-	    COALESCE (visit_date_max, visit_date_min) AS date_max,
-        comments,
-
-    	id_nomenclature_tech_collect_campanule,
-	    id_nomenclature_grp_typ
-
-        FROM gn_monitoring.t_base_visits
-
-), observers AS (
-    SELECT
-        array_agg(r.id_role) AS ids_observers,
-        STRING_AGG(CONCAT(r.nom_role, ' ', prenom_role), ' ; ') AS observers,
-        id_base_visit
-    FROM gn_monitoring.cor_visit_observer cvo
-    JOIN utilisateurs.t_roles r
-    ON r.id_role = cvo.id_role
-    GROUP BY id_base_visit
-)
+			v.id_base_visit,
+			v.id_base_site,
+			v.id_dataset,
+			(vc.data->'nom') as action_nom,
+			(vc.data->'objectif') as action_objectif,
+			v.visit_date_min,
+			v.visit_date_max,
+			(vc.data->'nb_jours') as action_nb_jours,
+			(vc.data->'objet') as action_objet,
+			CASE 
+				WHEN (vc.data->'objet')::text LIKE '%aquatique%' THEN (vc.data->'tvx_aqua')::text
+				ELSE 'Pas de travaux'
+			END as tvx_aqua,
+			CASE 
+				WHEN (vc.data->'objet')::text LIKE '%Tourbière%' THEN (vc.data->'tvx_tourb')::text
+				ELSE 'Pas de travaux'
+			END as tvx_tourb,
+			CASE 
+				WHEN (vc.data->'objet')::text LIKE '%Prairie%' 
+				THEN (vc.data->'type_prairie')::text || ' / '|| (vc.data->'tvx_prairie')::text
+				ELSE 'Pas de travaux'
+			END as tvx_prai,
+			CASE 
+				WHEN (vc.data->'objet')::text LIKE '%Lande%' 
+				THEN (vc.data->'type_lande')::text || ' / '|| (vc.data->'tvx_lande')::text
+				ELSE 'Pas de travaux'
+			END as tvx_arb,
+			CASE 
+				WHEN (vc.data->'objet')::text LIKE '%Bois%' THEN (vc.data->'tvx_bois')::text
+				ELSE 'Pas de travaux'
+			END as tvx_bois,
+			CASE 
+				WHEN (vc.data->'objet')::text LIKE '%Aménagement%' 
+				THEN (vc.data->'type_am')::text || ' / '|| (vc.data->'tvx_am')::text
+				ELSE 'Pas de travaux'
+			END as tvx_amenagemt,
+			CASE 
+				WHEN (vc.data->'objet')::text LIKE '%ordures%' THEN TRUE
+				ELSE FALSE
+			END as ram_ordure,
+			CASE 
+				WHEN (vc.data->'objet')::text LIKE '%Autre%' THEN  (vc.data->'tvx_autre')::text
+				ELSE 'Pas de travaux'
+			END as tvx_autre,
+			(vc.data->'produit') as action_produit,
+			(vc.data->'materiel') as action_materiel,
+			v.comments,
+			v.id_module,
+			v.id_digitiser
+		FROM gn_monitoring.t_base_visits v
+		LEFT JOIN gn_monitoring.t_visit_complements vc USING (id_base_visit)
+	), observers AS (
+		SELECT
+			array_agg(r.id_role) AS ids_observers,
+			STRING_AGG(CONCAT(r.nom_role, ' ', prenom_role), ' ; ') AS observers,
+			id_base_visit
+		FROM gn_monitoring.cor_visit_observer cvo
+		JOIN utilisateurs.t_roles r
+		ON r.id_role = cvo.id_role
+		GROUP BY id_base_visit
+	)
 SELECT
-        o.uuid_observation AS unique_id_sinp,
-		v.uuid_base_visit AS unique_id_sinp_grp,
-		srce.id_source,
-		o.id_observation AS entity_source_pk_value,
 		v.id_dataset,
-        ref_nomenclatures.get_id_nomenclature('NAT_OBJ_GEO', 'St') AS id_nomenclature_geo_object_nature, -- Stationnel
-		ref_nomenclatures.get_id_nomenclature('TYP_GRP', 'PASS') AS id_nomenclature_grp_typ, -- Passage
-		(o_compl.data->'id_nomenclature_obs_technique')::integer as id_nomenclature_obs_technique, -- METH_OBS
-		(v_compl.data->'id_nomenclature_tech_collect_campanule')::integer as id_nomenclature_tech_collect_campanule, --TECHNIQUE_OBS
-		--id_nomenclature_bio_status, -- STATUT_BIO
-		--id_nomenclature_bio_condition, -- ETA_BIO
-		ref_nomenclatures.get_id_nomenclature('NATURALITE', '1' ) AS id_nomenclature_naturalness, -- NATURALITE
-		--id_nomenclature_exist_proof, -- PREUVE_EXIST
-		--id_nomenclature_valid_status,  --STATUT_VALID
-		--id_nomenclature_diffusion_level, -- NIV_PRECIS
-		(det.data->'id_nomenclature_life_stage')::integer as id_nomenclature_life_stage, -- STADE_VIE
-		(det.data->'id_nomenclature_sex')::integer as id_nomenclature_sex, -- SEXE
- 		ref_nomenclatures.get_id_nomenclature('OBJ_DENBR', 'IND' ) AS id_nomenclature_obj_count, -- l'objet du dénombrement est le nombre d'individus
- 		ref_nomenclatures.get_id_nomenclature('TYP_DENBR', 'Co') AS id_nomenclature_type_count, -- les individuas sont comptés
- 		-- id_nomenclature_sensitivity, --SENSIBILITE
- 		ref_nomenclatures.get_id_nomenclature('STATUT_OBS', 'Pr') AS id_nomenclature_observation_status, -- le taxon est présent
-		-- id_nomenclature_blurring, -- DEE_FLOU
-        -- id_nomenclature_behaviour, -- OCC_COMPORTEMENT
-		ref_nomenclatures.get_id_nomenclature('STATUT_SOURCE', 'Te') AS id_nomenclature_source_status, -- la source est le terrain
-		ref_nomenclatures.get_id_nomenclature('TYP_INF_GEO', '1') AS id_nomenclature_info_geo_type, -- la localisation est réalisée par Géoréférencement
-		(det.data->'count_min')::integer AS count_min,
-		(det.data->'count_max')::integer AS count_max,
-		o.id_observation,
-		o.cd_nom,
-		t.nom_complet AS nom_cite,
-		--meta_v_taxref
-		--sample_number_proof
-		--digital_proofvue
+		s.site_nom,
+		s.site_code,
+		s.fiche_nom,
+		s.fiche_responsable,
+		s.fiche_numerisateur,
+		s.fiche_annee,
+		s.fiche_etat,
+		s.fiche_obj,
+		s.fiche_bilan,
+		s.fiche_reaj,
+		s.fiche_comments,
+		v.action_nom,
+		v.action_objectif,
+		v.action_objet,
+		v.visit_date_min AS date_min,
+	    COALESCE (v.visit_date_max, v.visit_date_min) AS date_max,
+		v.action_nb_jours,
+		obs.observers as intervenant,
+		v.comments,
+		v.tvx_aqua,
+		v.tvx_tourb,
+		v.tvx_prai,
+		v.tvx_arb,
+		v.tvx_bois,
+		v.tvx_autre,
+		v.ram_ordure,
+		v.action_produit,
+		v.action_materiel,
+		obs.ids_observers,
 		s.altitude_min,
 		s.altitude_max,
 		s.the_geom_4326,
 		s.the_geom_point,
 		s.geom_local as the_geom_local,
-		v.date_min,
-		v.date_max,
-		--validator
-		--validation_comment
-		obs.observers,
-		(o_compl.data->'determiner')::integer AS determiner,
-		v.id_digitiser,
-		(o_compl.data->'id_nomenclature_determination_method')::integer AS id_nomenclature_determination_method,
-		--meta_validation_date
-		--meta_create_date,
-		--meta_update_date,
-		--last_action,
-		v.id_module,
-		v.comments AS comment_context,
-		o.comments AS comment_description,
-		obs.ids_observers,
-		-- ## Colonnes complémentaires qui ont leur utilité dans la fonction synthese.import_row_from_table
+		v.id_digitiser as numerisateur,
 		v.id_base_site,
-		v.id_base_visit
-    FROM gn_monitoring.t_observation_details det
-	LEFT JOIN gn_monitoring.t_observations o USING (id_observation)
-	LEFT JOIN gn_monitoring.t_observation_complements o_compl USING (id_observation)
-    JOIN visits v
-        ON v.id_base_visit = o.id_base_visit
-    JOIN sites s
-        ON s.id_base_site = v.id_base_site
-	LEFT JOIN gn_monitoring.t_site_complements v_compl ON v_compl.id_base_site = v.id_base_site
+		v.id_base_visit,
+		v.id_module
+    FROM visits v
+    JOIN sites s USING (id_base_site)
 	LEFT JOIN gn_commons.t_modules m
         ON m.id_module = v.id_module
-	JOIN taxonomie.taxref t
-        ON t.cd_nom = o.cd_nom
-	LEFT JOIN srce
-        ON TRUE
 	JOIN observers obs ON obs.id_base_visit = v.id_base_visit
 	WHERE m.module_code = :'module_code'
 ;

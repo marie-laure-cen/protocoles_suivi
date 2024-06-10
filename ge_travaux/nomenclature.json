@@ -4,6 +4,31 @@
       "mnemonique": "TYPE_SITE",
       "label_default": "Type de sites",
       "definition_default": "Nomenclature des types de sites suivi dans gn_monitoring."
+    },
+    {
+      "mnemonique": "GESTION_OBJ",
+      "label_default": "Objectifs de gestion",
+      "definition_default": "Objectifs de gestion des sites du Conservatoire d'Espaces Naturels de Normandie (CENN)."
+    },
+    {
+      "mnemonique": "FICHE_ETAT",
+      "label_default": "Etat de la fiche pâturage ou travaux",
+      "definition_default": "Etat de la fiche pâturage ou travaux du Conservatoire d'Espaces Naturels de Normandie (CENN)."
+    },
+    {
+      "mnemonique": "TVX_CL",
+      "label_default": "Classe de travaux",
+      "definition_default": "Classe de travaux du Conservatoire d'Espaces Naturels de Normandie (CENN)."
+    },
+    {
+      "mnemonique": "TVX_PROD",
+      "label_default": "Produits des travaux",
+      "definition_default": "Produits des travaux du Conservatoire d'Espaces Naturels de Normandie (CENN)."
+    },
+    {
+      "mnemonique": "TVX_TYPE",
+      "label_default": "Type de travaux",
+      "definition_default": "Classe de travaux du Conservatoire d'Espaces Naturels de Normandie (CENN)."
     }
   ],
   "nomenclatures": [
@@ -14,6 +39,350 @@
 			"label_default": "Parcelle de travaux",
 			"definition_default": "Parcelle de travaux de la BD travaux",
 			"label_fr": "Parcelle de travaux"
+		},
+    {
+			"type": "GESTION_OBJ",
+			"cd_nomenclature": "GEST_01",
+			"mnemonique": "Restaurer le(s) milieu(x)",
+			"label_default": "Restaurer le(s) milieu(x)",
+			"definition_default": "Restaurer le(s) milieu(x)",
+			"label_fr": "Restaurer le(s) milieu(x)"
+		},
+    {
+			"type": "GESTION_OBJ",
+			"cd_nomenclature": "GEST_01",
+			"mnemonique": "Restaurer le(s) milieu(x)",
+			"label_default": "Restaurer le(s) milieu(x)",
+			"definition_default": "Restaurer le(s) milieu(x)",
+			"label_fr": "Restaurer le(s) milieu(x)"
+		},
+    {
+			"type": "GESTION_OBJ",
+			"cd_nomenclature": "GEST_02",
+			"mnemonique": "Entretenir le(s) milieu(x)",
+			"label_default": "Entretenir le(s) milieu(x)",
+			"definition_default": "Entretenir le(s) milieu(x)",
+			"label_fr": "Entretenir le(s) milieu(x)"
+		},
+    {
+			"type": "GESTION_OBJ",
+			"cd_nomenclature": "GEST_03",
+			"mnemonique": "Diversifier le(s) milieu(x)",
+			"label_default": "Diversifier le(s) milieu(x)",
+			"definition_default": "Diversifier le(s) milieu(x)",
+			"label_fr": "Diversifier le(s) milieu(x)"
+		},
+    {
+			"type": "GESTION_OBJ",
+			"cd_nomenclature": "GEST_04",
+			"mnemonique": "Aménager le site pour l'accueil du public",
+			"label_default": "Aménager le site pour l'accueil du public",
+			"definition_default": "Aménager le site pour l'accueil du public",
+			"label_fr": "Aménager le site pour l'accueil du public"
+		},
+    {
+			"type": "GESTION_OBJ",
+			"cd_nomenclature": "GEST_05",
+			"mnemonique": "Préparer le site pour un changement de gestion",
+			"label_default": "Préparer le site pour un changement de gestion",
+			"definition_default": "Préparer le site pour un changement de gestion",
+			"label_fr": "Préparer le site pour un changement de gestion"
+		},
+    {
+			"type": "GESTION_OBJ",
+			"cd_nomenclature": "GEST_06",
+			"mnemonique": "Sécuriser le site",
+			"label_default": "Sécuriser le site",
+			"definition_default": "Sécuriser le site",
+			"label_fr": "Sécuriser le site"
+		},
+    {
+			"type": "GESTION_OBJ",
+			"cd_nomenclature": "GEST_07",
+			"mnemonique": "Contrôler la végétation",
+			"label_default": "Contrôler la végétation",
+			"definition_default": "Contrôler la végétation",
+			"label_fr": "Contrôler la végétation"
+		},
+    {
+			"type": "GESTION_OBJ",
+			"cd_nomenclature": "GEST_08",
+			"mnemonique": "Entretenir les aménagements",
+			"label_default": "Entretenir les aménagements",
+			"definition_default": "Entretenir les aménagements",
+			"label_fr": "Entretenir les aménagements"
+		},
+    {
+			"type": "TVX_CL",
+			"cd_nomenclature": "TVX_CL_01",
+			"mnemonique": "Abattage / élagage",
+			"label_default": "Abattage / élagage",
+			"definition_default": "Abattage / élagage",
+			"label_fr": "Abattage / élagage"
+		},
+    {
+			"type": "TVX_CL",
+			"cd_nomenclature": "TVX_CL_02",
+			"mnemonique": "Aménagement",
+			"label_default": "Aménagement",
+			"definition_default": "Aménagement",
+			"label_fr": "Aménagement"
+		},
+    {
+			"type": "TVX_CL",
+			"cd_nomenclature": "TVX_CL_03",
+			"mnemonique": "Débrouissaillage",
+			"label_default": "Débrouissaillage",
+			"definition_default": "Débrouissaillage",
+			"label_fr": "Débrouissaillage"
+		},
+    {
+			"type": "TVX_CL",
+			"cd_nomenclature": "TVX_CL_04",
+			"mnemonique": "Devenir des rémanents",
+			"label_default": "Devenir des rémanents",
+			"definition_default": "Devenir des rémanents",
+			"label_fr": "Devenir des rémanents"
+		},
+    {
+			"type": "TVX_CL",
+			"cd_nomenclature": "TVX_CL_05",
+			"mnemonique": "Fauche",
+			"label_default": "Fauche",
+			"definition_default": "Fauche",
+			"label_fr": "Fauche"
+		},
+    {
+			"type": "TVX_CL",
+			"cd_nomenclature": "TVX_CL_06",
+			"mnemonique": "Plantation",
+			"label_default": "Plantation",
+			"definition_default": "Plantation",
+			"label_fr": "Plantation"
+		},
+    {
+			"type": "TVX_CL",
+			"cd_nomenclature": "TVX_CL_07",
+			"mnemonique": "Autre",
+			"label_default": "Autre",
+			"definition_default": "Autre",
+			"label_fr": "Autre"
+		},
+    {
+			"type": "FICHE_ETAT",
+			"cd_nomenclature": "PREVI",
+			"mnemonique": "Etat prévisionnel",
+			"label_default": "Etat prévisionnel",
+			"definition_default": "Etat prévisionnel de la fiche travaux ou pâturage",
+			"label_fr": "Etat prévisionnel"
+		},
+    {
+			"type": "FICHE_ETAT",
+			"cd_nomenclature": "REAL",
+			"mnemonique": "Etat réalisé",
+			"label_default": "Etat réalisé",
+			"definition_default": "Etat réalisé de la fiche travaux ou pâturage",
+			"label_fr": "Etat réalisé"
+		},
+    {
+			"type": "TVX_TYPE",
+			"cd_nomenclature": "TVX_AB",
+			"mnemonique": "Abattage/Coupe/Déboisement",
+			"label_default": "Abattage/Coupe/Déboisement",
+			"definition_default": "Abattage d'arbres, coupe des chablis ou des rejets, déboisement",
+			"label_fr": "Abattage/Coupe/Déboisement"
+		},
+    {
+			"type": "TVX_TYPE",
+			"cd_nomenclature": "TVX_AR",
+			"mnemonique": "Arrachage",
+			"label_default": "Arrachage",
+			"definition_default": "Arrachage de la végétation",
+			"label_fr": "Arrachage"
+		},
+    {
+			"type": "TVX_TYPE",
+			"cd_nomenclature": "TVX_CR",
+			"mnemonique": "Création/pose d'un aménagement",
+			"label_default": "Création/pose d'un aménagement",
+			"definition_default": "Création/pose d'un aménagement : chemin, mare...",
+			"label_fr": "Création/pose d'un aménagement"
+		},
+    {
+			"type": "TVX_TYPE",
+			"cd_nomenclature": "TVX_CU",
+			"mnemonique": "Currage",
+			"label_default": "Currage",
+			"definition_default": "Currage de mare, fossé...",
+			"label_fr": "Currage"
+		},
+    {
+			"type": "TVX_TYPE",
+			"cd_nomenclature": "TVX_DEBA",
+			"mnemonique": "Débardage",
+			"label_default": "Débardage",
+			"definition_default": "Débardage des produits de coupe",
+			"label_fr": "Débardage"
+		},
+    {
+			"type": "TVX_TYPE",
+			"cd_nomenclature": "TVX_DEBR",
+			"mnemonique": "Débrouissaillage",
+			"label_default": "Débrouissaillage",
+			"definition_default": "Débrouissaillage",
+			"label_fr": "Débrouissaillage"
+		},
+    {
+			"type": "TVX_TYPE",
+			"cd_nomenclature": "TVX_DECH",
+			"mnemonique": "Déchaumage",
+			"label_default": "Déchaumage",
+			"definition_default": "Déchaumage",
+			"label_fr": "Déchaumage"
+		},
+    {
+			"type": "TVX_TYPE",
+			"cd_nomenclature": "TVX_DEM",
+			"mnemonique": "Démontage",
+			"label_default": "Démontage de mobilier, clôture...",
+			"definition_default": "Démontage de mobilier, clôture...",
+			"label_fr": "Démontage de mobilier, clôture..."
+		},
+    {
+			"type": "TVX_TYPE",
+			"cd_nomenclature": "TVX_DESO",
+			"mnemonique": "Dessouchage",
+			"label_default": "Dessouchage",
+			"definition_default": "Dessouchage",
+			"label_fr": "Dessouchage"
+		},
+    {
+			"type": "TVX_TYPE",
+			"cd_nomenclature": "TVX_EMB",
+			"mnemonique": "Gestion des embâcles",
+			"label_default": "Gestion des embâcles",
+			"definition_default": "Gestion des embâcles",
+			"label_fr": "Gestion des embâcles"
+		},
+    {
+			"type": "TVX_TYPE",
+			"cd_nomenclature": "TVX_ECO",
+			"mnemonique": "Ecorçage",
+			"label_default": "Ecorçage",
+			"definition_default": "Ecorçage",
+			"label_fr": "Ecorçage"
+		},
+    {
+			"type": "TVX_TYPE",
+			"cd_nomenclature": "TVX_ENT",
+			"mnemonique": "Entretien d'un aménagement",
+			"label_default": "Entretien d'un aménagement",
+			"definition_default": "Entretien d'un aménagement (lazurage...)",
+			"label_fr": "Entretien d'un aménagement"
+		},
+    {
+			"type": "TVX_TYPE",
+			"cd_nomenclature": "TVX_EEE",
+			"mnemonique": "Gestion des EEE",
+			"label_default": "Gestion des espèces exotiques envahissantes",
+			"definition_default": "Gestion des espèces exotiques envahissantes",
+			"label_fr": "Gestion des espèces exotiques envahissantes"
+		},
+    {
+			"type": "TVX_TYPE",
+			"cd_nomenclature": "TVX_ELA",
+			"mnemonique": "Elagage",
+			"label_default": "Elagage",
+			"definition_default": "Elagage",
+			"label_fr": "Elagage"
+		},
+    {
+			"type": "TVX_TYPE",
+			"cd_nomenclature": "TVX_ET",
+			"mnemonique": "Etrépage/Décapage",
+			"label_default": "Etrépage/Décapage",
+			"definition_default": "Etrépage/Décapage (suppression de la végétation et de la couche superficielle du sol)",
+			"label_fr": "Etrépage/Décapage"
+		},
+    {
+			"type": "TVX_TYPE",
+			"cd_nomenclature": "TVX_FAN",
+			"mnemonique": "Fanâge",
+			"label_default": "Fanâge",
+			"definition_default": "Fanâge",
+			"label_fr": "Fanâge"
+		},
+    {
+			"type": "TVX_TYPE",
+			"cd_nomenclature": "TVX_FASC",
+			"mnemonique": "Fascinage",
+			"label_default": "Fascinage",
+			"definition_default": "Fascinage, reprofilage de berge",
+			"label_fr": "Fascinage"
+		},
+    {
+			"type": "TVX_TYPE",
+			"cd_nomenclature": "TVX_FAU",
+			"mnemonique": "Fauche",
+			"label_default": "Fauche",
+			"definition_default": "Fauche",
+			"label_fr": "Fauche"
+		},
+    {
+			"type": "TVX_TYPE",
+			"cd_nomenclature": "TVX_FOS",
+			"mnemonique": "Ouverture de fossés",
+			"label_default": "Ouverture de fossés",
+			"definition_default": "Ouverture de fossés",
+			"label_fr": "Ouverture de fossés"
+		},
+    {
+			"type": "TVX_TYPE",
+			"cd_nomenclature": "TVX_GYR",
+			"mnemonique": "Gyrobroyage",
+			"label_default": "Gyrobroyage",
+			"definition_default": "Gyrobroyage au sol",
+			"label_fr": "Gyrobroyage"
+		},
+    {
+			"type": "TVX_TYPE",
+			"cd_nomenclature": "TVX_PL",
+			"mnemonique": "Plantation",
+			"label_default": "Plantation",
+			"definition_default": "Plantation",
+			"label_fr": "Plantation"
+		},
+    {
+			"type": "TVX_TYPE",
+			"cd_nomenclature": "TVX_RAV",
+			"mnemonique": "Ravivage",
+			"label_default": "Ravivage d'un éboulis",
+			"definition_default": "Ravivage d'un éboulis",
+			"label_fr": "Ravivage d'un éboulis"
+		},
+    {
+			"type": "TVX_TYPE",
+			"cd_nomenclature": "TVX_RE",
+			"mnemonique": "Réparation",
+			"label_default": "Réparation",
+			"definition_default": "Réparation de clôture, mobilier",
+			"label_fr": "Réparation"
+		},
+    {
+			"type": "TVX_TYPE",
+			"cd_nomenclature": "TVX_TA",
+			"mnemonique": "Taille",
+			"label_default": "Taille de la végétation ligneuse",
+			"definition_default": "Taille de la végétation ligneuse",
+			"label_fr": "Taille de la végétation ligneuse"
+		},
+    {
+			"type": "TVX_TYPE",
+			"cd_nomenclature": "TVX_TR",
+			"mnemonique": "Tressage",
+			"label_default": "Tressage",
+			"definition_default": "Tressage",
+			"label_fr": "Tressage"
 		}
   ]
 }
