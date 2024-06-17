@@ -1,11 +1,11 @@
 {
-  "genre":"F",
-  "label": "Zone de prospection",
-  "label_list": "Zones de prospection",
-  "map_label_field_name": "base_site_name",
-  "b_draw_sites_group": true,
+  "genre":"M",
+  "label": "Site",
+  "label_list": "Site de suivi",
+  "map_label_field_name": "base_site_code",
+  "b_draw_sites_group": false,
   "sorts": [
-    {"prop": "sites_group_name"}
+    {"prop": "sites_group_code"}
   ],
   "export_pdf": [
     {
@@ -14,25 +14,35 @@
     }
   ],
   "display_properties": [
-    "sites_group_name",
     "sites_group_code",
     "site_group_description"
   ],
   "display_list": [
-    "sites_group_name",
     "sites_group_code",
     "nb_sites"
   ],
   "specific": {
     "sites_group_code": {
-      "required": false,
-      "definition": "Code d'un éventuel site de rattachement de la zone de prospection",
-      "attribut_label": "Code site",
-      "hidden": false
+      "type_widget": "datalist",
+      "attribut_label": "Site CEN rattaché aux suivis",
+      "hidden": false,
+      "required": true,
+      "keyValue": "area_code",
+      "keyLabel": "area_name",
+      "type_util": "areas",
+      "api": "/geo/areas",
+      "filters": {
+        "id_type": [12,34]
+      },
+      "application": "GeoNature",
+      "definition": "Nom du site CEN dans lequelle sont localisées les suivis" 
     },
-    "sites_group_name":{
-      "attribut_label": "Nom de la zone de prospection",
-      "definition": "Lieu-dit où se situe la zone de prospection."
+    "site_group_name":{
+      "required": false,
+      "hidden": true
+    },
+    "site_group_description":{
+      "attribut_label": "Commentaires"
     }
   },
   "change": [

@@ -1,7 +1,7 @@
 {
-  "module_code": "SYRHETheteroceres",
-  "module_label":"SYRHET Hétérocères",
-  "module_desc":"Module pour le protocole de suivi SYRHET des hétérocères",
+  "module_code": "sterf",
+  "module_label": "Protocole STERF",
+  "module_desc":"Module pour le protocole de suivi STERF",
   "specific": {
     "b_draw_sites_group": {
       "hidden": false

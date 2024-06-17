@@ -30,10 +30,6 @@
       "max": 8,
       "required": true
     },
-    "dataset": {
-      "required":false,
-      "hidden": true
-    },
     "visit_date_min":{
       "attribut_label": "Date de début du passage",
       "required": true
@@ -41,7 +37,8 @@
     "visit_date_max":{
       "attribut_label": "Date de fin du passage" ,  
       "definition": "Date de fin de passage (à remplir si différente de la date de début du passage)",
-      "required": false   
+      "required": false   ,
+      "hidden": false
     },
     "heure_debut": {
       "type_widget": "time",
@@ -97,7 +94,7 @@
     "temperature":{
       "type_widget": "number",
       "attribut_label": "Température",
-      "min" : 10,
+      "min" : 0,
       "max": 40,
       "definition": "Température en degrés Celsius",
       "required": false

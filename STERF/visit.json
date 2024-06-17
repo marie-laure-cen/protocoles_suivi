@@ -9,12 +9,13 @@
     "visit_date_max",
     "heure_debut",
     "heure_fin",
-    "heure_ext",
     "meteo",
     "pluviosite",
     "vent",
     "temperature",
-    "comments"
+    "comments",
+    "id_nomenclature_tech_collect_campanule",
+    "id_nomenclature_grp_type"
   ],
   "display_list": [
     "num_passage",
@@ -29,6 +30,36 @@
       "min" : 1,
       "max": 8,
       "required": true
+    },
+    "id_nomenclature_tech_collect_campanule": {
+      "type_widget": "datalist",
+      "attribut_label": "Technique de collecte",
+      "api": "nomenclatures/nomenclature/TECHNIQUE_OBS",
+      "definition": "Technique de collecte issue du référentiel CAMPANULE",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": true,
+      "default": {
+        "cd_nomenclature": "59"
+     }
+    },
+    "id_nomenclature_grp_type": {
+      "type_widget": "datalist",
+      "attribut_label": "Technique de collecte",
+      "api": "nomenclatures/nomenclature/TYP_GRP",
+      "definition": "Type de regroupement des observations",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": true,
+      "default": {
+        "cd_nomenclature": "132"
+     }
     },
     "dataset": {
       "required":false,

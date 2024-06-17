@@ -17,8 +17,10 @@
     "id_nomenclature_loca_obs"
   ],
   "keep": [
+    "id_nomenclature_loca_obs",
     "id_nomenclature_obs_technique",
     "id_nomenclature_determination_method",
+    "determiner",
     "visit_time"
   ],
   "specific": {
@@ -81,14 +83,16 @@
       "type_util": "nomenclature",
       "required": true,
       "default": {
-        "cd_nomenclature": "21"
-      }
+        "cd_nomenclature": "18"
+      },
+      "filters":{"cd_nomenclature": ["11", "2","20","22","18","14","21","19"]}
     },
     "conservation":{
       "type_widget": "radio",
       "required": true,
       "attribut_label": "Collecte de l'individu",
-      "values": ["Oui", "Non"]
+      "values": ["Oui", "Non"],
+      "value":"Non"
     },
     "id_echantillon":{
       "type_widget": "text",

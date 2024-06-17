@@ -37,6 +37,13 @@
       "label_fr": "Piège éloigné du lit mineur",
       "definition_default": "Piège éloigné du lit mineur (protocole SYRHET hétérocères)"
     },{
+      "type":"LOCA_PIEGE",
+      "cd_nomenclature": "03",
+      "mnemonique": "autre",
+      "label_default": "03 : autre",
+      "label_fr": "Autre",
+      "definition_default": "Autre piège (protocole SYRHET hétérocères)"
+    },{
       "type":"LOCA_PIEGE_OBS",
       "cd_nomenclature": "A",
       "mnemonique": "Autour du drap",

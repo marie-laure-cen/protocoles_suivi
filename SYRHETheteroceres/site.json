@@ -13,15 +13,12 @@
   "display_properties": [
     "base_site_name",
     "id_sites_group",
-    "id_inventor",
-    "id_nomenclature_loca_piege",
     "id_nomenclature_tech_collect_campanule",
-    "base_site_description"
+    "base_site_description",
+    "id_nomenclature_loca_piege"
  ],
   "display_list": [
     "base_site_name",
-    "id_nomenclature_loca_piege",
-    "id_inventor",
     "first_use_date",
     "nb_visits"
   ],
@@ -35,6 +32,10 @@
     },
     "base_site_code": {
       "hidden": true,
+      "required": false
+    },    
+    "id_inventor": {
+      "hidden " :false,
       "required": false
     },
     "id_sites_group": {
@@ -55,7 +56,8 @@
       "definition": "Localisation du piège par rapport au cours d'eau",
       "code_nomenclature_type": "LOCA_PIEGE",
       "required": true,
-      "type_util": "nomenclature"
+      "type_util": "nomenclature",
+      "default": {"cd_nomenclature": "03"}
     },
     "id_nomenclature_type_site": {
       "attribut_label": "Type site",
