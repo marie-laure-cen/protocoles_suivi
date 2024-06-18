@@ -31,11 +31,6 @@
       "definition_default": "Classes de couvertures nuageuses du protocole STELI"
     },
     {
-      "mnemonique": "STELI_HE",
-      "label_default": "Habitats aquatiques du protocole STELI",
-      "definition_default": "Habitats aquatiques du protocole STELI"
-    },
-    {
       "mnemonique": "STELI_EU",
       "label_default": "Stades d'eutrophisation du protocole STELI",
       "definition_default": "Stades d'eutrophisation du protocole STELI"
