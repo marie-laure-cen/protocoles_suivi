@@ -1,0 +1,10 @@
+{
+  "module_code": "SYRHETheteroceres",
+  "module_label":"SYRHET Hétérocères",
+  "module_desc":"Module pour le protocole de suivi SYRHET des hétérocères",
+  "specific": {
+    "b_draw_sites_group": {
+      "hidden": false
+    }
+  }
+}
