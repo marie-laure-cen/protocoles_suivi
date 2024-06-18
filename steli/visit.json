@@ -9,11 +9,11 @@
     "visit_date_max",
     "heure_debut",
     "heure_fin",
-    "heure_ext",
-    "meteo",
-    "pluviosite",
-    "vent",
-    "temperature",
+    "id_nomenclature_tp",
+    "id_nomenclature_cn",
+    "id_nomenclature_vt",
+    "id_nomenclature_tech_collect_campanule",
+    "id_nomenclature_grp_typ",
     "comments"
   ],
   "display_list": [
@@ -22,12 +22,16 @@
     "observers",
     "nb_observations"
   ],
+  "keep": [
+    "num_passage",
+    "observers"
+  ],
   "specific": {
     "num_passage": {
       "type_widget": "number",
       "attribut_label": "Numéro de passage",
       "min" : 1,
-      "max": 8,
+      "max": 4,
       "required": true
     },
     "visit_date_min":{
@@ -50,54 +54,38 @@
       "attribut_label": "Heure de départ",
       "required": true
     },
-    "heure_ext": {
-      "type_widget": "time",
-      "attribut_label": "Heure d'extinction du piège",
-      "required": false
-    },
-    "meteo": {
-      "type_widget": "datalist",
-      "attribut_label": "Météo",
-      "api": "nomenclatures/nomenclature/METEO",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
+    "id_nomenclature_tp":{
+      "attribut_label": "Classe de température",
       "type_util": "nomenclature",
-      "definition": "Météo selon la nomenclature Pop Amphibien",
-      "required": false
+      "code_nomenclature_type": "STELI_TP",
+      "hidden": false,
+      "required":true
     },
-    "pluviosite": {
-      "type_widget": "datalist",
-      "attribut_label": "Pluviosité",
-      "api": "nomenclatures/nomenclature/PLUVIOSITE",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
+    "id_nomenclature_cn":{
+      "attribut_label": "Classe de couverture nuageuse",
       "type_util": "nomenclature",
-      "definition": "Pluviosité selon la nomenclature Pop Amphibien",
-      "required": false
+      "code_nomenclature_type": "STELI_CN",
+      "hidden": false,
+      "required":true
     },
-    "vent": {
-      "type_widget": "datalist",
+    "id_nomenclature_vt":{
       "attribut_label": "Vent",
-      "api": "nomenclatures/nomenclature/BEAUFORT",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
       "type_util": "nomenclature",
-      "definition": "Vent selon l'échelle de Beaufort",
-      "required": false
+      "code_nomenclature_type": "BEAUFORT",
+      "hidden": false,
+      "required":true
     },
-    "temperature":{
-      "type_widget": "number",
-      "attribut_label": "Température",
-      "min" : 0,
-      "max": 40,
-      "definition": "Température en degrés Celsius",
-      "required": false
+    "id_nomenclature_tech_collect_campanule":{
+      "value":{
+        "code_nomenclature_type":"TECHNIQUE_OBS",
+        "cd_nomenclature":"59"
+      }
+    },
+    "id_nomenclature_grp_typ":{
+      "value":{
+        "code_nomenclature_type":"TYPE_GRP",
+        "cd_nomenclature":"PASS"
+      }
     }
   }
 }

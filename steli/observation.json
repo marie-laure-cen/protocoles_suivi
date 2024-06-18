@@ -5,12 +5,8 @@
     "determiner",
     "cd_nom",
     "effectif",
-    "id_nomenclature_loca_obs",
     "id_nomenclature_obs_technique",
     "id_nomenclature_determination_method",
-    "conservation",
-    "nb_ind_echant",
-    "id_echantillon",
     "comments"
   ],
   "display_list": [
@@ -18,7 +14,6 @@
     "id_nomenclature_loca_obs"
   ],
   "keep": [
-    "id_nomenclature_loca_obs",
     "id_nomenclature_obs_technique",
     "id_nomenclature_determination_method",
     "determiner",
@@ -52,13 +47,6 @@
       "required": false,
       "definition": "Effectif total"
     },
-    "id_nomenclature_loca_obs": {
-      "type_widget": "nomenclature",
-      "attribut_label": "Localisation de l'observation",
-      "code_nomenclature_type": "LOCA_PIEGE_OBS",
-      "required": true,
-      "type_util": "nomenclature"
-    },
     "id_nomenclature_obs_technique": {
       "type_widget": "datalist",
       "attribut_label": "Technique d'observation",
@@ -86,28 +74,7 @@
       "required": true,
       "default": {
         "cd_nomenclature": "18"
-      },
-      "filters":{"cd_nomenclature": ["11", "2","20","22","18","14","21","19"]}
-    },
-    "conservation":{
-      "type_widget": "radio",
-      "required": true,
-      "attribut_label": "Collecte de l'individu",
-      "values": ["Oui", "Non"],
-      "value":"Non"
-    },
-    "id_echantillon":{
-      "type_widget": "text",
-      "attribut_label": "Identifiant de l'échantillon collecté",
-      "hidden": false,
-      "required": false
-    },
-    "nb_ind_echant":{
-      "type_widget": "number",
-      "required": false,
-      "attribut_label": "Nombre d'individus collectés",
-      "min": 0,
-      "value":0
+      }
     }
   }
 }
