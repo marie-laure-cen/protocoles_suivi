@@ -1,7 +1,7 @@
 {
-  "module_code": "SYRHETheteroceres",
-  "module_label":"SYRHET Hétérocères",
-  "module_desc":"Module pour le protocole de suivi SYRHET des hétérocères",
+  "module_code": "STELI",
+  "module_label":"STELI",
+  "module_desc":"Module pour le protocole de suivi STELI",
   "specific": {
     "b_draw_sites_group": {
       "hidden": false

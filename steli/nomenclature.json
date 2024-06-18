@@ -1,16 +1,6 @@
 {
   "types": [
     {
-      "mnemonique": "LOCA_PIEGE",
-      "label_default": "Localisation du piège par rapport au lit mineur",
-      "definition_default": "Localisation de l'observation sur le piège (SYRHET)"
-    },
-    {
-      "mnemonique": "LOCA_PIEGE_OBS",
-      "label_default": "Localisation de l'observation par rapport au piège",
-      "definition_default": "Localisation de l'observation par rapport au piège (SYRHET)"
-    },
-    {
       "mnemonique": "TYPE_SITE",
       "label_default": "Type de sites",
       "definition_default": "Nomenclature des types de sites suivi dans gn_monitoring."
@@ -19,79 +9,80 @@
       "mnemonique": "BEAUFORT",
       "label_default": "Echelle de Beaufort",
       "definition_default": "Echelle des vents selon la nomenclature de Beaufort"
+    },
+    {
+      "mnemonique": "STELI_AB",
+      "label_default": "Fourchettes d'abondance du protocole STELI",
+      "definition_default": "Fourchettes d'abondance du protocole STELI"
+    },
+    {
+      "mnemonique": "STELI_IR",
+      "label_default": "Indices de reproduction du protocole STELI",
+      "definition_default": "Indices de reproduction du protocole STELI"
+    },
+    {
+      "mnemonique": "STELI_TP",
+      "label_default": "Classes de températures du protocole STELI",
+      "definition_default": "Classes de températures du protocole STELI"
+    },
+    {
+      "mnemonique": "STELI_CN",
+      "label_default": "Classes de couvertures nuageuses du protocole STELI",
+      "definition_default": "Classes de couvertures nuageuses du protocole STELI"
+    },
+    {
+      "mnemonique": "STELI_HE",
+      "label_default": "Habitats aquatiques du protocole STELI",
+      "definition_default": "Habitats aquatiques du protocole STELI"
+    },
+    {
+      "mnemonique": "STELI_EU",
+      "label_default": "Stades d'eutrophisation du protocole STELI",
+      "definition_default": "Stades d'eutrophisation du protocole STELI"
+    },
+    {
+      "mnemonique": "STELI_VE",
+      "label_default": "Variation des niveaux d'eau du protocole STELI",
+      "definition_default": "Variation des niveaux d'eau du protocole STELI"
+    },
+    {
+      "mnemonique": "STELI_CO",
+      "label_default": "Types de courant du protocole STELI",
+      "definition_default": "Types de courant du protocole STELI"
+    },
+    {
+      "mnemonique": "STELI_VA",
+      "label_default": "Type de végétation aquatique du protocole STELI",
+      "definition_default": "Type de végétation aquatique du protocole STELI"
+    },
+    {
+      "mnemonique": "STELI_RI",
+      "label_default": "Types de rive du protocole STELI",
+      "definition_default": "Types de rive du protocole STELI"
+    },
+    {
+      "mnemonique": "STELI_MA",
+      "label_default": "Milieux aquatiques du protocole STELI",
+      "definition_default": "Milieux aquatiques du protocole STELI"
+    },
+    {
+      "mnemonique": "STELI_MT",
+      "label_default": "Milieux terrestres du protocole STELI",
+      "definition_default": "Milieux terrestres du protocole STELI"
+    },
+    {
+      "mnemonique": "STELI_AH",
+      "label_default": "Activités humaines du protocole STELI",
+      "definition_default": "Activités humaines du protocole STELI"
     }
   ],
   "nomenclatures": [
     {
-      "type":"LOCA_PIEGE",
-      "cd_nomenclature": "01",
-      "mnemonique": "piège proche",
-      "label_default": "01 : Piège proche du lit mineur",
-      "label_fr": "Piège proche du lit mineur",
-      "definition_default": "Piège proche du lit mineur (protocole SYRHET hétérocères)"
-    },{
-      "type":"LOCA_PIEGE",
-      "cd_nomenclature": "02",
-      "mnemonique": "piège éloigné",
-      "label_default": "02 : Piège éloigné du lit mineur",
-      "label_fr": "Piège éloigné du lit mineur",
-      "definition_default": "Piège éloigné du lit mineur (protocole SYRHET hétérocères)"
-    },{
-      "type":"LOCA_PIEGE",
-      "cd_nomenclature": "03",
-      "mnemonique": "autre",
-      "label_default": "03 : autre",
-      "label_fr": "Autre",
-      "definition_default": "Autre piège (protocole SYRHET hétérocères)"
-    },{
-      "type":"LOCA_PIEGE_OBS",
-      "cd_nomenclature": "A",
-      "mnemonique": "Autour du drap",
-      "label_default": "A : Autour du drap",
-      "label_fr": "Individu récolté autour du drap",
-      "definition_default": "Individu récolté autour du drap (protocole SYRHET hétérocères)"
-    },{
-      "type":"LOCA_PIEGE_OBS",
-      "cd_nomenclature": "B",
-      "mnemonique": "Dans le piège",
-      "label_default": "B : Dans le piège",
-      "label_fr": "Individu récolté dans le piège",
-      "definition_default": "Individu récolté dans piège (protocole SYRHET hétérocères)"
-    },{
-      "type":"LOCA_PIEGE_OBS",
-      "cd_nomenclature": "C",
-      "mnemonique": "Sous les boîtes",
-      "label_default": "C : Sous les boîtes",
-      "label_fr": "Individu récolté sous les boîtes",
-      "definition_default": "Individu récolté sous les boîtes (protocole SYRHET hétérocères)"
-    },{
-      "type":"LOCA_PIEGE_OBS",
-      "cd_nomenclature": "D",
-      "mnemonique": "Sous le drap",
-      "label_default": "D : Sous le drap",
-      "label_fr": "Individu récolté sous le drap",
-      "definition_default": "Individu récolté sous le drap (protocole SYRHET hétérocères)"
-    },{
-      "type":"LOCA_PIEGE_OBS",
-      "cd_nomenclature": "E",
-      "mnemonique": "Sur les boîtes",
-      "label_default": "E : Sur les boîtes",
-      "label_fr": "Individu récolté sur les boîtes",
-      "definition_default": "Individu récolté sur les boîtes (protocole SYRHET hétérocères)"
-    },{
-      "type":"LOCA_PIEGE_OBS",
-      "cd_nomenclature": "F",
-      "mnemonique": "Sur le drap",
-      "label_default": "F : Sur le drap",
-      "label_fr": "Individu récolté sur le drap",
-      "definition_default": "Individu récolté sur le drap (protocole SYRHET hétérocères)"
-    },{
-      "type":"LOCA_PIEGE_OBS",
-      "cd_nomenclature": "G",
-      "mnemonique": "Sur le piège",
-      "label_default": "G : Sur le piège",
-      "label_fr": "Individu récolté sur le piège",
-      "definition_default": "Individu récolté sur le piège (protocole SYRHET hétérocères)"
+      "type": "TYPE_SITE",
+      "cd_nomenclature": "STELI",
+      "mnemonique": "Site suivi par le protocole STELI",
+      "label_default": "Site suivi par le protocole STELI",
+      "definition_default": "Site suivi par le protocole STELI"
     },
     {
       "type": "BEAUFORT",
@@ -185,11 +176,532 @@
       "definition_default": "Conditions exceptionnelles : l'air est plein d'embruns. La mer est entièrement blanche du fait des bancs d'écume dérivants. Visibilité fortement réduite. Vagues supérieures à 14 m. Vent de plus de 118 km/h."
     },
     {
-      "type": "TYPE_SITE",
-      "cd_nomenclature": "SYRHET_Het",
-      "mnemonique": "Site SYRHET Hétérocères",
-      "label_default": "Site SYRHET Hétérocères",
-      "definition_default": "Site de relevé du protocole SYRHET hétérocères"
+      "type": "STELI_AB",
+      "cd_nomenclature": "STELI_AB01",
+      "mnemonique": "1",
+      "label_default": "1 individu",
+      "definition_default": "1 individu"
+    },
+    {
+      "type": "STELI_AB",
+      "cd_nomenclature": "STELI_AB02",
+      "mnemonique": "2 à 10",
+      "label_default": "2 à 10 individus",
+      "definition_default": "2 à 10 individus"
+    },
+    {
+      "type": "STELI_AB",
+      "cd_nomenclature": "STELI_AB03",
+      "mnemonique": "11 à 50",
+      "label_default": "11 à 50 individus",
+      "definition_default": "11 à 50 individus"
+    },
+    {
+      "type": "STELI_AB",
+      "cd_nomenclature": "STELI_AB04",
+      "mnemonique": ">50",
+      "label_default": "Plus de 50 individus",
+      "definition_default": "Plus de 50 individus"
+    },
+    {
+      "type": "STELI_IR",
+      "cd_nomenclature": "STELI_As",
+      "mnemonique": "Appétence sexuelle",
+      "label_default": "Comportements d'appétence sexuelle (territorialité, poursuite, etc.)",
+      "definition_default": "Comportements d'appétence sexuelle (territorialité, poursuite, etc.)"
+    },
+    {
+      "type": "STELI_IR",
+      "cd_nomenclature": "STELI_Ta",
+      "mnemonique": "Tandem",
+      "label_default": "Tandem",
+      "definition_default": "Tandem (création d'une liaison propre à chaque espèce entre le mâle et la femelle)"
+    },
+    {
+      "type": "STELI_IR",
+      "cd_nomenclature": "STELI_Ac",
+      "mnemonique": "Accouplement",
+      "label_default": "Accouplement",
+      "definition_default": "Accouplement"
+    },
+    {
+      "type": "STELI_IR",
+      "cd_nomenclature": "STELI_Po",
+      "mnemonique": "Ponte",
+      "label_default": "Ponte",
+      "definition_default": "Ponte"
+    },
+    {
+      "type": "STELI_IR",
+      "cd_nomenclature": "STELI_Ex",
+      "mnemonique": "Présence d'exuvies",
+      "label_default": "Présence d'exuvies",
+      "definition_default": "Présence d'exuvies"
+    },
+    {
+      "type": "STELI_IR",
+      "cd_nomenclature": "STELI_La",
+      "mnemonique": "Présence de larves",
+      "label_default": "Présence de larves",
+      "definition_default": "Présence de larves"
+    },{
+      "type": "STELI_TP",
+      "cd_nomenclature": "STELI_TP01",
+      "mnemonique": "13-15°C",
+      "label_default": "13-15°C",
+      "definition_default": "Température de l'air entre 13 et 15°C"
+    },{
+      "type": "STELI_TP",
+      "cd_nomenclature": "STELI_TP02",
+      "mnemonique": "16-20°C",
+      "label_default": "16-20°C",
+      "definition_default": "Température de l'air entre 16 et 20°C"
+    },{
+      "type": "STELI_TP",
+      "cd_nomenclature": "STELI_TP03",
+      "mnemonique": "21-25°C",
+      "label_default": "21-25°C",
+      "definition_default": "Température de l'air entre 21 et 25°C"
+    },{
+      "type": "STELI_TP",
+      "cd_nomenclature": "STELI_TP04",
+      "mnemonique": "26-30°C",
+      "label_default": "26-30°C",
+      "definition_default": "Température de l'air entre 26 et 30°C"
+    },{
+      "type": "STELI_TP",
+      "cd_nomenclature": "STELI_TP05",
+      "mnemonique": "31-35°C",
+      "label_default": "31-35°C",
+      "definition_default": "Température de l'air entre 31 et 35°C"
+    },{
+      "type": "STELI_TP",
+      "cd_nomenclature": "STELI_TP06",
+      "mnemonique": ">35°C",
+      "label_default": ">35°C",
+      "definition_default": "Température de l'air supérieure à 35°C"
+    },{
+      "type": "STELI_CN",
+      "cd_nomenclature": "STELI_CN01",
+      "mnemonique": "0-10%",
+      "label_default": "0-10%",
+      "definition_default": "Couverture nuageuses entre 0 et 10%"
+    },{
+      "type": "STELI_CN",
+      "cd_nomenclature": "STELI_CN02",
+      "mnemonique": "10-25%",
+      "label_default": "10-25%",
+      "definition_default": "Couverture nuageuses entre 10 et 25%"
+    },{
+      "type": "STELI_CN",
+      "cd_nomenclature": "STELI_CN03",
+      "mnemonique": "25-50%",
+      "label_default": "25-50%",
+      "definition_default": "Couverture nuageuses entre 25 et 50%"
+    },{
+      "type": "STELI_CN",
+      "cd_nomenclature": "STELI_CN04",
+      "mnemonique": "50-75%",
+      "label_default": "50-75%",
+      "definition_default": "Couverture nuageuses entre 50 et 75%"
+    },{
+      "type": "STELI_CN",
+      "cd_nomenclature": "STELI_CN05",
+      "mnemonique": "75-100%",
+      "label_default": "75-100%",
+      "definition_default": "Couverture nuageuses entre 75 et 100%"
+    },
+    {
+      "type": "STELI_EU",
+      "cd_nomenclature": "STELI_EU01",
+      "mnemonique": "Phénomène d'eutrophisation",
+      "label_default": "Phénomène d'eutrophisation",
+      "definition_default": "Phénomène d'eutrophisation (présence d'algue filamenteuse)"
+    },
+    {
+      "type": "STELI_EU",
+      "cd_nomenclature": "STELI_EU02",
+      "mnemonique": "Turbidité",
+      "label_default": "Turbidité",
+      "definition_default": "Turbidité (eau trouble)"
+    },
+    {
+      "type": "STELI_EU",
+      "cd_nomenclature": "STELI_EU03",
+      "mnemonique": "Eutrophisation et turbidité",
+      "label_default": "Eutrophisation et turbidité",
+      "definition_default": "Eutrophisation et turbidité (présence d'algue filamenteuse et eau trouble)"
+    },
+    {
+      "type": "STELI_EU",
+      "cd_nomenclature": "STELI_EU04",
+      "mnemonique": "Absence",
+      "label_default": "Absence",
+      "definition_default": "Absence d'eutrophisation et de turbidité"
+    },
+    {
+      "type": "STELI_VE",
+      "cd_nomenclature": "STELI_VE01",
+      "mnemonique": "Assèchement périodique",
+      "label_default": "Assèchement périodique",
+      "definition_default": "Niveau de l'eau variant jusqu'à un assèchement périodique"
+    },
+    {
+      "type": "STELI_VE",
+      "cd_nomenclature": "STELI_VE02",
+      "mnemonique": "Très variable",
+      "label_default": "Très variable",
+      "definition_default": "Niveau de l'eau très variable au cours de l'année"
+    },
+    {
+      "type": "STELI_VE",
+      "cd_nomenclature": "STELI_VE03",
+      "mnemonique": "Globalement constant",
+      "label_default": "Globalement constant",
+      "definition_default": "Niveau de l'eau globalement constant au cours de l'année"
+    },
+    {
+      "type": "STELI_VE",
+      "cd_nomenclature": "STELI_VE04",
+      "mnemonique": "Inconnu",
+      "label_default": "Inconnu",
+      "definition_default": "Variation des niveaux de l'eau inconnue"
+    },
+    {
+      "type": "STELI_CO",
+      "cd_nomenclature": "STELI_CO0",
+      "mnemonique": "Eau stagnante",
+      "label_default": "Eau stagnante",
+      "definition_default": "Eau stagnante"
+    },
+    {
+      "type": "STELI_CO",
+      "cd_nomenclature": "STELI_CO02",
+      "mnemonique": "Courant lent",
+      "label_default": "Courant lent",
+      "definition_default": "Courant lent"
+    },
+    {
+      "type": "STELI_CO",
+      "cd_nomenclature": "STELI_CO03",
+      "mnemonique": "Courant rapide",
+      "label_default": "Courant rapide",
+      "definition_default": "Courant rapide"
+    },
+    {
+      "type": "STELI_VA",
+      "cd_nomenclature": "STELI_VA01",
+      "mnemonique": "Herbiers",
+      "label_default": "Herbiers",
+      "definition_default": "Présence d'herbiers (végétation submergée)"
+    },
+    {
+      "type": "STELI_VA",
+      "cd_nomenclature": "STELI_VA02",
+      "mnemonique": "Végétation flottante",
+      "label_default": "Végétation flottante",
+      "definition_default": "Présence de végétation flottante"
+    },
+    {
+      "type": "STELI_VA",
+      "cd_nomenclature": "STELI_VA03",
+      "mnemonique": "Hélophytes",
+      "label_default": "Hélophytes",
+      "definition_default": "Présence d'hélophytes (appareil végétatif aérien)"
+    },
+    {
+      "type": "STELI_VA",
+      "cd_nomenclature": "STELI_VA04",
+      "mnemonique": "Herbiers et végétation flottante",
+      "label_default": "Herbiers et végétation flottante",
+      "definition_default": "Présence d'herbiers et de végétations flottantes"
+    },
+    {
+      "type": "STELI_VA",
+      "cd_nomenclature": "STELI_VA05",
+      "mnemonique": "Herbiers et hélophytes",
+      "label_default": "Herbiers et hélophytes",
+      "definition_default": "Présence d'herbiers et d'hélophytes"
+    },
+    {
+      "type": "STELI_VA",
+      "cd_nomenclature": "STELI_VA06",
+      "mnemonique": "Végétation flottante et hélophytes",
+      "label_default": "Végétation flottante et hélophytes",
+      "definition_default": "Présence de végétations flottantes et d'hélophytes"
+    },
+    {
+      "type": "STELI_VA",
+      "cd_nomenclature": "STELI_VA07",
+      "mnemonique": "Absence",
+      "label_default": "Absence",
+      "definition_default": "Absence totale de végétation aquatique"
+    },
+    {
+      "type": "STELI_RI",
+      "cd_nomenclature": "STELI_RI01",
+      "mnemonique": "Rives nues",
+      "label_default": "Rives nues",
+      "definition_default": "Rives nues"
+    },
+    {
+      "type": "STELI_RI",
+      "cd_nomenclature": "STELI_RI02",
+      "mnemonique": "Rives avec végétation herbacée",
+      "label_default": "Rives avec végétation herbacée",
+      "definition_default": "Rives avec végétation herbacée"
+    },
+    {
+      "type": "STELI_RI",
+      "cd_nomenclature": "STELI_RI03",
+      "mnemonique": "Rives avec végétation ligneuse",
+      "label_default": "Rives avec végétation ligneuse",
+      "definition_default": "Rives avec végétation ligneuse"
+    },
+    {
+      "type": "STELI_RI",
+      "cd_nomenclature": "STELI_RI04",
+      "mnemonique": "Rives avec végétation herbacée et ligneuse",
+      "label_default": "Rives avec végétation herbacée et ligneuse",
+      "definition_default": "Rives avec végétation herbacée et ligneuse"
+    },
+    {
+      "type": "STELI_MA",
+      "cd_nomenclature": "STELI_MA01",
+      "mnemonique": "Sources/suintements",
+      "label_default": "Sources/suintements",
+      "definition_default": "Sources/suintements"
+    },
+    {
+      "type": "STELI_MA",
+      "cd_nomenclature": "STELI_MA02",
+      "mnemonique": "Fossés inondés",
+      "label_default": "Fossés inondés",
+      "definition_default": "Fossés inondés"
+    },
+    {
+      "type": "STELI_MA",
+      "cd_nomenclature": "STELI_MA03",
+      "mnemonique": "Ruisselets/ruisseaux",
+      "label_default": "Ruisselets/ruisseaux",
+      "definition_default": "Ruisselets/ruisseaux (<3m de large)"
+    },
+    {
+      "type": "STELI_MA",
+      "cd_nomenclature": "STELI_MA04",
+      "mnemonique": "Rivières",
+      "label_default": "Rivières",
+      "definition_default": "Rivières (entre 3 et 10m de large)"
+    },
+    {
+      "type": "STELI_MA",
+      "cd_nomenclature": "STELI_MA05",
+      "mnemonique": "Grands cours d'eau, fleuve",
+      "label_default": "Grands cours d'eau, fleuve",
+      "definition_default": "Grands cours d'eau, fleuve (>10m de large)"
+    },
+    {
+      "type": "STELI_MA",
+      "cd_nomenclature": "STELI_MA06",
+      "mnemonique": "Canaux navigables",
+      "label_default": "Canaux navigables",
+      "definition_default": "Canaux navigables"
+    },
+    {
+      "type": "STELI_MA",
+      "cd_nomenclature": "STELI_MA07",
+      "mnemonique": "Mares",
+      "label_default": "Mares",
+      "definition_default": "Mares (moins de 50m²)"
+    },
+    {
+      "type": "STELI_MA",
+      "cd_nomenclature": "STELI_MA08",
+      "mnemonique": "Etangs",
+      "label_default": "Etangs",
+      "definition_default": "Etangs (50 - 450 m²)"
+    },
+    {
+      "type": "STELI_MA",
+      "cd_nomenclature": "STELI_MA09",
+      "mnemonique": "Marais ou tourbières alcalines",
+      "label_default": "Marais ou tourbières alcalines",
+      "definition_default": "Marais ou tourbières alcalines"
+    },
+    {
+      "type": "STELI_MA",
+      "cd_nomenclature": "STELI_MA10",
+      "mnemonique": "Tourbières acides",
+      "label_default": "Tourbières acides",
+      "definition_default": "Tourbières acides"
+    },
+    {
+      "type": "STELI_MA",
+      "cd_nomenclature": "STELI_MA11",
+      "mnemonique": "Lacs et grands réservoirs",
+      "label_default": "Lacs et grands réservoirs",
+      "definition_default": "Lacs et grands réservoirs"
+    },
+    {
+      "type": "STELI_MA",
+      "cd_nomenclature": "STELI_MA12",
+      "mnemonique": "Milieux aquatiques cultivés",
+      "label_default": "Milieux aquatiques cultivés",
+      "definition_default": "Milieux aquatiques cultivés"
+    },
+    {
+      "type": "STELI_MA",
+      "cd_nomenclature": "STELI_MA13",
+      "mnemonique": "Prairies humides",
+      "label_default": "Prairies humides",
+      "definition_default": "Prairies humides"
+    },
+    {
+      "type": "STELI_MA",
+      "cd_nomenclature": "STELI_MA14",
+      "mnemonique": "Marais saumâtre",
+      "label_default": "Marais saumâtre",
+      "definition_default": "Marais saumâtre"
+    },
+    {
+      "type": "STELI_MA",
+      "cd_nomenclature": "STELI_MA15",
+      "mnemonique": "Estuaire",
+      "label_default": "Estuaire",
+      "definition_default": "Estuaire"
+    },
+    {
+      "type": "STELI_MT",
+      "cd_nomenclature": "STELI_MT01",
+      "mnemonique": "Boisement feuillus",
+      "label_default": "Boisement feuillus",
+      "definition_default": "Boisement feuillus"
+    },
+    {
+      "type": "STELI_MT",
+      "cd_nomenclature": "STELI_MT02",
+      "mnemonique": "Boisement conifères",
+      "label_default": "Boisement conifères",
+      "definition_default": "Boisement conifères"
+    },
+    {
+      "type": "STELI_MT",
+      "cd_nomenclature": "STELI_MT03",
+      "mnemonique": "Boisement mixte",
+      "label_default": "Boisement mixte",
+      "definition_default": "Boisement mixte"
+    },
+    {
+      "type": "STELI_MT",
+      "cd_nomenclature": "STELI_MT04",
+      "mnemonique": "Buissons, haies ou jeune boisement",
+      "label_default": "Buissons, haies ou jeune boisement",
+      "definition_default": "Buissons, haies ou jeune boisement <5m de hauteur"
+    },
+    {
+      "type": "STELI_MT",
+      "cd_nomenclature": "STELI_MT05",
+      "mnemonique": "Milieu ouvert non agricole",
+      "label_default": "Milieu ouvert non agricole",
+      "definition_default": "Milieu ouvert non agricole (landes, steppe, ...)"
+    },
+    {
+      "type": "STELI_MT",
+      "cd_nomenclature": "STELI_MT06",
+      "mnemonique": "",
+      "label_default": "",
+      "definition_default": "Sol minéral sans végétation (banc de sable, dune blanche, sol rocheux)"
+    },
+    {
+      "type": "STELI_MT",
+      "cd_nomenclature": "STELI_MT07",
+      "mnemonique": "Urbain - Espace vert",
+      "label_default": "Urbain - Espace vert",
+      "definition_default": "Urbain - Espace vert"
+    },
+    {
+      "type": "STELI_MT",
+      "cd_nomenclature": "STELI_MT08",
+      "mnemonique": "Milieu agricole - verger, vignes, maraîchers",
+      "label_default": "Milieu agricole - verger, vignes, maraîchers",
+      "definition_default": "Milieu agricole - verger, vignes, maraîchers"
+    },
+    {
+      "type": "STELI_MT",
+      "cd_nomenclature": "STELI_MT09",
+      "mnemonique": "Milieu agricole - élevage",
+      "label_default": "Milieu agricole - élevage",
+      "definition_default": "Milieu agricole - élevage"
+    },
+    {
+      "type": "STELI_MT",
+      "cd_nomenclature": "STELI_MT10",
+      "mnemonique": "Milieu agricole - autre",
+      "label_default": "Milieu agricole - autre",
+      "definition_default": "Milieu agricole - autre"
+    },
+    {
+      "type": "STELI_AH",
+      "cd_nomenclature": "STELI_AH01",
+      "mnemonique": "",
+      "label_default": "",
+      "definition_default": ""
+    },
+    {
+      "type": "STELI_AH",
+      "cd_nomenclature": "STELI_AH02",
+      "mnemonique": "Sport nautique, base de loisirs",
+      "label_default": "Sport nautique, base de loisirs",
+      "definition_default": "Sport nautique, base de loisirs"
+    },
+    {
+      "type": "STELI_AH",
+      "cd_nomenclature": "STELI_AH03",
+      "mnemonique": "Pêche de loisirs",
+      "label_default": "Pêche de loisirs",
+      "definition_default": "Pêche de loisirs"
+    },
+    {
+      "type": "STELI_AH",
+      "cd_nomenclature": "STELI_AH04",
+      "mnemonique": "Pisciculture",
+      "label_default": "Pisciculture",
+      "definition_default": "Pisciculture"
+    },
+    {
+      "type": "STELI_AH",
+      "cd_nomenclature": "STELI_AH05",
+      "mnemonique": "Extraction matériaux (carrière de gravier en activité, de sable,...)",
+      "label_default": "Extraction matériaux (carrière de gravier en activité, de sable,...)",
+      "definition_default": "Extraction matériaux (carrière de gravier en activité, de sable,...)"
+    },
+    {
+      "type": "STELI_AH",
+      "cd_nomenclature": "STELI_AH06",
+      "mnemonique": "Traitement des eaux usées",
+      "label_default": "Traitement des eaux usées",
+      "definition_default": "Traitement des eaux usées"
+    },
+    {
+      "type": "STELI_AH",
+      "cd_nomenclature": "STELI_AH07",
+      "mnemonique": "Conservation de la nature",
+      "label_default": "Conservation de la nature",
+      "definition_default": "Conservation de la nature"
+    },
+    {
+      "type": "STELI_AH",
+      "cd_nomenclature": "STELI_AH08",
+      "mnemonique": "Pas d'activité humaine",
+      "label_default": "Pas d'activité humaine",
+      "definition_default": "Pas d'activité humaine"
+    },
+    {
+      "type": "STELI_AH",
+      "cd_nomenclature": "STELI_AH09",
+      "mnemonique": "Inconnu",
+      "label_default": "Inconnu",
+      "definition_default": "Inconnu"
     }
   ]
 }
