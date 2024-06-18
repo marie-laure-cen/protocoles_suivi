@@ -53,7 +53,7 @@
         "id_type": [12]
       },
       "application": "GeoNature",
-      "definition": "Nom du site CEN dans lequelle sont localisées les parcelles" 
+      "definition": "Nom du site CEN dans lequel sont localisées les parcelles" 
     },
     "nb_sites": {
       "attribut_label": "Nb. fiches travaux",

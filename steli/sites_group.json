@@ -1,7 +1,7 @@
 {
-  "genre":"F",
-  "label": "Zone de prospection",
-  "label_list": "Zones de prospection",
+  "genre":"M",
+  "label": "Site CEN",
+  "label_list": "Site CEN",
   "map_label_field_name": "base_site_name",
   "b_draw_sites_group": true,
   "sorts": [
@@ -15,8 +15,7 @@
   ],
   "display_properties": [
     "sites_group_name",
-    "sites_group_code",
-    "site_group_description"
+    "id_resp"
   ],
   "display_list": [
     "sites_group_name",
@@ -26,13 +25,41 @@
   "specific": {
     "sites_group_code": {
       "required": false,
-      "definition": "Code d'un éventuel site de rattachement de la zone de prospection",
-      "attribut_label": "Code site",
+      "hidden": true
+    },
+    "id_resp": {
+      "type_widget": "datalist",
+      "attribut_label": "Responsable STELI du site",
+      "api": "users/menu/__MODULE.ID_LIST_OBSERVER",
+      "application": "GeoNature",
+      "keyValue": "id_role",
+      "keyLabel": "nom_complet",
+      "type_util": "user",
+      "multiple": false,
+      "required": true,
+      "definition": "Personne responsable du suivi STELI sur le site CEN" 
+    },
+    "sites_group_name": {
+      "type_widget": "datalist",
+      "attribut_label": "Site CEN rattaché au suivi STELI",
+      "hidden": false,
+      "required": true,
+      "keyValue": "area_name",
+      "keyLabel": "area_name",
+      "type_util": "areas",
+      "api": "/geo/areas",
+      "filters": {
+        "id_type": [12]
+      },
+      "application": "GeoNature",
+      "definition": "Nom du site CEN dans lequel sont localisés les transects" 
+    },
+    "nb_sites": {
+      "attribut_label": "Nb. transects",
       "hidden": false
     },
-    "sites_group_name":{
-      "attribut_label": "Nom de la zone de prospection",
-      "definition": "Lieu-dit où se situe la zone de prospection."
+    "nb_visits": {
+      "attribut_label": "Nb. passages"
     }
   },
   "change": [
