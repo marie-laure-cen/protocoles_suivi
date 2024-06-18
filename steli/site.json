@@ -15,7 +15,7 @@
     "base_site_name",
     "id_sites_group",
     "id_nomenclature_mt",
-    "id_nomenclature_ah",
+    "cd_nomenclature_ah",
     "id_nomenclature_ma",
     "id_nomenclature_ri",
     "id_nomenclature_ve",
@@ -60,19 +60,76 @@
     "id_nomenclature_type_site": {
       "attribut_label": "Type site",
       "type_util": "nomenclature",
+      "code_nomenclature_type": "TYPE_SITE",
       "value": {
           "code_nomenclature_type": "TYPE_SITE",
           "cd_nomenclature": "STELI"
       },
       "hidden": true
     },
-    "id_nomenclature_mt":{},
-    "id_nomenclature_ah":{},
-    "id_nomenclature_ma":{},
-    "id_nomenclature_ri":{},
-    "id_nomenclature_ve":{},
-    "id_nomenclature_eu":{},
-    "id_nomenclature_co":{},
-    "id_nomenclature_va":{}
+    "id_nomenclature_mt":{
+      "attribut_label": "Milieu terrestre principal",
+      "type_util": "nomenclature",
+      "code_nomenclature_type": "STELI_MT",
+      "hidden": false,
+      "required":true
+    },
+    "cd_nomenclature_ah":{
+      "type_widget": "datalist",
+      "attribut_label": "Technique d'observation",
+      "api": "nomenclatures/nomenclature/STELI_AH",
+      "application": "GeoNature",
+      "keyValue": "cd_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "multiple": true,
+      "required": true,
+      "default": {
+        "cd_nomenclature": "0"
+      }
+    },
+    "id_nomenclature_ma":{
+      "attribut_label": "Milieu aquatique principal",
+      "type_util": "nomenclature",
+      "code_nomenclature_type": "STELI_MA",
+      "hidden": false,
+      "required":true
+    },
+    "id_nomenclature_ri":{
+      "attribut_label": "Type de rives",
+      "type_util": "nomenclature",
+      "code_nomenclature_type": "STELI_RI",
+      "hidden": false,
+      "required":true
+    },
+    "id_nomenclature_ve":{
+      "attribut_label": "Variation des niveaux d'eau",
+      "type_util": "nomenclature",
+      "code_nomenclature_type": "STELI_VE",
+      "hidden": false,
+      "required":true
+    },
+    "id_nomenclature_eu":{
+      "attribut_label": "Eutrophisation du milieu",
+      "type_util": "nomenclature",
+      "code_nomenclature_type": "STELI_EU",
+      "hidden": false,
+      "required":true
+    },
+    "id_nomenclature_co":{
+      "attribut_label": "Courant",
+      "type_util": "nomenclature",
+      "code_nomenclature_type": "STELI_CO",
+      "hidden": false,
+      "required":true
+    },
+    "id_nomenclature_va":{
+      "attribut_label": "Végétation aquatique",
+      "type_util": "nomenclature",
+      "code_nomenclature_type": "STELI_VA",
+      "hidden": false,
+      "required":true
+    }
   }
 }
