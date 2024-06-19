@@ -4,10 +4,16 @@
   "display_properties": [
     "determiner",
     "cd_nom",
+    "id_nomenclature_ab",
     "effectif",
+    "nb_male",
+    "nb_femelle",
+    "id_nomenclature_ir",
+    "comments",
     "id_nomenclature_obs_technique",
     "id_nomenclature_determination_method",
-    "comments"
+    "id_nomenclature_type_count",
+    "id_nomenclature_obj_count"
   ],
   "display_list": [
     "cd_nom",
@@ -16,8 +22,9 @@
   "keep": [
     "id_nomenclature_obs_technique",
     "id_nomenclature_determination_method",
-    "determiner",
-    "visit_time"
+    "id_nomenclature_type_count",
+    "id_nomenclature_obj_count",
+    "determiner"
   ],
   "specific": {
     "determiner":{
@@ -40,12 +47,42 @@
       "required": true,
       "type_util": "taxonomy"
     },
+    "id_nomenclature_ab":{
+      "attribut_label": "Classe d'abondance",
+      "type_util": "nomenclature",
+      "code_nomenclature_type": "STELI_AB",
+      "hidden": false,
+      "required":true
+    },
     "effectif": {
       "type_widget": "number",
       "attribut_label": "Effectif total",
       "min": 0,
-      "required": false,
+      "required": true,
       "definition": "Effectif total"
+    },
+    "nb_male": {
+      "type_widget": "number",
+      "attribut_label": "Effectif de mâle(s)",
+      "min": 0,
+      "required": true,
+      "value": 0,
+      "definition": "Nombre de mâle dans l'effectif total"
+    },
+    "nb_femelle": {
+      "type_widget": "number",
+      "attribut_label": "Effectif de femelle(s)",
+      "min": 0,
+      "required": true,
+      "value": 0,
+      "definition": "Nombre de femelle dans l'effectif total"
+    },
+    "id_nomenclature_ir":{
+      "attribut_label": "Classe d'abondance",
+      "type_util": "nomenclature",
+      "code_nomenclature_type": "STELI_IR",
+      "hidden": false,
+      "required":true
     },
     "id_nomenclature_obs_technique": {
       "type_widget": "datalist",
@@ -59,8 +96,7 @@
       "required": true,
       "default": {
         "cd_nomenclature": "0"
-      },
-      "filters":{"cd_nomenclature": ["0","5","7","20"]}
+      }
     },
     "id_nomenclature_determination_method": {
       "type_widget": "datalist",
@@ -74,6 +110,34 @@
       "required": true,
       "default": {
         "cd_nomenclature": "18"
+      }
+    },
+    "id_nomenclature_type_count": {
+      "type_widget": "datalist",
+      "attribut_label": "Type de dénombrement",
+      "api": "nomenclatures/nomenclature/TYP_DENBR",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": true,
+      "default": {
+        "cd_nomenclature": "Co"
+      }
+    },
+    "id_nomenclature_obj_count": {
+      "type_widget": "datalist",
+      "attribut_label": "Objet du dénombrement",
+      "api": "nomenclatures/nomenclature/OBJ_DENBR",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": true,
+      "default": {
+        "cd_nomenclature": "IND"
       }
     }
   }

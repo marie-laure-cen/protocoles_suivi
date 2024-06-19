@@ -3,7 +3,7 @@
   "label": "Site CEN",
   "label_list": "Site CEN",
   "map_label_field_name": "base_site_name",
-  "b_draw_sites_group": true,
+  "b_draw_sites_group": false,
   "sorts": [
     {"prop": "sites_group_name"}
   ],
