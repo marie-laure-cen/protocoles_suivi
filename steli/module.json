@@ -6,5 +6,8 @@
     "b_draw_sites_group": {
       "hidden": false
     }
-  }
+  },
+  "export_csv": [
+    { "label": "Format standard CSV", "type":"csv" , "method": "standard" }
+  ]
 }

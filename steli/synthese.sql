@@ -77,7 +77,7 @@ WITH source AS (
 			ref_nomenclatures.get_nomenclature_label((tvc.data->'id_nomenclature_tp')::integer) as temperature,
 			ref_nomenclatures.get_nomenclature_label((tvc.data->'id_nomenclature_cn')::integer) as couv_nuageuse,
 			ref_nomenclatures.get_nomenclature_label((tvc.data->'id_nomenclature_vt')::integer) as vent
-			(tvc.data->'source')::text as source,
+			(tvc.data->'source')::text as srce,
         FROM gn_monitoring.t_base_visits tbv
 		LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
 	),
@@ -169,8 +169,9 @@ WITH source AS (
 			'vent', v.vent,
 			'abondance', ref_nomenclatures.get_nomenclature_label((oc.data->'id_nomenclature_ab')::integer),
 			'indice_repro', ref_nomenclatures.get_nomenclature_label((oc.data->'id_nomenclature_ir')::integer),
-			'nb_male', (oc.data->'nb_male'),
-			'nb_femelle', (oc.data->'nb_femelle')
+			'nb_male', (oc.data->'nb_male')::integer,
+			'nb_femelle', (oc.data->'nb_femelle')::integer,
+			'source_donnee', (v.srce)
 		) as additional_data
 	FROM gn_monitoring.t_observations o
 	LEFT JOIN gn_monitoring.t_observation_complements oc using (id_observation)
@@ -180,7 +181,7 @@ WITH source AS (
 	JOIN taxonomie.taxref t USING (cd_nom)
 	JOIN source ON TRUE
 	JOIN observers obs USING (id_base_visit)
-    WHERE m.module_code = :'module_code' and not v.source = 'Intranet SER'
+    WHERE m.module_code = :'module_code' and not v.srce = 'Intranet SER'
 ;
 
 SELECT * FROM gn_monitoring.v_synthese_:module_code
