@@ -3,7 +3,6 @@
   "label": "Passage",
   "label_list": "Passages",
   "display_properties": [
-    "id_dataset",
     "observers",
     "num_passage",
     "visit_date_min",
@@ -25,6 +24,7 @@
   ],
   "keep": [
     "num_passage",
+    "id_dataset",
     "observers"
   ],
   "specific": {
@@ -87,6 +87,10 @@
         "code_nomenclature_type":"TYPE_GRP",
         "cd_nomenclature":"PASS"
       }
+    },
+    "id_dataset ": {
+      "value": 77,
+      "hidden": true
     }
   }
 }

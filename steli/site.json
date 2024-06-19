@@ -27,6 +27,8 @@
   "display_list": [
     "base_site_code",
     "base_site_name",
+    "altitude_min",
+    "altitude_max",
     "id_nomenclature_ma",
     "first_use_date",
     "nb_visits"
@@ -44,18 +46,6 @@
     "id_inventor": {
       "hidden " :false,
       "required": false
-    },
-    "id_sites_group": {
-      "type_widget": "datalist",
-      "attribut_label": "Site CEN",
-      "type_util": "sites_group",
-      "keyValue": "id_sites_group",
-      "keyLabel": "sites_group_name",
-      "api": "__MONITORINGS_PATH/list/__MODULE.MODULE_CODE/sites_group?id_module=__MODULE.ID_MODULE",
-      "application": "GeoNature",
-      "required": false,
-      "hidden": false,
-      "definition": "Liste des sites CEN définis pour le protocole."
     },
     "id_nomenclature_type_site": {
       "attribut_label": "Type site",
