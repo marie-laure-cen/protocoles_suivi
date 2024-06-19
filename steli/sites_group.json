@@ -14,17 +14,28 @@
     }
   ],
   "display_properties": [
-    "sites_group_name",
+    "sites_group_code",
     "id_resp"
   ],
   "display_list": [
-    "sites_group_name",
+    "sites_group_code",
     "nb_sites"
   ],
   "specific": {
     "sites_group_code": {
-      "required": false,
-      "hidden": true
+      "type_widget": "datalist",
+      "attribut_label": "Jeu de données",
+      "type_util": "dataset",
+      "api": "meta/datasets",
+      "application": "GeoNature",
+      "keyValue": "id_dataset",
+      "keyLabel": "dataset_name",
+      "params": {
+        "orderby": "dataset_shortname",
+        "module_code": "__MODULE.MODULE_CODE"
+      },
+      "required": true,
+      "hidden": false
     },
     "id_resp": {
       "type_widget": "datalist",
@@ -39,19 +50,8 @@
       "definition": "Personne responsable du suivi STELI sur le site CEN" 
     },
     "sites_group_name": {
-      "type_widget": "datalist",
-      "attribut_label": "Site CEN rattaché au suivi STELI",
-      "hidden": false,
-      "required": true,
-      "keyValue": "area_name",
-      "keyLabel": "area_name",
-      "type_util": "areas",
-      "api": "/geo/areas",
-      "filters": {
-        "id_type": [12]
-      },
-      "application": "GeoNature",
-      "definition": "Nom du site CEN dans lequel sont localisés les transects" 
+      "hidden": true,
+      "required": false
     },
     "nb_sites": {
       "attribut_label": "Nb. transects",

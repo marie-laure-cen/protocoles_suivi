@@ -13,9 +13,8 @@
   "display_properties": [
     "base_site_code",
     "base_site_name",
-    "id_sites_group",
     "id_nomenclature_mt",
-    "cd_nomenclature_ah",
+    "id_nomenclature_ah",
     "id_nomenclature_ma",
     "id_nomenclature_ri",
     "id_nomenclature_ve",
@@ -66,14 +65,14 @@
     },
     "cd_nomenclature_ah":{
       "type_widget": "datalist",
-      "attribut_label": "Technique d'observation",
+      "attribut_label": "Activité humaine principale",
       "api": "nomenclatures/nomenclature/STELI_AH",
       "application": "GeoNature",
-      "keyValue": "cd_nomenclature",
+      "keyValue": "id_nomenclature",
       "keyLabel": "label_fr",
       "data_path": "values",
       "type_util": "nomenclature",
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "default": {
         "cd_nomenclature": "0"
