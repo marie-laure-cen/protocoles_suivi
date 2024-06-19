@@ -108,7 +108,6 @@ WITH source AS (
 		v.date_min,
 		v.date_max, 
 		v.id_digitiser,
-        
 		v.temperature,
 		v.couv_nuageuse,
 		v.vent,-- observation informations
