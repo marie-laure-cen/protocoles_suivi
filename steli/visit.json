@@ -14,7 +14,8 @@
     "id_nomenclature_vt",
     "comments",
     "id_nomenclature_tech_collect_campanule",
-    "id_nomenclature_grp_typ"
+    "id_nomenclature_grp_typ",
+    "source"
   ],
   "display_list": [
     "num_passage",
@@ -91,6 +92,13 @@
     "id_dataset ": {
       "value": 77,
       "hidden": true
+    },
+    "source":{
+      "type_widget": "select",
+      "required": true,
+      "attribut_label": "Source de la donnée",
+      "values": ["Intranet SER", "GeoNature", "Qfield/Qgis"],
+      "value": "GeoNature"
     }
   }
 }

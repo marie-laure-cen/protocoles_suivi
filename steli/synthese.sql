@@ -73,10 +73,11 @@ WITH source AS (
 			tbv.comments,
 			tbv.id_nomenclature_tech_collect_campanule,
 			tbv.id_nomenclature_grp_typ,
-			(tvc.data->'num_passage') as num_passage,
+			(tvc.data->'num_passage')::integer as num_passage,
 			ref_nomenclatures.get_nomenclature_label((tvc.data->'id_nomenclature_tp')::integer) as temperature,
 			ref_nomenclatures.get_nomenclature_label((tvc.data->'id_nomenclature_cn')::integer) as couv_nuageuse,
 			ref_nomenclatures.get_nomenclature_label((tvc.data->'id_nomenclature_vt')::integer) as vent
+			(tvc.data->'source')::text as source,
         FROM gn_monitoring.t_base_visits tbv
 		LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
 	),
@@ -117,16 +118,16 @@ WITH source AS (
 		v.id_nomenclature_grp_typ, -- TYP_GRP
 		v.id_nomenclature_tech_collect_campanule, --TECHNIQUE_OBS
 		-- observation informations
-		(oc.data->'effectif') as count_min,
-		(oc.data->'effectif') as count_max,
+		(oc.data->'effectif')::integer as count_min,
+		(oc.data->'effectif')::integer as count_max,
 		o.cd_nom,
 		t.nom_complet AS nom_cite,
 		obs.observers,
 		oc.data->'determiner' as determiner,
-		(oc.data->'id_nomenclature_determination_method')  as id_nomenclature_determination_method,
-		(oc.data->'id_nomenclature_obs_technique')  as id_nomenclature_obs_technique,
-		(oc.data->'id_nomenclature_obj_count') as id_nomenclature_obj_count,
-		(oc.data->'id_nomenclature_type_count') as id_nomenclature_type_count,
+		(oc.data->'id_nomenclature_determination_method')::integer  as id_nomenclature_determination_method,
+		(oc.data->'id_nomenclature_obs_technique')::integer  as id_nomenclature_obs_technique,
+		(oc.data->'id_nomenclature_obj_count')::integer as id_nomenclature_obj_count,
+		(oc.data->'id_nomenclature_type_count')::integer as id_nomenclature_type_count,
  		ref_nomenclatures.get_id_nomenclature('STATUT_OBS', 'Pr') AS id_nomenclature_observation_status, 
 		ref_nomenclatures.get_id_nomenclature('STATUT_SOURCE', 'Te') AS id_nomenclature_source_status,
 		ref_nomenclatures.get_id_nomenclature('TYP_INF_GEO', '1') AS id_nomenclature_info_geo_type,
@@ -147,9 +148,8 @@ WITH source AS (
 		v.vent,
 		ref_nomenclatures.get_nomenclature_label((oc.data->'id_nomenclature_ab')::integer)  as abondance,
 		ref_nomenclatures.get_nomenclature_label((oc.data->'id_nomenclature_ir')::integer)  as indice_repro,
-		(oc.data->'nb_male') as nb_male,
-		(oc.data->'nb_femelle') as nb_femelle,
-		
+		(oc.data->'nb_male')::integer as nb_male,
+		(oc.data->'nb_femelle')::integer as nb_femelle,
 		-- geometry
 		s.the_geom_4326,
 		s.the_geom_point,
@@ -180,7 +180,7 @@ WITH source AS (
 	JOIN taxonomie.taxref t USING (cd_nom)
 	JOIN source ON TRUE
 	JOIN observers obs USING (id_base_visit)
-    WHERE m.module_code = :'module_code'
+    WHERE m.module_code = :'module_code' and not v.source = 'Intranet SER'
 ;
 
 SELECT * FROM gn_monitoring.v_synthese_:module_code
