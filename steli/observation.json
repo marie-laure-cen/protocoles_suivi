@@ -2,13 +2,13 @@
   "description_field_name":"cd_nom",
   "genre":"F",
   "display_properties": [
-    "determiner",
     "cd_nom",
     "id_nomenclature_ab",
     "effectif",
     "nb_male",
     "nb_femelle",
     "id_nomenclature_ir",
+    "determiner",
     "comments",
     "id_nomenclature_obs_technique",
     "id_nomenclature_determination_method",
@@ -16,8 +16,7 @@
     "id_nomenclature_obj_count"
   ],
   "display_list": [
-    "cd_nom",
-    "id_nomenclature_loca_obs"
+    "cd_nom"
   ],
   "keep": [
     "id_nomenclature_obs_technique",
@@ -36,7 +35,8 @@
       "keyLabel": "nom_complet",
       "type_util": "user",
       "multiple": false,
-      "required": false
+      "required": false,
+      "definition": "Si déterminateur différent de l'observateur"
     },
     "cd_nom": {
       "type_widget": "taxonomy",
