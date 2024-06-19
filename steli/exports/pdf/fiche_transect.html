@@ -26,12 +26,12 @@
 
 			<div style="padding-left:10px">
 				<div style="display: flex; justify-content: flex-end; height: 2cm ;width: 8cm;">
-					<h2>RHOMEOAmphibien – Aire "{{data.monitoring_object.properties.sites_group_name}}"</h2>
+					<h2>STELI – Site "{{data.monitoring_object.properties.sites_group_code}}"</h2>
 				</div>
 					<div class="fich"  style="border: 1px solid black;height: 3cm ;width: 8cm;">
-							<h2>Fiche de l'Aire</h2>
+							<h2>Fiche du site</h2>
 
-							<div><strong>Nom de l'Aire: </strong>{{data.monitoring_object.properties.sites_group_name}}</div>
+							<div><strong>Code du site : </strong>{{data.monitoring_object.properties.sites_group_code}}</div>
 							<div><strong>Observateur principal: </strong>{{data.extra_data.resolved_properties.id_inventor}}</div>
 							<div><strong>Commune(s): </strong>{{data.monitoring_object.properties.commune | replace("['","")| replace("']","")| replace("'","")}}</div>
 
