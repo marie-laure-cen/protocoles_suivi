@@ -154,24 +154,26 @@ WITH source AS (
 		s.the_geom_4326,
 		s.the_geom_point,
 		s.geom_local,
-		jsonb_build_object(
-			'milieu_terrestre', s.milieu_terrestre,
-			'milieu_aquatique', s.milieu_aquatique,
-			'activite_humaine', s.activite_humaine,
-			'type_rive', s.type_rive,
-			'niveau_eau', s.niveau_eau,
-			'eutrophisation', s.eutrophisation,
-			'courant', s.courant,
-			'vegetation', s.vegetation,
-			'num_passage', v.num_passage,
-			'temperature', v.temperature,
-			'couv_nuageuse', v.couv_nuageuse,
-			'vent', v.vent,
-			'abondance', ref_nomenclatures.get_nomenclature_label((oc.data->'id_nomenclature_ab')::integer),
-			'indice_repro', ref_nomenclatures.get_nomenclature_label((oc.data->'id_nomenclature_ir')::integer),
-			'nb_male', (oc.data->'nb_male')::integer,
-			'nb_femelle', (oc.data->'nb_femelle')::integer,
-			'source_donnee', (v.srce)
+		jsonb_strip_nulls(
+			jsonb_build_object(
+				'milieu_terrestre', s.milieu_terrestre,
+				'milieu_aquatique', s.milieu_aquatique,
+				'activite_humaine', s.activite_humaine,
+				'type_rive', s.type_rive,
+				'niveau_eau', s.niveau_eau,
+				'eutrophisation', s.eutrophisation,
+				'courant', s.courant,
+				'vegetation', s.vegetation,
+				'num_passage', v.num_passage,
+				'temperature', v.temperature,
+				'couv_nuageuse', v.couv_nuageuse,
+				'vent', v.vent,
+				'abondance', ref_nomenclatures.get_nomenclature_label((oc.data->'id_nomenclature_ab')::integer),
+				'indice_repro', ref_nomenclatures.get_nomenclature_label((oc.data->'id_nomenclature_ir')::integer),
+				'nb_male', (oc.data->'nb_male')::integer,
+				'nb_femelle', (oc.data->'nb_femelle')::integer,
+				'source_donnee', (v.srce)
+			)
 		) as additional_data
 	FROM gn_monitoring.t_observations o
 	LEFT JOIN gn_monitoring.t_observation_complements oc using (id_observation)
