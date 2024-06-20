@@ -1,51 +1,63 @@
 <!doctype html>
-
-
 <html>
-<head>
-    <meta charset="utf-8" />
-    <title>Carte de l'Aire </title>
-    <link rel="stylesheet" type="text/css" href="{{ data.static_pdf_dir }}/fiche_aire.css">
-</head>
-<body>
-	<div class="header">
-		<table>
-		<tr>
-		   <td><img class="bandeau" src="{{ data.static_pdf_dir }}/images/LOGO_SHF_micro.png" alt="Bandeau"></td>
-			<td style="text-align:right; font-size:20px; font-weight:bold; color:black"><p >Suivi {{data.module_code}}</p></td>
-		</tr>
-
-		</table>
-	</div>
-
-	<div class="content" >
-		<div class="flex">
-			<div class="map">
-				<img src="{{data.map_image}}" />
-			</div>
-
-			<div style="padding-left:10px">
-				<div style="display: flex; justify-content: flex-end; height: 2cm ;width: 8cm;">
-					<h2>STELI – Site "{{data.monitoring_object.properties.sites_group_code}}"</h2>
+	<head>
+		<meta charset="utf-8" />
+		<title>Fiche transect</title>
+		<link rel="stylesheet" type="text/css" href="{{ data.static_pdf_dir }}/fiche_transect.css">
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="box header">
+				<div class="banner">
+					<div class="box"><img src="{{ data.static_pdf_dir }}/images/logo_cen.png" alt="Bandeau"></div>
+					<div class="box">
+						<h1>Transect {{data.monitoring_object.properties.sites_group_code}}</h1>
+						<h2>Suivi {{data.module_code}}</h2>
+					</div>
 				</div>
-					<div class="fich"  style="border: 1px solid black;height: 3cm ;width: 8cm;">
-							<h2>Fiche du site</h2>
-
-							<div><strong>Code du site : </strong>{{data.monitoring_object.properties.sites_group_code}}</div>
-							<div><strong>Observateur principal: </strong>{{data.extra_data.resolved_properties.id_inventor}}</div>
-							<div><strong>Commune(s): </strong>{{data.monitoring_object.properties.commune | replace("['","")| replace("']","")| replace("'","")}}</div>
-
+			</div>
+			<div class ="box sidebar">
+				<div class="site">
+					<h2>
+						Fiche transect
+					</h2>
+					<p>
+						<strong>Site CEN:</strong> {{data.monitoring_object.properties.sites_group_code}}
+					</p>
+					<p>
+						<strong>Responsable suivi:</strong> {{data.extra_data.resolved_properties.id_inventor}}
+					</p>
+					<p>
+						<strong>Commune(s):</strong> {{data.monitoring_object.properties.commune | replace("['","")| replace("']","")| replace("'","")}}
+					</p>
+					<p>
+						<strong>Nombre de passage(s):</strong> 4
+					</p>
+				</div>
+				<br>
+				<div class="legend" >
+					<h3>Légende</h3>
+					<div class="site">
+						<img  src="{{ data.static_pdf_dir }}/images/site.png" alt="site"  >
+						<label >Site du suivi </label>
 					</div>
-					<br>
-					<div class="legend" style="border: 1px solid black; height: 10.6cm ;width: 8cm;">
-						<h2>Légende</h2>
-						<div class="site"><img  src="{{ data.static_pdf_dir }}/images/site.png" alt="site"  > <label style="font-size: 16px;">Sites suivis </label></div>
-						<div class="site"><img  src="{{ data.static_pdf_dir }}/images/aire.png" alt="aire"  > <label style="font-size: 16px;">Aire suivie </label></div>
-						<div style="text-align: center">______________________</div>
-						<div class="north"><img  src="{{ data.static_pdf_dir }}/images/north.png" alt="north"  /></div>
-
+					<div class="site">
+						<img  src="{{ data.static_pdf_dir }}/images/transect.png" alt="aire"  >
+						<label >Transect</label>
 					</div>
+					<div class="north">
+						<img  src="{{ data.static_pdf_dir }}/images/north.png" alt="north" />
+					</div>
+				</div>
+			</div>
+			<div class="box content" >
+				<div class="map">
+					<img src="images/map.jpg" />
+				</div>
+			</div>
+			<div class="box footer">
+				<img class="bandeau" src="{{ data.static_pdf_dir }}/images/logo_steli.jpg" alt="STELI">
 			</div>
 		</div>
-	</div>
-</body>
+	</body>
+</html>
