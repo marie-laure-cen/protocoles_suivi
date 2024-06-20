@@ -11,9 +11,9 @@
     {"prop": "base_site_name", "dir": "asc"}
   ],
   "display_properties": [
+    "id_sites_group",
     "base_site_code",
     "base_site_name",
-    "id_sites_group",
     "id_nomenclature_mt",
     "id_nomenclature_ah",
     "id_nomenclature_ma",
