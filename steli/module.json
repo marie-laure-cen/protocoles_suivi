@@ -1,7 +1,7 @@
 {
   "module_code": "STELI",
   "module_label":"STELI",
-  "module_desc":"Module pour le protocole de suivi STELI",
+  "module_desc":"Module pour le protocole de suivi des odonates STELI",
   "specific": {
     "b_draw_sites_group": {
       "hidden": false

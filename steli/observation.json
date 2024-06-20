@@ -48,41 +48,48 @@
       "type_util": "taxonomy"
     },
     "id_nomenclature_ab":{
-      "attribut_label": "Classe d'abondance",
+      "type_widget": "datalist",
+      "attribut_label": "Abondance",
+      "api": "nomenclatures/nomenclature/STELI_AB",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
       "type_util": "nomenclature",
-      "code_nomenclature_type": "STELI_AB",
-      "hidden": false,
-      "required":true
+      "multiple": false,
+      "required": true
     },
     "effectif": {
       "type_widget": "number",
       "attribut_label": "Effectif total",
-      "min": 0,
+      "min": 1,
       "required": true,
       "definition": "Effectif total"
     },
     "nb_male": {
       "type_widget": "number",
       "attribut_label": "Effectif de mâle(s)",
-      "min": 0,
-      "required": true,
-      "value": 0,
+      "min": 1,
+      "required": false,
       "definition": "Nombre de mâle dans l'effectif total"
     },
     "nb_femelle": {
       "type_widget": "number",
       "attribut_label": "Effectif de femelle(s)",
-      "min": 0,
-      "required": true,
-      "value": 0,
+      "min": 1,
+      "required": false,
       "definition": "Nombre de femelle dans l'effectif total"
     },
     "id_nomenclature_ir":{
-      "attribut_label": "Classe d'abondance",
+      "type_widget": "datalist",
+      "attribut_label": "Indice de reproduction",
+      "api": "nomenclatures/nomenclature/STELI_IR",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
       "type_util": "nomenclature",
-      "code_nomenclature_type": "STELI_IR",
-      "hidden": false,
-      "required":true
+      "required": true
     },
     "id_nomenclature_obs_technique": {
       "type_widget": "datalist",

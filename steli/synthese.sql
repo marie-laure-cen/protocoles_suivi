@@ -33,14 +33,15 @@ WITH source AS (
 			tbs.id_base_site,
 			tsg.sites_group_code::integer as id_dataset,
 			la.id_area as id_area_attachment,
-			cafs.area_code,
+			tsg.sites_group_name as area_code,
 			(tbs.base_site_code || ' / ' || tbs.base_site_name ) as place_name,
 			(r.nom_role || ' ' || r.prenom_role) as responsable,
+			tsc.data,
 			ref_nomenclatures.get_nomenclature_label((tsc.data->'id_nomenclature_mt')::integer) as milieu_terrestre,
 			ref_nomenclatures.get_nomenclature_label((tsc.data->'id_nomenclature_ma')::integer) as milieu_aquatique,
 			ref_nomenclatures.get_nomenclature_label((tsc.data->'id_nomenclature_ah')::integer) as activite_humaine,
 			ref_nomenclatures.get_nomenclature_label((tsc.data->'id_nomenclature_mt')::integer) as type_rive,
-			ref_nomenclatures.get_nomenclature_label((tsc.data->'id_nomenclature_ne')::integer) as niveau_eau,
+			ref_nomenclatures.get_nomenclature_label((tsc.data->'id_nomenclature_ve')::integer) as niveau_eau,
 			ref_nomenclatures.get_nomenclature_label((tsc.data->'id_nomenclature_eu')::integer) as eutrophisation,
 			ref_nomenclatures.get_nomenclature_label((tsc.data->'id_nomenclature_co')::integer) as courant,
 			ref_nomenclatures.get_nomenclature_label((tsc.data->'id_nomenclature_va')::integer) as vegetation,
@@ -53,10 +54,10 @@ WITH source AS (
         FROM gn_monitoring.t_base_sites tbs
 		LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
 		LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
-		LEFT JOIN utilisateurs.t_roles r ON (tsc.data->'id_resp' )::integer = id_role
+		LEFT JOIN utilisateurs.t_roles r ON (tsg.data->'id_resp' )::integer = id_role
 		LEFT JOIN gn_meta.t_datasets taf ON taf.id_dataset = tsg.sites_group_code::integer
-		LEFT JOIN gn_meta.cor_acquisition_framework_site cafs USING (id_acquisition_framework)
-		LEFT JOIN ref_geo.l_areas la USING (area_code)
+		--LEFT JOIN gn_meta.cor_acquisition_framework_site cafs USING (id_acquisition_framework)
+		LEFT JOIN ref_geo.l_areas la ON tsg.sites_group_name = la.area_code
 	),
 	visits AS (
 		SELECT    
@@ -73,11 +74,12 @@ WITH source AS (
 			tbv.comments,
 			tbv.id_nomenclature_tech_collect_campanule,
 			tbv.id_nomenclature_grp_typ,
+			tvc.data,
 			(tvc.data->'num_passage')::integer as num_passage,
 			ref_nomenclatures.get_nomenclature_label((tvc.data->'id_nomenclature_tp')::integer) as temperature,
 			ref_nomenclatures.get_nomenclature_label((tvc.data->'id_nomenclature_cn')::integer) as couv_nuageuse,
-			ref_nomenclatures.get_nomenclature_label((tvc.data->'id_nomenclature_vt')::integer) as vent
-			(tvc.data->'source')::text as srce,
+			ref_nomenclatures.get_nomenclature_label((tvc.data->'id_nomenclature_vt')::integer) as vent,
+			(tvc.data->'source')::text as srce
         FROM gn_monitoring.t_base_visits tbv
 		LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
 	),
@@ -115,8 +117,10 @@ WITH source AS (
 		v.date_max, 
 		v.id_digitiser,
         ref_nomenclatures.get_id_nomenclature('NAT_OBJ_GEO', 'St') AS id_nomenclature_geo_object_nature,
-		v.id_nomenclature_grp_typ, -- TYP_GRP
-		v.id_nomenclature_tech_collect_campanule, --TECHNIQUE_OBS
+		--v.id_nomenclature_grp_typ, -- TYP_GRP
+		--v.id_nomenclature_tech_collect_campanule, --TECHNIQUE_OBS
+		ref_nomenclatures.get_id_nomenclature('TYP_GRP', 'PASS') AS id_nomenclature_grp_typ,
+		ref_nomenclatures.get_id_nomenclature('TECHNIQUE_OBS', '59') AS id_nomenclature_tech_collect_campanule,
 		-- observation informations
 		(oc.data->'effectif')::integer as count_min,
 		(oc.data->'effectif')::integer as count_max,
@@ -148,33 +152,13 @@ WITH source AS (
 		v.vent,
 		ref_nomenclatures.get_nomenclature_label((oc.data->'id_nomenclature_ab')::integer)  as abondance,
 		ref_nomenclatures.get_nomenclature_label((oc.data->'id_nomenclature_ir')::integer)  as indice_repro,
-		(oc.data->'nb_male')::integer as nb_male,
-		(oc.data->'nb_femelle')::integer as nb_femelle,
+		(oc.data->'nb_male') as nb_male,
+		(oc.data->'nb_femelle') as nb_femelle,
 		-- geometry
 		s.the_geom_4326,
 		s.the_geom_point,
 		s.geom_local,
-		jsonb_strip_nulls(
-			jsonb_build_object(
-				'milieu_terrestre', s.milieu_terrestre,
-				'milieu_aquatique', s.milieu_aquatique,
-				'activite_humaine', s.activite_humaine,
-				'type_rive', s.type_rive,
-				'niveau_eau', s.niveau_eau,
-				'eutrophisation', s.eutrophisation,
-				'courant', s.courant,
-				'vegetation', s.vegetation,
-				'num_passage', v.num_passage,
-				'temperature', v.temperature,
-				'couv_nuageuse', v.couv_nuageuse,
-				'vent', v.vent,
-				'abondance', ref_nomenclatures.get_nomenclature_label((oc.data->'id_nomenclature_ab')::integer),
-				'indice_repro', ref_nomenclatures.get_nomenclature_label((oc.data->'id_nomenclature_ir')::integer),
-				'nb_male', (oc.data->'nb_male')::integer,
-				'nb_femelle', (oc.data->'nb_femelle')::integer,
-				'source_donnee', (v.srce)
-			)
-		) as additional_data
+		jsonb_strip_nulls(COALESCE(s.data || v.data || oc.data , oc.data, v.data, s.data)) as additional_data
 	FROM gn_monitoring.t_observations o
 	LEFT JOIN gn_monitoring.t_observation_complements oc using (id_observation)
     JOIN visits v USING (id_base_visit)

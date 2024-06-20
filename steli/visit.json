@@ -13,8 +13,6 @@
     "id_nomenclature_cn",
     "id_nomenclature_vt",
     "comments",
-    "id_nomenclature_tech_collect_campanule",
-    "id_nomenclature_grp_typ",
     "source"
   ],
   "display_list": [
@@ -57,48 +55,48 @@
       "required": true
     },
     "id_nomenclature_tp":{
-      "attribut_label": "Classe de température",
+      "type_widget": "datalist",
+      "attribut_label": "Température",
+      "api": "nomenclatures/nomenclature/STELI_TP",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
       "type_util": "nomenclature",
-      "code_nomenclature_type": "STELI_TP",
-      "hidden": false,
-      "required":true
+      "multiple": false,
+      "required": true
     },
     "id_nomenclature_cn":{
-      "attribut_label": "Classe de couverture nuageuse",
+      "type_widget": "datalist",
+      "attribut_label": "Couverture nuageuse",
+      "api": "nomenclatures/nomenclature/STELI_CN",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
       "type_util": "nomenclature",
-      "code_nomenclature_type": "STELI_CN",
-      "hidden": false,
-      "required":true
+      "multiple": false,
+      "required": true
     },
     "id_nomenclature_vt":{
+      "type_widget": "datalist",
       "attribut_label": "Vent",
+      "api": "nomenclatures/nomenclature/BEAUFORT",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
       "type_util": "nomenclature",
-      "code_nomenclature_type": "BEAUFORT",
-      "hidden": false,
-      "required":true
-    },
-    "id_nomenclature_tech_collect_campanule":{
-      "value":{
-        "code_nomenclature_type":"TECHNIQUE_OBS",
-        "cd_nomenclature":"59"
-      }
-    },
-    "id_nomenclature_grp_typ":{
-      "value":{
-        "code_nomenclature_type":"TYPE_GRP",
-        "cd_nomenclature":"PASS"
-      }
-    },
-    "id_dataset ": {
-      "value": 77,
-      "hidden": true
+      "multiple": false,
+      "required": true
     },
     "source":{
       "type_widget": "select",
       "required": true,
       "attribut_label": "Source de la donnée",
       "values": ["Intranet SER", "GeoNature", "Qfield/Qgis"],
-      "value": "GeoNature"
+      "value": "GeoNature",
+      "hidden":false
     }
   }
 }

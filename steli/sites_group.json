@@ -1,7 +1,7 @@
 {
   "genre":"M",
-  "label": "Site CEN",
-  "label_list": "Site CEN",
+  "label": "Site suivi",
+  "label_list": "Site suivi",
   "map_label_field_name": "base_site_name",
   "b_draw_sites_group": false,
   "sorts": [
@@ -50,8 +50,16 @@
       "definition": "Personne responsable du suivi STELI sur le site CEN" 
     },
     "sites_group_name": {
-      "hidden": true,
-      "required": false
+      "type_widget": "datalist",
+      "attribut_label": "Site CEN rattaché aux travaux",
+      "hidden": false,
+      "required": true,
+      "keyValue": "area_code",
+      "keyLabel": "area_name",
+      "type_util": "areas",
+      "api": "/geo/areas?type_code=SCEN",
+      "application": "GeoNature",
+      "definition": "Nom du site CEN dans lequelle sont localisées les transects"
     },
     "nb_sites": {
       "attribut_label": "Nb. transects",

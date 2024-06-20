@@ -5,7 +5,7 @@
   "geometry_type": "LineString",
   "map_label_field_name": "base_site_code",
   "export_pdf": [
-      { "template": "fiche_aire.html", "label": "Export PDF" }
+      { "template": "fiche_transect.html", "label": "Export PDF" }
   ],
   "sorts": [
     {"prop": "base_site_name", "dir": "asc"}
@@ -13,6 +13,7 @@
   "display_properties": [
     "base_site_code",
     "base_site_name",
+    "id_sites_group",
     "id_nomenclature_mt",
     "id_nomenclature_ah",
     "id_nomenclature_ma",
@@ -42,6 +43,18 @@
     "base_site_description":{
       "attribut_label": "Commentaires"
     },
+    "id_sites_group": {
+      "type_widget": "datalist",
+      "attribut_label": "Site CEN du suivi",
+      "type_util": "sites_group",
+      "keyValue": "id_sites_group",
+      "keyLabel": "sites_group_name",
+      "api": "__MONITORINGS_PATH/list/__MODULE.MODULE_CODE/sites_group?id_module=__MODULE.ID_MODULE",
+      "application": "GeoNature",
+      "required": true,
+      "hidden": false,
+      "definition": "Liste des sites du CEN afférents au suivi"
+    },
     "id_inventor": {
       "hidden " :false,
       "required": false
@@ -57,13 +70,18 @@
       "hidden": true
     },
     "id_nomenclature_mt":{
+      "type_widget": "datalist",
       "attribut_label": "Milieu terrestre principal",
+      "api": "nomenclatures/nomenclature/STELI_MT",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
       "type_util": "nomenclature",
-      "code_nomenclature_type": "STELI_MT",
-      "hidden": false,
-      "required":true
+      "multiple": false,
+      "required": true
     },
-    "cd_nomenclature_ah":{
+    "id_nomenclature_ah":{
       "type_widget": "datalist",
       "attribut_label": "Activité humaine principale",
       "api": "nomenclatures/nomenclature/STELI_AH",
@@ -73,52 +91,79 @@
       "data_path": "values",
       "type_util": "nomenclature",
       "multiple": false,
-      "required": true,
-      "default": {
-        "cd_nomenclature": "0"
-      }
+      "required": true
     },
     "id_nomenclature_ma":{
+      "type_widget": "datalist",
       "attribut_label": "Milieu aquatique principal",
+      "api": "nomenclatures/nomenclature/STELI_MA",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
       "type_util": "nomenclature",
-      "code_nomenclature_type": "STELI_MA",
-      "hidden": false,
-      "required":true
+      "multiple": false,
+      "required": true
     },
     "id_nomenclature_ri":{
+      "type_widget": "datalist",
       "attribut_label": "Type de rives",
+      "api": "nomenclatures/nomenclature/STELI_RI",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
       "type_util": "nomenclature",
-      "code_nomenclature_type": "STELI_RI",
-      "hidden": false,
-      "required":true
+      "multiple": false,
+      "required": true
     },
     "id_nomenclature_ve":{
+      "type_widget": "datalist",
       "attribut_label": "Variation des niveaux d'eau",
+      "api": "nomenclatures/nomenclature/STELI_VE",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
       "type_util": "nomenclature",
-      "code_nomenclature_type": "STELI_VE",
-      "hidden": false,
-      "required":true
+      "multiple": false,
+      "required": true
     },
     "id_nomenclature_eu":{
+      "type_widget": "datalist",
       "attribut_label": "Eutrophisation du milieu",
+      "api": "nomenclatures/nomenclature/STELI_EU",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
       "type_util": "nomenclature",
-      "code_nomenclature_type": "STELI_EU",
-      "hidden": false,
-      "required":true
+      "multiple": false,
+      "required": true
     },
     "id_nomenclature_co":{
+      "type_widget": "datalist",
       "attribut_label": "Courant",
+      "api": "nomenclatures/nomenclature/STELI_CO",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
       "type_util": "nomenclature",
-      "code_nomenclature_type": "STELI_CO",
-      "hidden": false,
-      "required":true
+      "multiple": false,
+      "required": true
     },
     "id_nomenclature_va":{
+      "type_widget": "datalist",
       "attribut_label": "Végétation aquatique",
+      "api": "nomenclatures/nomenclature/STELI_VA",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
       "type_util": "nomenclature",
-      "code_nomenclature_type": "STELI_VA",
-      "hidden": false,
-      "required":true
+      "multiple": false,
+      "required": true
     }
   }
 }
