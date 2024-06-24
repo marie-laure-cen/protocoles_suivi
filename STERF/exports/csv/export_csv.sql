@@ -3,9 +3,9 @@
 -------------------------------------------------final --rhomeoodonate standard------------------------------------------
 -- View: gn_monitoring.v_export_rhomeoodonate_standard
 
-DROP VIEW  IF EXISTS  gn_monitoring.v_export_steli_standard;
+DROP VIEW  IF EXISTS  gn_monitoring.v_export_terf_standard;
 
-CREATE OR REPLACE VIEW gn_monitoring.v_export_steli_standard AS
+CREATE OR REPLACE VIEW gn_monitoring.v_export_sterf_standard AS
 
 WITH source AS (
 		SELECT

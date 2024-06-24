@@ -14,26 +14,24 @@
     "id_sites_group",
     "base_site_code",
     "base_site_name",
-    "id_nomenclature_mt",
-    "id_nomenclature_ah",
-    "id_nomenclature_ma",
-    "id_nomenclature_ri",
-    "id_nomenclature_ve",
-    "id_nomenclature_eu",
-    "id_nomenclature_co",
-    "id_nomenclature_va",
-    "base_site_description"
+    "base_site_description",
+    "lisiere",
+    "hab_1",
+    "hab_2",
+    "habitat"
  ],
   "display_list": [
     "base_site_code",
     "base_site_name",
     "altitude_min",
     "altitude_max",
-    "id_nomenclature_ma",
     "first_use_date",
     "nb_visits"
   ],
   "specific": {
+    "nb_visits":{
+      "attribut_label": "Nb. passages"
+    },
     "base_site_code":{
       "attribut_label": "Code du transect"
     },
@@ -69,101 +67,30 @@
       },
       "hidden": true
     },
-    "id_nomenclature_mt":{
-      "type_widget": "datalist",
-      "attribut_label": "Milieu terrestre principal",
-      "api": "nomenclatures/nomenclature/STELI_MT",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "multiple": true,
-      "required": true
+    "lisiere": {
+      "type_widget": "select",
+      "required": true,
+      "attribut_label": "Transect de lisière",
+      "values": ["Oui", "Non"]
     },
-    "id_nomenclature_ah":{
-      "type_widget": "datalist",
-      "attribut_label": "Activité humaine principale",
-      "api": "nomenclatures/nomenclature/STELI_AH",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "multiple": true,
-      "required": true
+    "hab_1": {
+      "attribut_label": "Habitat principal",
+      "type_widget": "text",
+      "required": true,
+      "hidden": false
     },
-    "id_nomenclature_ma":{
-      "type_widget": "datalist",
-      "attribut_label": "Milieu aquatique principal",
-      "api": "nomenclatures/nomenclature/STELI_MA",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "multiple": true,
-      "required": true
+    "hab_2": {
+      "attribut_label": "Habitat secondaire",
+      "type_widget": "text",
+      "hidden": "({value}) => value.lisiere != 'Oui'",
+      "required": "({value}) => value.lisiere != 'Non'"
     },
-    "id_nomenclature_ri":{
-      "type_widget": "datalist",
-      "attribut_label": "Type de rives",
-      "api": "nomenclatures/nomenclature/STELI_RI",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "multiple": true,
-      "required": true
-    },
-    "id_nomenclature_ve":{
-      "type_widget": "datalist",
-      "attribut_label": "Variation des niveaux d'eau",
-      "api": "nomenclatures/nomenclature/STELI_VE",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "multiple": true,
-      "required": true
-    },
-    "id_nomenclature_eu":{
-      "type_widget": "datalist",
-      "attribut_label": "Eutrophisation du milieu",
-      "api": "nomenclatures/nomenclature/STELI_EU",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "multiple": true,
-      "required": true
-    },
-    "id_nomenclature_co":{
-      "type_widget": "datalist",
-      "attribut_label": "Courant",
-      "api": "nomenclatures/nomenclature/STELI_CO",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "multiple": true,
-      "required": true
-    },
-    "id_nomenclature_va":{
-      "type_widget": "datalist",
-      "attribut_label": "Végétation aquatique",
-      "api": "nomenclatures/nomenclature/STELI_VA",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "multiple": true,
-      "required": true
+    "habitat": {
+      "attribut_label": "Référentiel habitat",
+      "type_widget": "html",
+      "value": "https://www.vigienature.fr/sites/vigienature/files/atoms/files/sterf_classification_habitats.pdf",
+      "required": false,
+      "hidden": false
     }
   }
 }

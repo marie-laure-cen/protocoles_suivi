@@ -41,7 +41,7 @@
     },
     "id_resp": {
       "type_widget": "datalist",
-      "attribut_label": "Responsable STELI du site",
+      "attribut_label": "Responsable STERF du site",
       "api": "users/menu/__MODULE.ID_LIST_OBSERVER",
       "application": "GeoNature",
       "keyValue": "id_role",

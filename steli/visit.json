@@ -57,7 +57,7 @@
     "id_nomenclature_tp":{
       "type_widget": "datalist",
       "attribut_label": "Température",
-      "api": "nomenclatures/nomenclature/STELI_TP",
+      "api": "nomenclatures/nomenclature/SUIVI_TP",
       "application": "GeoNature",
       "keyValue": "id_nomenclature",
       "keyLabel": "label_fr",
@@ -69,7 +69,7 @@
     "id_nomenclature_cn":{
       "type_widget": "datalist",
       "attribut_label": "Couverture nuageuse",
-      "api": "nomenclatures/nomenclature/STELI_CN",
+      "api": "nomenclatures/nomenclature/SUIVI_CN",
       "application": "GeoNature",
       "keyValue": "id_nomenclature",
       "keyLabel": "label_fr",
@@ -81,7 +81,7 @@
     "id_nomenclature_vt":{
       "type_widget": "datalist",
       "attribut_label": "Vent",
-      "api": "nomenclatures/nomenclature/BEAUFORT",
+      "api": "nomenclatures/nomenclature/SUIVI_VT",
       "application": "GeoNature",
       "keyValue": "id_nomenclature",
       "keyLabel": "label_fr",
