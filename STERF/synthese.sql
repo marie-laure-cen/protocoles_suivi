@@ -37,7 +37,6 @@ WITH source AS (
 			(tbs.base_site_code || ' / ' || tbs.base_site_name ) as place_name,
 			(r.nom_role || ' ' || r.prenom_role) as responsable,
 			tsc.data,
-			ref_nomenclatures.get_nomenclature_label((tsc.data->'id_nomenclature_mt')::integer) as milieu_terrestre,
 			(tsc.data->'lisiere')::text as lisiere,
 			(tsc.data->'hab_1'::text) as hab_1,
 			(tsc.data->'hab_2')::text as hab_2,
@@ -113,8 +112,6 @@ WITH source AS (
 		v.date_max, 
 		v.id_digitiser,
         ref_nomenclatures.get_id_nomenclature('NAT_OBJ_GEO', 'St') AS id_nomenclature_geo_object_nature,
-		--v.id_nomenclature_grp_typ, -- TYP_GRP
-		--v.id_nomenclature_tech_collect_campanule, --TECHNIQUE_OBS
 		ref_nomenclatures.get_id_nomenclature('TYP_GRP', 'PASS') AS id_nomenclature_grp_typ,
 		ref_nomenclatures.get_id_nomenclature('TECHNIQUE_OBS', '59') AS id_nomenclature_tech_collect_campanule,
 		-- observation informations

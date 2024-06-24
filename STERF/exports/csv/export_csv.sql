@@ -1,7 +1,7 @@
 -- alter table gn_monitoring.t_base_sites alter column id_nomenclature_type_site drop not null;
 
--------------------------------------------------final --rhomeoodonate standard------------------------------------------
--- View: gn_monitoring.v_export_rhomeoodonate_standard
+-------------------------------------------------final --STERF standard------------------------------------------
+-- View: gn_monitoring.v_export_terf_standard
 
 DROP VIEW  IF EXISTS  gn_monitoring.v_export_terf_standard;
 
@@ -24,14 +24,9 @@ WITH source AS (
 			la.area_name,
 			(tbs.base_site_code || ' / ' || tbs.base_site_name ) as transect,
 			(r.nom_role || ' ' || r.prenom_role) as responsable,
-			ref_nomenclatures.get_nomenclature_label((tsc.data->'id_nomenclature_mt')::integer) as milieu_terrestre,
-			ref_nomenclatures.get_nomenclature_label((tsc.data->'id_nomenclature_ma')::integer) as milieu_aquatique,
-			ref_nomenclatures.get_nomenclature_label((tsc.data->'id_nomenclature_ah')::integer) as activite_humaine,
-			ref_nomenclatures.get_nomenclature_label((tsc.data->'id_nomenclature_mt')::integer) as type_rive,
-			ref_nomenclatures.get_nomenclature_label((tsc.data->'id_nomenclature_ne')::integer) as niveau_eau,
-			ref_nomenclatures.get_nomenclature_label((tsc.data->'id_nomenclature_eu')::integer) as eutrophisation,
-			ref_nomenclatures.get_nomenclature_label((tsc.data->'id_nomenclature_co')::integer) as courant,
-			ref_nomenclatures.get_nomenclature_label((tsc.data->'id_nomenclature_va')::integer) as vegetation,
+			(tsc.data->'lisiere')::text as lisiere,
+			(tsc.data->'hab_1'::text) as hab_1,
+			(tsc.data->'hab_2')::text as hab_2,
 			tbs.base_site_description as site_comments,
 			tbs.altitude_min,
 			tbs.altitude_max,
@@ -94,14 +89,9 @@ WITH source AS (
 		s.transect,
 		s.altitude_min,
 		s.altitude_max,
-		s.milieu_terrestre,
-		s.milieu_aquatique,
-		s.activite_humaine,
-		s.type_rive,
-		s.niveau_eau,
-		s.eutrophisation,
-		s.courant,
-		s.vegetation,
+		(CASE WHEN s.lisiere = 'Oui' THEN TRUE ELSE FALSE END) as lisiere,
+		s.hab_1,
+		s.hab_2,
 		-- visit informations
 		extract(year from v.date_min) as annee,
 		v.num_passage,
@@ -119,8 +109,6 @@ WITH source AS (
 		t.classe,
 		t.ordre,
 		t.famille,
-		ref_nomenclatures.get_nomenclature_label((oc.data->'id_nomenclature_ab')::integer)  as abondance,
-		ref_nomenclatures.get_nomenclature_label((oc.data->'id_nomenclature_ir')::integer)  as indice_repro,
 		(oc.data->'effectif')::integer as effectif,
 		(oc.data->'nb_male')::integer as nb_male,
 		(oc.data->'nb_femelle')::integer as nb_femelle,
