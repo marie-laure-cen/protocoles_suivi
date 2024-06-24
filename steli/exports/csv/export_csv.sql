@@ -64,8 +64,8 @@ WITH source AS (
 			(tvc.data->'num_passage')::integer as num_passage,
 			ref_nomenclatures.get_nomenclature_label((tvc.data->'id_nomenclature_tp')::integer) as temperature,
 			ref_nomenclatures.get_nomenclature_label((tvc.data->'id_nomenclature_cn')::integer) as couv_nuageuse,
-			ref_nomenclatures.get_nomenclature_label((tvc.data->'id_nomenclature_vt')::integer) as vent
-			(tvc.data->'source')::text as srce,
+			ref_nomenclatures.get_nomenclature_label((tvc.data->'id_nomenclature_vt')::integer) as vent,
+			(tvc.data->'source')::text as srce
         FROM gn_monitoring.t_base_visits tbv
 		LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
 	),
@@ -89,7 +89,7 @@ WITH source AS (
 		s.id_dataset,
 		s.dataset_name,
 		m.module_code as suivi,
-		s.responsable_suivi,
+		s.responsable,
 		-- transect information
 		s.transect,
 		s.altitude_min,
@@ -110,7 +110,8 @@ WITH source AS (
 		v.id_digitiser,
 		v.temperature,
 		v.couv_nuageuse,
-		v.vent,-- observation informations
+		v.vent,
+		-- observation informations
 		o.cd_nom,
 		t.cd_ref,
 		t.nom_complet,
@@ -119,11 +120,11 @@ WITH source AS (
 		t.classe,
 		t.ordre,
 		t.famille,
-		ref_nomenclatures.get_nomenclature_label((oc.data->'id_nomenclature_ab')::integer)  as abondance,
-		ref_nomenclatures.get_nomenclature_label((oc.data->'id_nomenclature_ir')::integer)  as indice_repro,
 		(oc.data->'effectif')::integer as effectif,
 		(oc.data->'nb_male')::integer as nb_male,
 		(oc.data->'nb_femelle')::integer as nb_femelle,
+		ref_nomenclatures.get_nomenclature_label((oc.data->'id_nomenclature_ab')::integer)  as abondance,
+		ref_nomenclatures.get_nomenclature_label((oc.data->'id_nomenclature_ir')::integer)  as indice_repro,
 		obs.observers,
 		oc.data->'determiner' as determiner,
 		-- nomenclature
@@ -153,6 +154,6 @@ WITH source AS (
 	JOIN taxonomie.taxref t USING (cd_nom)
 	JOIN source ON TRUE
 	JOIN observers obs USING (id_base_visit)
-	ORDER BY s.area_code, s.place_name , extract(year from v.date_min) as annee, v.num_passage, o.cd_nom
     WHERE m.module_code = :'module_code'
+	ORDER BY s.area_code, s.transect , extract(year from v.date_min), v.num_passage, o.cd_nom
     ;
