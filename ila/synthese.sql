@@ -134,7 +134,7 @@ WITH source AS (
 		o.comments AS comment_description,
 		-- additional data
 		s.habitat,
-		s.gestion,=
+		s.gestion,
 		v.temperature,
 		v.couv_nuageuse,
 		v.vent,

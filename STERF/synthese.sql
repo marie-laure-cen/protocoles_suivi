@@ -138,8 +138,6 @@ WITH source AS (
 		v.temperature,
 		v.couv_nuageuse,
 		v.vent,
-		ref_nomenclatures.get_nomenclature_label((oc.data->'id_nomenclature_ab')::integer)  as abondance,
-		ref_nomenclatures.get_nomenclature_label((oc.data->'id_nomenclature_ir')::integer)  as indice_repro,
 		(oc.data->'nb_male') as nb_male,
 		(oc.data->'nb_femelle') as nb_femelle,
 		-- geometry
