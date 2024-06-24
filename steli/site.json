@@ -78,7 +78,7 @@
       "keyLabel": "label_fr",
       "data_path": "values",
       "type_util": "nomenclature",
-      "multiple": false,
+      "multiple": true,
       "required": true
     },
     "id_nomenclature_ah":{
@@ -90,7 +90,7 @@
       "keyLabel": "label_fr",
       "data_path": "values",
       "type_util": "nomenclature",
-      "multiple": false,
+      "multiple": true,
       "required": true
     },
     "id_nomenclature_ma":{
@@ -102,7 +102,7 @@
       "keyLabel": "label_fr",
       "data_path": "values",
       "type_util": "nomenclature",
-      "multiple": false,
+      "multiple": true,
       "required": true
     },
     "id_nomenclature_ri":{
@@ -114,7 +114,7 @@
       "keyLabel": "label_fr",
       "data_path": "values",
       "type_util": "nomenclature",
-      "multiple": false,
+      "multiple": true,
       "required": true
     },
     "id_nomenclature_ve":{
@@ -126,7 +126,7 @@
       "keyLabel": "label_fr",
       "data_path": "values",
       "type_util": "nomenclature",
-      "multiple": false,
+      "multiple": true,
       "required": true
     },
     "id_nomenclature_eu":{
@@ -138,7 +138,7 @@
       "keyLabel": "label_fr",
       "data_path": "values",
       "type_util": "nomenclature",
-      "multiple": false,
+      "multiple": true,
       "required": true
     },
     "id_nomenclature_co":{
@@ -150,7 +150,7 @@
       "keyLabel": "label_fr",
       "data_path": "values",
       "type_util": "nomenclature",
-      "multiple": false,
+      "multiple": true,
       "required": true
     },
     "id_nomenclature_va":{
@@ -162,7 +162,7 @@
       "keyLabel": "label_fr",
       "data_path": "values",
       "type_util": "nomenclature",
-      "multiple": false,
+      "multiple": true,
       "required": true
     }
   }

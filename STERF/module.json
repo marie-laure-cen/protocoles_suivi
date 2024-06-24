@@ -1,10 +1,13 @@
 {
-  "module_code": "sterf",
-  "module_label": "Protocole STERF",
-  "module_desc":"Module pour le protocole de suivi STERF",
+  "module_code": "STELI",
+  "module_label":"STELI",
+  "module_desc":"Module pour le protocole de suivi des odonates STELI",
   "specific": {
     "b_draw_sites_group": {
       "hidden": false
     }
-  }
+  },
+  "export_csv": [
+    { "label": "Format standard CSV", "type":"csv" , "method": "standard" }
+  ]
 }

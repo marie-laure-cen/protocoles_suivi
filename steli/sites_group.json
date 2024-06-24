@@ -15,6 +15,7 @@
   ],
   "display_properties": [
     "sites_group_code",
+    "sites_group_name",
     "id_resp"
   ],
   "display_list": [
@@ -51,7 +52,7 @@
       "definition": "Personne responsable du suivi STELI sur le site CEN" 
     },
     "sites_group_name":{
-      "hidden":true,
+      "hidden":false,
       "required":false
     },
     "sites_group_description":{

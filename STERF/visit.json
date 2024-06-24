@@ -9,13 +9,11 @@
     "visit_date_max",
     "heure_debut",
     "heure_fin",
-    "meteo",
-    "pluviosite",
-    "vent",
-    "temperature",
+    "id_nomenclature_tp",
+    "id_nomenclature_cn",
+    "id_nomenclature_vt",
     "comments",
-    "id_nomenclature_tech_collect_campanule",
-    "id_nomenclature_grp_type"
+    "source"
   ],
   "display_list": [
     "num_passage",
@@ -23,47 +21,18 @@
     "observers",
     "nb_observations"
   ],
+  "keep": [
+    "num_passage",
+    "id_dataset",
+    "observers"
+  ],
   "specific": {
     "num_passage": {
       "type_widget": "number",
       "attribut_label": "Numéro de passage",
       "min" : 1,
-      "max": 8,
+      "max": 4,
       "required": true
-    },
-    "id_nomenclature_tech_collect_campanule": {
-      "type_widget": "datalist",
-      "attribut_label": "Technique de collecte",
-      "api": "nomenclatures/nomenclature/TECHNIQUE_OBS",
-      "definition": "Technique de collecte issue du référentiel CAMPANULE",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "required": true,
-      "default": {
-        "cd_nomenclature": "59"
-     }
-    },
-    "id_nomenclature_grp_type": {
-      "type_widget": "datalist",
-      "attribut_label": "Technique de collecte",
-      "api": "nomenclatures/nomenclature/TYP_GRP",
-      "definition": "Type de regroupement des observations",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "required": true,
-      "default": {
-        "cd_nomenclature": "132"
-     }
-    },
-    "dataset": {
-      "required":false,
-      "hidden": true
     },
     "visit_date_min":{
       "attribut_label": "Date de début du passage",
@@ -72,7 +41,8 @@
     "visit_date_max":{
       "attribut_label": "Date de fin du passage" ,  
       "definition": "Date de fin de passage (à remplir si différente de la date de début du passage)",
-      "required": false   
+      "required": false,
+      "hidden": false
     },
     "heure_debut": {
       "type_widget": "time",
@@ -84,36 +54,31 @@
       "attribut_label": "Heure de départ",
       "required": true
     },
-    "heure_ext": {
-      "type_widget": "time",
-      "attribut_label": "Heure d'extinction du piège",
-      "required": false
-    },
-    "meteo": {
+    "id_nomenclature_tp":{
       "type_widget": "datalist",
-      "attribut_label": "Météo",
-      "api": "nomenclatures/nomenclature/METEO",
+      "attribut_label": "Température",
+      "api": "nomenclatures/nomenclature/STELI_TP",
       "application": "GeoNature",
       "keyValue": "id_nomenclature",
       "keyLabel": "label_fr",
       "data_path": "values",
       "type_util": "nomenclature",
-      "definition": "Météo selon la nomenclature Pop Amphibien",
-      "required": false
+      "multiple": false,
+      "required": true
     },
-    "pluviosite": {
+    "id_nomenclature_cn":{
       "type_widget": "datalist",
-      "attribut_label": "Pluviosité",
-      "api": "nomenclatures/nomenclature/PLUVIOSITE",
+      "attribut_label": "Couverture nuageuse",
+      "api": "nomenclatures/nomenclature/STELI_CN",
       "application": "GeoNature",
       "keyValue": "id_nomenclature",
       "keyLabel": "label_fr",
       "data_path": "values",
       "type_util": "nomenclature",
-      "definition": "Pluviosité selon la nomenclature Pop Amphibien",
-      "required": false
+      "multiple": false,
+      "required": true
     },
-    "vent": {
+    "id_nomenclature_vt":{
       "type_widget": "datalist",
       "attribut_label": "Vent",
       "api": "nomenclatures/nomenclature/BEAUFORT",
@@ -122,16 +87,16 @@
       "keyLabel": "label_fr",
       "data_path": "values",
       "type_util": "nomenclature",
-      "definition": "Vent selon l'échelle de Beaufort",
-      "required": false
+      "multiple": false,
+      "required": true
     },
-    "temperature":{
-      "type_widget": "number",
-      "attribut_label": "Température",
-      "min" : 10,
-      "max": 40,
-      "definition": "Température en degrés Celsius",
-      "required": false
+    "source":{
+      "type_widget": "select",
+      "required": true,
+      "attribut_label": "Source de la donnée",
+      "values": ["Intranet SER", "GeoNature", "Qfield/Qgis"],
+      "value": "GeoNature",
+      "hidden":false
     }
   }
 }

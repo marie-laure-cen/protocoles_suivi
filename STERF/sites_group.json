@@ -1,11 +1,11 @@
 {
   "genre":"M",
-  "label": "Site",
-  "label_list": "Site de suivi",
-  "map_label_field_name": "base_site_code",
+  "label": "Site suivi",
+  "label_list": "Site suivi",
+  "map_label_field_name": "base_site_name",
   "b_draw_sites_group": false,
   "sorts": [
-    {"prop": "sites_group_code"}
+    {"prop": "sites_group_name"}
   ],
   "export_pdf": [
     {
@@ -15,36 +15,55 @@
   ],
   "display_properties": [
     "sites_group_code",
-    "site_group_description"
+    "sites_group_name",
+    "id_resp"
   ],
   "display_list": [
     "sites_group_code",
+    "sites_group_name",
     "nb_sites"
   ],
   "specific": {
     "sites_group_code": {
       "type_widget": "datalist",
-      "attribut_label": "Site CEN rattaché aux suivis",
-      "hidden": false,
-      "required": true,
-      "keyValue": "area_code",
-      "keyLabel": "area_name",
-      "type_util": "areas",
-      "api": "/geo/areas",
-      "filters": {
-        "id_type": [12,34]
-      },
+      "attribut_label": "Jeu de données",
+      "type_util": "dataset",
+      "api": "meta/datasets",
       "application": "GeoNature",
-      "definition": "Nom du site CEN dans lequelle sont localisées les suivis" 
+      "keyValue": "id_dataset",
+      "keyLabel": "dataset_name",
+      "params": {
+        "orderby": "dataset_shortname",
+        "module_code": "__MODULE.MODULE_CODE"
+      },
+      "required": true,
+      "hidden": false
     },
-    "site_group_name":{
-      "required": false,
+    "id_resp": {
+      "type_widget": "datalist",
+      "attribut_label": "Responsable STELI du site",
+      "api": "users/menu/__MODULE.ID_LIST_OBSERVER",
+      "application": "GeoNature",
+      "keyValue": "id_role",
+      "keyLabel": "nom_complet",
+      "type_util": "user",
+      "multiple": false,
+      "required": true,
+      "definition": "Personne responsable du suivi STELI sur le site CEN" 
+    },
+    "sites_group_name":{
+      "hidden":false,
+      "required":false
+    },
+    "sites_group_description":{
       "hidden": true
     },
-    "site_group_description":{
-      "attribut_label": "Commentaires"
+    "nb_sites": {
+      "attribut_label": "Nb. transects",
+      "hidden": false
+    },
+    "nb_visits": {
+      "attribut_label": "Nb. passages"
     }
-  },
-  "change": [
-  ]
+  }
 }
