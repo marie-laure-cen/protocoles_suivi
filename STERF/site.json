@@ -17,8 +17,7 @@
     "base_site_description",
     "lisiere",
     "hab_1",
-    "hab_2",
-    "habitat"
+    "hab_2"
  ],
   "display_list": [
     "base_site_code",
@@ -77,20 +76,15 @@
       "attribut_label": "Habitat principal",
       "type_widget": "text",
       "required": true,
-      "hidden": false
+      "hidden": false,
+      "definition": "Habitat du protocole STERF",
+      "link_definition":"https://www.vigienature.fr/sites/vigienature/files/atoms/files/sterf_classification_habitats.pdf"
     },
     "hab_2": {
       "attribut_label": "Habitat secondaire",
       "type_widget": "text",
       "hidden": "({value}) => value.lisiere != 'Oui'",
       "required": "({value}) => value.lisiere != 'Non'"
-    },
-    "habitat": {
-      "attribut_label": "Référentiel habitat",
-      "type_widget": "html",
-      "value": "https://www.vigienature.fr/sites/vigienature/files/atoms/files/sterf_classification_habitats.pdf",
-      "required": false,
-      "hidden": false
     }
   }
 }

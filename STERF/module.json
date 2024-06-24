@@ -1,5 +1,5 @@
 {
-  "module_code": "STERF",
+  "module_code": "sterf",
   "module_label":"STERF",
   "module_desc":"Module pour le protocole de suivi des rhopalocères STERF",
   "specific": {
