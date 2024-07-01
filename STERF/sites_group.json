@@ -16,6 +16,7 @@
   "display_properties": [
     "sites_group_code",
     "sites_group_name",
+    "id_dataset",
     "id_resp"
   ],
   "display_list": [
@@ -25,6 +26,21 @@
   ],
   "specific": {
     "sites_group_code": {
+      "type_widget": "datalist",
+      "attribut_label": "Jeu de données",
+      "type_util": "dataset",
+      "api": "meta/datasets",
+      "application": "GeoNature",
+      "keyValue": "id_dataset",
+      "keyLabel": "dataset_name",
+      "params": {
+        "orderby": "dataset_shortname",
+        "module_code": "__MODULE.MODULE_CODE"
+      },
+      "required": true,
+      "hidden": false
+    },
+    "id_dataset": {
       "type_widget": "datalist",
       "attribut_label": "Jeu de données",
       "type_util": "dataset",

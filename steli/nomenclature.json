@@ -131,9 +131,23 @@
     {
       "type": "STELI_AB",
       "cd_nomenclature": "STELI_AB04",
-      "mnemonique": ">50",
-      "label_default": "Plus de 50 individus",
-      "definition_default": "Plus de 50 individus"
+      "mnemonique": "51 à 100",
+      "label_default": "De 51 à 100 individus",
+      "definition_default": "De 51 à 100 individus"
+    },
+    {
+      "type": "STELI_AB",
+      "cd_nomenclature": "STELI_AB05",
+      "mnemonique": "100 à 1000",
+      "label_default": "De 100 à 1000 individus",
+      "definition_default": "De 100 à 1000 individus"
+    },
+    {
+      "type": "STELI_AB",
+      "cd_nomenclature": "STELI_AB06",
+      "mnemonique": ">1000",
+      "label_default": "Plus de 1000 individus",
+      "definition_default": "Plus de 1000 individus"
     },
     {
       "type": "STELI_IR",
@@ -176,7 +190,15 @@
       "mnemonique": "Présence de larves",
       "label_default": "Présence de larves",
       "definition_default": "Présence de larves"
-    },{
+    },
+    {
+      "type": "STELI_IR",
+      "cd_nomenclature": "STELI_Im",
+      "mnemonique": "Présence d'immatures",
+      "label_default": "Présence d'immatures",
+      "definition_default": "Présence d'immatures"
+    },
+    {
       "type": "SUIVI_TP",
       "cd_nomenclature": "TP01",
       "mnemonique": "13-15°C",

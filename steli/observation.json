@@ -8,6 +8,7 @@
     "nb_male",
     "nb_femelle",
     "id_nomenclature_ir",
+    "autochtonie",
     "determiner",
     "comments",
     "id_nomenclature_obs_technique",
@@ -40,7 +41,7 @@
     },
     "cd_nom": {
       "type_widget": "taxonomy",
-      "attribut_label": "Espèce observée",
+      "attribut_label": "Espèce",
       "multiple": false,
       "id_list": "__MODULE.ID_LIST_TAXONOMY",
       "application": "TaxHub",
@@ -61,24 +62,31 @@
     },
     "effectif": {
       "type_widget": "number",
-      "attribut_label": "Effectif total",
+      "attribut_label": "Effectif",
       "min": 1,
       "required": true,
       "definition": "Effectif total"
     },
     "nb_male": {
       "type_widget": "number",
-      "attribut_label": "Effectif de mâle(s)",
+      "attribut_label": "Mâle(s)",
       "min": 1,
       "required": false,
-      "definition": "Nombre de mâle dans l'effectif total"
+      "definition": "Nombre de mâles dans l'effectif total"
     },
     "nb_femelle": {
       "type_widget": "number",
-      "attribut_label": "Effectif de femelle(s)",
+      "attribut_label": "Femelle(s)",
       "min": 1,
       "required": false,
-      "definition": "Nombre de femelle dans l'effectif total"
+      "definition": "Nombre de femelles dans l'effectif total"
+    },
+    "autochtonie":{
+      "type_widget": "select",
+      "attribut_label": "Autochtonie",
+      "definition": "Statut d'autochtonie",
+      "required" : true,
+      "values": ["Certaine", "Probable", "Possible", "Improbable", "Inconnue"]
     },
     "id_nomenclature_ir":{
       "type_widget": "datalist",

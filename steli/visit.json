@@ -4,6 +4,7 @@
   "label_list": "Passages",
   "display_properties": [
     "observers",
+    "periode",
     "num_passage",
     "visit_date_min",
     "visit_date_max",
@@ -16,30 +17,38 @@
     "source"
   ],
   "display_list": [
+    "periode",
     "num_passage",
     "visit_date_min",
     "observers",
     "nb_observations"
   ],
   "keep": [
-    "num_passage",
+    "periode",
     "id_dataset",
     "observers"
   ],
   "specific": {
+    "periode": {
+      "type_widget": "number",
+      "attribut_label": "Période",
+      "min" : 1,
+      "max": 2,
+      "required": true
+    },
     "num_passage": {
       "type_widget": "number",
-      "attribut_label": "Numéro de passage",
+      "attribut_label": "Passage",
       "min" : 1,
       "max": 4,
       "required": true
     },
     "visit_date_min":{
-      "attribut_label": "Date de début du passage",
+      "attribut_label": "Date de début",
       "required": true
     },
     "visit_date_max":{
-      "attribut_label": "Date de fin du passage" ,  
+      "attribut_label": "Date de fin" ,  
       "definition": "Date de fin de passage (à remplir si différente de la date de début du passage)",
       "required": false,
       "hidden": false
