@@ -1,23 +1,15 @@
 {
   "genre":"M",
-  "label": "Site suivi",
-  "label_list": "Site suivi",
-  "map_label_field_name": "base_site_name",
+  "label": "Site",
+  "label_list": "Site",
+  "map_label_field_name": "base_site_code",
   "b_draw_sites_group": false,
   "sorts": [
-    {"prop": "sites_group_name"}
-  ],
-  "export_pdf": [
-    {
-      "template": "fiche_aire.html",
-      "label": "Export PDF"
-    }
+    {"prop": "sites_group_code"}
   ],
   "display_properties": [
     "sites_group_code",
-    "sites_group_name",
-    "id_dataset",
-    "id_resp"
+    "sites_group_name"
   ],
   "display_list": [
     "sites_group_code",
@@ -25,61 +17,15 @@
     "nb_sites"
   ],
   "specific": {
-    "sites_group_code": {
-      "type_widget": "datalist",
-      "attribut_label": "Jeu de données",
-      "type_util": "dataset",
-      "api": "meta/datasets",
-      "application": "GeoNature",
-      "keyValue": "id_dataset",
-      "keyLabel": "dataset_name",
-      "params": {
-        "orderby": "dataset_shortname",
-        "module_code": "__MODULE.MODULE_CODE"
-      },
-      "required": true,
-      "hidden": false
-    },
-    "id_dataset": {
-      "type_widget": "datalist",
-      "attribut_label": "Jeu de données",
-      "type_util": "dataset",
-      "api": "meta/datasets",
-      "application": "GeoNature",
-      "keyValue": "id_dataset",
-      "keyLabel": "dataset_name",
-      "params": {
-        "orderby": "dataset_shortname",
-        "module_code": "__MODULE.MODULE_CODE"
-      },
-      "required": true,
-      "hidden": false
-    },
-    "id_resp": {
-      "type_widget": "datalist",
-      "attribut_label": "Responsable STERF du site",
-      "api": "users/menu/__MODULE.ID_LIST_OBSERVER",
-      "application": "GeoNature",
-      "keyValue": "id_role",
-      "keyLabel": "nom_complet",
-      "type_util": "user",
-      "multiple": false,
-      "required": true,
-      "definition": "Personne responsable du suivi STELI sur le site CEN" 
-    },
-    "sites_group_name":{
-      "hidden":false,
-      "required":false
-    },
     "sites_group_description":{
       "hidden": true
     },
     "nb_sites": {
-      "attribut_label": "Nb. transects",
+      "attribut_label": "Nb. piézomètres",
       "hidden": false
     },
     "nb_visits": {
-      "attribut_label": "Nb. passages"
+      "attribut_label": "Nb. sondages"
     }
   }
 }

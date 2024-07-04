@@ -1,41 +1,38 @@
 {
   "genre":"M",
-  "label": "Transect",
-  "label_list": "Transects",
-  "geometry_type": "LineString",
-  "map_label_field_name": "base_site_code",
-  "export_pdf": [
-      { "template": "fiche_transect.html", "label": "Export PDF" }
-  ],
+  "label": "Piézomètre",
+  "label_list": "Piézomètres",
+  "geometry_type": "Point",
+  "map_label_field_name": "base_site_name",
   "sorts": [
-    {"prop": "base_site_name", "dir": "asc"}
+    {"prop": "base_site_code", "dir": "asc"}
   ],
   "display_properties": [
     "id_sites_group",
     "base_site_code",
     "base_site_name",
-    "base_site_description",
-    "lisiere",
-    "hab_1",
-    "hab_2"
+    "etat",
+    "modele",
+    "protocole",
+    "profondeur",
+    "base_site_description"
  ],
   "display_list": [
-    "base_site_code",
     "base_site_name",
+    "etat",
     "altitude_min",
-    "altitude_max",
-    "first_use_date",
+    "profondeur",
     "nb_visits"
   ],
   "specific": {
     "nb_visits":{
-      "attribut_label": "Nb. passages"
+      "attribut_label": "Nb. sondages"
     },
     "base_site_code":{
-      "attribut_label": "Code du transect"
+      "attribut_label": "Code du piézomètre"
     },
     "base_site_name":{
-      "attribut_label": "Nom du transect"
+      "attribut_label": "Nom du piézomètre"
     },
     "base_site_description":{
       "attribut_label": "Commentaires"
@@ -45,16 +42,11 @@
       "attribut_label": "Site CEN du suivi",
       "type_util": "sites_group",
       "keyValue": "id_sites_group",
-      "keyLabel": "sites_group_name",
+      "keyLabel": "sites_group_code",
       "api": "__MONITORINGS_PATH/list/__MODULE.MODULE_CODE/sites_group?id_module=__MODULE.ID_MODULE",
       "application": "GeoNature",
       "required": true,
-      "hidden": false,
-      "definition": "Liste des sites du CEN afférents au suivi"
-    },
-    "id_inventor": {
-      "hidden " :false,
-      "required": false
+      "hidden": false
     },
     "id_nomenclature_type_site": {
       "attribut_label": "Type site",
@@ -62,29 +54,35 @@
       "code_nomenclature_type": "TYPE_SITE",
       "value": {
           "code_nomenclature_type": "TYPE_SITE",
-          "cd_nomenclature": "STELI"
+          "cd_nomenclature": "PIEZO"
       },
       "hidden": true
     },
-    "lisiere": {
+    "etat": {
       "type_widget": "select",
       "required": true,
-      "attribut_label": "Transect de lisière",
-      "values": ["Oui", "Non"]
+      "attribut_label": "Etat du piézomètre",
+      "values": ["Fonctionnel", "Non fonctionnel", "Pressenti", "Inconnu"],
+      "value": "Inconnu"
     },
-    "hab_1": {
-      "attribut_label": "Habitat principal",
+    "modele":{
       "type_widget": "text",
-      "required": true,
-      "hidden": false,
-      "definition": "Habitat du protocole STERF",
-      "link_definition":"https://www.vigienature.fr/sites/vigienature/files/atoms/files/sterf_classification_habitats.pdf"
+      "attribut_label": "Modèle",
+      "required": false
     },
-    "hab_2": {
-      "attribut_label": "Habitat secondaire",
+    "protocole":{
       "type_widget": "text",
-      "hidden": "({value}) => value.lisiere != 'Oui'",
-      "required": "({value}) => value.lisiere != 'Non'"
+      "attribut_label": "Protocole",
+      "required": false
+    },
+    "profondeur":{
+      "type_widget": "number",
+      "attribut_label": "Profondeur",
+      "definition": "Pronfondeur du piézomètre en m",
+      "required": false
+    },
+    "altitude_min": {
+      "attribut_label": "Altitude"
     }
   }
 }

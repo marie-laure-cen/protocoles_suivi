@@ -1,102 +1,33 @@
 {
   "genre":"M",
-  "label": "Passage",
-  "label_list": "Passages",
+  "label": "Sondage",
+  "label_list": "Sondage",
   "display_properties": [
     "observers",
-    "num_passage",
+    "num_sondage",
+    "observers",
     "visit_date_min",
-    "visit_date_max",
-    "heure_debut",
-    "heure_fin",
-    "id_nomenclature_tp",
-    "id_nomenclature_cn",
-    "id_nomenclature_vt",
-    "comments",
-    "source"
+    "comments"
   ],
   "display_list": [
-    "num_passage",
+    "num_sondage",
     "visit_date_min",
     "observers",
     "nb_observations"
   ],
   "keep": [
-    "num_passage",
-    "id_dataset",
     "observers"
   ],
   "specific": {
-    "num_passage": {
+    "num_sondage": {
       "type_widget": "number",
-      "attribut_label": "Numéro de passage",
+      "attribut_label": "Numéro de sondage",
       "min" : 1,
-      "max": 4,
       "required": true
     },
     "visit_date_min":{
-      "attribut_label": "Date de début du passage",
+      "attribut_label": "Date du sondage",
       "required": true
-    },
-    "visit_date_max":{
-      "attribut_label": "Date de fin du passage" ,  
-      "definition": "Date de fin de passage (à remplir si différente de la date de début du passage)",
-      "required": false,
-      "hidden": false
-    },
-    "heure_debut": {
-      "type_widget": "time",
-      "attribut_label": "Heure d'arrivée",
-      "required": true
-    },
-    "heure_fin": {
-      "type_widget": "time",
-      "attribut_label": "Heure de départ",
-      "required": true
-    },
-    "id_nomenclature_tp":{
-      "type_widget": "datalist",
-      "attribut_label": "Température",
-      "api": "nomenclatures/nomenclature/SUIVI_TP",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "multiple": false,
-      "required": true
-    },
-    "id_nomenclature_cn":{
-      "type_widget": "datalist",
-      "attribut_label": "Couverture nuageuse",
-      "api": "nomenclatures/nomenclature/SUIVI_CN",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "multiple": false,
-      "required": true
-    },
-    "id_nomenclature_vt":{
-      "type_widget": "datalist",
-      "attribut_label": "Vent",
-      "api": "nomenclatures/nomenclature/SUIVI_VT",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "multiple": false,
-      "required": true
-    },
-    "source":{
-      "type_widget": "select",
-      "required": true,
-      "attribut_label": "Source de la donnée",
-      "values": ["Intranet SER", "GeoNature", "Qfield/Qgis"],
-      "value": "GeoNature",
-      "hidden":false
     }
   }
 }
