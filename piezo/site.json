@@ -1,0 +1,90 @@
+{
+  "genre":"M",
+  "label": "Transect",
+  "label_list": "Transects",
+  "geometry_type": "LineString",
+  "map_label_field_name": "base_site_code",
+  "export_pdf": [
+      { "template": "fiche_transect.html", "label": "Export PDF" }
+  ],
+  "sorts": [
+    {"prop": "base_site_name", "dir": "asc"}
+  ],
+  "display_properties": [
+    "id_sites_group",
+    "base_site_code",
+    "base_site_name",
+    "base_site_description",
+    "lisiere",
+    "hab_1",
+    "hab_2"
+ ],
+  "display_list": [
+    "base_site_code",
+    "base_site_name",
+    "altitude_min",
+    "altitude_max",
+    "first_use_date",
+    "nb_visits"
+  ],
+  "specific": {
+    "nb_visits":{
+      "attribut_label": "Nb. passages"
+    },
+    "base_site_code":{
+      "attribut_label": "Code du transect"
+    },
+    "base_site_name":{
+      "attribut_label": "Nom du transect"
+    },
+    "base_site_description":{
+      "attribut_label": "Commentaires"
+    },
+    "id_sites_group": {
+      "type_widget": "datalist",
+      "attribut_label": "Site CEN du suivi",
+      "type_util": "sites_group",
+      "keyValue": "id_sites_group",
+      "keyLabel": "sites_group_name",
+      "api": "__MONITORINGS_PATH/list/__MODULE.MODULE_CODE/sites_group?id_module=__MODULE.ID_MODULE",
+      "application": "GeoNature",
+      "required": true,
+      "hidden": false,
+      "definition": "Liste des sites du CEN afférents au suivi"
+    },
+    "id_inventor": {
+      "hidden " :false,
+      "required": false
+    },
+    "id_nomenclature_type_site": {
+      "attribut_label": "Type site",
+      "type_util": "nomenclature",
+      "code_nomenclature_type": "TYPE_SITE",
+      "value": {
+          "code_nomenclature_type": "TYPE_SITE",
+          "cd_nomenclature": "STELI"
+      },
+      "hidden": true
+    },
+    "lisiere": {
+      "type_widget": "select",
+      "required": true,
+      "attribut_label": "Transect de lisière",
+      "values": ["Oui", "Non"]
+    },
+    "hab_1": {
+      "attribut_label": "Habitat principal",
+      "type_widget": "text",
+      "required": true,
+      "hidden": false,
+      "definition": "Habitat du protocole STERF",
+      "link_definition":"https://www.vigienature.fr/sites/vigienature/files/atoms/files/sterf_classification_habitats.pdf"
+    },
+    "hab_2": {
+      "attribut_label": "Habitat secondaire",
+      "type_widget": "text",
+      "hidden": "({value}) => value.lisiere != 'Oui'",
+      "required": "({value}) => value.lisiere != 'Non'"
+    }
+  }
+}
