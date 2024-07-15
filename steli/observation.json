@@ -14,7 +14,8 @@
     "id_nomenclature_obs_technique",
     "id_nomenclature_determination_method",
     "id_nomenclature_type_count",
-    "id_nomenclature_obj_count"
+    "id_nomenclature_obj_count",
+    "uuid_gretia"
   ],
   "display_list": [
     "cd_nom"
@@ -154,6 +155,12 @@
       "default": {
         "cd_nomenclature": "IND"
       }
+    },
+    "uuid_gretia":{
+      "type_widget": "text",
+      "attribut_label" : "uuid_gretia",
+      "required" : false,
+      "hidden": false
     }
   }
 }

@@ -78,11 +78,12 @@
     "profondeur":{
       "type_widget": "number",
       "attribut_label": "Profondeur",
-      "definition": "Pronfondeur du piézomètre en m",
+      "definition": "Profondeur du piézomètre en m",
       "required": false
     },
     "altitude_min": {
-      "attribut_label": "Altitude"
+      "attribut_label": "Altitude",
+      "definition": "Altitude de pose du piézomètre en m"
     }
   }
 }
