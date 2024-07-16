@@ -73,6 +73,7 @@
       "data_path": "values",
       "type_util": "nomenclature",
       "required": true,
+      "hidden" : true,
       "default": {
         "cd_nomenclature": "0"
       },
@@ -103,12 +104,13 @@
     "id_echantillon":{
       "type_widget": "text",
       "attribut_label": "Identifiant de l'échantillon collecté",
-      "hidden": false,
-      "required": false
+      "hidden": "({value}) => value.conservation != 'Oui'",
+      "required": "({value}) => value.conservation != 'Oui'"
     },
     "nb_ind_echant":{
       "type_widget": "number",
-      "required": false,
+      "hidden": "({value}) => value.conservation != 'Oui'",
+      "required": "({value}) => value.conservation != 'Oui'",
       "attribut_label": "Nombre d'individus collectés",
       "min": 0,
       "value":0
@@ -117,7 +119,7 @@
       "type_widget": "text",
       "attribut_label" : "uuid_gretia",
       "required" : false,
-      "hidden": false
+      "hidden": true
     },
     "id_nomenclature_life_stage": {
       "type_widget": "datalist",
