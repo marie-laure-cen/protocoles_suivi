@@ -34,3 +34,25 @@ FROM gn_monitoring.t_base_visits tbv
 LEFT JOIN site USING (id_base_site)
 WHERE tbv.id_module = 27
 ORDER BY tbv.id_base_site, tbv.visit_date_min
+;
+
+
+DROP FUNCTION IF EXISTS utilisateurs.get_name_by_id_role(integer);
+
+CREATE OR REPLACE FUNCTION utilisateurs.get_name_by_id_role(
+	roleId  integer )
+    RETURNS character varying
+    LANGUAGE 'plpgsql'
+    COST 100
+    IMMUTABLE PARALLEL UNSAFE
+AS $BODY$
+        BEGIN
+            RETURN (
+                SELECT nom_role || ' ' || prenom_role
+                FROM utilisateurs.t_roles
+                WHERE id_role = roleId -- nom_role = roleName
+            );
+        END;
+    
+$BODY$
+;

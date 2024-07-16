@@ -23,7 +23,7 @@ DROP VIEW IF EXISTS gn_monitoring.v_synthese_:module_code;
 
 CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 	WITH 
-	source AS (
+	srce AS (
 		SELECT
 			id_source
 		FROM gn_synthese.t_sources
@@ -54,8 +54,6 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 			comments,
 			id_nomenclature_tech_collect_campanule,
 			id_nomenclature_grp_typ
-			meta_create_date,
-			meta_update_date
 		FROM gn_monitoring.t_base_visits
 	), 
 	observers AS (
@@ -87,7 +85,6 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 		END AS id_nomenclature_exist_proof, -- si collecte échantillon oui sinon non
 		ref_nomenclatures.get_id_nomenclature('STATUT_VALID', '1' ) AS id_nomenclature_valid_status, -- certain / très probable
 		(oc.data->'id_nomenclature_life_stage')::integer as id_nomenclature_life_stage, -- STADE_VIE
-		(oc.data->'id_nomenclature_sex'),
 		(oc.data->'id_nomenclature_sex')::integer as id_nomenclature_sex, -- SEXE
  		ref_nomenclatures.get_id_nomenclature('OBJ_DENBR', 'IND' ) AS id_nomenclature_obj_count, -- l'objet du dénombrement est le nombre d'individus
  		ref_nomenclatures.get_id_nomenclature('TYP_DENBR', 'Co') AS id_nomenclature_type_count, -- les individuas sont comptés
@@ -119,8 +116,8 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 		v.id_digitiser,
 		(oc.data->'id_nomenclature_determination_method')::integer AS id_nomenclature_determination_method,
 		--meta_validation_date
-		v.meta_create_date,
-		v.meta_update_date,
+		--v.meta_create_date,
+		--v.meta_update_date,
 		--last_action,
 		v.id_module,
 		v.comments AS comment_context,
