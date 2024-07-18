@@ -20,6 +20,24 @@ CREATE VIEW gn_monitoring.v_qgis_syrhetheteroceres AS
     SELECT
         tbv.id_base_visit,
 		(tvc.data -> 'num_passage' )::text as num_passage,
+		(tvc.data -> 'heure_debut' ) as heure_debut,
+		(tvc.data -> 'heure_fin' ) as heure_fin,
+		(tvc.data -> 'heure_ext' ) as heure_extinction,
+		CASE WHEN (tvc.data->'meteo')::text = 'null' OR (tvc.data->'meteo')::text IS NULL THEN NULL
+		ELSE ref_nomenclatures.get_nomenclature_label(
+			(tvc.data->'meteo')::integer
+		) 
+		END as meteo, 
+		CASE WHEN (tvc.data->'pluviosite')::text = 'null' OR (tvc.data->'pluviosite')::text IS NULL THEN NULL
+		ELSE ref_nomenclatures.get_nomenclature_label(
+			(tvc.data->'pluviosite')::integer
+		)
+		END as pluviosite, 
+		CASE WHEN (tvc.data->'vent')::text = 'null' OR (tvc.data->'vent')::text IS NULL THEN NULL
+		ELSE ref_nomenclatures.get_nomenclature_label(
+			(tvc.data->'vent')::integer
+		) END as vent,
+		(tvc.data -> 'temperature' ) as temperature,
         tbv.uuid_base_visit,
         tbv.id_module,
         tbv.id_base_site,
@@ -60,6 +78,13 @@ CREATE VIEW gn_monitoring.v_qgis_syrhetheteroceres AS
 		utilisateurs.get_name_by_id_role(v.id_digitiser) as numerisateur,
 		v.date_min,
 		v.date_max,
+		v.heure_debut,
+		v.heure_fin,
+		v.heure_extinction,
+		v.meteo,
+		v.pluviosite,
+		v.vent,
+		v.temperature,
         'Stationnel' AS geo_object_nature,
 		'Passage' AS grp_typ,
 		'Piégeage lumineux automatique à fluorescence' AS tech_collect_campanule,
@@ -71,6 +96,9 @@ CREATE VIEW gn_monitoring.v_qgis_syrhetheteroceres AS
 		o.cd_nom,
 		t.nom_complet AS nom_cite,
 		t.nom_vern,
+		ref_nomenclatures.get_nomenclature_label(
+			(oc.data->'id_nomenclature_loca_obs')::integer
+		) as loca_obs, 
  		'Individu' AS obj_count, -- l'objet du dénombrement est le nombre d'individus
  		'Compté' AS type_count, -- les individus sont comptés
  		'Présent' AS observation_status, -- le taxon est présent
@@ -121,6 +149,7 @@ CREATE VIEW gn_monitoring.v_qgis_syrhetheteroceres AS
 	WHERE m.module_code = 'SYRHETheteroceres'
 	ORDER BY s.sites_group_name, s.base_site_name, v.num_passage, o.id_observation
 ;
+
 
 GRANT USAGE ON schema gn_monitoring to geonat_visu ;
 GRANT SELECT ON table gn_monitoring.v_qgis_syrhetheteroceres to geonat_visu;

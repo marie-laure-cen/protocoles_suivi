@@ -8,7 +8,7 @@ to_json(
             WHEN regexp_match( lower( "comment_occurrence" ) , 'dans') THEN 854
             WHEN regexp_match( lower( "comment_occurrence" ) , 'autour') THEN 853
             WHEN regexp_match( lower( "comment_occurrence" ) , 'hors') THEN 853
-            WHEN regexp_match( lower( "comment_occurrence" ) , 'sous boite') THEN 857
+            WHEN regexp_match( lower( "comment_occurrence" ) , 'sous bo') THEN 857
             WHEN regexp_match( lower( "comment_occurrence" ) , 'sur bo') THEN 857
             WHEN regexp_match( lower( "comment_occurrence" ) , 'sur dr') THEN 858
             WHEN regexp_match( lower( "comment_occurrence" ) , 'sur pi') THEN 859
@@ -25,3 +25,9 @@ to_json(
         'conservation', 'Non'
     )
 )
+
+
+SELECT
+	id_observation
+FROM gn_monitoring.t_observations
+WHERE id_observation >= 3502

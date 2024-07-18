@@ -56,3 +56,25 @@ AS $BODY$
     
 $BODY$
 ;
+
+-- STELI
+SELECT 
+	DISTINCT o.comments :: jsonb -> 'Rive'
+FROM gn_monitoring.t_observation_complements toc
+LEFT JOIN gn_monitoring.t_observations o USING (id_observation)
+LEFT JOIN gn_monitoring.t_base_visits v USING (id_base_visit)
+WHERE id_module = 30
+;
+SELECT * FROM ref_nomenclatures.v_0_nomen_active
+WHERE mnemo_type LIKE '%STELI%'
+ORDER BY mnemo_type ASC, cd_nomen ASC 
+;
+
+SELECT
+ 	(o.comments::jsonb -> 'Rive') ::text,
+	ref_nomenclatures.get_id_nomenclature_by_mnemonique('STELI_RI', (o.comments::jsonb -> 'Rive') ::text)
+FROM gn_monitoring.t_observation_complements toc
+LEFT JOIN gn_monitoring.t_observations o USING (id_observation)
+LEFT JOIN gn_monitoring.t_base_visits v USING (id_base_visit)
+WHERE id_module = 30
+;
