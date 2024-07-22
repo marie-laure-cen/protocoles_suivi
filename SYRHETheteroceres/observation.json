@@ -105,12 +105,12 @@
       "type_widget": "text",
       "attribut_label": "Identifiant de l'échantillon collecté",
       "hidden": "({value}) => value.conservation != 'Oui'",
-      "required": "({value}) => value.conservation != 'Oui'"
+      "required": "({value}) => value.conservation == 'Oui'"
     },
     "nb_ind_echant":{
       "type_widget": "number",
       "hidden": "({value}) => value.conservation != 'Oui'",
-      "required": "({value}) => value.conservation != 'Oui'",
+      "required": "({value}) => value.conservation == 'Oui'",
       "attribut_label": "Nombre d'individus collectés",
       "min": 0,
       "value":0
