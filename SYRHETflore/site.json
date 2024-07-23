@@ -1,0 +1,87 @@
+{
+  "genre":"M",
+  "label": "piège",
+  "label_list": "Pièges",
+  "geometry_type": "Point",
+  "map_label_field_name": "base_site_name",
+  "export_pdf": [
+      { "template": "fiche_aire.html", "label": "Export PDF" }
+  ],
+  "sorts": [
+    {"prop": "base_site_name", "dir": "asc"}
+  ],
+  "display_properties": [
+    "base_site_name",
+    "id_sites_group",
+    "id_nomenclature_tech_collect_campanule",
+    "base_site_description",
+    "id_nomenclature_loca_piege"
+ ],
+  "display_list": [
+    "base_site_name",
+    "first_use_date",
+    "nb_visits"
+  ],
+  "specific": {
+    "base_site_name":{
+      "attribut_label": "Nom/code du piège",
+      "definition": "Commencer la numérotation par les pièges proches du lit mineur"
+    },
+    "base_site_description":{
+      "attribut_label": "Commentaires"
+    },
+    "base_site_code": {
+      "hidden": true,
+      "required": false
+    },    
+    "id_inventor": {
+      "hidden " :false,
+      "required": false
+    },
+    "id_sites_group": {
+      "type_widget": "datalist",
+      "attribut_label": "Groupe de site",
+      "type_util": "sites_group",
+      "keyValue": "id_sites_group",
+      "keyLabel": "sites_group_name",
+      "api": "__MONITORINGS_PATH/list/__MODULE.MODULE_CODE/sites_group?id_module=__MODULE.ID_MODULE",
+      "application": "GeoNature",
+      "required": false,
+      "hidden": false,
+      "definition": "Liste des zones de prospections définies pour le protocole."
+    },
+    "id_nomenclature_loca_piege": {
+      "type_widget": "nomenclature",
+      "attribut_label": "Localisation du piège",
+      "definition": "Localisation du piège par rapport au cours d'eau",
+      "code_nomenclature_type": "LOCA_PIEGE",
+      "required": true,
+      "type_util": "nomenclature",
+      "default": {"cd_nomenclature": "03"}
+    },
+    "id_nomenclature_type_site": {
+      "attribut_label": "Type site",
+      "type_util": "nomenclature",
+      "value": {
+          "code_nomenclature_type": "TYPE_SITE",
+          "cd_nomenclature": "SYRHET_Het"
+      },
+      "hidden": true
+    },
+    "id_nomenclature_tech_collect_campanule": {
+      "type_widget": "datalist",
+      "attribut_label": "Technique de collecte",
+      "api": "nomenclatures/nomenclature/TECHNIQUE_OBS",
+      "definition": "Technique de collecte issue du référentiel CAMPANULE",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": true,
+      "default": {
+        "cd_nomenclature": "94"
+      }
+    }
+  }
+}

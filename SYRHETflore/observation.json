@@ -1,0 +1,162 @@
+{
+  "description_field_name":"cd_nom",
+  "genre":"F",
+  "display_properties": [
+    "determiner",
+    "cd_nom",
+    "effectif",
+    "id_nomenclature_loca_obs",
+    "id_nomenclature_obs_technique",
+    "id_nomenclature_determination_method",
+    "conservation",
+    "nb_ind_echant",
+    "id_echantillon",
+    "id_nomenclature_life_stage",
+    "id_nomenclature_sex",
+    "comments",
+    "uuid_gretia"
+  ],
+  "display_list": [
+    "cd_nom",
+    "id_nomenclature_loca_obs"
+  ],
+  "keep": [
+    "id_nomenclature_loca_obs",
+    "id_nomenclature_obs_technique",
+    "id_nomenclature_determination_method",
+    "id_nomenclature_life_stage",
+    "determiner",
+    "visit_time"
+  ],
+  "specific": {
+    "determiner":{
+      "type_widget": "datalist",
+      "attribut_label": "Déterminateur",
+      "api": "users/menu/__MODULE.ID_LIST_OBSERVER",
+      "application": "GeoNature",
+      "keyValue": "id_role",
+      "keyLabel": "nom_complet",
+      "type_util": "user",
+      "multiple": false,
+      "required": false
+    },
+    "cd_nom": {
+      "type_widget": "taxonomy",
+      "attribut_label": "Espèce observée",
+      "multiple": false,
+      "id_list": "__MODULE.ID_LIST_TAXONOMY",
+      "application": "TaxHub",
+      "required": true,
+      "type_util": "taxonomy"
+    },
+    "effectif": {
+      "type_widget": "number",
+      "attribut_label": "Effectif total",
+      "min": 0,
+      "required": false,
+      "definition": "Effectif total"
+    },
+    "id_nomenclature_loca_obs": {
+      "type_widget": "nomenclature",
+      "attribut_label": "Localisation de l'observation",
+      "code_nomenclature_type": "LOCA_PIEGE_OBS",
+      "required": true,
+      "type_util": "nomenclature"
+    },
+    "id_nomenclature_obs_technique": {
+      "type_widget": "datalist",
+      "attribut_label": "Technique d'observation",
+      "api": "nomenclatures/nomenclature/METH_OBS",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": true,
+      "hidden" : true,
+      "default": {
+        "cd_nomenclature": "0"
+      },
+      "filters":{"cd_nomenclature": ["0","5","7","20"]}
+    },
+    "id_nomenclature_determination_method": {
+      "type_widget": "datalist",
+      "attribut_label": "Méthode de détermination",
+      "api": "nomenclatures/nomenclature/METH_DETERMIN",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": true,
+      "default": {
+        "cd_nomenclature": "18"
+      },
+      "filters":{"cd_nomenclature": ["11", "2","20","22","18","14","21","19"]}
+    },
+    "conservation":{
+      "type_widget": "radio",
+      "required": true,
+      "attribut_label": "Collecte de l'individu",
+      "values": ["Oui", "Non"],
+      "value":"Non"
+    },
+    "id_echantillon":{
+      "type_widget": "text",
+      "attribut_label": "Identifiant de l'échantillon collecté",
+      "hidden": "({value}) => value.conservation != 'Oui'",
+      "required": "({value}) => value.conservation == 'Oui'"
+    },
+    "nb_ind_echant":{
+      "type_widget": "number",
+      "hidden": "({value}) => value.conservation != 'Oui'",
+      "required": "({value}) => value.conservation == 'Oui'",
+      "attribut_label": "Nombre d'individus collectés",
+      "min": 0,
+      "value":0
+    },
+    "uuid_gretia":{
+      "type_widget": "text",
+      "attribut_label" : "uuid_gretia",
+      "required" : false,
+      "hidden": true
+    },
+    "id_nomenclature_life_stage": {
+      "type_widget": "datalist",
+      "attribut_label": "Stade de vie",
+      "api": "nomenclatures/nomenclature/STADE_VIE",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "keyTitle": "definition_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": false,
+      "params": {
+          "regne": "Animalia",
+          "group2_inpn": "Insectes"
+      },
+      "default": {
+        "cd_nomenclature": "15"
+      }
+    },
+    "id_nomenclature_sex": {
+      "type_widget": "datalist",
+      "attribut_label": "Sexe",
+      "api": "nomenclatures/nomenclature/SEXE",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": false,
+      "params": {
+          "regne": "Animalia",
+          "group2_inpn": "Insectes"
+      },
+      "default": {
+        "cd_nomenclature": "6"
+      }
+    }
+  }
+}
