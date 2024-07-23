@@ -8,6 +8,7 @@
   "display_properties": [
     "observers",
     "visit_date_min",
+    "cd_hab",
     "aire",
     "compl_aire",
     "comments"
@@ -16,6 +17,11 @@
     "visit_date_min",
     "observers",
     "nb_observations"
+  ],
+  "keep": [
+    "observers",  
+    "cd_hab",  
+    "aire"
   ],
   "specific": {
     "visit_date_min":{

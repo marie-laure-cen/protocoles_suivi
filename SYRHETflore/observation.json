@@ -5,7 +5,7 @@
     "determiner",
     "cd_nom",
     "recouvrement",
-    "recouvrement",
+    "recouv_2",
     "strate",
     "id_nomenclature_obs_technique",
     "id_nomenclature_determination_method",
@@ -54,12 +54,11 @@
       "max": 100,
       "required": true
     },
-    "faible_abond": {
+    "recouv_2": {
       "type_widget": "number",
       "attribut_label": "Chiffres après la virgule (recouvrement <1%)",
       "min": 0,
       "max": 99,
-      "value": 1,
       "required": "({value}) => value.recouvrement == 0",
       "hidden": "({value}) => value.recouvrement != 0"
     },
