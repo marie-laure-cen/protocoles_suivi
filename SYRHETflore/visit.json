@@ -20,7 +20,7 @@
   ],
   "keep": [
     "observers",  
-    "cd_hab",  
+    "habitat_associe",  
     "aire"
   ],
   "specific": {
@@ -31,6 +31,23 @@
     "visit_date_max":{
       "required": false   ,
       "hidden": false
+    },
+    "habitat_associe": {
+      "type_widget": "datalist",
+      "attribut_label": "Habitat naturel associé",
+      "description": "Code EUNIS habitat naturel",
+      "api": "habref/habitats/autocomplete",
+      "application": "GeoNature",
+      "keyValue": "cd_hab",
+      "keyLabel": "search_name",
+      "type_util": "habitat",
+      "params": {
+        "cd_typo": 7,
+        "limit": 5000,
+        "search_name": ""
+      },
+      "hidden": false,
+      "required": false
     },
     "aire":{
       "type_widget": "number",
