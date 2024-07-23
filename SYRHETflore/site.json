@@ -1,12 +1,9 @@
 {
   "genre":"M",
   "label": "piège",
-  "label_list": "Pièges",
+  "label_list": "pièges",
   "geometry_type": "Point",
   "map_label_field_name": "base_site_name",
-  "export_pdf": [
-      { "template": "fiche_aire.html", "label": "Export PDF" }
-  ],
   "sorts": [
     {"prop": "base_site_name", "dir": "asc"}
   ],
@@ -14,8 +11,7 @@
     "base_site_name",
     "id_sites_group",
     "id_nomenclature_tech_collect_campanule",
-    "base_site_description",
-    "id_nomenclature_loca_piege"
+    "base_site_description"
  ],
   "display_list": [
     "base_site_name",
@@ -24,8 +20,7 @@
   ],
   "specific": {
     "base_site_name":{
-      "attribut_label": "Nom/code du piège",
-      "definition": "Commencer la numérotation par les pièges proches du lit mineur"
+      "attribut_label": "Nom/code du piège"
     },
     "base_site_description":{
       "attribut_label": "Commentaires"
@@ -50,15 +45,6 @@
       "hidden": false,
       "definition": "Liste des zones de prospections définies pour le protocole."
     },
-    "id_nomenclature_loca_piege": {
-      "type_widget": "nomenclature",
-      "attribut_label": "Localisation du piège",
-      "definition": "Localisation du piège par rapport au cours d'eau",
-      "code_nomenclature_type": "LOCA_PIEGE",
-      "required": true,
-      "type_util": "nomenclature",
-      "default": {"cd_nomenclature": "03"}
-    },
     "id_nomenclature_type_site": {
       "attribut_label": "Type site",
       "type_util": "nomenclature",
@@ -80,7 +66,7 @@
       "type_util": "nomenclature",
       "required": true,
       "default": {
-        "cd_nomenclature": "94"
+        "cd_nomenclature": "59"
       }
     }
   }

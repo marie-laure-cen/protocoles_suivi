@@ -1,102 +1,43 @@
 {
   "genre":"M",
-  "label": "Passage",
-  "label_list": "Passages",
+  "label": "relevé phytosociologique",
+  "label_list": "relevés phytosociologiques",
+  "sorts": [
+    {"prop": "visit_date_min", "dir": "desc"}
+  ],
   "display_properties": [
     "observers",
-    "num_passage",
     "visit_date_min",
-    "visit_date_max",
-    "heure_debut",
-    "heure_fin",
-    "heure_ext",
-    "meteo",
-    "pluviosite",
-    "vent",
-    "temperature",
+    "aire",
+    "compl_aire",
     "comments"
   ],
   "display_list": [
-    "num_passage",
     "visit_date_min",
     "observers",
     "nb_observations"
   ],
   "specific": {
-    "num_passage": {
-      "type_widget": "number",
-      "attribut_label": "Numéro de passage",
-      "min" : 1,
-      "max": 8,
-      "required": true
-    },
     "visit_date_min":{
       "attribut_label": "Date de début du passage",
       "required": true
     },
     "visit_date_max":{
-      "attribut_label": "Date de fin du passage" ,  
-      "definition": "Date de fin de passage (à remplir si différente de la date de début du passage)",
       "required": false   ,
       "hidden": false
     },
-    "heure_debut": {
-      "type_widget": "time",
-      "attribut_label": "Heure d'arrivée",
-      "required": true
-    },
-    "heure_fin": {
-      "type_widget": "time",
-      "attribut_label": "Heure de départ",
-      "required": true
-    },
-    "heure_ext": {
-      "type_widget": "time",
-      "attribut_label": "Heure d'extinction du piège",
-      "required": false
-    },
-    "meteo": {
-      "type_widget": "datalist",
-      "attribut_label": "Météo",
-      "api": "nomenclatures/nomenclature/METEO",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "definition": "Météo selon la nomenclature Pop Amphibien",
-      "required": false
-    },
-    "pluviosite": {
-      "type_widget": "datalist",
-      "attribut_label": "Pluviosité",
-      "api": "nomenclatures/nomenclature/PLUVIOSITE",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "definition": "Pluviosité selon la nomenclature Pop Amphibien",
-      "required": false
-    },
-    "vent": {
-      "type_widget": "datalist",
-      "attribut_label": "Vent",
-      "api": "nomenclatures/nomenclature/BEAUFORT",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "definition": "Vent selon l'échelle de Beaufort",
-      "required": false
-    },
-    "temperature":{
+    "aire":{
       "type_widget": "number",
-      "attribut_label": "Température",
+      "attribut_label": "Surface en m²",
       "min" : 0,
-      "max": 40,
-      "definition": "Température en degrés Celsius",
+      "max": 800,
+      "required": false
+    },
+    "compl_aire":{
+      "type_widget": "text",
+      "attribut_label": "Information supplémentaire surface",
+      "min" : 0,
+      "max": 800,
       "required": false
     }
   }

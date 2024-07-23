@@ -1,17 +1,11 @@
 {
   "genre":"F",
-  "label": "Zone de prospection",
-  "label_list": "Zones de prospection",
+  "label": "zone de prospection",
+  "label_list": "zones de prospection",
   "map_label_field_name": "base_site_name",
   "b_draw_sites_group": true,
   "sorts": [
     {"prop": "sites_group_name"}
-  ],
-  "export_pdf": [
-    {
-      "template": "fiche_aire.html",
-      "label": "Export PDF"
-    }
   ],
   "display_properties": [
     "sites_group_name",

@@ -4,28 +4,26 @@
   "display_properties": [
     "determiner",
     "cd_nom",
-    "effectif",
-    "id_nomenclature_loca_obs",
+    "recouvrement",
+    "recouvrement",
+    "strate",
     "id_nomenclature_obs_technique",
     "id_nomenclature_determination_method",
-    "conservation",
-    "nb_ind_echant",
-    "id_echantillon",
-    "id_nomenclature_life_stage",
-    "id_nomenclature_sex",
-    "comments",
-    "uuid_gretia"
+    "comments"
   ],
   "display_list": [
     "cd_nom",
-    "id_nomenclature_loca_obs"
+    "strate",
+    "recouvrement"
+  ],
+  "sorts": [
+    {"prop": "strate", "dir": "asc"}
   ],
   "keep": [
-    "id_nomenclature_loca_obs",
     "id_nomenclature_obs_technique",
     "id_nomenclature_determination_method",
-    "id_nomenclature_life_stage",
     "determiner",
+    "strate",
     "visit_time"
   ],
   "specific": {
@@ -49,17 +47,26 @@
       "required": true,
       "type_util": "taxonomy"
     },
-    "effectif": {
+    "recouvrement": {
       "type_widget": "number",
-      "attribut_label": "Effectif total",
+      "attribut_label": "Pourcentage de recouvrement",
       "min": 0,
-      "required": false,
-      "definition": "Effectif total"
+      "max": 100,
+      "required": true
     },
-    "id_nomenclature_loca_obs": {
+    "faible_abond": {
+      "type_widget": "number",
+      "attribut_label": "Chiffres après la virgule (recouvrement <1%)",
+      "min": 0,
+      "max": 99,
+      "value": 1,
+      "required": "({value}) => value.recouvrement == 0",
+      "hidden": "({value}) => value.recouvrement != 0"
+    },
+    "strate": {
       "type_widget": "nomenclature",
-      "attribut_label": "Localisation de l'observation",
-      "code_nomenclature_type": "LOCA_PIEGE_OBS",
+      "attribut_label": "Strate de l'espèce",
+      "code_nomenclature_type": "STRATE_VEG",
       "required": true,
       "type_util": "nomenclature"
     },
@@ -77,7 +84,7 @@
       "default": {
         "cd_nomenclature": "0"
       },
-      "filters":{"cd_nomenclature": ["0","5","7","20"]}
+      "filters":{"cd_nomenclature": ["0", "2","18", "17"]}
     },
     "id_nomenclature_determination_method": {
       "type_widget": "datalist",
@@ -92,71 +99,7 @@
       "default": {
         "cd_nomenclature": "18"
       },
-      "filters":{"cd_nomenclature": ["11", "2","20","22","18","14","21","19"]}
-    },
-    "conservation":{
-      "type_widget": "radio",
-      "required": true,
-      "attribut_label": "Collecte de l'individu",
-      "values": ["Oui", "Non"],
-      "value":"Non"
-    },
-    "id_echantillon":{
-      "type_widget": "text",
-      "attribut_label": "Identifiant de l'échantillon collecté",
-      "hidden": "({value}) => value.conservation != 'Oui'",
-      "required": "({value}) => value.conservation == 'Oui'"
-    },
-    "nb_ind_echant":{
-      "type_widget": "number",
-      "hidden": "({value}) => value.conservation != 'Oui'",
-      "required": "({value}) => value.conservation == 'Oui'",
-      "attribut_label": "Nombre d'individus collectés",
-      "min": 0,
-      "value":0
-    },
-    "uuid_gretia":{
-      "type_widget": "text",
-      "attribut_label" : "uuid_gretia",
-      "required" : false,
-      "hidden": true
-    },
-    "id_nomenclature_life_stage": {
-      "type_widget": "datalist",
-      "attribut_label": "Stade de vie",
-      "api": "nomenclatures/nomenclature/STADE_VIE",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "keyTitle": "definition_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "required": false,
-      "params": {
-          "regne": "Animalia",
-          "group2_inpn": "Insectes"
-      },
-      "default": {
-        "cd_nomenclature": "15"
-      }
-    },
-    "id_nomenclature_sex": {
-      "type_widget": "datalist",
-      "attribut_label": "Sexe",
-      "api": "nomenclatures/nomenclature/SEXE",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "required": false,
-      "params": {
-          "regne": "Animalia",
-          "group2_inpn": "Insectes"
-      },
-      "default": {
-        "cd_nomenclature": "6"
-      }
+      "filters":{"cd_nomenclature": ["18", "21", "20", "22", "11", "12", "2"]}
     }
   }
 }
