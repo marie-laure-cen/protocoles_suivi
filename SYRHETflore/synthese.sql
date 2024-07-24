@@ -45,23 +45,25 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
         FROM gn_monitoring.t_base_sites tbs
 		LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
 		LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
-		LEFT JOIN gn_commons.t_modules m USING (id_module)
+		LEFT JOIN gn_commons.t_modules m ON tsg.id_module = m.id_module
 		WHERE m.module_code = :'module_code'
 	), 
 	visits AS (
 		SELECT
-			id_base_visit,
-			uuid_base_visit,
-			id_module,
-			id_base_site,
-			id_dataset,
-			id_digitiser,
-			visit_date_min AS date_min,
-			COALESCE (visit_date_max, visit_date_min) AS date_max,
-			comments,
-			id_nomenclature_tech_collect_campanule,
-			id_nomenclature_grp_typ
-		FROM gn_monitoring.t_base_visits
+			tbv.id_base_visit,
+			tbv.uuid_base_visit,
+			tbv.id_module,
+			tbv.id_base_site,
+			tbv.id_dataset,
+			tbv.id_digitiser,
+			tbv.visit_date_min AS date_min,
+			COALESCE (tbv.visit_date_max, tbv.visit_date_min) AS date_max,
+			tbv.comments,
+			tbv.id_nomenclature_tech_collect_campanule,
+			tbv.id_nomenclature_grp_typ,
+			tvc.data
+		FROM gn_monitoring.t_base_visits tbv
+		LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
 	), 
 	observers AS (
 		SELECT
@@ -82,7 +84,7 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 		v.comments AS comment_context,
 		o.comments AS comment_description,
 		obs.observers,
-		(oc.data->'determiner')::integer AS determiner,
+		(oc.data->'determiner')::integer as determiner,
 		(oc.data->'determiner')::integer as validator,
         ref_nomenclatures.get_id_nomenclature('NAT_OBJ_GEO', 'In') AS id_nomenclature_geo_object_nature, -- Stationnel
 		ref_nomenclatures.get_id_nomenclature('TYP_GRP', 'REL') AS id_nomenclature_grp_typ, -- Relevé phytosociologique
@@ -103,14 +105,8 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
         ref_nomenclatures.get_id_nomenclature('OCC_COMPORTEMENT', '1') AS id_nomenclature_behaviour, -- non renseigné
 		ref_nomenclatures.get_id_nomenclature('STATUT_SOURCE', 'Te') AS id_nomenclature_source_status, -- la source est le terrain
 		ref_nomenclatures.get_id_nomenclature('TYP_INF_GEO', '1') AS id_nomenclature_info_geo_type, -- la localisation est réalisée par Géoréférencement
-		(CASE WHEN 
-			(oc.data->'recouvrement')::integer = 0 THEN (oc.data->'recouvrement')::integer + (oc.data->'recouv_2')::integer
-			ELSE (oc.data->'recouvrement')::integer
-		END ) AS count_min,			
-		(CASE WHEN 
-			(oc.data->'recouvrement')::integer = 0 THEN (oc.data->'recouvrement')::integer + (oc.data->'recouv_2')::integer
-			ELSE (oc.data->'recouvrement')::integer
-		END ) AS count_max,
+		1 AS count_min,			
+		1 AS count_max,
 		--meta_v_taxref
 		--sample_number_proof
 		--digital_proofvue
@@ -123,6 +119,12 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 		s.altitude_min,
 		s.altitude_max,
 		s.sites_group_name as place_name,
+		jsonb_build_object(
+			'strate', oc.data -> 'strate',
+			'recouvrement', oc.data -> 'recouvrement',
+			'aire', v.data -> 'aire',
+			'aire_compl', v.data -> 'compl_aire'
+		) as additionnal_data,
 		-- ## Colonnes complémentaires qui ont leur utilité dans la fonction synthese.import_row_from_table
 		obs.ids_observers,
 		srce.id_source,

@@ -6,5 +6,12 @@
     "b_draw_sites_group": {
       "hidden": false
     }
-  }
+  },
+  "export_csv": [
+    {
+      "label": "Sites ayant fait l'objet de travaux",
+      "type": "csv",
+      "method": "standard"
+    }
+  ]
 }

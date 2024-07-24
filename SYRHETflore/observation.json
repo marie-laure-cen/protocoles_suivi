@@ -66,6 +66,7 @@
       "type_widget": "nomenclature",
       "attribut_label": "Strate de l'espèce",
       "code_nomenclature_type": "STRATE_VEG",
+      "cd_nomenclatures": ["A","a1", "a2", "h"],
       "required": true,
       "type_util": "nomenclature"
     },

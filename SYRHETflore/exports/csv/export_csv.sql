@@ -3,304 +3,119 @@
 -------------------------------------------------final --rhomeoodonate standard------------------------------------------
 -- View: gn_monitoring.v_export_rhomeoodonate_standard
 
-DROP VIEW  IF EXISTS  gn_monitoring.v_export_rhomeoodonate_standard;
+DROP VIEW  IF EXISTS  gn_monitoring.v_export_syrhetflore_standard;
 
-CREATE OR REPLACE VIEW gn_monitoring.v_export_rhomeoodonate_standard AS
+CREATE OR REPLACE VIEW gn_monitoring.v_export_syrhetflore_standard AS
 
-WITH source AS (
+WITH 
+	srce AS (
+		SELECT
+			id_source
+		FROM gn_synthese.t_sources
+		WHERE name_source = CONCAT('MONITORING_', UPPER(:'module_code'))
+		LIMIT 1
 
+	), 
+	sites AS (
+		SELECT
+			tbs.id_base_site,
+			tbs.altitude_min,
+			tbs.altitude_max,
+			tsg.sites_group_name,
+			tsg.sites_group_code,
+			tsc.data,
+			tbs.geom AS the_geom_4326,
+			tbs.geom_local as geom_local
+        FROM gn_monitoring.t_base_sites tbs
+		LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
+		LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
+		LEFT JOIN gn_commons.t_modules m ON tsg.id_module = m.id_module
+		WHERE m.module_code = :'module_code'
+	), 
+	visits AS (
+		SELECT
+			tbv.id_base_visit,
+			tbv.uuid_base_visit,
+			tbv.id_module,
+			tbv.id_base_site,
+			tbv.id_dataset,
+			tbv.id_digitiser,
+			tbv.visit_date_min AS date_min,
+			COALESCE (tbv.visit_date_max, tbv.visit_date_min) AS date_max,
+			tbv.comments,
+			tbv.id_nomenclature_tech_collect_campanule,
+			tbv.id_nomenclature_grp_typ,
+			tvc.data
+		FROM gn_monitoring.t_base_visits tbv
+		LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
+	),
+	observers AS (
+		SELECT
+			array_agg(r.id_role) AS ids_observers,
+			STRING_AGG(CONCAT(r.nom_role, ' ', prenom_role), ' ; ') AS observers,
+			id_base_visit
+		FROM gn_monitoring.cor_visit_observer cvo
+		JOIN utilisateurs.t_roles r
+		ON r.id_role = cvo.id_role
+		GROUP BY id_base_visit
+	)
 	SELECT
-
-        id_source
-
-    FROM gn_synthese.t_sources
-	WHERE name_source = CONCAT('MONITORING_', UPPER('RHOMEOOdonate'))
-	LIMIT 1
-
-), sites AS (
-
-    SELECT
-
-        id_base_site,
-		base_site_name,
-		base_site_code,
-		base_site_description,
-		id_inventor,
-		COALESCE (t_base_sites.meta_update_date, first_use_date) AS date_site,
-		altitude_min,
-		altitude_max,
-		geom_local,
-		st_x(ST_Centroid(geom)) AS wgs84_x,
-		st_y(ST_Centroid(geom))AS wgs84_y,
-		st_x(ST_Centroid(geom_local)) AS l93_x,
-		st_y(ST_Centroid(geom_local))AS l93_y,
-		(sc.data::json#>>'{typ_geom}')::text AS typ_geom,
-		(sc.data::json#>>'{surf_obs}')::text AS surf_obs,
-		(sc.data::json#>>'{area_name}')::text AS area_name,
-		n1.label_fr hab_odo,
-		(sc.data::json#>>'{detail_hab_odo}')::text AS detail_hab_odo
-
-        FROM gn_monitoring.t_base_sites
-		JOIN gn_monitoring.t_site_complements sc USING (id_base_site)
-		JOIN ref_nomenclatures.t_nomenclatures n1 ON n1.id_nomenclature::text = (sc.data->>'id_nomenclature_hab_odo')::text 
-
-
-
-), visits AS (
-    
-    SELECT
-    
-        id_base_visit,
-        uuid_base_visit,
-        id_module,
-        id_base_site,
-        id_dataset,
-        id_digitiser,
-        visit_date_min AS date_min,
-	    COALESCE (visit_date_max, visit_date_min) AS date_visit,
-		((vc.data::json#>>'{heure_debut}')::text||'\:00')::time AS heure_debut,
-		(vc.data::json#>>'{num_passage}')::int AS num_visit,
-		(vc.data::json#>>'{visit_time}')::text AS visit_time,
-		(vc.data::json#>>'{exuvie_exist}')::text AS exuvie_exist,
-		(vc.data::json#>>'{temperature}')::text AS temperature,
-		(vc.data::json#>>'{nebulosite}')::text AS nebulosite,
-		(vc.data::json#>>'{vvent}')::text AS vvent,
-        comments
-
-	    --o.observers,
-	    --o.ids_observers,
-
-        FROM gn_monitoring.t_base_visits
-		JOIN gn_monitoring.t_visit_complements vc USING (id_base_visit)
-
-), observers AS (
-    SELECT
-        array_agg(r.id_role) AS ids_observers,
-        STRING_AGG(CONCAT(r.nom_role, ' ', prenom_role), ' ; ') AS observers,
-        id_base_visit
-    FROM gn_monitoring.cor_visit_observer cvo
-    JOIN utilisateurs.t_roles r
-    ON r.id_role = cvo.id_role
-    GROUP BY id_base_visit
-), aggreg_obs AS (
-	SELECT 
-		oc.id_observation,
-		array_agg(DISTINCT n2.label_default) AS stade_vie,
-		array_agg(n1.label_default) AS occ_comportmt
-	FROM gn_monitoring.t_observations o
-		JOIN gn_monitoring.t_observation_complements oc USING (id_observation)
-			left JOIN jsonb_array_elements_text((oc.data #> '{id_nomenclature_life_stage}')||'[]') pc2(child) ON TRUE
-			Left JOIN ref_nomenclatures.t_nomenclatures n2 ON n2.id_nomenclature::text = pc2.child::text
-			LEFT JOIN jsonb_array_elements_text((oc.data #> '{id_nomenclature_behaviour}')||'[]') pc1(child) ON TRUE
-			left JOIN ref_nomenclatures.t_nomenclatures n1 ON n1.id_nomenclature::text = pc1.child::text
-	GROUP BY 1
-)
-
-SELECT
-		
-        o.uuid_observation AS unique_id_sinp, 
-		v.uuid_base_visit AS unique_id_sinp_grp,
-		source.id_source,
-		o.id_observation AS entity_source_pk_value,
+		o.id_observation as obs_id,
+		v.id_base_site as releve_id,
+		-- Piège
+		s.sites_group_code as piege_code,
+		s.sites_group_name as piege_nom,
+		s.altitude_min as piege_altitude,
+		-- Relevé
+		ref_nomenclatures.get_nomenclature_label_by_cdnom_mnemonique('TYP_GRP', 'REL') AS releve_type, -- Relevé phytosociologique
+        --ref_nomenclatures.get_nomenclature_label_by_cdnom_mnemonique('NAT_OBJ_GEO', 'In') AS geo_object_nature, -- Inventoriel
+		ref_nomenclatures.get_nomenclature_label((s.data -> 'id_nomenclature_tech_collect_campanule')::integer) AS releve_tech_collect, 
+		ref_nomenclatures.get_nomenclature_label_by_cdnom_mnemonique('STATUT_SOURCE', 'Te') AS releve_source, -- la source est le terrain
+		v.date_min as releve_date,
+		utilisateurs.get_name_by_id_role(v.id_digitiser) as releve_numerisateur,
+		v.data -> 'aire' as releve_aire,
+		v.data -> 'compl_aire' as releve_aire_compl,
+		v.comments AS releve_commentaire,
+		-- Observation
+		oc.data -> 'strate' as obs_strate,
+		o.cd_nom as obs_cd_nom,
+		t.nom_complet AS obs_nom_cite,
+		obs.observers as obs.observateurs,
+		utilisateurs.get_name_by_id_role((oc.data->'determiner')::integer) as obs.determinateur,
+		-- Dénombrement
+ 		ref_nomenclatures.get_nomenclature_label_by_cdnom_mnemonique('STATUT_OBS', 'Pr') AS obs_statut, -- le taxon est présent
+		(CASE WHEN 
+			(oc.data->'recouvrement')::integer = 0 THEN (oc.data->'recouvrement')::integer + (oc.data->'recouv_2')::integer
+			ELSE (oc.data->'recouvrement')::integer
+		END ) as obs_recouvrement,	
+ 		ref_nomenclatures.get_nomenclature_label_by_cdnom_mnemonique('OBJ_DENBR', 'SURF' ) AS obs_obj_denomb, -- l'objet du dénombrement est une surface
+ 		ref_nomenclatures.get_nomenclature_label_by_cdnom_mnemonique('TYP_DENBR', 'Es') AS obs_type_denomb, -- estimés
+		ref_nomenclatures.get_nomenclature_label((oc.data->'id_nomenclature_obs_technique')::integer) as obs_technique, -- METH_OBS
+		ref_nomenclatures.get_nomenclature_label((oc.data->'id_nomenclature_determination_method')::integer) AS obs_method_determ,
+		o.comments AS obs_commentaire,
+		-- Identifiants supplémentaires
+		obs.ids_observers,
+		srce.id_source,
+		v.id_module,
 		v.id_dataset,
-
-		s.id_base_site,
-		s.base_site_name,
-		s.base_site_code,
-		s.base_site_description,
-		s.id_inventor,
-		s.date_site,
-		s.altitude_min,
-		s.altitude_max,
-		s.wgs84_x,
-		s.wgs84_y,
-		s.l93_x,
-		s.l93_y,
-		s.typ_geom,
-		s.surf_obs,
-		s.area_name,
-		s.hab_odo,
-		s.detail_hab_odo,
-		v.date_min date_visit,
-		v.date_visit date_visit_last,
-		v.heure_debut,
-		v.num_visit,
-		v.visit_time,
-		v.exuvie_exist,
-		v.temperature,
-		v.nebulosite,
-		v.vvent,
-		v.comments AS comment_visit,
-		id_observation,
-		o.cd_nom,
-		t.nom_complet AS nom_cite,
-		obs.observers,
-		CASE WHEN (oc.data->>'nombre_compte') IS NULL THEN SPLIT_PART(REPLACE((oc.data->>'nombre')::text,'> ','')::text,' à ',1)::int
-			ELSE (oc.data->>'nombre_compte')::int
-		END AS count_min,
-		CASE WHEN (oc.data->>'nombre_compte') IS NULL THEN 
-			CASE WHEN SPLIT_PART(REPLACE((oc.data->>'nombre')::text,'> ','')::text,' à ',2) = '' THEN 9999
-				ELSE SPLIT_PART(REPLACE((oc.data->>'nombre')::text,'> ','')::text,' à ',2)::int
-			END
-			ELSE (oc.data->>'nombre_compte')::int
-		END AS count_max,
-		(oc.data::json#>>'{nb_adulte}')::text AS nb_adulte,
-		oa.stade_vie stade_vie,
-		oa.occ_comportmt occ_comportmt,
-		n3.label_default sexe,
-		(oc.data::json#>>'{nb_exuvie}')::text AS nb_exuvie,
-		CASE WHEN (oc."data"->>'num_tranche')::int = 0 THEN 6
-			WHEN (oc."data"->>'num_tranche') IS NULL THEN NULL
-			ELSE 6 + 2 * (oc."data"->>'num_tranche')::int END AS tranche,
-		o.comments AS comment_obs
-
+		v.uuid_base_visit AS unique_id_sinp_grp,
+		v.id_base_visit,
+		o.uuid_observation AS unique_id_sinp,
+		o.id_observation AS entity_source_pk_value,
+		s.the_geom_4326,
+		s.geom_local as the_geom_local
     FROM gn_monitoring.t_observations o 
-		JOIN gn_monitoring.t_observation_complements oc USING (id_observation)
-		JOIN aggreg_obs oa USING (id_observation)
-		--JOIN ref_nomenclatures.t_nomenclatures n1 ON n1.id_nomenclature = (oc.data->>'id_nomenclature_life_stage')::int 
-		--JOIN ref_nomenclatures.t_nomenclatures n2 ON n2.id_nomenclature = (oc.data->>'id_nomenclature_behaviour')::int 
-		JOIN ref_nomenclatures.t_nomenclatures n3 ON n3.id_nomenclature = (oc.data->>'id_nomenclature_sex')::int 
+	LEFT JOIN gn_monitoring.t_observation_complements oc USING (id_observation)
     JOIN visits v
         ON v.id_base_visit = o.id_base_visit
-    JOIN sites s 
+    JOIN sites s
         ON s.id_base_site = v.id_base_site
-	JOIN gn_commons.t_modules m 
+	LEFT JOIN gn_commons.t_modules m
         ON m.id_module = v.id_module
-	JOIN taxonomie.taxref t 
+	JOIN taxonomie.taxref t
         ON t.cd_nom = o.cd_nom
-	JOIN source 
+	LEFT JOIN srce
         ON TRUE
 	JOIN observers obs ON obs.id_base_visit = v.id_base_visit
-    
- 	LEFT JOIN LATERAL ref_geo.fct_get_altitude_intersection(s.geom_local) alt (altitude_min, altitude_max)
-        ON TRUE
-    WHERE m.module_code = 'RHOMEOOdonate'
-    ;
-
-
-
-
-
-
-
-
-------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------
---					VERSION					xx/xx/2022
-------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------
-
--- View: gn_monitoring.v_export_rhomeoodonate_calculette
-DROP VIEW  IF EXISTS  gn_monitoring.v_export_rhomeoodonate_calculette;
-
-CREATE OR REPLACE VIEW gn_monitoring.v_export_rhomeoodonate_calculette AS
-
-
-WITH source AS (
-
-	SELECT
-
-        id_source
-
-    FROM gn_synthese.t_sources
-	WHERE name_source = CONCAT('MONITORING_', UPPER('RHOMEOOdonate'))
-	LIMIT 1
-
-), sites AS (
-
-    SELECT
-
-        id_base_site,
-		base_site_name,
-		base_site_code,
-		id_inventor,
-		n1.cd_nomenclature habitat
-
-        FROM gn_monitoring.t_base_sites
-		JOIN gn_monitoring.t_site_complements sc USING (id_base_site)
-		JOIN ref_nomenclatures.t_nomenclatures n1 ON n1.id_nomenclature::text = (sc.data->>'id_nomenclature_hab_odo')::text 
-
-
-
-), visits AS (
-    
-    SELECT
-    
-        id_base_visit,
-        id_module,
-        id_base_site,
-        id_dataset,
-        visit_date_min AS date_min,
-	    COALESCE (visit_date_max, visit_date_min) AS date_visit,
-        comments
-
-	    --o.observers,
-	    --o.ids_observers,
-
-        FROM gn_monitoring.t_base_visits
-		JOIN gn_monitoring.t_visit_complements vc USING (id_base_visit)
-
-), aggreg_obs AS (
-	WITH agg1 as (
-		SELECT 
-			oc.id_observation,
-				replace(replace(replace(replace(replace(replace(replace(replace(replace(
-						unnest(array[n3.label_default,n2.label_default,n1.label_default]),
-					'Mixte','2'),
-					'Tandem','3'),
-					'Territorial','4'),
-					'Accouplement','5'),
-					'Pond','6'),
-					'Immature','7'),
-					'Emergent','8'),
-					'Non renseigné','1'),
-					'Indéterminé','1')::int
-				 AS comportement
-		FROM gn_monitoring.t_observations o
-			JOIN gn_monitoring.t_observation_complements oc USING (id_observation)
-				left JOIN jsonb_array_elements_text((oc.data #> '{id_nomenclature_life_stage}')||'[]') pc2(child) ON TRUE
-				Left JOIN ref_nomenclatures.t_nomenclatures n2 ON n2.id_nomenclature::text = pc2.child::text
-				LEFT JOIN jsonb_array_elements_text((oc.data #> '{id_nomenclature_behaviour}')||'[]') pc1(child) ON TRUE
-				left JOIN ref_nomenclatures.t_nomenclatures n1 ON n1.id_nomenclature::text = pc1.child::text
-				LEFT JOIN ref_nomenclatures.t_nomenclatures n3 ON n3.id_nomenclature = (oc.data->>'id_nomenclature_sex')::int 
-		WHERE n3.label_default NOT IN ('Mâle','Femelle')-- AND n3.label_default <> 'Femelle'
-		--GROUP BY 1
-	)
-	SELECT 
-		id_observation, 
-		CASE WHEN max(comportement) IS NULL THEN 1
-		ELSE max(comportement) END comportement 
-	FROM agg1 GROUP BY 1
-)
-
-SELECT
-		--v.id_dataset,
-		oa.comportement::varchar "behavior",
-		CASE WHEN o.cd_nom = 653286 THEN 65169
-			WHEN o.cd_nom = 653281 THEN 65088
-		ELSE o.cd_nom END cd_nom,
-		TO_CHAR(v.date_visit,'DD-MM-YYYY') "date",
-		s.habitat,
-		o.comments AS "remarks",
-		COALESCE(s.base_site_code,s.base_site_name) "trackingPoint",
-		--s.base_site_code,
-		--o.id_observation AS trackingPoint,
-		v.id_dataset
-
-    FROM gn_monitoring.t_observations o 
-		JOIN gn_monitoring.t_observation_complements oc USING (id_observation)
-		JOIN aggreg_obs oa USING (id_observation)
-    JOIN visits v
-        ON v.id_base_visit = o.id_base_visit
-    JOIN sites s 
-        ON s.id_base_site = v.id_base_site
-	JOIN gn_commons.t_modules m 
-        ON m.id_module = v.id_module
-	JOIN taxonomie.taxref t 
-        ON t.cd_nom = o.cd_nom
-	JOIN source 
-        ON TRUE
-    WHERE m.module_code = 'RHOMEOOdonate'
-    ;
+	WHERE m.module_code = :'module_code'
+;
