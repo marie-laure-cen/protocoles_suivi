@@ -8,7 +8,7 @@
   "display_properties": [
     "observers",
     "visit_date_min",
-    "cd_hab",
+    "habitat_associe",
     "type_aire",
     "aire",
     "forme_areale",
@@ -17,6 +17,7 @@
   "display_list": [
     "visit_date_min",
     "observers",
+    "type_aire",
     "nb_observations"
   ],
   "keep": [
@@ -30,8 +31,8 @@
       "required": true
     },
     "visit_date_max":{
-      "required": false   ,
-      "hidden": false
+      "required": false  ,
+      "hidden": true
     },
     "habitat_associe": {
       "type_widget": "datalist",
@@ -52,13 +53,13 @@
     },
     "type_aire":{
       "attribut_label": "Type d'aire de relevé",
+      "type_widget": "nomenclature",
       "type_util": "nomenclature",
       "code_nomenclature_type": "RP_AIRE",
       "value": {
         "code_nomenclature_type": "RP_AIRE",
         "cd_nomenclature": "Cer"
       },
-      "cd_nomenclatures": ["Cer"],
       "required": true,
       "hidden": false
     },
@@ -67,12 +68,15 @@
       "attribut_label": "Surface en m²",
       "min" : 0,
       "max": 800,
-      "required": false
+      "required": true
     },
     "forme_areale":{
       "type_widget": "text",
       "attribut_label": "Forme aréale",
       "required": false
+    },
+    "id_dataset":{
+      "hidden": true
     }
   }
 }
