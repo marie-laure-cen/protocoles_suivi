@@ -1,0 +1,78 @@
+{
+  "genre":"M",
+  "label": "relevé phytosociologique",
+  "label_list": "relevés phytosociologiques",
+  "sorts": [
+    {"prop": "visit_date_min", "dir": "desc"}
+  ],
+  "display_properties": [
+    "observers",
+    "visit_date_min",
+    "cd_hab",
+    "type_aire",
+    "aire",
+    "forme_areale",
+    "comments"
+  ],
+  "display_list": [
+    "visit_date_min",
+    "observers",
+    "nb_observations"
+  ],
+  "keep": [
+    "observers",  
+    "habitat_associe",  
+    "aire"
+  ],
+  "specific": {
+    "visit_date_min":{
+      "attribut_label": "Date de début du passage",
+      "required": true
+    },
+    "visit_date_max":{
+      "required": false   ,
+      "hidden": false
+    },
+    "habitat_associe": {
+      "type_widget": "datalist",
+      "attribut_label": "Habitat/Syntaxon",
+      "description": "Code EUNIS habitat naturel ou du syntaxon",
+      "api": "habref/habitats/autocomplete",
+      "application": "GeoNature",
+      "keyValue": "cd_hab",
+      "keyLabel": "search_name",
+      "type_util": "habitat",
+      "params": {
+        "cd_typo": 7,
+        "limit": 5000,
+        "search_name": ""
+      },
+      "hidden": false,
+      "required": false
+    },
+    "type_aire":{
+      "attribut_label": "Type d'aire de relevé",
+      "type_util": "nomenclature",
+      "code_nomenclature_type": "RP_AIRE",
+      "value": {
+        "code_nomenclature_type": "RP_AIRE",
+        "cd_nomenclature": "Cer"
+      },
+      "cd_nomenclatures": ["Cer"],
+      "required": true,
+      "hidden": false
+    },
+    "aire":{
+      "type_widget": "number",
+      "attribut_label": "Surface en m²",
+      "min" : 0,
+      "max": 800,
+      "required": false
+    },
+    "forme_areale":{
+      "type_widget": "text",
+      "attribut_label": "Forme aréale",
+      "required": false
+    }
+  }
+}

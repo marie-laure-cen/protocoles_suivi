@@ -1,0 +1,34 @@
+{
+  "genre":"F",
+  "label": "zone de prospection",
+  "label_list": "zones de prospection",
+  "map_label_field_name": "base_site_name",
+  "b_draw_sites_group": true,
+  "sorts": [
+    {"prop": "sites_group_name"}
+  ],
+  "display_properties": [
+    "sites_group_name",
+    "sites_group_code",
+    "site_group_description"
+  ],
+  "display_list": [
+    "sites_group_name",
+    "sites_group_code",
+    "nb_sites"
+  ],
+  "specific": {
+    "sites_group_code": {
+      "required": false,
+      "definition": "Code d'un éventuel site de rattachement de la zone de prospection",
+      "attribut_label": "Code site",
+      "hidden": false
+    },
+    "sites_group_name":{
+      "attribut_label": "Nom de la zone de prospection",
+      "definition": "Lieu-dit où se situe la zone de prospection."
+    }
+  },
+  "change": [
+  ]
+}
