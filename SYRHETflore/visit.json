@@ -35,8 +35,8 @@
     },
     "habitat_associe": {
       "type_widget": "datalist",
-      "attribut_label": "Habitat naturel associé",
-      "description": "Code EUNIS habitat naturel",
+      "attribut_label": "Habitat/Syntaxon",
+      "description": "Code EUNIS habitat naturel ou du syntaxon",
       "api": "habref/habitats/autocomplete",
       "application": "GeoNature",
       "keyValue": "cd_hab",

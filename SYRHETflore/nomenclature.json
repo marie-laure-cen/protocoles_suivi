@@ -12,8 +12,8 @@
     },
     {
       "mnemonique": "RP_AIRE",
-      "label_default": "Types d'aire de relevé",
-      "definition_default": "Types d'aire de relevé pour les relevés phytosociologiques"
+      "label_default": "Forme de l'aire de relevé",
+      "definition_default": "Forme de l'aire de relevé pour les relevés phytosociologiques"
     }
   ],
   "nomenclatures": [
@@ -70,36 +70,36 @@
       "type": "RP_AIRE",
       "cd_nomenclature": "Car",
       "mnemonique": "Carré",
-      "label_default": "Zone de forme carrée",
-      "definition_default": "Zone du relevé phytosociologique de forme carrée (planche, placette...)"
+      "label_default": "Aire de relevé de forme carrée",
+      "definition_default": "Aire du relevé phytosociologique de forme carrée (planche, placette...)"
     },
     {
       "type": "RP_AIRE",
       "cd_nomenclature": "Cer",
       "mnemonique": "Cercle",
-      "label_default": "Zone de forme circulaire",
-      "definition_default": "Zone du relevé phytosociologique de forme circulaire"
+      "label_default": "Aire de relevé de forme circulaire",
+      "definition_default": "Aire du relevé phytosociologique de forme circulaire"
     },
     {
       "type": "RP_AIRE",
       "cd_nomenclature": "Rec",
       "mnemonique": "Rectangle",
-      "label_default": "Zone de forme rectangulaire",
-      "definition_default": "Zone du relevé phytosociologique de forme rectangulaire"
+      "label_default": "Aire de relevé de forme rectangulaire",
+      "definition_default": "Aire du relevé phytosociologique de forme rectangulaire"
     },
     {
       "type": "RP_AIRE",
       "cd_nomenclature": "Lin",
       "mnemonique": "Linéaire",
-      "label_default": "Zone de forme linéaire",
-      "definition_default": "Zone du relevé phytosociologique de forme linéaire (transect...)"
+      "label_default": "Aire de relevé de forme linéaire",
+      "definition_default": "Aire du relevé phytosociologique de forme linéaire (transect...)"
     },
     {
       "type": "RP_AIRE",
       "cd_nomenclature": "Aut",
       "mnemonique": "Autre",
-      "label_default": "Autre forme de la zone",
-      "definition_default": "Autre forme de la zone du relevé phytosociologique (à détailler)"
+      "label_default": "Autre forme de l'aire de relevé",
+      "definition_default": "Autre forme de l'aire du relevé phytosociologique (à détailler)"
     }
   ]
 }
