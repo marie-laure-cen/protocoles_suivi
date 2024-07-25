@@ -15,9 +15,7 @@
     "base_site_code",
     "base_site_name",
     "base_site_description",
-    "lisiere",
-    "hab_1",
-    "hab_2"
+    "lisiere"
  ],
   "display_list": [
     "base_site_code",
@@ -71,20 +69,6 @@
       "required": true,
       "attribut_label": "Transect de lisière",
       "values": ["Oui", "Non"]
-    },
-    "hab_1": {
-      "attribut_label": "Habitat principal",
-      "type_widget": "text",
-      "required": true,
-      "hidden": false,
-      "definition": "Habitat du protocole STERF",
-      "link_definition":"https://www.vigienature.fr/sites/vigienature/files/atoms/files/sterf_classification_habitats.pdf"
-    },
-    "hab_2": {
-      "attribut_label": "Habitat secondaire",
-      "type_widget": "text",
-      "hidden": "({value}) => value.lisiere != 'Oui'",
-      "required": "({value}) => value.lisiere != 'Non'"
     }
   }
 }

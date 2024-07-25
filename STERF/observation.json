@@ -14,7 +14,9 @@
     "id_nomenclature_obj_count"
   ],
   "display_list": [
-    "cd_nom"
+    "cd_nom",
+    "effectif",
+    "comments"
   ],
   "keep": [
     "id_nomenclature_obs_technique",

@@ -1,61 +1,111 @@
 -- alter table gn_monitoring.t_base_sites alter column id_nomenclature_type_site drop not null;
 
--------------------------------------------------final --STERF standard------------------------------------------
--- View: gn_monitoring.v_export_terf_standard
+-------------------------------------------------
+-- Export des transects -------------------------
+-------------------------------------------------
 
-DROP VIEW  IF EXISTS  gn_monitoring.v_export_terf_standard;
+DROP VIEW  IF EXISTS  gn_monitoring.v_export_sterf_transect;
 
-CREATE OR REPLACE VIEW gn_monitoring.v_export_sterf_standard AS
+CREATE OR REPLACE VIEW gn_monitoring.v_export_sterf_transect AS
+SELECT
+	tbs.id_base_site,
+	taf.id_dataset,
+	tsg.sites_group_name as area_code,
+	(r.nom_role || ' ' || r.prenom_role) as responsable,
+	tbs.base_site_code as transect_code,
+	tbs.base_site_name  as transect_name,
+	tbs.altitude_min,
+	tbs.altitude_max,
+	tbs.geom_local as geom,
+	ST_CENTROID(tbs.geom) AS centroid,
+	St_AsText(tbs.geom) AS geom_wkt
+FROM gn_monitoring.t_base_sites tbs
+LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
+LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
+LEFT JOIN utilisateurs.t_roles r ON (tsg.data->'id_resp' )::integer = id_role
+LEFT JOIN gn_meta.cor_acquisition_framework_site caf ON tsg.sites_group_name = caf.area_code
+LEFT JOIN gn_meta.t_datasets taf ON taf.id_acquisition_framework = caf.id_acquisition_framework
+LEFT JOIN ref_geo.l_areas la ON tsg.sites_group_name = la.area_code
+WHERE tsg.id_module = 32 AND lower(taf.dataset_name ) LIKE '%faune%'
+OR tsg.id_module = 32 AND lower(taf.dataset_name) LIKE '%taxon%'
+ORDER BY area_code, transect_name
+;
 
-WITH source AS (
+-------------------------------------------------
+-- Export de l'ensemble des observations --------
+-------------------------------------------------
+
+DROP VIEW gn_monitoring.v_export_sterf_obs;
+
+CREATE OR REPLACE VIEW gn_monitoring.v_export_sterf_obs
+ AS
+ WITH 
+ 	milieux as (
 		SELECT
-			id_source
-		FROM gn_synthese.t_sources
-		WHERE name_source = CONCAT('MONITORING_', UPPER(:'module_code'))
-		LIMIT 1
-	),sites AS (
+			cd_ref,
+			valeur_attribut as id_milieu,
+			CASE 
+			 WHEN valeur_attribut ='I' THEN 'ubiquistes'
+			WHEN valeur_attribut ='II' THEN 'boisements'
+			WHEN valeur_attribut ='III' THEN 'zones humides'
+			WHEN valeur_attribut ='IV' THEN 'prairies mésophiles'
+			WHEN valeur_attribut ='V' THEN 'milieux secs'
+			WHEN valeur_attribut ='VI' THEN 'migratrices'
+			ELSE NULL
+			END as milieu,
+			CASE 
+			 WHEN valeur_attribut ='I' THEN '#d9d9d9'
+			WHEN valeur_attribut ='II' THEN '#548235'
+			WHEN valeur_attribut ='III' THEN '#9bc2e6'
+			WHEN valeur_attribut ='IV' THEN '#e2efda'
+			WHEN valeur_attribut ='V' THEN '#ffc000'
+			WHEN valeur_attribut ='VI' THEN '#ccccff'
+			ELSE NULL
+			END as couleur
+		FROM taxonomie.cor_taxon_attribut
+		WHERE id_attribut = 43
+	),
+ 	tr AS (
          SELECT tbs.id_base_site,
-            tsg.sites_group_code::integer AS id_dataset,
+            taf.id_dataset,
             taf.dataset_name,
-            la.id_area AS id_area_attachment,
-            cafs.area_code,
-            la.area_name,
-            (tbs.base_site_code::text || ' / '::text) || tbs.base_site_name::text AS transect,
-            (r.nom_role::text || ' '::text) || r.prenom_role::text AS responsable,
-            (tsc.data -> 'lisiere'::text)::text AS lisiere,
-            tsc.data -> 'hab_1'::text AS hab_1,
-            (tsc.data -> 'hab_2'::text)::text AS hab_2,
-            tbs.base_site_description AS site_comments,
+            tsg.sites_group_name AS site_code,
+            la.area_name AS site_name,
+            tbs.base_site_name AS transect_name,
             tbs.altitude_min,
             tbs.altitude_max,
-            tbs.geom AS the_geom_4326,
-            st_centroid(tbs.geom) AS the_geom_point,
-            tbs.geom_local
+            tbs.geom_local AS geom,
+            st_centroid(tbs.geom) AS centroid,
+            st_astext(tbs.geom) AS geom_wkt
            FROM gn_monitoring.t_base_sites tbs
              LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
              LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
-             LEFT JOIN utilisateurs.t_roles r ON (tsc.data -> 'id_resp'::text)::integer = r.id_role
-             LEFT JOIN gn_meta.t_datasets taf ON taf.id_dataset = tsg.sites_group_code::integer
-             LEFT JOIN gn_meta.cor_acquisition_framework_site cafs USING (id_acquisition_framework)
-             LEFT JOIN ref_geo.l_areas la USING (area_code)
-        ), visits AS (
+             LEFT JOIN gn_meta.cor_acquisition_framework_site caf ON tsg.sites_group_name::text = caf.area_code
+             LEFT JOIN gn_meta.t_datasets taf ON taf.id_acquisition_framework = caf.id_acquisition_framework
+             LEFT JOIN ref_geo.l_areas la ON tsg.sites_group_name::text = la.area_code::text
+          WHERE tsg.id_module = 32 AND lower(taf.dataset_name::text) ~~ '%faune%'::text OR tsg.id_module = 32 AND lower(taf.dataset_name::text) ~~ '%taxon%'::text
+          ORDER BY tsg.sites_group_name, tbs.base_site_name
+        ), pass AS (
          SELECT tbv.id_base_visit,
-            tbv.uuid_base_visit,
-            tbv.id_module,
             tbv.id_base_site,
-            tbv.id_digitiser,
-            (tbv.visit_date_min::text || ((tvc.data -> 'heure_debut'::text)::text))::timestamp without time zone AS date_min,
-            COALESCE((tbv.visit_date_max::text || ((tvc.data -> 'heure_fin'::text)::text))::timestamp without time zone, (tbv.visit_date_min::text || ((tvc.data -> 'heure_fin'::text)::text))::timestamp without time zone) AS date_max,
-            tbv.comments,
-            tbv.id_nomenclature_tech_collect_campanule,
-            tbv.id_nomenclature_grp_typ,
-            (tvc.data -> 'num_passage'::text)::integer AS num_passage,
-            ref_nomenclatures.get_nomenclature_label((tvc.data -> 'id_nomenclature_tp'::text)::integer) AS temperature,
-            ref_nomenclatures.get_nomenclature_label((tvc.data -> 'id_nomenclature_cn'::text)::integer) AS couv_nuageuse,
-            ref_nomenclatures.get_nomenclature_label((tvc.data -> 'id_nomenclature_vt'::text)::integer) AS vent,
-            (tvc.data -> 'source'::text)::text AS srce
+            tbv.visit_date_min AS pass_date,
+            tvc.data
            FROM gn_monitoring.t_base_visits tbv
              LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
+          WHERE tbv.id_module = 32
+        ), obs AS (
+         SELECT o.id_observation,
+            o.id_base_visit,
+            o.cd_nom,
+            tx.nom_valide,
+            tx.nom_vern,
+            o.comments,
+            toc.data,
+			mil.*
+           FROM gn_monitoring.t_observations o
+             LEFT JOIN gn_monitoring.t_observation_complements toc USING (id_observation)
+             LEFT JOIN taxonomie.taxref tx USING (cd_nom)
+			LEFT JOIN milieux mil USING (cd_ref)
         ), observers AS (
          SELECT array_agg(r.id_role) AS ids_observers,
             string_agg(concat(r.nom_role, ' ', r.prenom_role), ' ; '::text) AS observers,
@@ -64,66 +114,449 @@ WITH source AS (
              JOIN utilisateurs.t_roles r ON r.id_role = cvo.id_role
           GROUP BY cvo.id_base_visit
         )
- SELECT o.uuid_observation AS unique_id_sinp,
-    v.uuid_base_visit AS unique_id_sinp_grp,
-    s.area_code AS id_site,
-    s.area_name AS nom_site,
-    s.id_dataset,
-    s.dataset_name,
-    m.module_code AS suivi,
-    s.responsable,
-    s.transect,
-    s.altitude_min,
-    s.altitude_max,
+ SELECT obs.id_observation,
+    tr.id_dataset,
+    tr.dataset_name,
+    tr.site_code,
+    tr.site_name,
+    tr.transect_name,
+    (pass.data -> 'annee'::text)::integer AS pass_annee,
+    (pass.data -> 'num_passage'::text)::integer AS pass_num,
+    pass.pass_date,
+    (pass.data -> 'heure_debut'::text)::text AS pass_heure,
+    observers.observers AS observateurs,
+    (pass.data -> 'occ_sol'::text)::text AS pass_os1,
+    (pass.data -> 'occ_sol_detail'::text)::text AS pass_os2,
+    (pass.data -> 'hab_1'::text)::text AS pass_hab1,
+    (pass.data -> 'hab_2'::text)::text AS pass_hab2,
+    ref_nomenclatures.get_nomenclature_label((pass.data -> 'id_nomenclature_tp'::text)::integer, 'fr'::character varying) AS temperature,
+    ref_nomenclatures.get_nomenclature_label((pass.data -> 'id_nomenclature_cn'::text)::integer, 'fr'::character varying) AS couv_nuageuse,
+    ref_nomenclatures.get_nomenclature_label((pass.data -> 'id_nomenclature_vt'::text)::integer, 'fr'::character varying) AS vent,
+    obs.cd_nom,
+    obs.nom_valide,
+    obs.nom_vern,
+	obs.id_milieu,
+	obs.milieu,
+    (obs.data -> 'effectif'::text)::integer AS effectif_total,
         CASE
-            WHEN s.lisiere = 'Oui'::text THEN true
-            ELSE false
-        END AS lisiere,
-    s.hab_1,
-    s.hab_2,
-    date_part('year'::text, v.date_min) AS annee,
-    v.num_passage,
-    v.date_min,
-    v.date_max,
-    v.id_digitiser,
-    v.temperature,
-    v.couv_nuageuse,
-    v.vent,
-    o.cd_nom,
-    t.cd_ref,
-    t.nom_complet,
-    t.regne,
-    t.phylum,
-    t.classe,
-    t.ordre,
-    t.famille,
-    (oc.data -> 'effectif'::text)::integer AS effectif,
-    obs.observers,
-    oc.data -> 'determiner'::text AS determiner,
-    'Stationnel'::text AS geo_object_nature,
-    ref_nomenclatures.get_nomenclature_label(v.id_nomenclature_grp_typ) AS grp_typ,
-    ref_nomenclatures.get_nomenclature_label(v.id_nomenclature_tech_collect_campanule) AS tech_collect_campanule,
-    ref_nomenclatures.get_nomenclature_label((oc.data -> 'id_nomenclature_determination_method'::text)::integer) AS determination_method,
-    ref_nomenclatures.get_nomenclature_label((oc.data -> 'id_nomenclature_obs_technique'::text)::integer) AS obs_technique,
-    ref_nomenclatures.get_nomenclature_label((oc.data -> 'id_nomenclature_obj_count'::text)::integer) AS obj_count,
-    ref_nomenclatures.get_nomenclature_label((oc.data -> 'id_nomenclature_type_count'::text)::integer) AS _type_count,
-    'Présent'::text AS observation_status,
-    'Terrain'::text AS source_status,
-    'Géoréférencement'::text AS info_geo_type,
-    (s.site_comments || ' / '::text) || v.comments AS comment_context,
-    o.comments AS comment_description,
-    v.srce,
-    s.the_geom_4326,
-    s.the_geom_point,
-    s.geom_local
-   FROM gn_monitoring.t_observations o
-     LEFT JOIN gn_monitoring.t_observation_complements oc USING (id_observation)
-     JOIN visits v USING (id_base_visit)
-     JOIN sites s USING (id_base_site)
-     JOIN gn_commons.t_modules m USING (id_module)
-     JOIN taxonomie.taxref t USING (cd_nom)
-     JOIN source ON true
-     JOIN observers obs USING (id_base_visit)
-    WHERE m.module_code = :'module_code'
-  ORDER BY s.area_code, s.transect, (date_part('year'::text, v.date_min)), v.num_passage, o.cd_nom;
-    ;
+            WHEN ((obs.data -> 'nb_male'::text)::text) = 'null'::text THEN NULL::integer
+            ELSE (obs.data -> 'nb_male'::text)::integer
+        END AS nb_male,
+        CASE
+            WHEN ((obs.data -> 'nb_femelle'::text)::text) = 'null'::text THEN NULL::integer
+            ELSE (obs.data -> 'nb_femelle'::text)::integer
+        END AS nb_femelle,
+    obs.comments AS commentaire,
+	obs.couleur,
+    tr.id_base_site,
+    pass.id_base_visit,
+    (pass.data -> 'source'::text)::text AS source_donnee,
+    obs.data -> 'id_obs_mysql'::text AS id_obs_mysql,
+    tr.altitude_min,
+    tr.altitude_max,
+    tr.geom,
+    tr.centroid,
+    tr.geom_wkt
+   FROM obs
+     LEFT JOIN observers USING (id_base_visit)
+     LEFT JOIN pass USING (id_base_visit)
+     JOIN tr USING (id_base_site)
+  ORDER BY tr.site_code, tr.transect_name, ((pass.data -> 'annee'::text)::integer) DESC, ((pass.data -> 'num_passage'::text)::integer) DESC, obs.nom_valide;
+;
+
+-------------------------------------------------
+-- Export des obs années n et n-1 ---------------
+-------------------------------------------------
+
+DROP VIEW  IF EXISTS  gn_monitoring.v_export_sterf_obs_n;
+
+CREATE OR REPLACE VIEW gn_monitoring.v_export_sterf_obs_n AS
+WITH 
+	milieux as (
+		SELECT
+			cd_ref,
+			valeur_attribut as id_milieu,
+			CASE 
+			 WHEN valeur_attribut ='I' THEN 'ubiquistes'
+			WHEN valeur_attribut ='II' THEN 'boisements'
+			WHEN valeur_attribut ='III' THEN 'zones humides'
+			WHEN valeur_attribut ='IV' THEN 'prairies mésophiles'
+			WHEN valeur_attribut ='V' THEN 'milieux secs'
+			WHEN valeur_attribut ='VI' THEN 'migratrices'
+			ELSE NULL
+			END as milieu,
+			CASE 
+			 WHEN valeur_attribut ='I' THEN '#d9d9d9'
+			WHEN valeur_attribut ='II' THEN '#548235'
+			WHEN valeur_attribut ='III' THEN '#9bc2e6'
+			WHEN valeur_attribut ='IV' THEN '#e2efda'
+			WHEN valeur_attribut ='V' THEN '#ffc000'
+			WHEN valeur_attribut ='VI' THEN '#ccccff'
+			ELSE NULL
+			END as couleur
+		FROM taxonomie.cor_taxon_attribut
+		WHERE id_attribut = 43
+	),
+ 	tr AS (
+         SELECT tbs.id_base_site,
+            taf.id_dataset,
+            taf.dataset_name,
+            tsg.sites_group_name AS site_code,
+            la.area_name AS site_name,
+            tbs.base_site_name AS transect_name,
+            tbs.altitude_min,
+            tbs.altitude_max,
+            tbs.geom_local AS geom,
+            st_centroid(tbs.geom) AS centroid,
+            st_astext(tbs.geom) AS geom_wkt
+           FROM gn_monitoring.t_base_sites tbs
+             LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
+             LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
+             LEFT JOIN gn_meta.cor_acquisition_framework_site caf ON tsg.sites_group_name::text = caf.area_code
+             LEFT JOIN gn_meta.t_datasets taf ON taf.id_acquisition_framework = caf.id_acquisition_framework
+             LEFT JOIN ref_geo.l_areas la ON tsg.sites_group_name::text = la.area_code::text
+          WHERE tsg.id_module = 32 AND lower(taf.dataset_name::text) ~~ '%faune%'::text OR tsg.id_module = 32 AND lower(taf.dataset_name::text) ~~ '%taxon%'::text
+          ORDER BY tsg.sites_group_name, tbs.base_site_name
+        ), pass AS (
+         SELECT tbv.id_base_visit,
+            tbv.id_base_site,
+            tbv.visit_date_min AS pass_date,
+            tvc.data
+           FROM gn_monitoring.t_base_visits tbv
+             LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
+          WHERE tbv.id_module = 32
+        ), obs AS (
+         SELECT o.id_observation,
+            o.id_base_visit,
+            o.cd_nom,
+            tx.nom_valide,
+            tx.nom_vern,
+            o.comments,
+            toc.data,
+			mil.*
+           FROM gn_monitoring.t_observations o
+             LEFT JOIN gn_monitoring.t_observation_complements toc USING (id_observation)
+             LEFT JOIN taxonomie.taxref tx USING (cd_nom)
+			LEFT JOIN milieux mil USING (cd_ref)
+        ), observers AS (
+         SELECT array_agg(r.id_role) AS ids_observers,
+            string_agg(concat(r.nom_role, ' ', r.prenom_role), ' ; '::text) AS observers,
+            cvo.id_base_visit
+           FROM gn_monitoring.cor_visit_observer cvo
+             JOIN utilisateurs.t_roles r ON r.id_role = cvo.id_role
+          GROUP BY cvo.id_base_visit
+        )
+ SELECT obs.id_observation,
+    tr.id_dataset,
+    tr.dataset_name,
+    tr.site_code,
+    tr.site_name,
+    tr.transect_name,
+    (pass.data -> 'annee'::text)::integer AS pass_annee,
+    (pass.data -> 'num_passage'::text)::integer AS pass_num,
+    pass.pass_date,
+    (pass.data -> 'heure_debut'::text)::text AS pass_heure,
+    observers.observers AS observateurs,
+    (pass.data -> 'occ_sol'::text)::text AS pass_os1,
+    (pass.data -> 'occ_sol_detail'::text)::text AS pass_os2,
+    (pass.data -> 'hab_1'::text)::text AS pass_hab1,
+    (pass.data -> 'hab_2'::text)::text AS pass_hab2,
+    ref_nomenclatures.get_nomenclature_label((pass.data -> 'id_nomenclature_tp'::text)::integer, 'fr'::character varying) AS temperature,
+    ref_nomenclatures.get_nomenclature_label((pass.data -> 'id_nomenclature_cn'::text)::integer, 'fr'::character varying) AS couv_nuageuse,
+    ref_nomenclatures.get_nomenclature_label((pass.data -> 'id_nomenclature_vt'::text)::integer, 'fr'::character varying) AS vent,
+    obs.cd_nom,
+    obs.nom_valide,
+    obs.nom_vern,
+	obs.id_milieu,
+	obs.milieu,
+    (obs.data -> 'effectif'::text)::integer AS effectif_total,
+        CASE
+            WHEN ((obs.data -> 'nb_male'::text)::text) = 'null'::text THEN NULL::integer
+            ELSE (obs.data -> 'nb_male'::text)::integer
+        END AS nb_male,
+        CASE
+            WHEN ((obs.data -> 'nb_femelle'::text)::text) = 'null'::text THEN NULL::integer
+            ELSE (obs.data -> 'nb_femelle'::text)::integer
+        END AS nb_femelle,
+    obs.comments AS commentaire,
+	obs.couleur,
+    tr.id_base_site,
+    pass.id_base_visit,
+    (pass.data -> 'source'::text)::text AS source_donnee,
+    obs.data -> 'id_obs_mysql'::text AS id_obs_mysql,
+    tr.altitude_min,
+    tr.altitude_max,
+    tr.geom,
+    tr.centroid,
+    tr.geom_wkt
+   FROM obs
+     LEFT JOIN observers USING (id_base_visit)
+     LEFT JOIN pass USING (id_base_visit)
+     JOIN tr USING (id_base_site)
+WHERE (pass.data -> 'annee')::integer = extract(year from now() )
+ORDER BY site_code, transect_name, pass_annee DESC, pass_num DESC, nom_valide
+;
+
+DROP VIEW  IF EXISTS  gn_monitoring.v_export_sterf_obs_n1;
+
+CREATE OR REPLACE VIEW gn_monitoring.v_export_sterf_obs_n1 AS
+WITH 
+	milieux as (
+		SELECT
+			cd_ref,
+			valeur_attribut as id_milieu,
+			CASE 
+			 WHEN valeur_attribut ='I' THEN 'ubiquistes'
+			WHEN valeur_attribut ='II' THEN 'boisements'
+			WHEN valeur_attribut ='III' THEN 'zones humides'
+			WHEN valeur_attribut ='IV' THEN 'prairies mésophiles'
+			WHEN valeur_attribut ='V' THEN 'milieux secs'
+			WHEN valeur_attribut ='VI' THEN 'migratrices'
+			ELSE NULL
+			END as milieu,
+			CASE 
+			 WHEN valeur_attribut ='I' THEN '#d9d9d9'
+			WHEN valeur_attribut ='II' THEN '#548235'
+			WHEN valeur_attribut ='III' THEN '#9bc2e6'
+			WHEN valeur_attribut ='IV' THEN '#e2efda'
+			WHEN valeur_attribut ='V' THEN '#ffc000'
+			WHEN valeur_attribut ='VI' THEN '#ccccff'
+			ELSE NULL
+			END as couleur
+		FROM taxonomie.cor_taxon_attribut
+		WHERE id_attribut = 43
+	),
+ 	tr AS (
+         SELECT tbs.id_base_site,
+            taf.id_dataset,
+            taf.dataset_name,
+            tsg.sites_group_name AS site_code,
+            la.area_name AS site_name,
+            tbs.base_site_name AS transect_name,
+            tbs.altitude_min,
+            tbs.altitude_max,
+            tbs.geom_local AS geom,
+            st_centroid(tbs.geom) AS centroid,
+            st_astext(tbs.geom) AS geom_wkt
+           FROM gn_monitoring.t_base_sites tbs
+             LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
+             LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
+             LEFT JOIN gn_meta.cor_acquisition_framework_site caf ON tsg.sites_group_name::text = caf.area_code
+             LEFT JOIN gn_meta.t_datasets taf ON taf.id_acquisition_framework = caf.id_acquisition_framework
+             LEFT JOIN ref_geo.l_areas la ON tsg.sites_group_name::text = la.area_code::text
+          WHERE tsg.id_module = 32 AND lower(taf.dataset_name::text) ~~ '%faune%'::text OR tsg.id_module = 32 AND lower(taf.dataset_name::text) ~~ '%taxon%'::text
+          ORDER BY tsg.sites_group_name, tbs.base_site_name
+        ), pass AS (
+         SELECT tbv.id_base_visit,
+            tbv.id_base_site,
+            tbv.visit_date_min AS pass_date,
+            tvc.data
+           FROM gn_monitoring.t_base_visits tbv
+             LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
+          WHERE tbv.id_module = 32
+        ), obs AS (
+         SELECT o.id_observation,
+            o.id_base_visit,
+            o.cd_nom,
+            tx.nom_valide,
+            tx.nom_vern,
+            o.comments,
+            toc.data,
+			mil.*
+           FROM gn_monitoring.t_observations o
+             LEFT JOIN gn_monitoring.t_observation_complements toc USING (id_observation)
+             LEFT JOIN taxonomie.taxref tx USING (cd_nom)
+			LEFT JOIN milieux mil USING (cd_ref)
+        ), observers AS (
+         SELECT array_agg(r.id_role) AS ids_observers,
+            string_agg(concat(r.nom_role, ' ', r.prenom_role), ' ; '::text) AS observers,
+            cvo.id_base_visit
+           FROM gn_monitoring.cor_visit_observer cvo
+             JOIN utilisateurs.t_roles r ON r.id_role = cvo.id_role
+          GROUP BY cvo.id_base_visit
+        )
+ SELECT obs.id_observation,
+    tr.id_dataset,
+    tr.dataset_name,
+    tr.site_code,
+    tr.site_name,
+    tr.transect_name,
+    (pass.data -> 'annee'::text)::integer AS pass_annee,
+    (pass.data -> 'num_passage'::text)::integer AS pass_num,
+    pass.pass_date,
+    (pass.data -> 'heure_debut'::text)::text AS pass_heure,
+    observers.observers AS observateurs,
+    (pass.data -> 'occ_sol'::text)::text AS pass_os1,
+    (pass.data -> 'occ_sol_detail'::text)::text AS pass_os2,
+    (pass.data -> 'hab_1'::text)::text AS pass_hab1,
+    (pass.data -> 'hab_2'::text)::text AS pass_hab2,
+    ref_nomenclatures.get_nomenclature_label((pass.data -> 'id_nomenclature_tp'::text)::integer, 'fr'::character varying) AS temperature,
+    ref_nomenclatures.get_nomenclature_label((pass.data -> 'id_nomenclature_cn'::text)::integer, 'fr'::character varying) AS couv_nuageuse,
+    ref_nomenclatures.get_nomenclature_label((pass.data -> 'id_nomenclature_vt'::text)::integer, 'fr'::character varying) AS vent,
+    obs.cd_nom,
+    obs.nom_valide,
+    obs.nom_vern,
+	obs.id_milieu,
+	obs.milieu,
+    (obs.data -> 'effectif'::text)::integer AS effectif_total,
+        CASE
+            WHEN ((obs.data -> 'nb_male'::text)::text) = 'null'::text THEN NULL::integer
+            ELSE (obs.data -> 'nb_male'::text)::integer
+        END AS nb_male,
+        CASE
+            WHEN ((obs.data -> 'nb_femelle'::text)::text) = 'null'::text THEN NULL::integer
+            ELSE (obs.data -> 'nb_femelle'::text)::integer
+        END AS nb_femelle,
+    obs.comments AS commentaire,
+	obs.couleur,
+    tr.id_base_site,
+    pass.id_base_visit,
+    (pass.data -> 'source'::text)::text AS source_donnee,
+    obs.data -> 'id_obs_mysql'::text AS id_obs_mysql,
+    tr.altitude_min,
+    tr.altitude_max,
+    tr.geom,
+    tr.centroid,
+    tr.geom_wkt
+   FROM obs
+     LEFT JOIN observers USING (id_base_visit)
+     LEFT JOIN pass USING (id_base_visit)
+     JOIN tr USING (id_base_site)
+WHERE (pass.data -> 'annee')::integer = (extract(year from now() ) - 1 )
+ORDER BY site_code, transect_name, pass_num DESC, nom_valide
+;
+
+
+-------------------------------------------------
+-- Export des observations sans géométrie -------
+-------------------------------------------------
+
+DROP VIEW gn_monitoring.v_export_sterf_obs_2;
+
+CREATE OR REPLACE VIEW gn_monitoring.v_export_sterf_obs_2
+ AS
+ WITH milieux AS (
+         SELECT cor_taxon_attribut.cd_ref,
+            cor_taxon_attribut.valeur_attribut AS id_milieu,
+                CASE
+                    WHEN cor_taxon_attribut.valeur_attribut = 'I'::text THEN 'ubiquistes'::text
+                    WHEN cor_taxon_attribut.valeur_attribut = 'II'::text THEN 'boisements'::text
+                    WHEN cor_taxon_attribut.valeur_attribut = 'III'::text THEN 'zones humides'::text
+                    WHEN cor_taxon_attribut.valeur_attribut = 'IV'::text THEN 'prairies mésophiles'::text
+                    WHEN cor_taxon_attribut.valeur_attribut = 'V'::text THEN 'milieux secs'::text
+                    WHEN cor_taxon_attribut.valeur_attribut = 'VI'::text THEN 'migratrices'::text
+                    ELSE NULL::text
+                END AS milieu,
+                CASE
+                    WHEN cor_taxon_attribut.valeur_attribut = 'I'::text THEN '#d9d9d9'::text
+                    WHEN cor_taxon_attribut.valeur_attribut = 'II'::text THEN '#548235'::text
+                    WHEN cor_taxon_attribut.valeur_attribut = 'III'::text THEN '#9bc2e6'::text
+                    WHEN cor_taxon_attribut.valeur_attribut = 'IV'::text THEN '#e2efda'::text
+                    WHEN cor_taxon_attribut.valeur_attribut = 'V'::text THEN '#ffc000'::text
+                    WHEN cor_taxon_attribut.valeur_attribut = 'VI'::text THEN '#ccccff'::text
+                    ELSE NULL::text
+                END AS couleur
+           FROM taxonomie.cor_taxon_attribut
+          WHERE cor_taxon_attribut.id_attribut = 43
+        ), tr AS (
+         SELECT tbs.id_base_site,
+            taf.id_dataset,
+            taf.dataset_name,
+            tsg.sites_group_name AS site_code,
+            la.area_name AS site_name,
+            tbs.base_site_name AS transect_name,
+            tbs.altitude_min,
+            tbs.altitude_max
+           FROM gn_monitoring.t_base_sites tbs
+             LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
+             LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
+             LEFT JOIN gn_meta.cor_acquisition_framework_site caf ON tsg.sites_group_name::text = caf.area_code
+             LEFT JOIN gn_meta.t_datasets taf ON taf.id_acquisition_framework = caf.id_acquisition_framework
+             LEFT JOIN ref_geo.l_areas la ON tsg.sites_group_name::text = la.area_code::text
+          WHERE tsg.id_module = 32 AND lower(taf.dataset_name::text) ~~ '%faune%'::text OR tsg.id_module = 32 AND lower(taf.dataset_name::text) ~~ '%taxon%'::text
+          ORDER BY tsg.sites_group_name, tbs.base_site_name
+        ), pass AS (
+         SELECT tbv.id_base_visit,
+            tbv.id_base_site,
+            tbv.visit_date_min AS pass_date,
+            tvc.data
+           FROM gn_monitoring.t_base_visits tbv
+             LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
+          WHERE tbv.id_module = 32
+        ), obs AS (
+         SELECT o.id_observation,
+            o.id_base_visit,
+            o.cd_nom,
+            tx.nom_valide,
+            tx.nom_vern,
+            o.comments,
+            toc.data,
+            mil.cd_ref,
+            mil.id_milieu,
+            mil.milieu,
+            mil.couleur
+           FROM gn_monitoring.t_observations o
+             LEFT JOIN gn_monitoring.t_observation_complements toc USING (id_observation)
+             LEFT JOIN taxonomie.taxref tx USING (cd_nom)
+             LEFT JOIN milieux mil USING (cd_ref)
+        ), observers AS (
+         SELECT array_agg(r.id_role) AS ids_observers,
+            string_agg(concat(r.nom_role, ' ', r.prenom_role), ' ; '::text) AS observers,
+            cvo.id_base_visit
+           FROM gn_monitoring.cor_visit_observer cvo
+             JOIN utilisateurs.t_roles r ON r.id_role = cvo.id_role
+          GROUP BY cvo.id_base_visit
+        )
+ SELECT obs.id_observation,
+    tr.id_dataset,
+    tr.dataset_name,
+    tr.site_code,
+    tr.site_name,
+    tr.transect_name,
+    (pass.data -> 'annee'::text)::integer AS pass_annee,
+    (pass.data -> 'num_passage'::text)::integer AS pass_num,
+    pass.pass_date,
+    (pass.data -> 'heure_debut'::text)::text AS pass_heure,
+    observers.observers AS observateurs,
+    (pass.data -> 'occ_sol'::text)::text AS pass_os1,
+    (pass.data -> 'occ_sol_detail'::text)::text AS pass_os2,
+    (pass.data -> 'hab_1'::text)::text AS pass_hab1,
+    (pass.data -> 'hab_2'::text)::text AS pass_hab2,
+    ref_nomenclatures.get_nomenclature_label((pass.data -> 'id_nomenclature_tp'::text)::integer, 'fr'::character varying) AS temperature,
+    ref_nomenclatures.get_nomenclature_label((pass.data -> 'id_nomenclature_cn'::text)::integer, 'fr'::character varying) AS couv_nuageuse,
+    ref_nomenclatures.get_nomenclature_label((pass.data -> 'id_nomenclature_vt'::text)::integer, 'fr'::character varying) AS vent,
+    obs.cd_nom,
+    obs.nom_valide,
+    obs.nom_vern,
+    obs.id_milieu,
+    obs.milieu,
+    (obs.data -> 'effectif'::text)::integer AS effectif_total,
+        CASE
+            WHEN ((obs.data -> 'nb_male'::text)::text) = 'null'::text THEN NULL::integer
+            ELSE (obs.data -> 'nb_male'::text)::integer
+        END AS nb_male,
+        CASE
+            WHEN ((obs.data -> 'nb_femelle'::text)::text) = 'null'::text THEN NULL::integer
+            ELSE (obs.data -> 'nb_femelle'::text)::integer
+        END AS nb_femelle,
+    obs.comments AS commentaire,
+    obs.couleur,
+    tr.id_base_site,
+    pass.id_base_visit,
+    (pass.data -> 'source'::text)::text AS source_donnee,
+    obs.data -> 'id_obs_mysql'::text AS id_obs_mysql,
+    tr.altitude_min,
+    tr.altitude_max
+   FROM obs
+     LEFT JOIN observers USING (id_base_visit)
+     LEFT JOIN pass USING (id_base_visit)
+     JOIN tr USING (id_base_site)
+  ORDER BY tr.site_code, tr.transect_name, ((pass.data -> 'annee'::text)::integer) DESC, ((pass.data -> 'num_passage'::text)::integer) DESC, obs.nom_valide;
+;
+
+-- Accès dans Qgis
+GRANT SELECT ON TABLE gn_monitoring.v_export_sterf_obs_n1 TO geonat_visu;
+GRANT SELECT ON TABLE gn_monitoring.v_export_sterf_obs_n TO geonat_visu;
+GRANT SELECT ON TABLE gn_monitoring.v_export_sterf_obs TO geonat_visu;
+GRANT SELECT ON TABLE gn_monitoring.v_export_sterf_transect TO geonat_visu;
+GRANT SELECT ON TABLE gn_monitoring.v_export_sterf_obs_2 TO geonat_visu;

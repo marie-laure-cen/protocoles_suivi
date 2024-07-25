@@ -8,6 +8,9 @@
     }
   },
   "export_csv": [
-    { "label": "Format standard CSV", "type":"csv" , "method": "standard" }
+    { "label": "Transects STERF", "type":"csv" , "method": "transect" },
+    { "label": "Ensemble des suivis STERF", "type":"csv" , "method": "obs" },
+    { "label": "Suivis de l'année en cours", "type":"csv" , "method": "obs_n" },
+    { "label": "Suivis de l'année passée", "type":"csv" , "method": "obs_n1" }
   ]
 }

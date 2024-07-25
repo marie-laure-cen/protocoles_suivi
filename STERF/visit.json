@@ -5,10 +5,16 @@
   "display_properties": [
     "observers",
     "num_passage",
+    "annee",
     "visit_date_min",
     "visit_date_max",
     "heure_debut",
     "heure_fin",
+    "occ_sol",
+    "occ_sol_detail",
+    "hab_1",
+    "lisiere",
+    "hab_2",
     "id_nomenclature_tp",
     "id_nomenclature_cn",
     "id_nomenclature_vt",
@@ -19,10 +25,11 @@
     "num_passage",
     "visit_date_min",
     "observers",
+    "occ_sol",
     "nb_observations"
   ],
   "keep": [
-    "num_passage",
+    "annee",
     "id_dataset",
     "observers"
   ],
@@ -32,6 +39,13 @@
       "attribut_label": "Numéro de passage",
       "min" : 1,
       "max": 4,
+      "required": true
+    },
+    "annee": {
+      "type_widget": "number",
+      "attribut_label": "Année",
+      "min" : 1993,
+      "value": 2024,
       "required": true
     },
     "visit_date_min":{
@@ -52,7 +66,7 @@
     "heure_fin": {
       "type_widget": "time",
       "attribut_label": "Heure de départ",
-      "required": true
+      "required": false
     },
     "id_nomenclature_tp":{
       "type_widget": "datalist",
@@ -97,6 +111,52 @@
       "values": ["Intranet SER", "GeoNature", "Qfield/Qgis"],
       "value": "GeoNature",
       "hidden":false
+    },
+    "hab_1": {
+      "attribut_label": "Habitat principal",
+      "type_widget": "text",
+      "required": true,
+      "hidden": false,
+      "definition": "Habitat du protocole STERF",
+      "link_definition":"https://www.vigienature.fr/sites/vigienature/files/atoms/files/sterf_classification_habitats.pdf"
+    },
+    "lisiere":{
+      "type_widget": "select",
+      "required": true,
+      "attribut_label": "Lisière ?",
+      "values": ["Oui", "Non"],
+      "value": "Non",
+      "hidden":false
+    },
+    "hab_2": {
+      "attribut_label": "Habitat secondaire",
+      "type_widget": "text",
+      "hidden": "({value}) => value.lisiere != 'Oui'",
+      "required": "({value}) => value.lisiere == 'Oui'"
+    },
+    "occ_sol": {
+      "attribut_label": "Occupation du sol à grande échelle",
+      "type_widget": "select",
+      "values": ["Forêts et milieux semi-naturels", "Territoires agricoles", "Territoires artificialisés","Zones humides"],
+      "required": true,
+      "hidden": false
+    },
+    "occ_sol_detail": {
+      "attribut_label": "Occupation du sol détaillée",
+      "values": [
+        "Cultures permanentes", 
+        "Espaces verts artificialisés", 
+        "Forêt (feuillus, conifères, mixtes)",
+        "Forêts et végétation arbustive en mutation",
+        "Landes, broussailles",
+        "Pelouses, pâturages naturels",
+        "Prairie",
+        "Zones humides intérieures ou maritimes",
+        "Zones urbaines (hors espaces verts)"
+      ],
+      "type_widget": "select",
+      "required": true,
+      "hidden": false      
     }
   }
 }
