@@ -428,13 +428,11 @@ ORDER BY site_code, transect_name, pass_num DESC, nom_valide
 
 
 -------------------------------------------------
--- Export des observations sans géométrie -------
+-- Export des obs sans géométrie ac statuts -----
 -------------------------------------------------
-
 DROP VIEW gn_monitoring.v_export_sterf_obs_2;
 
-CREATE OR REPLACE VIEW gn_monitoring.v_export_sterf_obs_2
- AS
+CREATE OR REPLACE VIEW gn_monitoring.v_export_sterf_obs_2 AS
  WITH milieux AS (
          SELECT cor_taxon_attribut.cd_ref,
             cor_taxon_attribut.valeur_attribut AS id_milieu,
@@ -458,7 +456,97 @@ CREATE OR REPLACE VIEW gn_monitoring.v_export_sterf_obs_2
                 END AS couleur
            FROM taxonomie.cor_taxon_attribut
           WHERE cor_taxon_attribut.id_attribut = 43
-        ), tr AS (
+        ), patri as(
+			SELECT 
+				cor_taxon_attribut.cd_ref,
+				cor_taxon_attribut.valeur_attribut AS patrimonialite_hn
+			FROM taxonomie.cor_taxon_attribut
+			WHERE cor_taxon_attribut.id_attribut = 7
+		), bern as (
+			SELECT
+				cd_nom,
+				cd_ref,
+				cd_type_statut,
+				label_statut, 
+				cd_sig
+			FROM taxonomie.bdc_statut
+			WHERE ordre = 'Lepidoptera' AND cd_type_statut = 'BERN'
+			ORDER BY cd_sig
+		),
+		dh as (
+			SELECT
+				cd_nom,
+				cd_ref,
+				cd_type_statut,
+				label_statut 
+			FROM taxonomie.bdc_statut
+			WHERE ordre = 'Lepidoptera' AND cd_type_statut = 'DH'
+		),  lrm as (
+			SELECT
+				cd_nom,
+				cd_ref,
+				cd_type_statut,
+				label_statut 
+			FROM taxonomie.bdc_statut
+			WHERE ordre = 'Lepidoptera' AND cd_type_statut = 'LRM'
+		),lre as (
+			SELECT
+				cd_nom,
+				cd_ref,
+				cd_type_statut,
+				label_statut 
+			FROM taxonomie.bdc_statut
+			WHERE ordre = 'Lepidoptera' AND cd_type_statut = 'LRE'
+		),lrn as (
+			SELECT
+				cd_nom,
+				cd_ref,
+				cd_type_statut,
+				label_statut 
+			FROM taxonomie.bdc_statut
+			WHERE ordre = 'Lepidoptera' AND cd_type_statut = 'LRN'
+		),lrr as (
+			SELECT
+				cd_nom,
+				cd_ref,
+				STRING_AGG (DISTINCT cd_type_statut, ',') as cd_type_statut,
+				STRING_AGG (DISTINCT cd_sig || ' ' || label_statut, ',') as label_statut 
+			FROM taxonomie.bdc_statut
+			WHERE ordre = 'Lepidoptera' AND cd_type_statut = 'LRR'
+			AND cd_sig in ('INSEER23', 'INSEER25', 'INSEER28')
+			GROUP BY cd_ref, cd_nom
+		), patnat as (
+			SELECT
+				cd_nom,
+				cd_ref,
+				cd_type_statut,
+				label_statut, 
+				cd_sig
+			FROM taxonomie.bdc_statut
+			WHERE ordre = 'Lepidoptera' AND cd_type_statut = 'PAPNAT'
+			AND label_statut = 'Prioritaire'
+			ORDER BY cd_ref, cd_nom
+		), pn as (SELECT
+				cd_nom,
+				cd_ref,
+				cd_type_statut,
+				label_statut, 
+				cd_sig
+			FROM taxonomie.bdc_statut
+			WHERE ordre = 'Lepidoptera' AND cd_type_statut = 'PN'
+			ORDER BY cd_ref, cd_nom),
+			regl as (
+				SELECT
+				cd_nom,
+				cd_ref,
+				cd_type_statut,
+				label_statut, 
+				cd_sig
+			FROM taxonomie.bdc_statut
+			WHERE ordre = 'Lepidoptera' AND cd_type_statut = 'REGL'
+			),
+			
+		tr AS (
          SELECT tbs.id_base_site,
             taf.id_dataset,
             taf.dataset_name,
@@ -494,11 +582,31 @@ CREATE OR REPLACE VIEW gn_monitoring.v_export_sterf_obs_2
             mil.cd_ref,
             mil.id_milieu,
             mil.milieu,
-            mil.couleur
-           FROM gn_monitoring.t_observations o
-             LEFT JOIN gn_monitoring.t_observation_complements toc USING (id_observation)
-             LEFT JOIN taxonomie.taxref tx USING (cd_nom)
-             LEFT JOIN milieux mil USING (cd_ref)
+            mil.couleur,
+			patri.patrimonialite_hn,
+			bern.label_statut  as statut_bern,
+			dh.label_statut  as statut_dir_hab,
+			lrm.label_statut  as statut_lrm,
+			lre.label_statut  as statut_lre,
+			lrn.label_statut  as statut_lrn,
+			lrr.label_statut  as statut_lrr,
+			patnat.label_statut  as prior_action_pub,
+			pn.cd_type_statut  as protect_nat,
+			regl.label_statut as cites
+      FROM gn_monitoring.t_observations o
+        LEFT JOIN gn_monitoring.t_observation_complements toc USING (id_observation)
+        LEFT JOIN taxonomie.taxref tx USING (cd_nom)
+        LEFT JOIN milieux mil USING (cd_ref)
+        LEFT JOIN patri USING (cd_ref)
+        LEFT JOIN dh USING (cd_nom)
+        LEFT JOIN bern USING (cd_nom)
+        LEFT JOIN lrm USING (cd_nom)
+        LEFT JOIN lre USING (cd_nom)
+        LEFT JOIN lrn USING (cd_nom)
+        LEFT JOIN lrr USING (cd_nom)
+        LEFT JOIN patnat USING (cd_nom)
+        LEFT JOIN pn USING (cd_nom)
+        LEFT JOIN regl USING (cd_nom)
         ), observers AS (
          SELECT array_agg(r.id_role) AS ids_observers,
             string_agg(concat(r.nom_role, ' ', r.prenom_role), ' ; '::text) AS observers,
@@ -530,6 +638,16 @@ CREATE OR REPLACE VIEW gn_monitoring.v_export_sterf_obs_2
     obs.nom_vern,
     obs.id_milieu,
     obs.milieu,
+	  obs.patrimonialite_hn,
+	  obs.statut_bern,
+	  obs.statut_dir_hab,
+	  obs.statut_lrm,
+	  obs.statut_lre,
+	  obs.statut_lrn,
+	  obs.statut_lrr,
+	  obs.prior_action_pub,
+	  obs.protect_nat,
+	  obs.cites,
     (obs.data -> 'effectif'::text)::integer AS effectif_total,
         CASE
             WHEN ((obs.data -> 'nb_male'::text)::text) = 'null'::text THEN NULL::integer
@@ -551,8 +669,7 @@ CREATE OR REPLACE VIEW gn_monitoring.v_export_sterf_obs_2
      LEFT JOIN observers USING (id_base_visit)
      LEFT JOIN pass USING (id_base_visit)
      JOIN tr USING (id_base_site)
-  ORDER BY tr.site_code, tr.transect_name, ((pass.data -> 'annee'::text)::integer) DESC, ((pass.data -> 'num_passage'::text)::integer) DESC, obs.nom_valide;
-;
+  ORDER BY tr.site_code, tr.transect_name, ((pass.data -> 'annee'::text)::integer) DESC, ((pass.data -> 'num_passage'::text)::integer) DESC, obs.nom_valide ;
 
 -- Accès dans Qgis
 GRANT SELECT ON TABLE gn_monitoring.v_export_sterf_obs_n1 TO geonat_visu;
