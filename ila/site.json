@@ -14,17 +14,13 @@
     "id_sites_group",
     "base_site_code",
     "base_site_name",
-    "id_nomenclature_hab",
-    "id_nomenclature_gest",
+    "altitude_min",
+    "altitude_max",
     "base_site_description"
  ],
   "display_list": [
     "base_site_code",
     "base_site_name",
-    "altitude_min",
-    "altitude_max",
-    "id_nomenclature_ma",
-    "first_use_date",
     "nb_visits"
   ],
   "specific": {
@@ -50,7 +46,7 @@
       "definition": "Liste des sites du CEN afférents au suivi"
     },
     "id_inventor": {
-      "hidden " :false,
+      "hidden " : true,
       "required": false
     },
     "id_nomenclature_type_site": {
@@ -62,30 +58,6 @@
           "cd_nomenclature": "STELI"
       },
       "hidden": true
-    },
-    "id_nomenclature_hab":{
-      "type_widget": "datalist",
-      "attribut_label": "Grand type d'habitat",
-      "api": "nomenclatures/nomenclature/ILA_HAB",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "multiple": true,
-      "required": true
-    },
-    "id_nomenclature_gest":{
-      "type_widget": "datalist",
-      "attribut_label": "Gestion",
-      "api": "nomenclatures/nomenclature/CENN_GEST",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "multiple": true,
-      "required": true
     },
     "nb_visits": {
       "attribut_label": "Nb. passages"

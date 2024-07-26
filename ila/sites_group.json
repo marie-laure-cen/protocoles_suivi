@@ -10,12 +10,15 @@
   "display_properties": [
     "sites_group_code",
     "sites_group_name",
-    "sites_group_description",
-    "id_resp"
+    "sentinelle_climat",
+    "id_resp",
+    "annee_debut",
+    "annee_fin",
+    "sites_group_description"
   ],
   "display_list": [
+    "sites_group_code",
     "sites_group_name",
-    "id_resp",
     "nb_sites"
   ],
   "specific": {
@@ -23,6 +26,27 @@
       "attribut_label": "Code site",
       "hidden": false,
       "required": true
+    },
+    "annee_debut": {
+      "type_widget": "number",
+      "attribut_label": "Année de lancement du suivi",
+      "min" : 1993,
+      "value": 2024,
+      "required": true
+    },
+    "annee_fin": {
+      "type_widget": "number",
+      "attribut_label": "Année d'arrêt du suivi",
+      "min" : 1993,
+      "required": false
+    },
+    "sentinelle_climat":{
+      "type_widget": "select",
+      "required": true,
+      "attribut_label": "Programme Sentinelle du Climat",
+      "values": ["Oui", "Non"],
+      "value": "Non",
+      "hidden":false
     },
     "id_resp": {
       "type_widget": "datalist",
@@ -33,8 +57,7 @@
       "keyLabel": "nom_complet",
       "type_util": "user",
       "multiple": false,
-      "required": true,
-      "definition": "Personne responsable du suivi STELI sur le site CEN" 
+      "required": true
     },
     "sites_group_name":{
       "attribut_label": "Nom site",

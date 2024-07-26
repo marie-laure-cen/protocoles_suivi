@@ -14,8 +14,7 @@
     "id_sites_group",
     "base_site_code",
     "base_site_name",
-    "base_site_description",
-    "lisiere"
+    "base_site_description"
  ],
   "display_list": [
     "base_site_code",
@@ -63,12 +62,6 @@
           "cd_nomenclature": "STELI"
       },
       "hidden": true
-    },
-    "lisiere": {
-      "type_widget": "select",
-      "required": true,
-      "attribut_label": "Transect de lisière",
-      "values": ["Oui", "Non"]
     }
   }
 }

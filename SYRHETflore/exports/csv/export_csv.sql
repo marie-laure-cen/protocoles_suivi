@@ -61,15 +61,31 @@ SELECT
 	ref_nomenclatures.get_id_nomenclature('TYP_GRP', 'REL') AS id_nomenclature_grp_typ, -- Relevé phytosociologique
 	visit_date_min as date,
 	observers.observers,
-	(visit.data -> 'aire')::integer as surface_m2,
+	(visit.data -> 'rayon')::integer as rayon_m,
 	(CASE
 		WHEN (visit.data -> 'forme_areale')::text = 'null' OR (visit.data -> 'forme_areale')::text IS NULL THEN NULL
 	 	ELSE (visit.data -> 'forme_areale')::text
-	END )as forme_areale,
+	END ) as forme_areale,
 	(CASE
 		WHEN (visit.data -> 'habitat_associe')::text = 'null' OR (visit.data -> 'habitat_associe')::text IS NULL THEN NULL
 	 	ELSE (visit.data -> 'habitat_associe')::integer
 	END ) as habitat,
+	(CASE
+		WHEN (visit.data -> 'recouv_arbore')::text = 'null' OR (visit.data -> 'recouv_arbore')::text IS NULL THEN NULL
+	 	ELSE (visit.data -> 'recouv_arbore')::text
+	END ) as recouv_strate_arboree,
+	(CASE
+		WHEN (visit.data -> 'recouv_arbust_1')::text = 'null' OR (visit.data -> 'recouv_arbust_1')::text IS NULL THEN NULL
+	 	ELSE (visit.data -> 'recouv_arbust_1')::text
+	END ) as recouv_strate_arbust_haute,
+	(CASE
+		WHEN (visit.data -> 'recouv_arbust_2')::text = 'null' OR (visit.data -> 'recouv_arbust_2')::text IS NULL THEN NULL
+	 	ELSE (visit.data -> 'recouv_arbust_2')::text
+	END ) as recouv_strate_arbust_basse,
+	(CASE
+		WHEN (visit.data -> 'recouv_herb')::text = 'null' OR (visit.data -> 'recouv_herb')::text IS NULL THEN NULL
+	 	ELSE (visit.data -> 'recouv_herb')::text
+	END ) as recouv_strate_herbacee,
 	-- Observation
 	obs.cd_nom,
 	obs.nom_complet,

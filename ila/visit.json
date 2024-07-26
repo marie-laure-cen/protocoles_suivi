@@ -3,15 +3,17 @@
   "label": "Passage",
   "label_list": "Passages",
   "display_properties": [
-    "observers",
     "num_passage",
     "visit_date_min",
-    "visit_date_max",
+    "observers",
     "heure_debut",
     "heure_fin",
     "id_nomenclature_tp",
     "id_nomenclature_cn",
     "id_nomenclature_vt",
+    "habitat",
+    "gestion",
+    "impact",
     "comments",
     "source"
   ],
@@ -39,10 +41,9 @@
       "required": true
     },
     "visit_date_max":{
-      "attribut_label": "Date de fin du passage" ,  
-      "definition": "Date de fin de passage (à remplir si différente de la date de début du passage)",
+      "attribut_label": "Date de fin du passage" , 
       "required": false,
-      "hidden": false
+      "hidden": true
     },
     "heure_debut": {
       "type_widget": "time",
@@ -52,7 +53,7 @@
     "heure_fin": {
       "type_widget": "time",
       "attribut_label": "Heure de départ",
-      "required": true
+      "required": false
     },
     "id_nomenclature_tp":{
       "type_widget": "datalist",
@@ -96,6 +97,51 @@
       "attribut_label": "Source de la donnée",
       "values": ["Intranet SER", "GeoNature", "Qfield/Qgis"],
       "value": "GeoNature",
+      "hidden":false
+    },
+    "habitat":{
+      "attribut_label": "Habitat",
+      "type_widget": "select",
+      "values": [
+        "Berges",
+        "Brachypodaie",
+        "Cariçaie",
+        "Dalle / Pelouse écorchée",
+        "Friche",
+        "Fruticée",
+        "Lande",
+        "Lisière / Forestière",
+        "Mégaphorbiaie",
+        "Ourlet",
+        "Pelouse calcaire",
+        "Pelouse sableuse",
+        "Prairie humide",
+        "Prairie piquetée",
+        "Roselière"
+      ],
+      "required": true,
+      "hidden": false
+    },
+    "gestion":{
+      "attribut_label": "Gestion",
+      "type_widget": "select",
+      "values": [
+        "Autre",
+        "Broyage",
+        "Débroussaillage",
+        "Etrépage",
+        "Fauche",
+        "Pas d'intervention",
+        "Pâturage"
+      ],
+      "required": true,
+      "hidden": false
+    },
+    "impact":{
+      "type_widget": "select",
+      "required": false,
+      "attribut_label": "Impact de la gestion",
+      "values": ["OUI", "NON"],
       "hidden":false
     }
   }
