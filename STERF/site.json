@@ -16,16 +16,17 @@
     "occ_sol_detail",
     "hab_1",
     "lisiere",
-    "hab_2"
+    "hab_2",
+    "gestion",
+    "altitude_min",
+    "altitude_max"
  ],
   "display_list": [
     "base_site_code",
     "base_site_name",
-    "altitude_min",
-    "altitude_max",
-    "first_use_date",
     "nb_visits"
-  ], "keep": [
+  ],
+  "keep": [
     "id_sites_group",
     "occ_sol",
     "occ_sol_detail",
@@ -75,8 +76,7 @@
       "attribut_label": "Habitat principal du dernier passage",
       "type_widget": "text",
       "required": true,
-      "hidden": false,
-      "link_definition":"https://www.vigienature.fr/sites/vigienature/files/atoms/files/sterf_classification_habitats.pdf"
+      "hidden": false
     },
     "lisiere":{
       "type_widget": "select",
@@ -115,6 +115,21 @@
       "type_widget": "select",
       "required": true,
       "hidden": false      
+    },
+    "gestion":{
+      "attribut_label": "Gestion",
+      "type_widget": "select",
+      "values": [
+        "Autre",
+        "Broyage",
+        "Débroussaillage",
+        "Etrépage",
+        "Fauche",
+        "Pas d'intervention",
+        "Pâturage"
+      ],
+      "required": false,
+      "hidden": false
     }
   }
 }
