@@ -27,7 +27,7 @@
       "attribut_label": "Code STERF",
       "hidden": false,
       "required": true
-    },,
+    },
     "annee_debut": {
       "type_widget": "number",
       "attribut_label": "Année de lancement du suivi",
