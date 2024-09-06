@@ -10,10 +10,12 @@
   "display_properties": [
     "sites_group_code",
     "sites_group_name",
-    "sentinelle_climat",
+    "sites_group_description",
     "id_resp",
+    "commune",
     "annee_debut",
     "annee_fin",
+    "sentinelle_climat",
     "sites_group_description"
   ],
   "display_list": [
@@ -66,6 +68,10 @@
     },
     "sites_group_description":{
       "hidden": false
+    },
+    "commune":{
+      "type_widget": "text",
+      "attribut_label": "Commune"
     },
     "nb_sites": {
       "attribut_label": "Nb. transects",
