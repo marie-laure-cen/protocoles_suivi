@@ -23,11 +23,9 @@ FROM gn_monitoring.t_base_sites tbs
 LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
 LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
 LEFT JOIN utilisateurs.t_roles r ON (tsg.data->'id_resp' )::integer = id_role
-LEFT JOIN gn_meta.cor_acquisition_framework_site caf ON tsg.sites_group_name = caf.area_code
-LEFT JOIN gn_meta.t_datasets taf ON taf.id_acquisition_framework = caf.id_acquisition_framework
 LEFT JOIN ref_geo.l_areas la ON tsg.sites_group_name = la.area_code
-WHERE tsg.id_module = 32 AND lower(taf.dataset_name ) LIKE '%faune%'
-OR tsg.id_module = 32 AND lower(taf.dataset_name) LIKE '%taxon%'
+LEFT JOIN gn_commons.t_modules tm ON tm.id_module = tbv.id_module
+WHERE tm.module_code = 'ila'
 ORDER BY area_code, transect_name
 ;
 
@@ -82,8 +80,9 @@ CREATE OR REPLACE VIEW gn_monitoring.v_export_sterf_obs
            FROM gn_monitoring.t_base_sites tbs
              LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
              LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
-             LEFT JOIN ref_geo.l_areas la ON tsg.sites_group_name::text = la.area_code::text
-          WHERE tsg.id_module = 32
+             LEFT JOIN ref_geo.l_areas la ON tsg.sites_group_name::text = la.area_code::textLEFT 
+             LEFT JOIN gn_commons.t_modules tm ON tm.id_module = tsg.id_module
+          WHERE tm.module_code = 'sterf'
           ORDER BY tsg.sites_group_name, tbs.base_site_name
         ), pass AS (
          SELECT tbv.id_base_visit,
@@ -92,7 +91,8 @@ CREATE OR REPLACE VIEW gn_monitoring.v_export_sterf_obs
             tvc.data
            FROM gn_monitoring.t_base_visits tbv
              LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
-          WHERE tbv.id_module = 32
+          LEFT JOIN gn_commons.t_modules tm ON tm.id_module = tbv.id_module
+          WHERE tm.module_code = 'sterf'
         ), obs AS (
          SELECT o.id_observation,
             o.id_base_visit,
@@ -285,16 +285,18 @@ CREATE OR REPLACE VIEW gn_monitoring.v_export_sterf_obs_2
              LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
              LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
              LEFT JOIN ref_geo.l_areas la ON tsg.sites_group_name::text = la.area_code::text
-          WHERE tsg.id_module = 32
+          LEFT JOIN gn_commons.t_modules tm ON tm.id_module = tsg.id_module
+          WHERE tm.module_code = 'sterf'
           ORDER BY tsg.sites_group_name, tbs.base_site_name
         ), pass AS (
          SELECT tbv.id_base_visit,
             tbv.id_base_site,
             tbv.visit_date_min AS pass_date,
             tvc.data
-           FROM gn_monitoring.t_base_visits tbv
-             LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
-          WHERE tbv.id_module = 32
+          FROM gn_monitoring.t_base_visits tbv
+          LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
+          LEFT JOIN gn_commons.t_modules tm ON tm.id_module = tbv.id_module
+          WHERE tm.module_code = 'sterf'
         ), obs AS (
          SELECT o.id_observation,
             o.id_base_visit,
@@ -447,7 +449,8 @@ CREATE OR REPLACE VIEW gn_monitoring.v_export_sterf_obs_n
              LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
              LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
              LEFT JOIN ref_geo.l_areas la ON tsg.sites_group_name::text = la.area_code::text
-          WHERE tsg.id_module = 32
+            LEFT JOIN gn_commons.t_modules tm ON tm.id_module = tsg.id_module
+           WHERE tm.module_code = 'sterf'
           ORDER BY tsg.sites_group_name, tbs.base_site_name
         ), pass AS (
          SELECT tbv.id_base_visit,
@@ -456,7 +459,8 @@ CREATE OR REPLACE VIEW gn_monitoring.v_export_sterf_obs_n
             tvc.data
            FROM gn_monitoring.t_base_visits tbv
              LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
-          WHERE tbv.id_module = 32
+          LEFT JOIN gn_commons.t_modules tm ON tm.id_module = tbv.id_module
+          WHERE tm.module_code = 'sterf'
         ), obs AS (
          SELECT o.id_observation,
             o.id_base_visit,
@@ -582,7 +586,8 @@ CREATE OR REPLACE VIEW gn_monitoring.v_export_sterf_obs_n1
              LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
              LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
              LEFT JOIN ref_geo.l_areas la ON tsg.sites_group_name::text = la.area_code::text
-          WHERE tsg.id_module = 32
+          LEFT JOIN gn_commons.t_modules tm ON tm.id_module = tsg.id_module
+          WHERE tm.module_code = 'sterf'
           ORDER BY tsg.sites_group_name, tbs.base_site_name
         ), pass AS (
          SELECT tbv.id_base_visit,
@@ -591,7 +596,8 @@ CREATE OR REPLACE VIEW gn_monitoring.v_export_sterf_obs_n1
             tvc.data
            FROM gn_monitoring.t_base_visits tbv
              LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
-          WHERE tbv.id_module = 32
+          LEFT JOIN gn_commons.t_modules tm ON tm.id_module = tbv.id_module
+          WHERE tm.module_code = 'sterf'
         ), obs AS (
          SELECT o.id_observation,
             o.id_base_visit,
