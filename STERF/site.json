@@ -4,9 +4,6 @@
   "label_list": "Transects",
   "geometry_type": "LineString",
   "map_label_field_name": "base_site_code",
-  "export_pdf": [
-      { "template": "fiche_transect.html", "label": "Export PDF" }
-  ],
   "sorts": [
     {"prop": "base_site_name", "dir": "asc"}
   ],
@@ -58,8 +55,7 @@
       "api": "__MONITORINGS_PATH/list/__MODULE.MODULE_CODE/sites_group?id_module=__MODULE.ID_MODULE",
       "application": "GeoNature",
       "required": true,
-      "hidden": false,
-      "definition": "Liste des sites du CEN afférents au suivi"
+      "hidden": false
     },
     "id_inventor": {
       "hidden " :false,
@@ -76,36 +72,35 @@
       "hidden": true
     },
     "hab_1": {
-      "attribut_label": "Habitat principal",
+      "attribut_label": "Habitat principal du dernier passage",
       "type_widget": "text",
       "required": true,
       "hidden": false,
-      "definition": "Habitat du protocole STERF",
       "link_definition":"https://www.vigienature.fr/sites/vigienature/files/atoms/files/sterf_classification_habitats.pdf"
     },
     "lisiere":{
       "type_widget": "select",
       "required": true,
-      "attribut_label": "Lisière ?",
+      "attribut_label": "Lisière",
       "values": ["Oui", "Non"],
       "value": "Non",
       "hidden":false
     },
     "hab_2": {
-      "attribut_label": "Habitat secondaire",
+      "attribut_label": "Habitat secondaire du dernier passage",
       "type_widget": "text",
       "hidden": "({value}) => value.lisiere != 'Oui'",
       "required": "({value}) => value.lisiere == 'Oui'"
     },
     "occ_sol": {
-      "attribut_label": "Occupation du sol à grande échelle",
+      "attribut_label": "Occupation du sol à grande échelle du dernier passage",
       "type_widget": "select",
       "values": ["Forêts et milieux semi-naturels", "Territoires agricoles", "Territoires artificialisés","Zones humides"],
       "required": true,
       "hidden": false
     },
     "occ_sol_detail": {
-      "attribut_label": "Occupation du sol détaillée",
+      "attribut_label": "Occupation du sol détaillée du dernier passage",
       "values": [
         "Cultures permanentes", 
         "Espaces verts artificialisés", 
