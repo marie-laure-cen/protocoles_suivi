@@ -30,6 +30,11 @@
   ],
   "keep": [
     "annee",
+    "occ_sol",
+    "occ_sol_detail",
+    "hab_1",
+    "lisiere",
+    "hab_2",
     "id_dataset",
     "observers"
   ],

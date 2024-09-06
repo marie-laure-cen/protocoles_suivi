@@ -14,7 +14,12 @@
     "id_sites_group",
     "base_site_code",
     "base_site_name",
-    "base_site_description"
+    "base_site_description",
+    "occ_sol",
+    "occ_sol_detail",
+    "hab_1",
+    "lisiere",
+    "hab_2"
  ],
   "display_list": [
     "base_site_code",
@@ -23,6 +28,13 @@
     "altitude_max",
     "first_use_date",
     "nb_visits"
+  ], "keep": [
+    "id_sites_group",
+    "occ_sol",
+    "occ_sol_detail",
+    "hab_1",
+    "lisiere",
+    "hab_2"
   ],
   "specific": {
     "nb_visits":{
@@ -62,6 +74,52 @@
           "cd_nomenclature": "STELI"
       },
       "hidden": true
+    },
+    "hab_1": {
+      "attribut_label": "Habitat principal",
+      "type_widget": "text",
+      "required": true,
+      "hidden": false,
+      "definition": "Habitat du protocole STERF",
+      "link_definition":"https://www.vigienature.fr/sites/vigienature/files/atoms/files/sterf_classification_habitats.pdf"
+    },
+    "lisiere":{
+      "type_widget": "select",
+      "required": true,
+      "attribut_label": "Lisière ?",
+      "values": ["Oui", "Non"],
+      "value": "Non",
+      "hidden":false
+    },
+    "hab_2": {
+      "attribut_label": "Habitat secondaire",
+      "type_widget": "text",
+      "hidden": "({value}) => value.lisiere != 'Oui'",
+      "required": "({value}) => value.lisiere == 'Oui'"
+    },
+    "occ_sol": {
+      "attribut_label": "Occupation du sol à grande échelle",
+      "type_widget": "select",
+      "values": ["Forêts et milieux semi-naturels", "Territoires agricoles", "Territoires artificialisés","Zones humides"],
+      "required": true,
+      "hidden": false
+    },
+    "occ_sol_detail": {
+      "attribut_label": "Occupation du sol détaillée",
+      "values": [
+        "Cultures permanentes", 
+        "Espaces verts artificialisés", 
+        "Forêt (feuillus, conifères, mixtes)",
+        "Forêts et végétation arbustive en mutation",
+        "Landes, broussailles",
+        "Pelouses, pâturages naturels",
+        "Prairie",
+        "Zones humides intérieures ou maritimes",
+        "Zones urbaines (hors espaces verts)"
+      ],
+      "type_widget": "select",
+      "required": true,
+      "hidden": false      
     }
   }
 }

@@ -10,7 +10,6 @@
     "visit_date_min",
     "habitat_associe",
     "type_aire",
-    "aire",
     "rayon",
     "forme_areale",
     "recouv_arbore",
@@ -69,20 +68,13 @@
       "required": true,
       "hidden": false
     },
-    "aire":{
-      "type_widget": "number",
-      "attribut_label": "Surface en m²",
-      "min" : 1,
-      "required":  "({value}) => value.type_aire != 'Cer'",
-      "hidden": "({value}) => value.type_aire == 'Cer'"
-    },
     "rayon":{
       "type_widget": "number",
-      "attribut_label": "Surface en m²",
+      "attribut_label": "Rayon en m",
       "min" : 1,
-      "value": 15,
+      "value": 25,
       "required":  "({value}) => value.type_aire == 'Cer'",
-      "hidden": "({value}) => value.type_aire != 'Cer'"
+      "hidden": false
     },
     "forme_areale":{
       "type_widget": "text",
@@ -91,25 +83,25 @@
     },
     "recouv_arbore":{
       "type_widget": "number",
-      "attribut_label": "Recouvrement trate arborée",
+      "attribut_label": "Recouvrement strate arborée",
       "min" : 1,
       "required": false
     },
     "recouv_arbust_1":{
       "type_widget": "number",
-      "attribut_label": "Recouvrement trate arbustive haute",
+      "attribut_label": "Recouvrement strate arbustive haute",
       "min" : 1,
       "required": false
     },
     "recouv_arbust_2":{
       "type_widget": "number",
-      "attribut_label": "Recouvrement trate arbustive basse",
+      "attribut_label": "Recouvrement strate arbustive basse",
       "min" : 1,
       "required": false
     },
     "recouv_herb":{
       "type_widget": "number",
-      "attribut_label": "Recouvrement trate arbustive herbacée",
+      "attribut_label": "Recouvrement strate arbustive herbacée",
       "min" : 1,
       "required": false
     },

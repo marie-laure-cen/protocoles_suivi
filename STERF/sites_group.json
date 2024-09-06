@@ -2,19 +2,21 @@
   "genre":"M",
   "label": "Site suivi",
   "label_list": "Site suivi",
-  "map_label_field_name": "base_site_name",
+  "map_label_field_name": "sites_group_description",
   "b_draw_sites_group": false,
   "sorts": [
-    {"prop": "sites_group_name"}
+    {"prop": "commune"}
   ],
   "display_properties": [
     "sites_group_code",
     "sites_group_name",
+    "sites_group_description",
+    "commune",
     "id_resp"
   ],
   "display_list": [
-    "sites_group_name",
-    "id_resp",
+    "commune",
+    "sites_group_description",
     "nb_sites"
   ],
   "specific": {
@@ -25,23 +27,27 @@
     },
     "id_resp": {
       "type_widget": "datalist",
-      "attribut_label": "Responsable du suivi STERF",
+      "attribut_label": "Responsable du suivi",
       "api": "users/menu/__MODULE.ID_LIST_OBSERVER",
       "application": "GeoNature",
       "keyValue": "id_role",
       "keyLabel": "nom_complet",
       "type_util": "user",
       "multiple": false,
-      "required": true,
-      "definition": "Personne responsable du suivi STELI sur le site CEN" 
+      "required": true
     },
     "sites_group_name":{
-      "attribut_label": "Code site",
+      "attribut_label": "Code",
       "hidden":false,
       "required":false
     },
     "sites_group_description":{
-      "hidden": true
+      "attribut_label": "Nom",
+      "hidden": false
+    },
+    "commune":{
+      "type_widget": "text",
+      "attribut_label": "Commune"
     },
     "nb_sites": {
       "attribut_label": "Nb. transects",
