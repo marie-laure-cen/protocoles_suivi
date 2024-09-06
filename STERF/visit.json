@@ -18,6 +18,7 @@
     "id_nomenclature_tp",
     "id_nomenclature_cn",
     "id_nomenclature_vt",
+    "gestion",
     "comments",
     "source"
   ],
@@ -35,6 +36,7 @@
     "hab_1",
     "lisiere",
     "hab_2",
+    "gestion",
     "id_dataset",
     "observers"
   ],
@@ -162,6 +164,21 @@
       "type_widget": "select",
       "required": true,
       "hidden": false      
+    },
+    "gestion":{
+      "attribut_label": "Gestion",
+      "type_widget": "select",
+      "values": [
+        "Autre",
+        "Broyage",
+        "Débroussaillage",
+        "Etrépage",
+        "Fauche",
+        "Pas d'intervention",
+        "Pâturage"
+      ],
+      "required": false,
+      "hidden": false
     }
   }
 }

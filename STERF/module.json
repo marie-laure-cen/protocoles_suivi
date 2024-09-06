@@ -11,7 +11,7 @@
     { "label": "Transects STERF", "type":"csv" , "method": "transect"},
     { "label": "Ensemble des suivis STERF", "type":"csv" , "method": "obs"},
     { "label": "Ensemble des suivis STERF avec statuts", "type":"csv", "method": "obs_2" },
-    { "label": "Suivis de l'année en cours", "type":"csv" , "method": "obs_n" },
-    { "label": "Suivis de l'année passée", "type":"csv" , "method": "obs_n1" }
+    { "label": "Suivis STERF de l'année en cours", "type":"csv" , "method": "obs_n" },
+    { "label": "Suivis STERF de l'année passée", "type":"csv" , "method": "obs_n1" }
   ]
 }
