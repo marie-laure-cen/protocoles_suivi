@@ -1,0 +1,102 @@
+{
+  "genre":"F",
+  "label": "Aire",
+  "export_pdf": [
+    {
+      "template": "fiche_aire.html",
+      "label": "Export PDF"
+    }
+  ],
+  "label_list": "Aires",
+  "display_properties": [
+    "sites_group_code",
+    "sites_group_name",
+    "departement",
+    "commune",
+    "sites_group_description",
+    "id_resp",
+    "annee_debut",
+    "annee_fin",
+    "sentinelle_climat"
+  ],
+  "display_list": [
+    "commune",
+    "sites_group_name",
+    "sites_group_code",
+    "nb_sites"
+  ],
+  "keep":[
+    "sentinelle_climat"
+  ],
+  "specific": {
+    "sites_group_code": {
+      "attribut_label": "Code de l'aire",
+      "definition": "Code de l'aire dans le programme Sentinelle du climat",
+      "hidden": false,
+      "required": false
+    },
+    "sites_group_name":{
+      "type_widget": "datalist",
+      "attribut_label": "Nom du site",
+      "required": true,
+      "keyValue": "area_name",
+      "keyLabel": "area_name",
+      "api": "geo/areas?type_code=SCEN&type_code=SCEN2&without_geom=true",
+      "data_path": "data",
+      "application": "GeoNature"
+    },
+    "sites_group_description":{
+      "attribut_label": "Commentaire site",
+      "hidden": false
+    },
+    "departement":{
+      "attribut_label": "Numéro de département",
+      "type_widget": "select",
+      "required": true,
+      "values": [14,27,50,61,76]
+    },
+    "annee_debut": {
+      "type_widget": "number",
+      "attribut_label": "Année de lancement du suivi",
+      "min" : 1993,
+      "value": 2024,
+      "required": true
+    },
+    "annee_fin": {
+      "type_widget": "number",
+      "attribut_label": "Année d'arrêt du suivi",
+      "min" : 1993,
+      "required": false
+    },
+    "sentinelle_climat":{
+      "type_widget": "select",
+      "required": true,
+      "attribut_label": "Programme Sentinelle du Climat",
+      "values": ["Oui", "Non"],
+      "value": "Oui",
+      "hidden":false
+    },
+    "id_resp": {
+      "type_widget": "datalist",
+      "attribut_label": "Responsable du suivi",
+      "api": "users/menu/__MODULE.ID_LIST_OBSERVER",
+      "application": "GeoNature",
+      "keyValue": "id_role",
+      "keyLabel": "nom_complet",
+      "type_util": "user",
+      "multiple": false,
+      "required": true
+    },
+    "commune":{
+      "type_widget": "text",
+      "attribut_label": "Commune"
+    },
+    "nb_sites": {
+      "attribut_label": "Nb. transects",
+      "hidden": false
+    },
+    "nb_visits": {
+      "attribut_label": "Nb. passages"
+    }
+  }
+}

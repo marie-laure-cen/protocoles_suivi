@@ -1,0 +1,32 @@
+{
+  "genre":"M",
+  "label": "transect",
+  "label_list": "transects",
+  "map_label_field_name": "base_site_name",
+  "b_draw_sites_group": true,
+  "sorts": [
+    {"prop": "sites_group_name"}
+  ],
+  "display_properties": [
+    "sites_group_name",
+    "sites_group_code",
+    "site_group_description"
+  ],
+  "display_list": [
+    "sites_group_name",
+    "sites_group_code",
+    "nb_sites"
+  ],
+  "specific": {
+    "sites_group_code": {
+      "required": false,
+      "attribut_label": "Code du transect",
+      "hidden": false
+    },
+    "sites_group_name":{
+      "attribut_label": "Nom du transect"
+    }
+  },
+  "change": [
+  ]
+}

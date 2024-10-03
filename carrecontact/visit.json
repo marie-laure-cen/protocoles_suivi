@@ -1,0 +1,42 @@
+{
+  "genre":"M",
+  "label": "relevé phytosociologique",
+  "label_list": "relevés phytosociologiques",
+  "sorts": [
+    {"prop": "visit_date_min", "dir": "desc"}
+  ],
+  "display_properties": [
+    "observers",
+    "visit_date_min",
+    "habitat_associe",
+    "taux_recouvrement",
+    "hauteur_vegetation",
+    "quadrat",
+    "comments"
+  ],
+  "display_list": [
+    "visit_date_min",
+    "observers",
+    "type_aire",
+    "nb_observations"
+  ],
+  "keep": [
+    "observers",  
+    "habitat_associe",  
+    "aire",
+    "rayon"
+  ],
+  "specific": {
+    "visit_date_min":{
+      "attribut_label": "Date de début du passage",
+      "required": true
+    },
+    "visit_date_max":{
+      "required": false  ,
+      "hidden": true
+    },
+    "id_dataset":{
+      "hidden": true
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "module_code": "carrecontact",
+  "module_label":"Carré contacy",
+  "module_desc":"Module pour le protocole de suivi carré contact",
+  "specific": {
+    "b_draw_sites_group": {
+      "hidden": false
+    }
+  },
+  "export_csv": [
+    {
+      "label": "Test",
+      "type": "csv",
+      "method": "standard"
+    }
+  ]
+}

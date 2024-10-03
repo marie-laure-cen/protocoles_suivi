@@ -1,0 +1,74 @@
+{
+  "genre":"F",
+  "label": "placette",
+  "label_list": "placettes",
+  "geometry_type": "Point",
+  "map_label_field_name": "base_site_name",
+  "sorts": [
+    {"prop": "base_site_name", "dir": "asc"}
+  ],
+  "display_properties": [
+    "base_site_code",
+    "id_sites_group",
+    "id_nomenclature_tech_collect_campanule",
+    "base_site_description"
+ ],
+  "display_list": [
+    "base_site_code",
+    "first_use_date",
+    "nb_visits"
+  ],
+  "specific": {
+    "base_site_name":{
+      "hidden": true,
+      "required": false
+    },
+    "base_site_code": {
+      "attribut_label": "Code de la placette",
+      "required": true
+    },
+    "base_site_description":{
+      "attribut_label": "Commentaires"
+    },
+    "id_inventor": {
+      "hidden " :false,
+      "required": false
+    },
+    "id_sites_group": {
+      "type_widget": "datalist",
+      "attribut_label": "Groupe de site",
+      "type_util": "sites_group",
+      "keyValue": "id_sites_group",
+      "keyLabel": "sites_group_name",
+      "api": "__MONITORINGS_PATH/list/__MODULE.MODULE_CODE/sites_group?id_module=__MODULE.ID_MODULE",
+      "application": "GeoNature",
+      "required": false,
+      "hidden": false,
+      "definition": "Liste des zones de prospections définies pour le protocole."
+    },
+    "id_nomenclature_type_site": {
+      "attribut_label": "Type site",
+      "type_util": "nomenclature",
+      "value": {
+          "code_nomenclature_type": "TYPE_SITE",
+          "cd_nomenclature": "carre_conctact"
+      },
+      "hidden": true
+    },
+    "id_nomenclature_tech_collect_campanule": {
+      "type_widget": "datalist",
+      "attribut_label": "Technique de collecte",
+      "api": "nomenclatures/nomenclature/TECHNIQUE_OBS",
+      "definition": "Technique de collecte issue du référentiel CAMPANULE",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": true,
+      "default": {
+        "cd_nomenclature": "59"
+      }
+    }
+  }
+}

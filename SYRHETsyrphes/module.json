@@ -1,5 +1,5 @@
 {
-  "module_code": "SYRHETsyrphes",
+  "module_code": "syrhetsyrphes",
   "module_label":"SYRHET syrphes",
   "module_desc":"Module pour le protocole de suivi SYRHET des syrphes",
   "export_csv": [
