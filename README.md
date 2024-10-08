@@ -4,21 +4,21 @@
 
 Les modules suivants sont implémentés dans GeoNature:
 - [ila](ila),
-- steli,
-- sterf,
-- syrhet flore,
-- syrhet hétérocères,
-- syrhet syrphes,
-- piezo
+- [steli](steli),
+- [sterf](sterf),
+- [syrhet flore](syrhetflore),
+- [syrhet hétérocères](syrhetheteroceres),
+- [syrhet syrphes](syrhetsyrphes),
+- [piezo](piezo)
 
 Les modules suivants sont en cours de développement:
-- carré contact,
-- relevé phyto,
-- pop reptile,
-- travaux,
-- pâturage
+- [carré contact](carrecontact),
+- [relevé phyto](phyto),
+- [pop reptile](popreptile),
+- [travaux](travaux),
+- [paturage](paturage)
 
-Des développements peuvent être envisagés pour les relevés du PRELE et du PRAM.
+Des développements peuvent être envisagés pour les relevés du PRELE et du PRAM. Des exemples de modules de suivis sont disponibles dans la dossier [exemples](exemples).
 
 ## Intégration des données pré-existantes
 
