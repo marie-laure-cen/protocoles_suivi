@@ -3,7 +3,7 @@
 ## Présentation des modules
 
 Les modules suivants sont implémentés dans GeoNature:
-- ila,
+- [ila](ila),
 - steli,
 - sterf,
 - syrhet flore,
