@@ -1,5 +1,25 @@
 # Modules de suivi pour le GeoNature du CENN Normandie
 
+## Présentation des modules
+
+Les modules suivants sont implémentés dans GeoNature:
+- ila,
+- steli,
+- sterf,
+- syrhet flore,
+- syrhet hétérocères,
+- syrhet syrphes,
+- piezo
+
+Les modules suivants sont en cours de développement:
+- carré contact,
+- relevé phyto,
+- pop reptile,
+- travaux,
+- pâturage
+
+Des développements peuvent être envisagés pour les relevés du PRELE et du PRAM.
+
 ## Intégration des données pré-existantes
 
 La démarche suivante se base sur le protocole ILA, anciennement hébergé sur une base MySql.
@@ -284,8 +304,6 @@ Les observations sont créées en 3 étapes :
 - Mise à jour de la couche d'import avec les identifiants GN,
 - Ajout de données additionnelles `gn_monitoring.t_observation_complements`.
 
-Pour la plupart des protocoles du CENN, le niveau observation_details n'est pas atteint.
-
 ```sql
 -- Création des observations
 INSERT INTO gn_monitoring.t_observations(
@@ -337,7 +355,7 @@ ORDER BY i.id_observation
 ;
 ```
 
-La dernière étape consiste à nettoyer les champs commentaires utilisés pour conserver les identifiants MySql lors des intégrations :
+Pour la plupart des protocoles du CENN, le niveau observation_details n'est pas atteint. La dernière étape consiste à nettoyer les champs commentaires utilisés pour conserver les identifiants MySql lors des intégrations :
 
 ```sql
 WITH obs as (
