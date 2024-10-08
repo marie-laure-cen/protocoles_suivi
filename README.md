@@ -32,6 +32,9 @@ La première étape consiste à créer une vue qui permet de récupérer l'ensem
 DROP VIEW steli_sterf.ila_pr_gn ;
 CREATE VIEW steli_sterf.ila_pr_gn AS
 SELECT
+-- GROUP DE SITE
+	t.ID_Site AS code_site,
+	s.Nom_Site AS nom_site,
 -- TRANSECT
 	o.ID_Transect AS id_transect_ila,
 	t.Nom_Transect AS transect,
@@ -79,9 +82,41 @@ ORDER BY hm.Date DESC
 
 Les données sont ensuite importées dans une table de GeoNature, dans le schéma import: `gn_imports.ila_import`. 
 
-(AJOUTER METHODE GROUPE SITES + TRANSECTS)
+La **liste des sites** du protocole peut être créée en partie automatiquement dans la table `gn_monitoring.t_sites_groups` :
 
-Une fois les groupes de sites créés, il est possible d'ajouter des champs additionnels, comme par exemple la.es commune.s :
+```sql
+WITH ila_site as (
+    SELECT
+        code_site,
+        nom_site
+    FROM ila_pr_gn
+    GROUP BY
+        code_site,
+        nom_site
+),
+gn_site as (
+    SELECT
+        area_code,
+        area_name
+    FROM ref_geo.l_areas
+    WHERE id_type in (12,34,37)
+)
+INSERT INTO gn_monitoring.t_sites_groups (
+    id_module,
+    sites_group_name,
+    sites_group_code,
+    sites_group_description
+)
+SELECT
+    33, -- A modifier en fonction du module
+    gn_site.area_name,
+    gn_site.area_code,
+    ila_site.nom_site
+FROM gn_site
+INNER JOIN ila_site ON ila_site.code_site = gn_site.area_code
+```
+
+Il faut ensuite corriger la table là où les codes sites ne sont pas identiques entre la base de données source et GeoNature. Une fois les sites créés, il est possible d'ajouter des champs additionnels, comme par exemple la.es commune.s :
 
 ```sql
 WITH site as (
@@ -112,7 +147,9 @@ WHERE id_module = 33 AND sc.id_site = tsg.sites_group_code
 ;
 ```
 
-La création des passages demande 4 étapes : 
+La **création des transects** doit être réalisée entre Qgis et Postgresql puisqu'il faut rassembler la géométrie des tables enregistrées sur le réseau avec les informations de la base MySql. Les tables à remplir sont `gn_monitoring.t_base_sites` et `gn_monitoring.t_site_complements`
+
+La **création des passages** demande 4 étapes : 
 - Création des passages avec les champs génériques de GN `gn_monitoring.t_base_visits`,
 - Mise à jour de la table d'import avec les identifiants GN,
 - Ajout des données supplémentaires dans la table de compléments `gn_monitoring.t_visit_complements`,
@@ -299,7 +336,7 @@ WHERE sd.id_base_site = tsc.id_base_site
 ;
 ```
 
-Les observations sont créées en 3 étapes :
+Les **observations** sont créées en 3 étapes :
 - Création des observations avec les champs génériques de GN `gn_monitoring.t_observations`,
 - Mise à jour de la couche d'import avec les identifiants GN,
 - Ajout de données additionnelles `gn_monitoring.t_observation_complements`.
