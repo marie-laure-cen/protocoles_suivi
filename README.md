@@ -32,7 +32,7 @@ La première étape consiste à créer une vue qui permet de récupérer l'ensem
 DROP VIEW steli_sterf.ila_pr_gn ;
 CREATE VIEW steli_sterf.ila_pr_gn AS
 SELECT
--- GROUP DE SITE
+-- GROUPE DE SITE
 	t.ID_Site AS code_site,
 	s.Nom_Site AS nom_site,
 -- TRANSECT
