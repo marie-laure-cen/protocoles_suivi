@@ -4,6 +4,10 @@
 
 La démarche suivante se base sur le protocole ILA, anciennement hébergé sur une base MySql.
 
+### Récupération des données dans la base MySql
+
+La première étape consiste à créer une vue qui permet de récupérer l'ensemble des données du protocole sur la base MySql.
+
 ```sql
 DROP VIEW steli_sterf.ila_pr_gn ;
 CREATE VIEW steli_sterf.ila_pr_gn AS
