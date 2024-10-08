@@ -78,7 +78,7 @@ ORDER BY hm.Date DESC
 ;
 ```
 
-### Formatage des données au format GeoNature
+### Formatage des données pour GeoNature
 
 Les données sont ensuite importées dans une table de GeoNature, dans le schéma import: `gn_imports.ila_import`. 
 
