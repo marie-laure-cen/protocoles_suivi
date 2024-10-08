@@ -80,7 +80,35 @@ ORDER BY hm.Date DESC
 
 ### Formatage des données pour GeoNature
 
-Les données sont ensuite importées dans une table de GeoNature, dans le schéma import: `gn_imports.ila_import`. 
+Les données sont ensuite importées dans une table de GeoNature, dans le schéma import: `gn_imports.ila_import`. Un lien avec les utilisateurs de GeoNature peuvent être créés :
+
+Dans Qgis :
+
+```sql
+title(
+    regexp_replace( 
+        regexp_replace( 
+            regexp_replace( 
+                title("determiner"),    
+                'Fiot Benoît'  ,   
+                'Fiot Benoit' 
+            ),   
+            'Lefrancois Wilfried' ,   
+            'Lefrançois Wilfried'  
+        ),  
+        'Mace Emmanuel' ,  
+        'Macé Emmanuel' 
+    )
+)
+```
+
+Dans postgresql
+
+```sql
+UPDATE gn_imports.ila_import i SET id_digitiser = r.id_role
+FROM utilisateurs.t_roles r WHERE lower(i.determiner) = lower(r.nom_role || ' ' || r.prenom_role)
+;
+```
 
 La **liste des sites** du protocole peut être créée en partie automatiquement dans la table `gn_monitoring.t_sites_groups` :
 

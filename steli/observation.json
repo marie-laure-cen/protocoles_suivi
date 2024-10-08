@@ -42,10 +42,12 @@
       "definition": "Si déterminateur différent de l'observateur"
     },
     "cd_nom": {
-      "type_widget": "taxonomy",
-      "attribut_label": "Espèce",
+      "type_widget": "datalist",
+      "attribut_label": "Taxon",
+      "keyValue": "cd_nom",
+      "keyLabel": "__MODULE.TAXONOMY_DISPLAY_FIELD_NAME",
       "multiple": false,
-      "id_list": "__MODULE.ID_LIST_TAXONOMY",
+      "api": "taxref/allnamebylist/__MODULE.ID_LIST_TAXONOMY",
       "application": "TaxHub",
       "required": true,
       "type_util": "taxonomy"
@@ -64,29 +66,26 @@
     },
     "effectif": {
       "type_widget": "number",
-      "attribut_label": "Effectif",
-      "min": 1,
-      "required": true,
-      "definition": "Effectif total"
+      "attribut_label": "Effectif total",
+      "min": 0,
+      "value": 0,
+      "required": true
     },
     "nb_male": {
       "type_widget": "number",
       "attribut_label": "Mâle(s)",
       "min": 1,
-      "required": false,
-      "definition": "Nombre de mâles dans l'effectif total"
+      "required": false
     },
     "nb_femelle": {
       "type_widget": "number",
       "attribut_label": "Femelle(s)",
       "min": 1,
-      "required": false,
-      "definition": "Nombre de femelles dans l'effectif total"
+      "required": false
     },
     "autochtonie":{
       "type_widget": "select",
       "attribut_label": "Autochtonie",
-      "definition": "Statut d'autochtonie",
       "required" : true,
       "values": ["Certaine", "Probable", "Possible", "Improbable", "Inconnue"]
     },
@@ -99,6 +98,7 @@
       "keyLabel": "label_fr",
       "data_path": "values",
       "type_util": "nomenclature",
+      "multiple": true,
       "required": true
     },
     "id_nomenclature_obs_technique": {

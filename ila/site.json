@@ -13,10 +13,10 @@
     "base_site_name",
     "altitude_min",
     "altitude_max",
-    "base_site_description",
     "habitat",
     "gestion",
-    "impact"
+    "impact",
+    "base_site_description"
  ],
   "display_list": [
     "base_site_code",
@@ -61,7 +61,7 @@
       "code_nomenclature_type": "TYPE_SITE",
       "value": {
           "code_nomenclature_type": "TYPE_SITE",
-          "cd_nomenclature": "STELI"
+          "cd_nomenclature": "ILA"
       }
     },
     "habitat":{

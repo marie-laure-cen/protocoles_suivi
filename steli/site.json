@@ -11,6 +11,8 @@
     "id_sites_group",
     "base_site_code",
     "base_site_name",
+    "altitude_min",
+    "altitude_max",
     "id_nomenclature_mt",
     "id_nomenclature_ah",
     "id_nomenclature_ma",
@@ -25,10 +27,19 @@
   "display_list": [
     "base_site_code",
     "base_site_name",
-    "altitude_min",
-    "altitude_max",
-    "first_use_date",
     "nb_visits"
+  ],
+  "keep": [
+    "id_sites_group",
+    "id_nomenclature_mt",
+    "id_nomenclature_ah",
+    "id_nomenclature_ma",
+    "id_nomenclature_ri",
+    "id_nomenclature_ve",
+    "id_nomenclature_eu",
+    "id_nomenclature_co",
+    "id_nomenclature_va",
+    "gestion"
   ],
   "specific": {
     "base_site_code":{
