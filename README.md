@@ -32,13 +32,13 @@ La première étape consiste à créer une vue qui permet de récupérer l'ensem
 DROP VIEW steli_sterf.ila_pr_gn ;
 CREATE VIEW steli_sterf.ila_pr_gn AS
 SELECT
--- GROUPE DE SITE
+-- SITE CEN
 	t.ID_Site AS code_site,
 	s.Nom_Site AS nom_site,
 -- TRANSECT
 	o.ID_Transect AS id_transect_ila,
 	t.Nom_Transect AS transect,
--- VISITES
+-- PASSAGE
 	hm.ID_Horaire_Meteo AS id_visit_ila,
 	hab.ID_Habitat AS id_visit_ila2,
 	hm.ID_Passage AS num_passage,
@@ -52,7 +52,7 @@ SELECT
 	lg.gestion,
 	li.impact,
 	hab.Remarque AS visit_comment,
--- OBSERVATIONS
+-- OBSERVATION
 	o.ID_Observation AS id_obs_ila,
 	resp.Observateur AS determiner,
 	o.ID_Taxon AS cd_nom,
@@ -108,7 +108,7 @@ INSERT INTO gn_monitoring.t_sites_groups (
     sites_group_description
 )
 SELECT
-    33, -- A modifier en fonction du module
+    33, -- id_module : à modifier en fonction du module / voir table gn_commons.t_modules
     gn_site.area_name,
     gn_site.area_code,
     ila_site.nom_site
@@ -119,31 +119,28 @@ INNER JOIN ila_site ON ila_site.code_site = gn_site.area_code
 Il faut ensuite corriger la table là où les codes sites ne sont pas identiques entre la base de données source et GeoNature. Une fois les sites créés, il est possible d'ajouter des champs additionnels, comme par exemple la.es commune.s :
 
 ```sql
-WITH site as (
-	SELECT * FROM ref_geo.l_areas WHERE id_type in (12,34,37)
-),
-com as (
-	SELECT * FROM ref_geo.l_areas WHERE id_type =25
-),
-sc as (
-	SELECT
-		site.area_code as id_site,
-		site.area_name as nom_site,
-		STRING_AGG(com.area_name, ',' ORDER BY com.area_name) as communes
-	FROM site
-	LEFT JOIN com ON ST_Intersects( com.geom, site.geom)
-	GROUP BY site.area_code, site.area_name
-	ORDER BY site.area_name
-)
+WITH
+    site as ( SELECT * FROM ref_geo.l_areas WHERE id_type in (12,34,37) ),
+    com as ( SELECT * FROM ref_geo.l_areas WHERE id_type = 25 ),
+    sc as (
+        SELECT
+            site.area_code as id_site,
+            site.area_name as nom_site,
+            STRING_AGG(com.area_name, ',' ORDER BY com.area_name) as communes
+        FROM site
+        LEFT JOIN com ON ST_Intersects( com.geom, site.geom)
+        GROUP BY site.area_code, site.area_name
+        ORDER BY site.area_name
+    )
 UPDATE gn_monitoring.t_sites_groups tsg
 	SET data = jsonb_set(	
-			tsg.data::jsonb, 
-			'{commune}', 
-			to_jsonb(
-				sc.communes
-			))
+		tsg.data::jsonb, 
+		'{commune}', 
+		to_jsonb(sc.communes)
+    )
 FROM sc 
-WHERE id_module = 33 AND sc.id_site = tsg.sites_group_code
+WHERE id_module = 33 -- id_module : à modifier en fonction du module / voir table gn_commons.t_modules
+AND sc.id_site = tsg.sites_group_code
 ;
 ```
 
@@ -166,7 +163,7 @@ WITH ila_transect as (
 		*
 	FROM gn_monitoring.t_base_sites tbs
 	LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
-	WHERE id_module = 33
+	WHERE id_module = 33 -- id_module : à modifier en fonction du module / voir table gn_commons.t_modules
 ),visits as (
 SELECT
 	s.transect,
@@ -194,11 +191,12 @@ INSERT INTO  gn_monitoring.t_base_visits
 )
 SELECT
 	ila_transect.id_base_site,
-	1343,
-	33 ,
+	1343, -- id_dataset commun à toutes les données : à modifier en fonction du module / voir les métadonnées
+	33 , -- id_module : à modifier en fonction du module / voir table gn_commons.t_modules
 	visits.id_digitiser,
 	visits.visit_date_min,
 	visits.visit_date_min,
+    -- Il faut potentiellement modifier les valeurs des nomenclatures en fonction du suivi
 	240 ,
 	132 ,
 	visits.id_visit_ila 
@@ -210,7 +208,7 @@ UPDATE gn_imports.ila_import s
 SET id_base_visit = tbv.id_base_visit
 FROM  gn_monitoring.t_base_visits tbv
 WHERE tbv.comments = s.id_visit_ila::text
-AND tbv.id_module = 33
+AND tbv.id_module = 33 -- id_module : à modifier en fonction du module / voir table gn_commons.t_modules
 ;
 SELECT id_base_visit FROM gn_imports.ila_import s
 GROUP BY s.id_base_visit
@@ -277,7 +275,7 @@ SELECT
 	id_base_visit,
 	id_digitiser
 FROM gn_monitoring.t_base_visits tbv
-WHERE tbv.id_module = 33
+WHERE tbv.id_module = 33 -- id_module : à modifier en fonction du module / voir table gn_commons.t_modules
 ON CONFLICT DO NOTHING
 ;
 ```
@@ -325,7 +323,7 @@ WHERE id_module = 33
 		) as data
 	FROM lv
 	LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
-	WHERE tsc.id_module = 33
+	WHERE tsc.id_module = 33 -- id_module : à modifier en fonction du module / voir table gn_commons.t_modules
 	GROUP BY id_base_site,last_habitat, last_gestion, last_impact, tsc.data
 	ORDER BY id_base_site
 )
@@ -364,9 +362,11 @@ UPDATE gn_imports.ila_import i
 SET id_observation = o.id_observation
 FROM gn_monitoring.t_observations o
 LEFT JOIN gn_monitoring.t_base_visits v USING (id_base_visit)
-WHERE v.id_module = 33 AND i.id_obs_ila::text = o.comments
+WHERE v.id_module = 33 -- id_module : à modifier en fonction du module / voir table gn_commons.t_modules
+AND i.id_obs_ila::text = o.comments
 ;
 -- Ajout des données complémentaires
+-- Il faut potentiellement modifier les valeurs des nomenclatures en fonction du suivi
 INSERT INTO gn_monitoring.t_observation_complements (
 	id_observation,
 	data
@@ -380,7 +380,7 @@ SELECT
 			'nb_femelle', min(i.nb_femelle),
 			'determiner', min(i.determiner),
 			'id_obs_mysql', i.id_obs_ila,
-			'id_nomenclature_obs_technique', 785,
+			'id_nomenclature_obs_technique', 37,
 			'id_nomenclature_determination_method', 453,
 			'id_nomenclature_type_count', 89,
 			'id_nomenclature_obj_count', 143
@@ -418,6 +418,6 @@ UPDATE gn_monitoring.t_base_visits v
 SET comments = vis.commentaire
 FROM vis
 WHERE v.id_base_visit = vis.id_base_visit
-AND v.id_module = 33
-;
+AND v.id_module = 33 -- id_module : à modifier en fonction du module / voir table gn_commons.t_modules
+; 
 ```
