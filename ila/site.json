@@ -15,7 +15,8 @@
     "altitude_max",
     "base_site_description",
     "habitat",
-    "gestion"
+    "gestion",
+    "impact"
  ],
   "display_list": [
     "base_site_code",
@@ -23,7 +24,10 @@
     "nb_visits"
   ],
   "keep": [
-    "id_sites_group"
+    "id_sites_group",
+    "habitat",
+    "gestion",
+    "impact"
   ],
   "specific": {
     "base_site_code":{
@@ -61,7 +65,7 @@
       }
     },
     "habitat":{
-      "attribut_label": "Habitat",
+      "attribut_label": "Dernier habitat",
       "type_widget": "select",
       "values": [
         "Berges",
@@ -84,7 +88,7 @@
       "hidden": false
     },
     "gestion":{
-      "attribut_label": "Gestion",
+      "attribut_label": "Dernière gestion",
       "type_widget": "select",
       "values": [
         "Autre",
@@ -100,6 +104,14 @@
     },
     "nb_visits": {
       "attribut_label": "Nb. passages"
+    },
+    "impact":{
+      "type_widget": "select",
+      "required": false,
+      "attribut_label": "Dernier impact de gestion",
+      "values": ["OUI", "NON"],
+      "value": "NON",
+      "hidden":false
     }
   }
 }

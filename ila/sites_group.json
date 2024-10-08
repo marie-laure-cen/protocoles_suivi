@@ -19,7 +19,7 @@
     "sites_group_description"
   ],
   "display_list": [
-    "sites_group_code",
+    "commune",
     "sites_group_name",
     "nb_sites"
   ],

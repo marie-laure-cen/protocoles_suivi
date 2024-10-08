@@ -3,22 +3,23 @@
   "genre":"F",
   "display_properties": [
     "cd_nom",
+    "determiner",
     "id_nomenclature_ab",
     "effectif",
     "nb_male",
     "nb_femelle",
     "id_nomenclature_ir",
     "autochtonie",
-    "determiner",
     "comments",
     "id_nomenclature_obs_technique",
     "id_nomenclature_determination_method",
     "id_nomenclature_type_count",
-    "id_nomenclature_obj_count",
-    "uuid_gretia"
+    "id_nomenclature_obj_count"
   ],
   "display_list": [
-    "cd_nom"
+    "cd_nom",
+    "effectif",
+    "comments"
   ],
   "keep": [
     "id_nomenclature_obs_technique",
@@ -155,12 +156,6 @@
       "default": {
         "cd_nomenclature": "IND"
       }
-    },
-    "uuid_gretia":{
-      "type_widget": "text",
-      "attribut_label" : "uuid_gretia",
-      "required" : false,
-      "hidden": false
     }
   }
 }

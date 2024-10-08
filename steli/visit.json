@@ -21,6 +21,7 @@
     "id_nomenclature_eu",
     "id_nomenclature_co",
     "id_nomenclature_va",
+    "gestion",
     "comments",
     "source"
   ],
@@ -77,7 +78,7 @@
     "heure_fin": {
       "type_widget": "time",
       "attribut_label": "Heure de départ",
-      "required": true
+      "required": false
     },
     "id_nomenclature_tp":{
       "type_widget": "datalist",
@@ -218,6 +219,21 @@
       "values": ["Intranet SER", "GeoNature", "Qfield/Qgis"],
       "value": "GeoNature",
       "hidden":false
+    },
+    "gestion":{
+      "attribut_label": "Gestion",
+      "type_widget": "select",
+      "values": [
+        "Autre",
+        "Broyage",
+        "Débroussaillage",
+        "Etrépage",
+        "Fauche",
+        "Pas d'intervention",
+        "Pâturage"
+      ],
+      "required": false,
+      "hidden": false
     }
   }
 }

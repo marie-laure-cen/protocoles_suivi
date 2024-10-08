@@ -1,5 +1,4 @@
 {
-  "description_field_name":"cd_nom",
   "genre":"F",
   "display_properties": [
     "cd_nom",
@@ -14,7 +13,8 @@
     "id_nomenclature_obj_count"
   ],
   "display_list": [
-    "cd_nom"
+    "cd_nom",
+    "effectif"
   ],
   "keep": [
     "id_nomenclature_obs_technique",
@@ -37,10 +37,12 @@
       "definition": "Si déterminateur différent de l'observateur"
     },
     "cd_nom": {
-      "type_widget": "taxonomy",
-      "attribut_label": "Espèce observée",
+      "type_widget": "datalist",
+      "attribut_label": "Taxon",
+      "keyValue": "cd_nom",
+      "keyLabel": "__MODULE.TAXONOMY_DISPLAY_FIELD_NAME",
       "multiple": false,
-      "id_list": "__MODULE.ID_LIST_TAXONOMY",
+      "api": "taxref/allnamebylist/__MODULE.ID_LIST_TAXONOMY",
       "application": "TaxHub",
       "required": true,
       "type_util": "taxonomy"
@@ -48,7 +50,8 @@
     "effectif": {
       "type_widget": "number",
       "attribut_label": "Effectif total",
-      "min": 1,
+      "min": 0,
+      "value": 0,
       "required": true,
       "definition": "Effectif total"
     },

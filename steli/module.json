@@ -8,6 +8,10 @@
     }
   },
   "export_csv": [
-    { "label": "Format standard CSV", "type":"csv" , "method": "standard" }
-  ]
+    { "label": "Transects STELI", "type":"csv" , "method": "transect"},
+    { "label": "Ensemble des suivis STELI", "type":"csv" , "method": "obs"},
+    { "label": "Ensemble des suivis STELI avec statuts", "type":"csv", "method": "obs_2" },
+    { "label": "Suivis STELI de l'année en cours", "type":"csv" , "method": "obs_n" },
+    { "label": "Suivis STELI de l'année passée", "type":"csv" , "method": "obs_n1" }
+ ]
 }

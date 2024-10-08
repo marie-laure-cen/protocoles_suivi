@@ -25,7 +25,7 @@ LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
 LEFT JOIN utilisateurs.t_roles r ON (tsg.data->'id_resp' )::integer = id_role
 LEFT JOIN ref_geo.l_areas la ON tsg.sites_group_name = la.area_code
 LEFT JOIN gn_commons.t_modules tm ON tm.id_module = tbv.id_module
-WHERE tm.module_code = 'ila'
+WHERE tm.module_code = 'sterf'
 ORDER BY area_code, transect_name
 ;
 

@@ -1,4 +1,6 @@
 {
+  
+  "description_field_name": "num_passage",
   "genre":"M",
   "label": "Passage",
   "label_list": "Passages",
@@ -7,8 +9,8 @@
     "num_passage",
     "annee",
     "visit_date_min",
-    "visit_date_max",
     "heure_debut",
+    "visit_date_max",
     "heure_fin",
     "habitat",
     "gestion",
@@ -30,11 +32,12 @@
     "num_passage",
     "annee",
     "id_dataset",
+    "id_nomenclature_tp",
+    "id_nomenclature_cn",
+    "id_nomenclature_vt",
     "observers",
     "habitat",
-    "gestion",
-    "id_dataset",
-    "observers"
+    "gestion"
   ],
   "specific": {
     "num_passage": {
@@ -42,6 +45,7 @@
       "attribut_label": "Numéro de passage",
       "min" : 1,
       "max": 4,
+      "value": 1,
       "required": true
     },
     "annee": {
@@ -62,48 +66,33 @@
     },
     "heure_debut": {
       "type_widget": "time",
-      "attribut_label": "Heure d'arrivée",
+      "attribut_label": "Heure de début du passage",
       "required": true
     },
     "heure_fin": {
       "type_widget": "time",
-      "attribut_label": "Heure de départ",
+      "attribut_label": "Heure de fin du passage",
       "required": false
     },
     "id_nomenclature_tp":{
-      "type_widget": "datalist",
+      "type_widget": "nomenclature",
       "attribut_label": "Température",
-      "api": "nomenclatures/nomenclature/SUIVI_TP",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
       "type_util": "nomenclature",
-      "multiple": false,
+      "code_nomenclature_type" : "SUIVI_TP",
       "required": true
     },
     "id_nomenclature_cn":{
-      "type_widget": "datalist",
+      "type_widget": "nomenclature",
       "attribut_label": "Couverture nuageuse",
-      "api": "nomenclatures/nomenclature/SUIVI_CN",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
       "type_util": "nomenclature",
-      "multiple": false,
+      "code_nomenclature_type" : "SUIVI_CN",
       "required": true
     },
     "id_nomenclature_vt":{
-      "type_widget": "datalist",
+      "type_widget": "nomenclature",
       "attribut_label": "Vent",
-      "api": "nomenclatures/nomenclature/SUIVI_VT",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
       "type_util": "nomenclature",
-      "multiple": false,
+      "code_nomenclature_type" : "SUIVI_VT",
       "required": true
     },
     "source":{
@@ -112,7 +101,7 @@
       "attribut_label": "Source de la donnée",
       "values": ["Intranet SER", "GeoNature", "Qfield/Qgis"],
       "value": "GeoNature",
-      "hidden":false
+      "hidden": true
     },
     "habitat":{
       "attribut_label": "Habitat",
@@ -157,6 +146,7 @@
       "required": false,
       "attribut_label": "Impact de la gestion",
       "values": ["OUI", "NON"],
+      "value": "NON",
       "hidden":false
     }
   }
