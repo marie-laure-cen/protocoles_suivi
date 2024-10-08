@@ -61,6 +61,37 @@ Les données sont ensuite importées dans une table de GeoNature, dans le schém
 
 (AJOUTER METHODE GROUPE SITES + TRANSECTS)
 
+Une fois les groupes de sites créés, il est possible d'ajouter des champs additionnels, comme par exemple la.es commune.s :
+
+```sql
+WITH site as (
+	SELECT * FROM ref_geo.l_areas WHERE id_type in (12,34,37)
+),
+com as (
+	SELECT * FROM ref_geo.l_areas WHERE id_type =25
+),
+sc as (
+	SELECT
+		site.area_code as id_site,
+		site.area_name as nom_site,
+		STRING_AGG(com.area_name, ',' ORDER BY com.area_name) as communes
+	FROM site
+	LEFT JOIN com ON ST_Intersects( com.geom, site.geom)
+	GROUP BY site.area_code, site.area_name
+	ORDER BY site.area_name
+)
+UPDATE gn_monitoring.t_sites_groups tsg
+	SET data = jsonb_set(	
+			tsg.data::jsonb, 
+			'{commune}', 
+			to_jsonb(
+				sc.communes
+			))
+FROM sc 
+WHERE id_module = 33 AND sc.id_site = tsg.sites_group_code
+;
+```
+
 La création des passages demande 4 étapes : 
 - Création des passages avec les champs génériques de GN `gn_monitoring.t_base_visits`,
 - Mise à jour de la table d'import avec les identifiants GN,
@@ -248,7 +279,15 @@ WHERE sd.id_base_site = tsc.id_base_site
 ;
 ```
 
+Les observations sont créées en 3 étapes :
+- Création des observations avec les champs génériques de GN `gn_monitoring.t_observations`,
+- Mise à jour de la couche d'import avec les identifiants GN,
+- Ajout de données additionnelles `gn_monitoring.t_observation_complements`.
+
+Pour la plupart des protocoles du CENN, le niveau observation_details n'est pas atteint.
+
 ```sql
+-- Création des observations
 INSERT INTO gn_monitoring.t_observations(
 	id_base_visit,
 	cd_nom,
@@ -265,12 +304,14 @@ GROUP BY
 	i.id_obs_ila
 ORDER BY i.id_base_visit, i.id_obs_ila
 ;
+-- Récupération des id_observation
 UPDATE gn_imports.ila_import i
 SET id_observation = o.id_observation
 FROM gn_monitoring.t_observations o
 LEFT JOIN gn_monitoring.t_base_visits v USING (id_base_visit)
 WHERE v.id_module = 33 AND i.id_obs_ila::text = o.comments
 ;
+-- Ajout des données complémentaires
 INSERT INTO gn_monitoring.t_observation_complements (
 	id_observation,
 	data
@@ -294,6 +335,11 @@ FROM gn_imports.ila_import i
 GROUP BY i.id_observation, i.id_obs_ila
 ORDER BY i.id_observation
 ;
+```
+
+La dernière étape consiste à nettoyer les champs commentaires utilisés pour conserver les identifiants MySql lors des intégrations :
+
+```sql
 WITH obs as (
 	SELECT
 		id_observation,
@@ -318,32 +364,5 @@ SET comments = vis.commentaire
 FROM vis
 WHERE v.id_base_visit = vis.id_base_visit
 AND v.id_module = 33
-;
-
-WITH site as (
-	SELECT * FROM ref_geo.l_areas WHERE id_type in (12,34,37)
-),
-com as (
-	SELECT * FROM ref_geo.l_areas WHERE id_type =25
-),
-sc as (
-	SELECT
-		site.area_code as id_site,
-		site.area_name as nom_site,
-		STRING_AGG(com.area_name, ',' ORDER BY com.area_name) as communes
-	FROM site
-	LEFT JOIN com ON ST_Intersects( com.geom, site.geom)
-	GROUP BY site.area_code, site.area_name
-	ORDER BY site.area_name
-)
-UPDATE gn_monitoring.t_sites_groups tsg
-	SET data = jsonb_set(	
-			tsg.data::jsonb, 
-			'{commune}', 
-			to_jsonb(
-				sc.communes
-			))
-FROM sc 
-WHERE id_module = 33 AND sc.id_site = tsg.sites_group_code
 ;
 ```
