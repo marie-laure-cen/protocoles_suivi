@@ -58,7 +58,8 @@
       "keyLabel": "nom_complet",
       "type_util": "user",
       "multiple": false,
-      "required": true
+      "required": false,
+      "definition": "Si déterminateur différent de l'observateur"
     },
     "sites_group_name":{
       "attribut_label": "Code",
