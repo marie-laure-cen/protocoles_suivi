@@ -14,7 +14,11 @@
   "display_list": [
     "cd_nom",
     "strate",
-    "recouvrement"
+    "abondance",
+    "abondance_niv2",
+    "recouvrement",
+    "sociabilite",
+    "vitalite"
   ],
   "sorts": [
     {"prop": "strate", "dir": "asc"}
@@ -54,20 +58,44 @@
       "max": 100,
       "required": true
     },
-    "recouv_2": {
-      "type_widget": "number",
-      "attribut_label": "Chiffres après la virgule (recouvrement <1%)",
-      "min": 0,
-      "max": 99,
-      "required": "({value}) => value.recouvrement == 0",
-      "hidden": "({value}) => value.recouvrement != 0"
+    "abondance": {
+      "type_widget": "nomenclature",
+      "attribut_label": "Abondance/dominance",
+      "code_nomenclature_type": "BRAUNBLANQABDOM",
+      "required": true,
+      "type_util": "nomenclature"
+    },
+    "abondance_niv2":{
+      "attribut_label": "Gestion",
+      "definition": "Précision pour le niveau 2 : 2m = > 100 individus / recouv < 5% | 2a = nb individus quelconque / recouv 5-15% | 2b = nb individus quelconque / recouv 15-25%",
+      "type_widget": "select",
+      "values": [
+        "2m",
+        "2a",
+        "2b"
+      ],
+      "required": "({value}) => value.recouv_herb =='2'",
+      "hidden": "({value}) => value.recouv_herb != '2'"
     },
     "strate": {
       "type_widget": "nomenclature",
       "attribut_label": "Strate de l'espèce",
       "code_nomenclature_type": "RP_STRATE",
-      "cd_nomenclatures": ["A","a1", "a2", "h"],
       "required": true,
+      "type_util": "nomenclature"
+    },
+    "sociabilite":{
+      "type_widget": "nomenclature",
+      "attribut_label": "Sociabilité",
+      "code_nomenclature_type": "SOCIAB",
+      "required": false,
+      "type_util": "nomenclature"
+    },
+    "vitalite":{
+      "type_widget": "nomenclature",
+      "attribut_label": "Vitalité",
+      "code_nomenclature_type": "BRAUNPAVVIT",
+      "required": false,
       "type_util": "nomenclature"
     },
     "id_nomenclature_obs_technique": {

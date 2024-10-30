@@ -1,32 +1,69 @@
 {
-  "genre":"F",
-  "label": "zone de prospection",
-  "label_list": "zones de prospection",
-  "map_label_field_name": "base_site_name",
+  "genre":"M",
+  "label": "Site suivi",
+  "label_list": "Site suivi",
+  "map_label_field_name": "base_site_code",
   "b_draw_sites_group": true,
   "sorts": [
-    {"prop": "sites_group_name"}
+    {"prop": "commune"}
   ],
   "display_properties": [
     "sites_group_name",
     "sites_group_code",
-    "site_group_description"
+    "site_group_description",
+    "id_resp",
+    "commune",
+    "annee_debut",
+    "annee_fin",
+    "sentinelle_climat"
   ],
   "display_list": [
+    "commune",
     "sites_group_name",
-    "sites_group_code",
     "nb_sites"
   ],
   "specific": {
     "sites_group_code": {
       "required": false,
-      "definition": "Code d'un éventuel site de rattachement de la zone de prospection",
-      "attribut_label": "Code site",
+      "attribut_label": "Code du site",
       "hidden": false
     },
     "sites_group_name":{
-      "attribut_label": "Nom de la zone de prospection",
+      "attribut_label": "Nom du site",
       "definition": "Lieu-dit où se situe la zone de prospection."
+    },
+    "annee_debut": {
+      "type_widget": "number",
+      "attribut_label": "Année de lancement du suivi",
+      "min" : 1993,
+      "value": 2024,
+      "required": true
+    },
+    "annee_fin": {
+      "type_widget": "number",
+      "attribut_label": "Année d'arrêt du suivi",
+      "min" : 1993,
+      "required": false
+    },
+    "sentinelle_climat":{
+      "type_widget": "select",
+      "required": true,
+      "attribut_label": "Programme Sentinelle du Climat",
+      "values": ["Oui", "Non"],
+      "value": "Non",
+      "hidden":false
+    },
+    "id_resp": {
+      "type_widget": "datalist",
+      "attribut_label": "Responsable du suivi",
+      "api": "users/menu/__MODULE.ID_LIST_OBSERVER",
+      "application": "GeoNature",
+      "keyValue": "id_role",
+      "keyLabel": "nom_complet",
+      "type_util": "user",
+      "multiple": false,
+      "required": false,
+      "definition": "Si déterminateur différent de l'observateur"
     }
   },
   "change": [

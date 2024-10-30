@@ -8,10 +8,30 @@
   "display_properties": [
     "observers",
     "visit_date_min",
+    "hour_min",
     "cd_hab",
-    "type_aire",
-    "aire",
-    "forme_areale",
+    "ecologie",
+    "synsysteme",
+    "forme_releve",
+    "surface",
+    "compl_forme",
+    "gestion",
+    "recouv_tot",
+    "recouv_arbore",
+    "h_arbore",
+    "recouv_arbust_1",
+    "h_arbust_1",
+    "recouv_arbust_2",
+    "h_arbust_2",
+    "recouv_herb",
+    "nb_st_herb",
+    "h_herb",
+    "recouv_bryo",
+    "recouv_lich",
+    "recouv_alg",
+    "h_crypto",
+    "recouv_lit",
+    "gestion",
     "comments"
   ],
   "display_list": [
@@ -33,10 +53,10 @@
       "required": false   ,
       "hidden": false
     },
-    "habitat_associe": {
+    "cd_hab": {
       "type_widget": "datalist",
-      "attribut_label": "Habitat/Syntaxon",
-      "description": "Code EUNIS habitat naturel ou du syntaxon",
+      "attribut_label": "Habitat",
+      "description": "Code EUNIS habitat naturel",
       "api": "habref/habitats/autocomplete",
       "application": "GeoNature",
       "keyValue": "cd_hab",
@@ -50,29 +70,155 @@
       "hidden": false,
       "required": false
     },
-    "type_aire":{
+    "ecologie":{
+      "type_widget": "text",
+      "attribut_label": "Description floristico-écologique",
+      "definition": "Ex. Prairie rase et irrégulière des pentes calcaires pâturées à Cynosurus cristatus et Sanguisorba minor."
+    },
+    "synsysteme":{
+      "type_widget": "text",
+      "attribut_label": "Synsystème",
+      "definition": "Le rattachement phytosociologique sera recherché au niveau de l'association ou à défaut au niveau de l'alliance"
+    },
+    "forme_releve":{
       "attribut_label": "Type d'aire de relevé",
       "type_util": "nomenclature",
-      "code_nomenclature_type": "RP_AIRE",
-      "value": {
+      "code_nomenclature_type": "RP_AIRE","value": {
         "code_nomenclature_type": "RP_AIRE",
-        "cd_nomenclature": "Cer"
+        "cd_nomenclature": "Car"
       },
-      "cd_nomenclatures": ["Cer"],
       "required": true,
       "hidden": false
     },
-    "aire":{
+    "surface":{
       "type_widget": "number",
       "attribut_label": "Surface en m²",
       "min" : 0,
       "max": 800,
       "required": false
     },
-    "forme_areale":{
+    "compl_forme":{
       "type_widget": "text",
       "attribut_label": "Forme aréale",
       "required": false
+    },
+    "recouv_tot":{
+      "type_widget": "number",
+      "attribut_label": "Recouvrement total par la végétation",
+      "min" : 0,
+      "max": 100,
+      "required": false
+    },
+    "recouv_arbor_1":{
+      "type_widget": "number",
+      "attribut_label": "Recouvrement strate arborée haute",
+      "min" : 0,
+      "max": 100,
+      "required": false
+    },
+    "recouv_arbor_2":{
+      "type_widget": "number",
+      "attribut_label": "Recouvrement strate arborée basse",
+      "min" : 0,
+      "max": 100,
+      "required": false
+    },
+    "recouv_arbust_1":{
+      "type_widget": "number",
+      "attribut_label": "Recouvrement strate arbustive haute",
+      "min" : 0,
+      "max": 100,
+      "required": false
+    },
+    "recouv_arbust_2":{
+      "type_widget": "number",
+      "attribut_label": "Recouvrement strate arbustive basse",
+      "min" : 0,
+      "max": 100,
+      "required": false
+    },
+    "recouv_herb":{
+      "type_widget": "number",
+      "attribut_label": "Recouvrement strate arbustive herbacée",
+      "min" : 0,
+      "max": 100,
+      "required": false
+    },
+    "recouv_bryo":{
+      "type_widget": "number",
+      "attribut_label": "Recouvrement strate des bryophytes",
+      "min" : 0,
+      "max": 100,
+      "required": false
+    },
+    "recouv_lich":{
+      "type_widget": "number",
+      "attribut_label": "Recouvrement strate lichénique",
+      "min" : 0,
+      "max": 100,
+      "required": false
+    },
+    "recouv_alg":{
+      "type_widget": "number",
+      "attribut_label": "Recouvrement algues",
+      "min" : 0,
+      "max": 100,
+      "required": false
+    },
+    "recouv_lit":{
+      "type_widget": "number",
+      "attribut_label": "Recouvrement litière",
+      "min" : 0,
+      "max": 100,
+      "required": false
+    },
+    "gestion":{
+      "attribut_label": "Gestion",
+      "type_widget": "select",
+      "values": [
+        "Autre",
+        "Broyage",
+        "Débroussaillage",
+        "Etrépage",
+        "Exploitation forestière extensive",
+        "Exploitation forestière intensive",
+        "Fauche",
+        "Pas d'intervention",
+        "Pâturage",
+        "Production agricole"
+      ],
+      "required": false,
+      "hidden": false
+    },
+    "h_arbore":{
+      "attribut_label": "Ht st. arborée (m)",
+      "type_widget": "number",
+      "hidden":  "({value}) => value.recouv_arbore > 0"
+    },
+    "h_arbust_1":{
+      "attribut_label": "Ht st. arbustive haute (m)",
+      "type_widget": "number",
+      "hidden":  "({value}) => value.recouv_arbust_1 > 0"
+    },
+    "h_arbust_2":{
+      "attribut_label": "Ht st. arbustive basse (m)",
+      "type_widget": "number",
+      "hidden":  "({value}) => value.recouv_arbust_2 > 0"
+    },
+    "h_herb":{
+      "attribut_label": "Ht st. herbacée (m)",
+      "type_widget": "number",
+      "hidden":  "({value}) => value.recouv_herb > 0"
+    },
+    "h_crypto":{
+      "attribut_label": "Ht des st. cryptogammes (m)",
+      "type_widget": "number",
+      "hidden":  "({value}) => value.recouv_bryo > 0 ||  value.recouv_lich > 0 ||  value.recouv_alg > 0 "
+    },
+    "nb_st_herb":{
+      "attribut_label": "N strates herbacées",
+      "type_widget": "number",
+      "hidden": "({value}) => value.recouv_herb > 0"
     }
   }
 }

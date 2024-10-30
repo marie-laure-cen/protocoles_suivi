@@ -1,34 +1,100 @@
 {
   "genre":"M",
-  "label": "piège",
-  "label_list": "pièges",
+  "label": "placette",
+  "label_list": "placettes",
   "geometry_type": "Point",
   "map_label_field_name": "base_site_name",
   "sorts": [
     {"prop": "base_site_name", "dir": "asc"}
   ],
   "display_properties": [
-    "base_site_name",
     "id_sites_group",
-    "id_nomenclature_tech_collect_campanule",
-    "base_site_description"
+    "base_site_code",
+    "base_site_name",
+    "base_site_description",
+    "place_name",
+    "topographie",
+    "exposition",
+    "luminosite",
+    "pente",
+    "hum",
+    "salinite",
+    "gestion",
+    "altitude_min",
+    "altitude_max"
  ],
   "display_list": [
+    "base_site_code",
     "base_site_name",
-    "first_use_date",
     "nb_visits"
   ],
   "specific": {
+    "nb_visits":{
+      "attribut_label": "Nb. passages"
+    },
+    "base_site_code":{
+      "attribut_label": "Code de la placette"
+    },
     "base_site_name":{
-      "attribut_label": "Nom/code du piège"
+      "attribut_label": "Nom de la placette"
     },
     "base_site_description":{
       "attribut_label": "Commentaires"
     },
-    "base_site_code": {
-      "hidden": true,
-      "required": false
-    },    
+    "place_name": {
+      "type_widget": "text",
+      "attribut_label": "Lieu-dit"
+    },
+    "precision":{
+      "type_widget": "number",
+      "attribut_label": "Précision du GPS (m)",
+      "required": true,
+      "min": 0,
+      "value": 10
+    },
+    "topographie":{
+      "attribut_label": "Topographie",
+      "type_util": "nomenclature",
+      "code_nomenclature_type": "TOPOGRAPHIE",
+      "required": false,
+      "hidden": false
+    },
+    "exposition":{
+      "attribut_label": "Exposition",
+      "type_util": "nomenclature",
+      "code_nomenclature_type": "PENTE",
+      "required": false,
+      "hidden": false
+    },
+    "pente":{
+      "attribut_label": "Pente",
+      "type_util": "number",
+      "min": 0,
+      "max": 90,
+      "required": false,
+      "hidden": false
+    },
+    "hum":{
+      "attribut_label": "Humidité du substrat",
+      "type_util": "nomenclature",
+      "code_nomenclature_type": "SUIVI_HUM",
+      "required": false,
+      "hidden": false
+    },
+    "luminosite":{
+      "attribut_label": "Luminosite",
+      "type_util": "nomenclature",
+      "code_nomenclature_type": "SUIVI_LUM",
+      "required": false,
+      "hidden": false
+    },
+    "salinite":{
+      "attribut_label": "Salinité",
+      "type_util": "nomenclature",
+      "code_nomenclature_type": "SUIVI_SAL",
+      "required": false,
+      "hidden": false
+    },
     "id_inventor": {
       "hidden " :false,
       "required": false
@@ -45,29 +111,32 @@
       "hidden": false,
       "definition": "Liste des zones de prospections définies pour le protocole."
     },
+    "gestion":{
+      "attribut_label": "Dernière gestion",
+      "type_widget": "multiselect",
+      "values": [
+        "Autre",
+        "Broyage",
+        "Débroussaillage",
+        "Etrépage",
+        "Exploitation forestière extensive",
+        "Exploitation forestière intensive",
+        "Fauche",
+        "Pas d'intervention",
+        "Pâturage",
+        "Production agricole"
+      ],
+      "required": false,
+      "hidden": false
+    },
     "id_nomenclature_type_site": {
       "attribut_label": "Type site",
       "type_util": "nomenclature",
       "value": {
           "code_nomenclature_type": "TYPE_SITE",
-          "cd_nomenclature": "SYRHET_Het"
+          "cd_nomenclature": "phyto"
       },
       "hidden": true
-    },
-    "id_nomenclature_tech_collect_campanule": {
-      "type_widget": "datalist",
-      "attribut_label": "Technique de collecte",
-      "api": "nomenclatures/nomenclature/TECHNIQUE_OBS",
-      "definition": "Technique de collecte issue du référentiel CAMPANULE",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "required": true,
-      "default": {
-        "cd_nomenclature": "59"
-      }
     }
   }
 }

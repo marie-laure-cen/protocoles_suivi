@@ -14,15 +14,47 @@
       "mnemonique": "RP_AIRE",
       "label_default": "Forme de l'aire de relevé",
       "definition_default": "Forme de l'aire de relevé pour les relevés phytosociologiques"
+    },
+    {
+      "mnemonique": "SUIVI_HUM",
+      "label_default": "Humidité du substrat",
+      "definition_default": "Humidité du substrat"
+    },
+    {
+      "mnemonique": "SUIVI_SAL",
+      "label_default": "Salinité",
+      "definition_default": "Salinité"
+    },
+    {
+      "mnemonique": "SUIVI_LUM",
+      "label_default": "Luminosité",
+      "definition_default": "Luminosité"
+    },
+    {
+      "mnemonique": "TOPOGRAPHIE",
+      "label_default": "Topographie",
+      "definition_default": "Topographie"
+    },
+    {
+      "mnemonique": "BRAUNBLANQABDOM",
+      "label_default": "Braun Blanquet Pavillard, abondance-dominance",
+      "definition_default": "Nomenclature des valeurs pour l'échelle d'abondance-dominance de Braun-Blanquet Pavillard (1928)"
+    },
+
+    {
+      "mnemonique": "BRAUNPAVVIT",
+      "label_default": "Braun Blanquet Pavillard, vitalité",
+      "definition_default": "Nomenclature des valeurs de l'échelle de vitalité de Braun-Blanquet Pavillard (1928)"
     }
+    
   ],
   "nomenclatures": [
     {
       "type": "TYPE_SITE",
-      "cd_nomenclature": "SYRHET_Flo",
-      "mnemonique": "Site SYRHET Flore",
-      "label_default": "Site SYRHET Flore",
-      "definition_default": "Site de relevé du protocole SYRHET flore"
+      "cd_nomenclature": "phyto",
+      "mnemonique": "Placette de relevé phytosociologique",
+      "label_default": "Placette de relevé phytosociologique",
+      "definition_default": "Placette de relevé phytosociologique"
     },
     {
       "type": "RP_STRATE",
@@ -100,6 +132,272 @@
       "mnemonique": "Autre",
       "label_default": "Autre forme de l'aire de relevé",
       "definition_default": "Autre forme de l'aire du relevé phytosociologique (à détailler)"
+    },
+    {
+      "type": "TOPOGRAPHIE",
+      "cd_nomenclature": "Pl",
+      "mnemonique": "Plat",
+      "label_default": "Plat",
+      "definition_default": "Topographie plate"
+    },
+    {
+      "type": "TOPOGRAPHIE",
+      "cd_nomenclature": "Pe",
+      "mnemonique": "Pentu",
+      "label_default": "Pentu",
+      "definition_default": "Topographie pentue"
+    },
+    {
+      "type": "TOPOGRAPHIE",
+      "cd_nomenclature": "De",
+      "mnemonique": "Dépression",
+      "label_default": "Dépression",
+      "definition_default": "Topographie de dépression"
+    },
+    {
+      "type": "TOPOGRAPHIE",
+      "cd_nomenclature": "FV",
+      "mnemonique": "Fond de vallon",
+      "label_default": "Fond de vallon",
+      "definition_default": "Topographie de fond de vallon"
+    },
+    {
+      "type": "TOPOGRAPHIE",
+      "cd_nomenclature": "Es",
+      "mnemonique": "Escarpement",
+      "label_default": "Escarpement",
+      "definition_default": "Topographie d'escarpement"
+    },
+    {
+      "type": "TOPOGRAPHIE",
+      "cd_nomenclature": "Re",
+      "mnemonique": "Replat",
+      "label_default": "Replat",
+      "definition_default": "Topographie de replat"
+    },
+    {
+      "type": "TOPOGRAPHIE",
+      "cd_nomenclature": "SA",
+      "mnemonique": "Sommet arrondi",
+      "label_default": "Sommet arrondi",
+      "definition_default": "Topographie de sommet arrondi"
+    },
+    {
+      "type": "TOPOGRAPHIE",
+      "cd_nomenclature": "SV",
+      "mnemonique": "Sommet vif",
+      "label_default": "Sommet vif",
+      "definition_default": "Topographie de sommet vif"
+    },
+    {
+      "type": "TOPOGRAPHIE",
+      "cd_nomenclature": "HV",
+      "mnemonique": "Haut de versant",
+      "label_default": "Haut de versant",
+      "definition_default": "Topographie de haut de versant"
+    },
+    {
+      "type": "TOPOGRAPHIE",
+      "cd_nomenclature": "MV",
+      "mnemonique": "Mi versant",
+      "label_default": "Mi versant",
+      "definition_default": "Topographie de mi versant"
+    },
+    {
+      "type": "TOPOGRAPHIE",
+      "cd_nomenclature": "BV",
+      "mnemonique": "Bas de versant",
+      "label_default": "Bas de versant",
+      "definition_default": "Topographie de bas de versant"
+    },
+    {
+      "type": "TOPOGRAPHIE",
+      "cd_nomenclature": "Ta",
+      "mnemonique": "Talus",
+      "label_default": "Talus",
+      "definition_default": "Topographie de talus"
+    },
+    {
+      "type": "SUIVI_HUM",
+      "cd_nomenclature": "PI",
+      "mnemonique": "Périodiquement immergé",
+      "label_default": "Périodiquement immergé",
+      "definition_default": "Périodiquement immergé"
+    },
+    {
+      "type": "SUIVI_HUM",
+      "cd_nomenclature": "In",
+      "mnemonique": "Inconnu",
+      "label_default": "Inconnu",
+      "definition_default": "Inconnu"
+    },
+    {
+      "type": "SUIVI_HUM",
+      "cd_nomenclature": "H",
+      "mnemonique": "Humide",
+      "label_default": "Humide",
+      "definition_default": "Humide"
+    },
+    {
+      "type": "SUIVI_HUM",
+      "cd_nomenclature": "AH",
+      "mnemonique": "Assez humide",
+      "label_default": "Assez humide",
+      "definition_default": "Assez humide"
+    },
+    {
+      "type": "SUIVI_HUM",
+      "cd_nomenclature": "BD",
+      "mnemonique": "Bien drainé",
+      "label_default": "Bien drainé",
+      "definition_default": "Bien drainé"
+    },
+    {
+      "type": "SUIVI_HUM",
+      "cd_nomenclature": "AS",
+      "mnemonique": "Assez sec",
+      "label_default": "Assez sec",
+      "definition_default": "Assez sec"
+    },
+    {
+      "type": "SUIVI_HUM",
+      "cd_nomenclature": "Se",
+      "mnemonique": "Sec",
+      "label_default": "Sec",
+      "definition_default": "Sec"
+    },
+    {
+      "type": "SUIVI_HUM",
+      "cd_nomenclature": "Su",
+      "mnemonique": "Suintement",
+      "label_default": "Suintement",
+      "definition_default": "Suintement"
+    },
+    {
+      "type": "SUIVI_LUM",
+      "cd_nomenclature": "Lum",
+      "mnemonique": "Lumière",
+      "label_default": "Lumière",
+      "definition_default": "Lumière"
+    },
+    {
+      "type": "SUIVI_LUM",
+      "cd_nomenclature": "MO",
+      "mnemonique": "Mi ombre",
+      "label_default": "Mi ombre",
+      "definition_default": "Mi ombre"
+    },
+    {
+      "type": "SUIVI_LUM",
+      "cd_nomenclature": "Omb",
+      "mnemonique": "Ombre",
+      "label_default": "Ombre",
+      "definition_default": "Ombre"
+    },
+    {
+      "type": "SUIVI_SAL",
+      "cd_nomenclature": "Sal",
+      "mnemonique": "Salé",
+      "label_default": "Salé",
+      "definition_default": "Milieu salé"
+    },
+    {
+      "type": "SUIVI_SAL",
+      "cd_nomenclature": "Sau",
+      "mnemonique": "Saumâtre",
+      "label_default": "Saumâtre",
+      "definition_default": "Milieu saumâtre"
+    },
+    {
+      "type": "SUIVI_SAL",
+      "cd_nomenclature": "Ne",
+      "mnemonique": "Ni salé ni saumâtre",
+      "label_default": "Ni salé ni saumâtre",
+      "definition_default": "Milieu ni salé ni saumâtre"
+    },
+    {
+      "type": "SUIVI_SAL",
+      "cd_nomenclature": "Inc",
+      "mnemonique": "Inconnu",
+      "label_default": "Inconnu",
+      "definition_default": "Inconnu"
+    },
+    {
+      "type": "BRAUNBLANQABDOM",
+      "cd_nomenclature": "Inc",
+      "mnemonique": "Inconnu",
+      "label_default": "Inconnu",
+      "definition_default": "Inconnu"
+    },
+    {
+      "type": "BRAUNBLANQABDOM",
+      "cd_nomenclature": "+",
+      "mnemonique": "+",
+      "label_default": "+",
+      "definition_default": "+ : Individus rares ou très rares - Recouvrement très faible"
+    },
+    {
+      "type": "BRAUNBLANQABDOM",
+      "cd_nomenclature": "1",
+      "mnemonique": "1",
+      "label_default": "1",
+      "definition_default": "1 : Individus assez abondants, mais degré de recouvrement faible (< 5%)"
+    },
+    {
+      "type": "BRAUNBLANQABDOM",
+      "cd_nomenclature": "2",
+      "mnemonique": "2",
+      "label_default": "2",
+      "definition_default": "2 : Individus très abondants ou recouvrant au moins 1/20 de la surface (5 à 25%)"
+    },
+    {
+      "type": "BRAUNBLANQABDOM",
+      "cd_nomenclature": "3",
+      "mnemonique": "3",
+      "label_default": "3",
+      "definition_default": "3 : Nombre d'individus quelconque, recouvrant de 1/4 à 1/2 de la surface (25 - 50%)"
+    },
+    {
+      "type": "BRAUNBLANQABDOM",
+      "cd_nomenclature": "4",
+      "mnemonique": "4",
+      "label_default": "4",
+      "definition_default": "4 : Nombre d'individus quelconque, recouvrant de 1/2 à 3/4 de la surface (50 - 75%)"
+    },
+    {
+      "type": "BRAUNBLANQABDOM",
+      "cd_nomenclature": "5",
+      "mnemonique": "5",
+      "label_default": "5",
+      "definition_default": "5 : Nombre d'individus quelconque, recouvrant plus des 3/4 de la surface (> 75%)"
+    },
+    {
+      "type": "BRAUNPAVVIT",
+      "cd_nomenclature": "a",
+      "mnemonique": ".",
+      "label_default": "Bien développée, cycle évolutif régulièrement complet",
+      "definition_default": "Plante bien développée accomplissant régulièrement son cycle évolutif complet"
+    },
+    {
+      "type": "BRAUNPAVVIT",
+      "cd_nomenclature": "b",
+      "mnemonique": "0",
+      "label_default": "A cycle évolutif gén. incomplet, vigoureuse",
+      "definition_default": "Plante à cycle évolutif généralement incomplet, mais vigoureuse"
+    },
+    {
+      "type": "BRAUNPAVVIT",
+      "cd_nomenclature": "3",
+      "mnemonique": "'",
+      "label_default": "A cycle évolutif incomplet, peu vigoureuse",
+      "definition_default": "Plante à cycle évolutif incomplet, peu vigoureuse"
+    },
+    {
+      "type": "BRAUNPAVVIT",
+      "cd_nomenclature": "4",
+      "mnemonique": "o",
+      "label_default": "Germant accidentellement, sans reproduction",
+      "definition_default": "Plante germant accidentellement, ne se reproduisant pas"
     }
   ]
 }
