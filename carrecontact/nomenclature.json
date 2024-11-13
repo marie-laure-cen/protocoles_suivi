@@ -6,109 +6,116 @@
       "definition_default": "Nomenclature des types de sites suivi dans gn_monitoring"
     },
     {
-      "mnemonique": "COEFF_CARRE_CONTACT",
-      "label_default": "Coefficient d'abondance carré contact",
-      "definition_default": "Coefficient d'abondance pour les relevés du protocole carré contact"
+      "mnemonique": "BRAUNBLANQABDOM",
+      "label_default": "Braun Blanquet Pavillard, abondance-dominance",
+      "definition_default": "Nomenclature des valeurs pour l'échelle d'abondance-dominance de Braun-Blanquet Pavillard (1928)"
     }
   ],
   "nomenclatures": [
     {
       "type": "TYPE_SITE",
-      "cd_nomenclature": "carre_contact",
+      "cd_nomenclature": "SH",
       "mnemonique": "Placette carré contact",
-      "label_default": "Placette carré contact",
-      "definition_default": "Placette de relevé du protocole carré contact"
+      "label_default": "Placette carré contact pour les suivis d'habitat",
+      "definition_default": "Placette de relevé du protocole carré contact pour les suivis d'habitat"
     },
     {
-      "type": "COEFF_CARRE_CONTACT",
+      "type": "BRAUNBLANQABDOM",
       "cd_nomenclature": "0",
       "mnemonique": "Aucun",
       "label_default": "Aucun coefficient",
       "definition_default": "Aucun coefficient"
     },
     {
-      "type": "COEFF_CARRE_CONTACT",
+      "type": "BRAUNBLANQABDOM",
       "cd_nomenclature": "2b",
       "mnemonique": "Recouvrement 15-25%",
       "label_default": "nb. d'individus quelconque, recouvrement de 15 à 25 %",
       "definition_default": "Nb. d'individus quelconque, recouvrement de 15 à 25 %"
     },
     {
-      "type": "COEFF_CARRE_CONTACT",
+      "type": "BRAUNBLANQABDOM",
       "cd_nomenclature": "2a",
       "mnemonique": "Recouvrement 5-15%",
       "label_default": "",
       "definition_default": "Nb. d'individus quelconque, recouvrement de 5 à 15 %"
     },
     {
-      "type": "COEFF_CARRE_CONTACT",
+      "type": "BRAUNBLANQABDOM",
       "cd_nomenclature": "2m",
       "mnemonique": "Recouvrement <5%, individus >100",
       "label_default": "",
       "definition_default": "Individus très nombreux (> 100), mais recouvrement < 5 %"
     },
     {
-      "type": "COEFF_CARRE_CONTACT",
+      "type": "BRAUNBLANQABDOM",
       "cd_nomenclature": "(X)",
       "mnemonique": "En limite du relevé",
       "label_default": "",
       "definition_default": "Espèce notée en limite du relevé sans appréciation de son recouvrement"
     },
     {
-      "type": "COEFF_CARRE_CONTACT",
+      "type": "BRAUNBLANQABDOM",
       "cd_nomenclature": "i",
       "mnemonique": "Individu unique",
       "label_default": "Individu unique",
       "definition_default": "Individu unique"
     },
     {
-      "type": "COEFF_CARRE_CONTACT",
+      "type": "BRAUNBLANQABDOM",
       "cd_nomenclature": "r",
       "mnemonique": "Très peu abondant",
       "label_default": "Très peu abondant, recouvrement très faible",
       "definition_default": "Très peu abondant, recouvrement très faible"
     },
     {
-      "type": "COEFF_CARRE_CONTACT",
+      "type": "BRAUNBLANQABDOM",
+      "cd_nomenclature": "Inc",
+      "mnemonique": "Inconnu",
+      "label_default": "Inconnu",
+      "definition_default": "Inconnu"
+    },
+    {
+      "type": "BRAUNBLANQABDOM",
       "cd_nomenclature": "+",
-      "mnemonique": "Peu abondant",
-      "label_default": "Peu abondant, recouvrement très faible",
-      "definition_default": "Peu abondant, recouvrement très faible"
+      "mnemonique": "+",
+      "label_default": "+",
+      "definition_default": "+ : Individus rares ou très rares - Recouvrement très faible"
     },
     {
-      "type": "COEFF_CARRE_CONTACT",
+      "type": "BRAUNBLANQABDOM",
       "cd_nomenclature": "1",
-      "mnemonique": "Individus 20-100 individus et recouvrelent <1% / Nb quelconque et recouvrement 1-5%",
-      "label_default": "Individus nombreux (de 20 à 100 individus) mais recouvrement < 1 %, ou nombre d'individus quelconque mais recouvrement de 1 à 5 %",
-      "definition_default": "Individus nombreux (de 20 à 100 individus) mais recouvrement < 1 %, ou nombre d'individus quelconque mais recouvrement de 1 à 5 %"
+      "mnemonique": "1",
+      "label_default": "1",
+      "definition_default": "1 : Individus assez abondants, mais degré de recouvrement faible (< 5%)"
     },
     {
-      "type": "COEFF_CARRE_CONTACT",
+      "type": "BRAUNBLANQABDOM",
       "cd_nomenclature": "2",
-      "mnemonique": "Individus >100 individus et recouvrelent <1% / Nb quelconque et recouvrement 5-25%",
-      "label_default": "Individus très nombreux (> 100 individus) mais recouvrement < 5 %, ou nombre d'individus quelconque mais recouvrement de 5 à 25 %",
-      "definition_default": "Individus très nombreux (> 100 individus) mais recouvrement < 5 %, ou nombre d'individus quelconque mais recouvrement de 5 à 25 %"
+      "mnemonique": "2",
+      "label_default": "2",
+      "definition_default": "2 : Individus très abondants ou recouvrant au moins 1/20 de la surface (5 à 25%)"
     },
     {
-      "type": "COEFF_CARRE_CONTACT",
+      "type": "BRAUNBLANQABDOM",
       "cd_nomenclature": "3",
-      "mnemonique": "Abondance quelconque et recouvrement 25-50%",
-      "label_default": "Recouvrement de ¼ (25 %) à ½ (50 %) de la surface, abondance quelconque",
-      "definition_default": "Recouvrement de ¼ (25 %) à ½ (50 %) de la surface, abondance quelconque"
+      "mnemonique": "3",
+      "label_default": "3",
+      "definition_default": "3 : Nombre d'individus quelconque, recouvrant de 1/4 à 1/2 de la surface (25 - 50%)"
     },
     {
-      "type": "COEFF_CARRE_CONTACT",
+      "type": "BRAUNBLANQABDOM",
       "cd_nomenclature": "4",
-      "mnemonique": "Abondance quelconque et recouvrement 50-75%",
-      "label_default": "Recouvrement de ½ (50 %) à ¾ (75 %) de la surface, abondance quelconque",
-      "definition_default": "Recouvrement de ½ (50 %) à ¾ (75 %) de la surface, abondance quelconque"
+      "mnemonique": "4",
+      "label_default": "4",
+      "definition_default": "4 : Nombre d'individus quelconque, recouvrant de 1/2 à 3/4 de la surface (50 - 75%)"
     },
     {
-      "type": "COEFF_CARRE_CONTACT",
+      "type": "BRAUNBLANQABDOM",
       "cd_nomenclature": "5",
-      "mnemonique": "Abondance quelconque et recouvrement >75%",
-      "label_default": "Recouvrement supérieur aux ¾ (75 %) de la surface, abondance quelconque",
-      "definition_default": "Recouvrement supérieur aux ¾ (75 %) de la surface, abondance quelconque"
+      "mnemonique": "5",
+      "label_default": "5",
+      "definition_default": "5 : Nombre d'individus quelconque, recouvrant plus des 3/4 de la surface (> 75%)"
     }
   ]
 }

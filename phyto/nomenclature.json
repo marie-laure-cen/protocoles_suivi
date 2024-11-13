@@ -40,7 +40,6 @@
       "label_default": "Braun Blanquet Pavillard, abondance-dominance",
       "definition_default": "Nomenclature des valeurs pour l'échelle d'abondance-dominance de Braun-Blanquet Pavillard (1928)"
     },
-
     {
       "mnemonique": "BRAUNPAVVIT",
       "label_default": "Braun Blanquet Pavillard, vitalité",
@@ -321,6 +320,55 @@
       "mnemonique": "Inconnu",
       "label_default": "Inconnu",
       "definition_default": "Inconnu"
+    },
+    {
+      "type": "BRAUNBLANQABDOM",
+      "cd_nomenclature": "0",
+      "mnemonique": "Aucun",
+      "label_default": "Aucun coefficient",
+      "definition_default": "Aucun coefficient"
+    },
+    {
+      "type": "BRAUNBLANQABDOM",
+      "cd_nomenclature": "2b",
+      "mnemonique": "Recouvrement 15-25%",
+      "label_default": "nb. d'individus quelconque, recouvrement de 15 à 25 %",
+      "definition_default": "Nb. d'individus quelconque, recouvrement de 15 à 25 %"
+    },
+    {
+      "type": "BRAUNBLANQABDOM",
+      "cd_nomenclature": "2a",
+      "mnemonique": "Recouvrement 5-15%",
+      "label_default": "",
+      "definition_default": "Nb. d'individus quelconque, recouvrement de 5 à 15 %"
+    },
+    {
+      "type": "BRAUNBLANQABDOM",
+      "cd_nomenclature": "2m",
+      "mnemonique": "Recouvrement <5%, individus >100",
+      "label_default": "",
+      "definition_default": "Individus très nombreux (> 100), mais recouvrement < 5 %"
+    },
+    {
+      "type": "BRAUNBLANQABDOM",
+      "cd_nomenclature": "(X)",
+      "mnemonique": "En limite du relevé",
+      "label_default": "",
+      "definition_default": "Espèce notée en limite du relevé sans appréciation de son recouvrement"
+    },
+    {
+      "type": "BRAUNBLANQABDOM",
+      "cd_nomenclature": "i",
+      "mnemonique": "Individu unique",
+      "label_default": "Individu unique",
+      "definition_default": "Individu unique"
+    },
+    {
+      "type": "BRAUNBLANQABDOM",
+      "cd_nomenclature": "r",
+      "mnemonique": "Très peu abondant",
+      "label_default": "Très peu abondant, recouvrement très faible",
+      "definition_default": "Très peu abondant, recouvrement très faible"
     },
     {
       "type": "BRAUNBLANQABDOM",

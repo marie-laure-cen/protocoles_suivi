@@ -1,0 +1,153 @@
+{
+  
+  "description_field_name": "num_passage",
+  "genre":"M",
+  "label": "Passage",
+  "label_list": "Passages",
+  "display_properties": [
+    "observers",
+    "num_passage",
+    "annee",
+    "visit_date_min",
+    "heure_debut",
+    "visit_date_max",
+    "heure_fin",
+    "habitat",
+    "gestion",
+    "impact",
+    "id_nomenclature_tp",
+    "id_nomenclature_cn",
+    "id_nomenclature_vt",
+    "comments",
+    "source"
+  ],
+  "display_list": [
+    "num_passage",
+    "visit_date_min",
+    "observers",
+    "habitat",
+    "nb_observations"
+  ],
+  "keep": [
+    "num_passage",
+    "annee",
+    "id_dataset",
+    "id_nomenclature_tp",
+    "id_nomenclature_cn",
+    "id_nomenclature_vt",
+    "observers",
+    "habitat",
+    "gestion"
+  ],
+  "specific": {
+    "num_passage": {
+      "type_widget": "number",
+      "attribut_label": "Numéro de passage",
+      "min" : 1,
+      "max": 4,
+      "value": 1,
+      "required": true
+    },
+    "annee": {
+      "type_widget": "number",
+      "attribut_label": "Année",
+      "min" : 1993,
+      "value": 2024,
+      "required": true
+    },
+    "visit_date_min":{
+      "attribut_label": "Date de début du passage",
+      "required": true
+    },
+    "visit_date_max":{
+      "attribut_label": "Date de fin du passage" , 
+      "required": false,
+      "hidden": true
+    },
+    "heure_debut": {
+      "type_widget": "time",
+      "attribut_label": "Heure de début du passage",
+      "required": true
+    },
+    "heure_fin": {
+      "type_widget": "time",
+      "attribut_label": "Heure de fin du passage",
+      "required": false
+    },
+    "id_nomenclature_tp":{
+      "type_widget": "nomenclature",
+      "attribut_label": "Température",
+      "type_util": "nomenclature",
+      "code_nomenclature_type" : "SUIVI_TP",
+      "required": true
+    },
+    "id_nomenclature_cn":{
+      "type_widget": "nomenclature",
+      "attribut_label": "Couverture nuageuse",
+      "type_util": "nomenclature",
+      "code_nomenclature_type" : "SUIVI_CN",
+      "required": true
+    },
+    "id_nomenclature_vt":{
+      "type_widget": "nomenclature",
+      "attribut_label": "Vent",
+      "type_util": "nomenclature",
+      "code_nomenclature_type" : "SUIVI_VT",
+      "required": true
+    },
+    "source":{
+      "type_widget": "select",
+      "required": true,
+      "attribut_label": "Source de la donnée",
+      "values": ["Intranet SER", "GeoNature", "Qfield/Qgis"],
+      "value": "GeoNature",
+      "hidden": true
+    },
+    "habitat":{
+      "attribut_label": "Habitat",
+      "type_widget": "select",
+      "values": [
+        "Berges",
+        "Brachypodaie",
+        "Cariçaie",
+        "Dalle / Pelouse écorchée",
+        "Friche",
+        "Fruticée",
+        "Lande",
+        "Lisière / Forestière",
+        "Mégaphorbiaie",
+        "Ourlet",
+        "Pelouse calcaire",
+        "Pelouse sableuse",
+        "Prairie humide",
+        "Prairie piquetée",
+        "Roselière"
+      ],
+      "required": true,
+      "hidden": false
+    },
+    "gestion":{
+      "attribut_label": "Gestion",
+      "type_widget": "select",
+      "values": [
+        "Autre",
+        "Broyage",
+        "Débroussaillage",
+        "Etrépage",
+        "Fauche",
+        "Pas d'intervention",
+        "Pâturage"
+      ],
+      "required": true,
+      "hidden": false
+    },
+    "impact":{
+      "type_widget": "select",
+      "required": false,
+      "attribut_label": "Impact de la gestion",
+      "values": ["OUI", "NON"],
+      "value": "NON",
+      "hidden":false
+    }
+  }
+}
