@@ -2,7 +2,7 @@
   "genre":"M",
   "label": "Transect",
   "label_list": "Transects",
-  "geometry_type": "LineString",
+  "geometry_type": "Point",
   "map_label_field_name": "base_site_code",
   "sorts": [
     {"prop": "base_site_name", "dir": "asc"}
