@@ -13,9 +13,6 @@
     "base_site_name",
     "altitude_min",
     "altitude_max",
-    "habitat",
-    "gestion",
-    "impact",
     "base_site_description"
  ],
   "display_list": [
@@ -31,10 +28,10 @@
   ],
   "specific": {
     "base_site_code":{
-      "attribut_label": "Code du transect"
+      "attribut_label": "Code du suivi"
     },
     "base_site_name":{
-      "attribut_label": "Nom du transect"
+      "attribut_label": "Nom du suivi"
     },
     "base_site_description":{
       "attribut_label": "Commentaires"
