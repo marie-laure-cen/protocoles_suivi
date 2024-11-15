@@ -31,9 +31,20 @@ WITH
 		LEFT JOIN gn_commons.t_modules mo ON 'MONITORING_' || UPPER(mo.module_code) = name_source
 		WHERE name_source = CONCAT('MONITORING_', UPPER(:'module_code'))
 	), 
+	ds as (
+		SELECT
+			*
+		FROM gn_meta.cor_dataset_site cds
+		LEFT JOIN gn_meta.t_datasets d USING (id_dataset)
+		WHERE NOT lower(d.dataset_name) LIKE '%flore%' 
+		AND NOT lower(d.dataset_name) LIKE '%fonge%' 
+		AND NOT lower(d.dataset_name) LIKE '%autre%' 
+		AND NOT lower(d.dataset_name) LIKE '%habitat%' 
+	),
 	sites AS (
 		SELECT
 			s.id_base_site,
+			ds.id_dataset,
 			tsg.sites_group_name,
 			tsg.sites_group_description,
 			s.base_site_name,
@@ -47,6 +58,7 @@ WITH
 		FROM gn_monitoring.t_base_sites s
 		LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
 		LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
+		LEFT JOIN ds ON tsg.sites_group_name = ds.area_code
 		INNER JOIN source ON tsc.id_module = source.id_module
 	), 
 	visits AS (
@@ -82,7 +94,10 @@ WITH
 		v.uuid_base_visit AS unique_id_sinp_grp,
 		source.id_source,
 		o.id_observation AS entity_source_pk_value,
-		v.id_dataset,
+		CASE 
+			WHEN s.id_dataset IS NULL THEN 1342 
+			ELSE s.id_dataset
+		END as id_dataset, -- v.id_dataset
 		ref_nomenclatures.get_id_nomenclature('NAT_OBJ_GEO', 'St') AS id_nomenclature_geo_object_nature,
 		v.id_nomenclature_grp_typ, -- TYP_GRP
 		v.id_nomenclature_tech_collect_campanule,  --TECHNIQUE_OBS
