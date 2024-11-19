@@ -30,19 +30,10 @@
   ],
   "specific": {
     "id_dataset": {
-      "type_widget": "datalist",
+      "type_widget": "dataset",
       "attribut_label": "Jeu de données",
       "type_util": "dataset",
-      "api": "meta/datasets",
-      "application": "GeoNature",
-      "keyValue": "id_dataset",
-      "keyLabel": "dataset_name",
-      "params": {
-        "orderby": "dataset_shortname",
-        "module_code": "__MODULE.MODULE_CODE"
-      },
-      "required": true,
-      "hidden": false
+      "required": true
     },
     "annee_debut": {
       "type_widget": "number",

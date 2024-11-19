@@ -27,209 +27,153 @@ WITH source AS (
 		FROM gn_synthese.t_sources
 		WHERE name_source = CONCAT('MONITORING_', UPPER(:'module_code'))
 		LIMIT 1
-	),,mt AS (
-         SELECT x.id_base_site,
-            string_agg(x.label_mt, '; '::text) AS milieu_terrestre
-           FROM ( SELECT t_site_complements.id_base_site,
-                    ref_nomenclatures.get_nomenclature_label(jsonb_array_elements(t_site_complements.data -> 'id_nomenclature_mt'::text)::integer)::text AS label_mt
-                   FROM gn_monitoring.t_site_complements) x
-          GROUP BY x.id_base_site
-          ORDER BY x.id_base_site
-        ), ma AS (
-         SELECT x.id_base_site,
-            string_agg(x.label_ma, '; '::text) AS milieu_aquatique
-           FROM ( SELECT t_site_complements.id_base_site,
-                    ref_nomenclatures.get_nomenclature_label(jsonb_array_elements(t_site_complements.data -> 'id_nomenclature_ma'::text)::integer)::text AS label_ma
-                   FROM gn_monitoring.t_site_complements) x
-          GROUP BY x.id_base_site
-          ORDER BY x.id_base_site
-        ), ah AS (
-         SELECT x.id_base_site,
-            string_agg(x.label_ah, '; '::text) AS activite_humaine
-           FROM ( SELECT t_site_complements.id_base_site,
-                    ref_nomenclatures.get_nomenclature_label(jsonb_array_elements(t_site_complements.data -> 'id_nomenclature_ah'::text)::integer)::text AS label_ah
-                   FROM gn_monitoring.t_site_complements) x
-          GROUP BY x.id_base_site
-          ORDER BY x.id_base_site
-        ), ri AS (
-         SELECT x.id_base_site,
-            string_agg(x.label_ri, '; '::text) AS type_rive
-           FROM ( SELECT t_site_complements.id_base_site,
-                    ref_nomenclatures.get_nomenclature_label(jsonb_array_elements(t_site_complements.data -> 'id_nomenclature_ri'::text)::integer)::text AS label_ri
-                   FROM gn_monitoring.t_site_complements) x
-          GROUP BY x.id_base_site
-          ORDER BY x.id_base_site
-        ), ne AS (
-         SELECT x.id_base_site,
-            string_agg(x.label_ne, '; '::text) AS niveau_eau
-           FROM ( SELECT t_site_complements.id_base_site,
-                    ref_nomenclatures.get_nomenclature_label(jsonb_array_elements(t_site_complements.data -> 'id_nomenclature_ne'::text)::integer)::text AS label_ne
-                   FROM gn_monitoring.t_site_complements) x
-          GROUP BY x.id_base_site
-          ORDER BY x.id_base_site
-        ), eu AS (
-         SELECT x.id_base_site,
-            string_agg(x.label_eu, '; '::text) AS eutrophisation
-           FROM ( SELECT t_site_complements.id_base_site,
-                    ref_nomenclatures.get_nomenclature_label(jsonb_array_elements(t_site_complements.data -> 'id_nomenclature_eu'::text)::integer)::text AS label_eu
-                   FROM gn_monitoring.t_site_complements) x
-          GROUP BY x.id_base_site
-          ORDER BY x.id_base_site
-        ), co AS (
-         SELECT x.id_base_site,
-            string_agg(x.label_co, '; '::text) AS courant
-           FROM ( SELECT t_site_complements.id_base_site,
-                    ref_nomenclatures.get_nomenclature_label(jsonb_array_elements(t_site_complements.data -> 'id_nomenclature_co'::text)::integer)::text AS label_co
-                   FROM gn_monitoring.t_site_complements) x
-          GROUP BY x.id_base_site
-          ORDER BY x.id_base_site
-        ), va AS (
-         SELECT x.id_base_site,
-            string_agg(x.label_va, '; '::text) AS vegetation
-           FROM ( SELECT t_site_complements.id_base_site,
-                    ref_nomenclatures.get_nomenclature_label(jsonb_array_elements(t_site_complements.data -> 'id_nomenclature_va'::text)::integer)::text AS label_va
-                   FROM gn_monitoring.t_site_complements) x
-          GROUP BY x.id_base_site
-          ORDER BY x.id_base_site
-        ), sites AS (
-         SELECT tbs.id_base_site,
-            tsg.sites_group_code::integer AS id_dataset,
-            la.id_area AS id_area_attachment,
-            tsg.sites_group_name AS area_code,
-            (tbs.base_site_code::text || ' / '::text) || tbs.base_site_name::text AS place_name,
-            (r.nom_role::text || ' '::text) || r.prenom_role::text AS responsable,
-            tsc.data,
-            tbs.base_site_description AS site_comments,
-            tbs.altitude_min,
-            tbs.altitude_max,
-            tbs.geom AS the_geom_4326,
-            st_centroid(tbs.geom) AS the_geom_point,
-            tbs.geom_local
-           FROM gn_monitoring.t_base_sites tbs
-             LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
-             LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
-             LEFT JOIN utilisateurs.t_roles r ON (tsg.data -> 'id_resp'::text)::integer = r.id_role
-             LEFT JOIN gn_meta.t_datasets taf ON taf.id_dataset = tsg.sites_group_code::integer
-             LEFT JOIN ref_geo.l_areas la ON tsg.sites_group_name::text = la.area_code::text
-        ), visits AS (
-         SELECT tbv.id_base_visit,
-            tbv.uuid_base_visit,
-            tbv.id_module,
-            tbv.id_base_site,
-            tbv.id_digitiser,
-            (tbv.visit_date_min::text || ((tvc.data -> 'heure_debut'::text)::text))::timestamp without time zone AS date_min,
-            COALESCE((tbv.visit_date_max::text || ((tvc.data -> 'heure_fin'::text)::text))::timestamp without time zone, (tbv.visit_date_min::text || ((tvc.data -> 'heure_fin'::text)::text))::timestamp without time zone) AS date_max,
-            tbv.comments,
-            tbv.id_nomenclature_tech_collect_campanule,
-            tbv.id_nomenclature_grp_typ,
-            tvc.data,
-            (tvc.data -> 'num_passage'::text)::integer AS num_passage,
-            ref_nomenclatures.get_nomenclature_label((tvc.data -> 'id_nomenclature_tp'::text)::integer) AS temperature,
-            ref_nomenclatures.get_nomenclature_label((tvc.data -> 'id_nomenclature_cn'::text)::integer) AS couv_nuageuse,
-            ref_nomenclatures.get_nomenclature_label((tvc.data -> 'id_nomenclature_vt'::text)::integer) AS vent,
-            (tvc.data -> 'source'::text)::text AS srce
-           FROM gn_monitoring.t_base_visits tbv
-             LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
-        ), observers AS (
-         SELECT array_agg(r.id_role) AS ids_observers,
-            string_agg(concat(r.nom_role, ' ', r.prenom_role), ' ; '::text) AS observers,
-            cvo.id_base_visit
-           FROM gn_monitoring.cor_visit_observer cvo
-             JOIN utilisateurs.t_roles r ON r.id_role = cvo.id_role
-          GROUP BY cvo.id_base_visit
-        )
- SELECT
- 	v.id_module,
-    o.uuid_observation AS unique_id_sinp,
-    v.uuid_base_visit AS unique_id_sinp_grp,
-    source.id_source,
-    o.id_observation AS entity_source_pk_value,
-    v.id_base_site,
-    v.id_base_visit,
-    s.id_area_attachment,
-    s.id_dataset,
-    s.area_code AS site_cen,
-    s.place_name,
-    s.responsable,
-    s.altitude_min,
-    s.altitude_max,
-    v.num_passage,
-    date_part('year'::text, v.date_min) AS annee,
-    v.date_min,
-    v.date_max,
-    v.id_digitiser,
-    ref_nomenclatures.get_id_nomenclature('NAT_OBJ_GEO'::character varying, 'St'::character varying) AS id_nomenclature_geo_object_nature,
-    ref_nomenclatures.get_id_nomenclature('TYP_GRP'::character varying, 'PASS'::character varying) AS id_nomenclature_grp_typ,
-    ref_nomenclatures.get_id_nomenclature('TECHNIQUE_OBS'::character varying, '59'::character varying) AS id_nomenclature_tech_collect_campanule,
-    (oc.data -> 'effectif'::text)::integer AS count_min,
-    (oc.data -> 'effectif'::text)::integer AS count_max,
-    o.cd_nom,
-    t.nom_complet AS nom_cite,
-    obs.observers,
-    oc.data -> 'determiner'::text AS determiner,
-    (oc.data -> 'id_nomenclature_determination_method'::text)::integer AS id_nomenclature_determination_method,
-    (oc.data -> 'id_nomenclature_obs_technique'::text)::integer AS id_nomenclature_obs_technique,
-    (oc.data -> 'id_nomenclature_obj_count'::text)::integer AS id_nomenclature_obj_count,
-    (oc.data -> 'id_nomenclature_type_count'::text)::integer AS id_nomenclature_type_count,
-    ref_nomenclatures.get_id_nomenclature('STATUT_OBS'::character varying, 'Pr'::character varying) AS id_nomenclature_observation_status,
-    ref_nomenclatures.get_id_nomenclature('STATUT_SOURCE'::character varying, 'Te'::character varying) AS id_nomenclature_source_status,
-    ref_nomenclatures.get_id_nomenclature('TYP_INF_GEO'::character varying, '1'::character varying) AS id_nomenclature_info_geo_type,
-    (s.site_comments || ' / '::text) || v.comments AS comment_context,
-    o.comments AS comment_description,
-    --mt.milieu_terrestre,
-    --ma.milieu_aquatique,
-    --ah.activite_humaine,
-    --ri.type_rive,
-    --ne.niveau_eau,
-    --eu.eutrophisation,
-    --co.courant,
-    --va.vegetation,
-    --v.temperature,
-    --v.couv_nuageuse,
-    --v.vent,
-    --ref_nomenclatures.get_nomenclature_label((oc.data -> 'id_nomenclature_ab'::text)::integer) AS abondance,
-    --ref_nomenclatures.get_nomenclature_label((oc.data -> 'id_nomenclature_ir'::text)::integer) AS indice_repro,
-    --oc.data -> 'nb_male'::text AS nb_male,
-    --oc.data -> 'nb_femelle'::text AS nb_femelle,
-    s.the_geom_4326,
-    s.the_geom_point,
-    s.geom_local,
-	jsonb_strip_nulls(
-    		jsonb_build_object(
-				'milieu_terrestre', mt.milieu_terrestre,
-				'milieu_aquatique', ma.milieu_aquatique,
-				'activite_humaine', ah.activite_humaine,
-				'type_rive', ri.type_rive,
-				'niveau_eau', ne.niveau_eau,
-				'eutrophisation', eu.eutrophisation,
-				'courant', co.courant,
-				'vegetation', va.vegetation,
-				'temperature', v.temperature,
-				'couv_nuageuse', v.couv_nuageuse,
-				'vent', v.vent,
-				'abondance', ref_nomenclatures.get_nomenclature_label((oc.data -> 'id_nomenclature_ab'::text)::integer),
-				'indice_repro', ref_nomenclatures.get_nomenclature_label((oc.data -> 'id_nomenclature_ir'::text)::integer),
-				'nb_male' , (oc.data -> 'nb_male'::text),
-				'nb_femelle', (oc.data -> 'nb_femelle'::text)
-		)
-	) as additional_data
-   FROM gn_monitoring.t_observations o
-     LEFT JOIN gn_monitoring.t_observation_complements oc USING (id_observation)
-     JOIN visits v USING (id_base_visit)
-     JOIN sites s USING (id_base_site)
-     JOIN gn_commons.t_modules m USING (id_module)
-     JOIN taxonomie.taxref t USING (cd_nom)
-     JOIN source ON true
-     JOIN observers obs USING (id_base_visit)
-     LEFT JOIN mt USING (id_base_site)
-     LEFT JOIN ma USING (id_base_site)
-     LEFT JOIN ah USING (id_base_site)
-     LEFT JOIN ri USING (id_base_site)
-     LEFT JOIN ne USING (id_base_site)
-     LEFT JOIN eu USING (id_base_site)
-     LEFT JOIN co USING (id_base_site)
-     LEFT JOIN va USING (id_base_site)
-    WHERE m.module_code = :'module_code' and not v.srce = 'Intranet SER'
+	),sites AS (
+		SELECT
+			s.id_base_site,
+			(tsg.data ->> 'id_dataset')::integer as id_dataset,
+			tsg.sites_group_code,
+			tsg.sites_group_name,
+			tsg.sites_group_description,
+			s.base_site_name,
+			s.base_site_code,
+			s.altitude_min,
+			s.altitude_max,
+			tsg.data,
+			s.geom AS the_geom_4326,
+			ST_CENTROID(s.geom) AS the_geom_point,
+			s.geom_local as geom_local
+		FROM gn_monitoring.t_base_sites s
+		LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
+		LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
+		INNER JOIN source ON tsc.id_module = source.id_module
+	), 
+	visits AS (
+		SELECT
+			v.id_base_visit,
+			v.uuid_base_visit,
+			v.id_module,
+			v.id_base_site,
+			v.id_dataset,
+			v.id_digitiser,
+			v.visit_date_min AS date_min,
+			COALESCE (v.visit_date_max, v.visit_date_min) AS date_max,
+			v.comments,
+			v.id_nomenclature_tech_collect_campanule,
+			v.id_nomenclature_grp_typ,
+			tvc.data
+		FROM gn_monitoring.t_base_visits v
+		LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
+		INNER JOIN source USING (id_module)
+	), 
+	observers AS (
+		SELECT
+			array_agg(r.id_role) AS ids_observers,
+			STRING_AGG(CONCAT(r.nom_role, ' ', r.prenom_role), ' ; ') AS observers,
+			cvo.id_base_visit
+		FROM gn_monitoring.cor_visit_observer cvo
+		JOIN utilisateurs.t_roles r
+		ON r.id_role = cvo.id_role
+		GROUP BY cvo.id_base_visit
+	)
+	SELECT
+		o.uuid_observation AS unique_id_sinp, 
+		v.uuid_base_visit AS unique_id_sinp_grp,
+		source.id_source,
+		o.id_observation AS entity_source_pk_value,
+		CASE 
+			WHEN s.id_dataset IS NULL THEN 1388
+			ELSE s.id_dataset
+		END as id_dataset, -- v.id_dataset
+		ref_nomenclatures.get_id_nomenclature('NAT_OBJ_GEO', 'St') AS id_nomenclature_geo_object_nature,
+		v.id_nomenclature_grp_typ, -- TYP_GRP
+		v.id_nomenclature_tech_collect_campanule,  --TECHNIQUE_OBS
+		ref_nomenclatures.get_id_nomenclature('METH_OBS', '0') AS id_nomenclature_obs_technique, -- METH_OBS
+		--id_nomenclature_bio_status, -- STATUT_BIO
+		--id_nomenclature_bio_condition, -- ETA_BIO
+		--id_nomenclature_naturalness, -- NATURALITE
+		--id_nomenclature_exist_proof, -- PREUVE_EXIST
+		--id_nomenclature_valid_status,  --STATUT_VALID
+		--id_nomenclature_diffusion_level, -- NIV_PRECIS
+		--id_nomenclature_life_stage, -- STADE_VIE
+		--id_nomenclature_sex, -- SEXE
+		ref_nomenclatures.get_id_nomenclature('OBJ_DENBR', 'IND') AS id_nomenclature_obj_count,
+		ref_nomenclatures.get_id_nomenclature('TYP_DENBR', 'Co') AS id_nomenclature_type_count,
+		-- id_nomenclature_sensitivity, --SENSIBILITE
+		ref_nomenclatures.get_id_nomenclature('STATUT_OBS', 'Pr') AS id_nomenclature_observation_status, 
+		-- id_nomenclature_blurring, -- DEE_FLOU
+		-- id_nomenclature_behaviour, -- OCC_COMPORTEMENT
+		ref_nomenclatures.get_id_nomenclature('STATUT_SOURCE', 'Te') AS id_nomenclature_source_status,
+		ref_nomenclatures.get_id_nomenclature('TYP_INF_GEO', '1') AS id_nomenclature_info_geo_type,
+		COALESCE((toc.data ->> 'effectif'):: integer,1) AS count_min,
+		COALESCE((toc.data ->> 'effectif'):: integer,1) AS count_max,
+		id_observation,
+		o.cd_nom,
+		t.nom_complet AS nom_cite,
+		--meta_v_taxref,
+		--sample_number_proof,
+		--digital_proofvue,
+		s.altitude_min,
+		s.altitude_max,
+		s.data ->> 'commune'|| ' - ' || s.sites_group_code || ' - ' || s.sites_group_name || ' - ' || s.base_site_code as place_name,
+		s.the_geom_4326,
+		s.the_geom_point,
+		s.geom_local as the_geom_local,
+		v.date_min,
+		v.date_max,
+		--validator,
+		--validation_comment,
+		obs.observers,
+		(toc.data ->> 'determiner') as determiner,
+		v.id_digitiser,
+		(toc.data ->> 'id_nomenclature_determination_method')::integer AS id_nomenclature_determination_method,
+		--meta_validation_date,
+		--meta_create_date,
+		--meta_update_date,
+		--last_action
+		v.id_module,
+		(
+			'num_passage : ' || (v.data ->> 'num_passage') || 
+			' | gestion : ' || COALESCE((v.data ->> 'gestion'), '/')  || 
+			' | milieu terrestre : ' ||  COALESCE((ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_mt')::integer)), '/') || 
+			' | milieu aquatique : ' || COALESCE((ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_ma')::integer)), '/') || 
+			' | vent : ' || ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_vt')::integer)|| 
+			' | couverture_nuageuse : ' || ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_cn')::integer)|| 
+			' | temperature : ' || ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_tp')::integer) 
+		) AS comment_context,
+		CASE 
+			WHEN v.comments IS NULL AND NOT o.comments IS NULL THEN o.comments
+			WHEN NOT v.comments IS NULL AND o.comments IS NULL THEN v.comments
+			ELSE v.comments || ' ' || o.comments
+		END AS comment_description,
+		jsonb_strip_nulls( 
+			jsonb_build_object(
+				'année', (v.data ->> 'annee')::integer,
+				'num_passage', (v.data ->> 'num_passage')::integer,
+				'hab_1', (v.data ->> 'hab_1'),
+				'hab_2', (v.data ->> 'hab_2'),
+				'occ_sol', (v.data ->> 'occ_sol'),
+				'vent', ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_vt')::integer),
+				'couverture_nuageuse', ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_cn')::integer),
+				'temperature', ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_tp')::integer)
+			)
+		) as additional_data,
+		obs.ids_observers,
+		-- ## Colonnes complémentaires qui ont leur utilité dans la fonction synthese.import_row_from_table
+		v.id_base_site,
+		v.id_base_visit
+	FROM gn_monitoring.t_observations o
+	LEFT JOIN gn_monitoring.t_observation_complements toc USING (id_observation)
+	INNER JOIN visits v
+		ON v.id_base_visit = o.id_base_visit
+	INNER JOIN sites s 
+		ON s.id_base_site = v.id_base_site
+	JOIN taxonomie.taxref t 
+		ON t.cd_nom = o.cd_nom
+	LEFT JOIN source 
+		ON v.id_module = source.id_module
+	LEFT JOIN observers obs ON obs.id_base_visit = v.id_base_visit
+	WHERE extract(year from v.date_min) > 2023
+	ORDER BY v.date_min ASC
 ;
 
 SELECT * FROM gn_monitoring.v_synthese_:module_code

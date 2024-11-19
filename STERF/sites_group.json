@@ -11,6 +11,7 @@
     "sites_group_code",
     "sites_group_name",
     "sites_group_description",
+    "id_dataset",
     "id_resp",
     "commune",
     "annee_debut",
@@ -60,6 +61,19 @@
       "multiple": false,
       "required": false,
       "definition": "Si déterminateur différent de l'observateur"
+    },
+    "id_dataset": {
+      "type_widget": "datalist",
+      "attribut_label": "Jeu de données",
+      "api": "meta/datasets",
+      "application": "GeoNature",
+      "keyValue": "id_dataset",
+      "keyLabel": "dataset_name",
+      "type_util": "dataset",
+      "required": true,
+      "default": {
+        "id_dataset": 1342
+      }
     },
     "sites_group_name":{
       "attribut_label": "Code",

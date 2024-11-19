@@ -11,6 +11,7 @@
     "sites_group_code",
     "sites_group_name",
     "sites_group_description",
+    "id_dataset",
     "id_resp",
     "commune",
     "annee_debut",
@@ -27,6 +28,12 @@
     "sites_group_code": {
       "attribut_label": "Code site",
       "hidden": false,
+      "required": true
+    },
+    "id_dataset": {
+      "type_widget": "dataset",
+      "attribut_label": "Jeu de données",
+      "type_util": "dataset",
       "required": true
     },
     "annee_debut": {
