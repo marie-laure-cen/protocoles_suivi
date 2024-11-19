@@ -83,6 +83,7 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 		v.uuid_base_visit AS unique_id_sinp_grp,
 		source.id_source,
 		o.id_observation AS entity_source_pk_value,
+		o.id_observation ,
 		CASE 
 			WHEN s.id_dataset IS NULL THEN 1343
 			ELSE s.id_dataset

@@ -83,6 +83,7 @@ WITH
 		v.uuid_base_visit AS unique_id_sinp_grp,
 		source.id_source,
 		o.id_observation AS entity_source_pk_value,
+		o.id_observation ,
 		CASE 
 			WHEN s.id_dataset IS NULL THEN 1342 
 			ELSE s.id_dataset
