@@ -7,32 +7,12 @@
   "sorts": [
     {"prop": "sites_group_name"}
   ],
-  "export_pdf": [
-    {
-      "template": "fiche_aire.html",
-      "label": "Export PDF"
-    }
-  ],
   "display_properties": [
     "sites_group_name",
-    "sites_group_code",
     "site_group_description"
   ],
   "display_list": [
     "sites_group_name",
-    "sites_group_code",
     "nb_sites"
-  ],
-  "specific": {
-    "sites_group_code": {
-      "required": false,
-      "definition": "Code de l'espace de prospection.",
-      "hidden": true
-    },
-    "sites_group_name":{
-      "definition": "Nom de l'espace de prospection."
-    }
-  },
-  "change": [
   ]
 }

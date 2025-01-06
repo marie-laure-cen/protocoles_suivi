@@ -11,11 +11,6 @@
       "site": {}
     }
   },
-  "data": {
-    "taxonomy": {
-      "id_list": "__ID_COMPONENT_TAXONOMY"
-    }
-  },
   "default_display_field_names": {
     "sites_group": "sites_group_code"
   }

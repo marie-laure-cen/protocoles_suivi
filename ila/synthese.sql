@@ -23,14 +23,16 @@ DROP VIEW IF EXISTS gn_monitoring.v_synthese_:module_code;
 CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 
  AS
- WITH source AS (
-         SELECT sc.id_source,
-            mo.id_module
-           FROM gn_synthese.t_sources sc
-           LEFT JOIN gn_commons.t_modules mo ON 'MONITORING_' || UPPER(mo.module_code) = name_source
-			WHERE name_source = CONCAT('MONITORING_', UPPER(:'module_code'))
-        )
-  sites AS (
+ WITH 
+ 	source AS (
+		SELECT 
+			sc.id_source,
+			mo.id_module
+		FROM gn_synthese.t_sources sc
+		LEFT JOIN gn_commons.t_modules mo ON 'MONITORING_' || UPPER(mo.module_code) = name_source
+		WHERE name_source = CONCAT('MONITORING_', UPPER(:'module_code'))
+    ),
+  	sites AS (
 		SELECT
 			s.id_base_site,
 			(tsg.data ->> 'id_dataset')::integer as id_dataset,

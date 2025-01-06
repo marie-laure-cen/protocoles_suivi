@@ -1,0 +1,56 @@
+{
+  "genre":"F",
+  "label": "tourbière",
+  "label_list": "tourbières",
+  "geometry_type": "Polygon",
+  "map_label_field_name": "base_site_name",
+  "sorts": [
+    {"prop": "dep", "dir": "asc"}
+  ],
+  "display_properties": [
+    "base_site_code",
+    "base_site_name",
+    "id_inventor",
+    "dep",
+    "base_site_description"
+ ],
+  "display_list": [
+    "dep",
+    "base_site_name",
+    "first_use_date",
+    "nb_visits"
+  ],
+  "keep": [
+    "dep"
+  ],
+  "specific": {
+    "dep": {
+      "type_widget": "select",
+      "attribut_label": "Code du département",
+      "required": true,
+      "values": [14,27,50,61,76]
+    },
+    "base_site_code":{
+      "attribut_label": "Code de la tourbière potentielle"
+    },
+    "base_site_name": {
+      "attribut_label": "Nom de la tourbière potentielle"
+    }, 
+    "id_inventor": {
+      "hidden " :false,
+      "required": false
+    },   
+    "base_site_description":{
+      "attribut_label": "Commentaires"
+    },
+    "id_nomenclature_type_site": {
+      "attribut_label": "Type site",
+      "type_util": "nomenclature",
+      "value": {
+          "code_nomenclature_type": "TYPE_SITE",
+          "cd_nomenclature": "preloc_prat"
+      },
+      "hidden": true
+    }
+  }
+}

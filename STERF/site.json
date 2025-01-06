@@ -49,7 +49,7 @@
     },
     "id_sites_group": {
       "type_widget": "datalist",
-      "attribut_label": "Site CEN du suivi",
+      "attribut_label": "Site CEN",
       "type_util": "sites_group",
       "keyValue": "id_sites_group",
       "keyLabel": "sites_group_name",
@@ -73,7 +73,7 @@
       "hidden": true
     },
     "hab_1": {
-      "attribut_label": "Habitat principal du dernier passage",
+      "attribut_label": "Dernier hab. principal",
       "type_widget": "text",
       "required": true,
       "hidden": false
@@ -87,20 +87,20 @@
       "hidden":false
     },
     "hab_2": {
-      "attribut_label": "Habitat secondaire du dernier passage",
+      "attribut_label": "Dernier hab. secondaire",
       "type_widget": "text",
       "hidden": "({value}) => value.lisiere != 'Oui'",
       "required": "({value}) => value.lisiere == 'Oui'"
     },
     "occ_sol": {
-      "attribut_label": "Occupation du sol à grande échelle du dernier passage",
+      "attribut_label": "Dernière OS niveau 1",
       "type_widget": "select",
       "values": ["Forêts et milieux semi-naturels", "Territoires agricoles", "Territoires artificialisés","Zones humides"],
       "required": true,
       "hidden": false
     },
     "occ_sol_detail": {
-      "attribut_label": "Occupation du sol détaillée du dernier passage",
+      "attribut_label": "Dernière OS niveau 2",
       "values": [
         "Cultures permanentes", 
         "Espaces verts artificialisés", 
@@ -117,7 +117,7 @@
       "hidden": false      
     },
     "gestion":{
-      "attribut_label": "Gestion",
+      "attribut_label": "Dernière gestion",
       "type_widget": "select",
       "values": [
         "Autre",

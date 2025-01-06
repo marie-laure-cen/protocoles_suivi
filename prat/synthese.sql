@@ -23,7 +23,7 @@ DROP VIEW IF EXISTS gn_monitoring.v_synthese_:module_code;
 
 CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 	WITH 
-	source AS (
+	srce AS (
 		SELECT
 			id_source
 		FROM gn_synthese.t_sources
@@ -33,32 +33,28 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 	), 
 	sites AS (
 		SELECT
-			tbs.id_base_site,
-			(tsg.sites_group_name || ' / ' || tbs.base_site_code) as place_name,
-			tbs.altitude_min,
-			tbs.altitude_max,
-			tsc.data as site_data,
-			tbs.geom AS the_geom_4326,
-			ST_CENTROID(tbs.geom) AS the_geom_point,
-			tbs.geom_local as geom_local
-        FROM gn_monitoring.t_base_sites tbs
-		LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
-		LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
+			id_base_site,
+			altitude_min,
+			altitude_max,
+			geom AS the_geom_4326,
+			ST_CENTROID(geom) AS the_geom_point,
+			geom_local as geom_local
+        FROM gn_monitoring.t_base_sites
 	), 
 	visits AS (
 		SELECT
-			tbv.id_base_visit,
-			tbv.uuid_base_visit,
-      		tbv.id_module,
-			tbv.id_base_site,
-       	 	tbv.id_dataset,
-        	tbv.id_digitiser,
-        	tbv.visit_date_min AS date_min,
-	    	COALESCE (tbv.visit_date_max, tbv.visit_date_min) AS date_max,
-			tbv.comments,
-			tvc.data as visit_data
-        FROM gn_monitoring.t_base_visits tbv
-		LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
+			id_base_visit,
+			uuid_base_visit,
+			id_module,
+			id_base_site,
+			id_dataset,
+			id_digitiser,
+			visit_date_min AS date_min,
+			COALESCE (visit_date_max, visit_date_min) AS date_max,
+			comments,
+			id_nomenclature_tech_collect_campanule,
+			id_nomenclature_grp_typ
+		FROM gn_monitoring.t_base_visits
 	), 
 	observers AS (
 		SELECT
@@ -77,27 +73,29 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 		o.id_observation AS entity_source_pk_value,
 		v.id_dataset,
         ref_nomenclatures.get_id_nomenclature('NAT_OBJ_GEO', 'St') AS id_nomenclature_geo_object_nature, -- Stationnel
-		ref_nomenclatures.get_id_nomenclature('TYP_GRP', 'CAMP') AS id_nomenclature_grp_typ, -- Campagne de prélèvement
-		ref_nomenclatures.get_id_nomenclature('TECHNIQUE_OBS', '100' )  as id_nomenclature_tech_collect_campanule, -- Tente Malaise
-		(o_compl.data->>'id_nomenclature_obs_technique')::integer as id_nomenclature_obs_technique, -- METH_OBS
-		--id_nomenclature_bio_status, -- STATUT_BIO
-		--id_nomenclature_bio_condition, -- ETA_BIO
+		ref_nomenclatures.get_id_nomenclature('TYP_GRP', 'PASS') AS id_nomenclature_grp_typ, -- Passage
+		(oc.data->'id_nomenclature_obs_technique')::integer as id_nomenclature_obs_technique, -- METH_OBS
+		ref_nomenclatures.get_id_nomenclature('TECHNIQUE_OBS', '94') AS id_nomenclature_tech_collect_campanule, -- Piégeage lumineux automatique à fluorescence
+		ref_nomenclatures.get_id_nomenclature('STATUT_BIO', '1') AS id_nomenclature_bio_status, -- Non reiseigné
+		ref_nomenclatures.get_id_nomenclature('ETA_BIO', '1') AS id_nomenclature_bio_condition, -- Non renseigné
 		ref_nomenclatures.get_id_nomenclature('NATURALITE', '1' ) AS id_nomenclature_naturalness, -- Sauvage
-		--id_nomenclature_exist_proof, -- PREUVE_EXIST
-		--id_nomenclature_valid_status,  --STATUT_VALID
-		--id_nomenclature_diffusion_level, -- NIV_PRECIS
-		(det.data->>'id_nomenclature_life_stage')::integer as id_nomenclature_life_stage, -- STADE_VIE
-		(det.data->>'id_nomenclature_sex')::integer as id_nomenclature_sex, -- SEXE
+		CASE
+			WHEN (oc.data->'collection')::text = 'Oui' THEN ref_nomenclatures.get_id_nomenclature('PREUVE_EXIST', '1' )
+			ELSE ref_nomenclatures.get_id_nomenclature('PREUVE_EXIST', '2' )
+		END AS id_nomenclature_exist_proof, -- si collecte échantillon oui sinon non
+		ref_nomenclatures.get_id_nomenclature('STATUT_VALID', '1' ) AS id_nomenclature_valid_status, -- certain / très probable
+		(oc.data->'id_nomenclature_life_stage')::integer as id_nomenclature_life_stage, -- STADE_VIE
+		(oc.data->'id_nomenclature_sex')::integer as id_nomenclature_sex, -- SEXE
  		ref_nomenclatures.get_id_nomenclature('OBJ_DENBR', 'IND' ) AS id_nomenclature_obj_count, -- l'objet du dénombrement est le nombre d'individus
  		ref_nomenclatures.get_id_nomenclature('TYP_DENBR', 'Co') AS id_nomenclature_type_count, -- les individuas sont comptés
  		-- id_nomenclature_sensitivity, --SENSIBILITE
  		ref_nomenclatures.get_id_nomenclature('STATUT_OBS', 'Pr') AS id_nomenclature_observation_status, -- le taxon est présent
 		-- id_nomenclature_blurring, -- DEE_FLOU
-        -- id_nomenclature_behaviour, -- OCC_COMPORTEMENT
+        ref_nomenclatures.get_id_nomenclature('OCC_COMPORTEMENT', '1') AS id_nomenclature_behaviour, -- non renseigné
 		ref_nomenclatures.get_id_nomenclature('STATUT_SOURCE', 'Te') AS id_nomenclature_source_status, -- la source est le terrain
 		ref_nomenclatures.get_id_nomenclature('TYP_INF_GEO', '1') AS id_nomenclature_info_geo_type, -- la localisation est réalisée par Géoréférencement
-		(det.data->>'count_min')::integer AS count_min,
-		(det.data->>'count_max')::integer AS count_max,
+		(oc.data->'effectif')::integer AS count_min,
+		(oc.data->'effectif')::integer AS count_max,
 		o.id_observation,
 		o.cd_nom,
 		t.nom_complet AS nom_cite,
@@ -106,32 +104,30 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 		--digital_proofvue
 		s.altitude_min,
 		s.altitude_max,
-		s.place_name,
 		s.the_geom_4326,
 		s.the_geom_point,
 		s.geom_local as the_geom_local,
 		v.date_min,
 		v.date_max,
-		--validator
+		(oc.data->'determiner')::integer as validator,
 		--validation_comment
 		obs.observers,
-		(o_compl.data->>'determiner')::integer AS determiner,
+		(oc.data->'determiner')::integer AS determiner,
 		v.id_digitiser,
-		(o_compl.data->>'id_nomenclature_determination_method')::integer AS id_nomenclature_determination_method,
+		(oc.data->'id_nomenclature_determination_method')::integer AS id_nomenclature_determination_method,
 		--meta_validation_date
-		--meta_create_date,
-		--meta_update_date,
+		--v.meta_create_date,
+		--v.meta_update_date,
 		--last_action,
 		v.id_module,
-		s.site_data ->> 'habitat' AS comment_context,
+		v.comments AS comment_context,
 		o.comments AS comment_description,
 		obs.ids_observers,
 		-- ## Colonnes complémentaires qui ont leur utilité dans la fonction synthese.import_row_from_table
 		v.id_base_site,
 		v.id_base_visit
-    FROM gn_monitoring.t_observation_details det
-	LEFT JOIN gn_monitoring.t_observations o USING (id_observation)
-	LEFT JOIN gn_monitoring.t_observation_complements o_compl USING (id_observation)
+    FROM gn_monitoring.t_observations o 
+	LEFT JOIN gn_monitoring.t_observation_complements oc USING (id_observation)
     JOIN visits v
         ON v.id_base_visit = o.id_base_visit
     JOIN sites s

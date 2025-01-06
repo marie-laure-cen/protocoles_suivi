@@ -1,0 +1,26 @@
+{
+  "genre":"M",
+  "label": "relevé",
+  "label_list": "relevés",
+  "display_properties": [
+    "observers",
+    "visit_date_min",
+    "visit_date_max",
+    "comments"
+  ],
+  "display_list": [
+    "visit_date_min",
+    "nb_observations"
+  ],
+  "specific": {
+    "visit_date_min":{
+      "attribut_label": "Date de début",
+      "required": true
+    },
+    "visit_date_max":{
+      "attribut_label": "Date de fin" ,
+      "required": false,
+      "hidden": false
+    }
+  }
+}

@@ -3,91 +3,28 @@
   "label": "Passage",
   "label_list": "Passages",
   "display_properties": [
-    "observers",
-    "num_passage",
     "visit_date_min",
     "visit_date_max",
-    "heure_ext",
-    "heure_debut",
-    "heure_fin",
-    "meteo",
-    "pluviosite",
-    "vent",
-    "temperature",
+    "observers",
     "comments"
   ],
   "display_list": [
     "id_dataset",
-    "num_passage",
     "visit_date_min",
-    "observers",
+    "visit_date_max",
     "nb_observations"
   ],
   "specific": {
-    "id_dataset":{
+    "id_dataset": {
       "hidden": true
     },
-    "num_passage": {
-      "type_widget": "number",
-      "attribut_label": "Numéro de passage",
-      "min" : 1,
-      "max": 8,
-      "required": true
+    "visit_date_min": {
+      "attribut_label": "Date début de collecte",
+      "hidden": false
     },
-    "heure_ext": {
-      "type_widget": "time",
-      "attribut_label": "Heure d'extinction",
-      "required": false
-    },
-    "heure_debut": {
-      "type_widget": "time",
-      "attribut_label": "Heure d'arrivée",
-      "required": true
-    },
-    "heure_fin": {
-      "type_widget": "time",
-      "attribut_label": "Heure de départ",
-      "required": true
-    },
-    "meteo": {
-      "type_widget": "datalist",
-      "attribut_label": "Météo",
-      "api": "nomenclatures/nomenclature/METEO",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "required": false
-    },
-    "pluviosite": {
-      "type_widget": "datalist",
-      "attribut_label": "Pluviosité",
-      "api": "nomenclatures/nomenclature/PLUVIOSITE",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "required": false
-    },
-    "vent": {
-      "type_widget": "datalist",
-      "attribut_label": "Vent (échelle de Beaufort)",
-      "api": "nomenclatures/nomenclature/BEAUFORT",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
-      "type_util": "nomenclature",
-      "required": false
-    },
-    "temperature":{
-      "type_widget": "number",
-      "attribut_label": "Température",
-      "min" : 10,
-      "max": 40,
-      "required": false
+    "visit_date_max": {
+      "attribut_label": "Date fin de collecte",
+      "hidden": false
     }
   }
 }
