@@ -168,6 +168,15 @@ AND i.id_obs_ila::text = o.comments
 and i.id_observation IS NULL
 ;
 
+SELECT
+	id_observation,
+	count (distinct fid)as nb_rows
+FROM gn_imports.ila_import
+WHERE id_obs_ila = 0
+group by id_observation
+ORDER BY nb_rows DESC
+;
+
 INSERT INTO gn_monitoring.t_observation_complements (
 	id_observation,
 	data
@@ -180,8 +189,8 @@ SELECT
 			'nb_male', min(i.nb_male),
 			'nb_femelle', min(i.nb_femelle),
 			'determiner', min(i.determiner),
-			'id_obs_mysql', i.id_obs_ila,
-			'id_nomenclature_obs_technique', 785,
+			'id_obs_mysql', CASE WHEN  i.id_obs_ila> 0 THEN i.id_obs_ila ELSE NULL END,
+			'id_nomenclature_obs_technique', 37,
 			'id_nomenclature_determination_method', 453,
 			'id_nomenclature_type_count', 89,
 			'id_nomenclature_obj_count', 143
@@ -190,10 +199,10 @@ SELECT
 FROM gn_imports.ila_import i
 LEFT JOIN gn_monitoring.t_observation_complements toc USING (id_observation)
 WHERE toc.id_observation IS NULL
+AND NOT i.id_observation is null
 GROUP BY i.id_observation, i.id_obs_ila
 ORDER BY i.id_observation
 ;
-
 
 WITH obs_cmt as (
 	SELECT 
