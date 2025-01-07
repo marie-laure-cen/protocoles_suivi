@@ -80,12 +80,12 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 		ref_nomenclatures.get_id_nomenclature('ETA_BIO', '1') AS id_nomenclature_bio_condition, -- Non renseigné
 		ref_nomenclatures.get_id_nomenclature('NATURALITE', '1' ) AS id_nomenclature_naturalness, -- Sauvage
 		CASE
-			WHEN (oc.data->'collection')::text = 'Oui' THEN ref_nomenclatures.get_id_nomenclature('PREUVE_EXIST', '1' )
+			WHEN (oc.data->>'collection') = 'Oui' THEN ref_nomenclatures.get_id_nomenclature('PREUVE_EXIST', '1' )
 			ELSE ref_nomenclatures.get_id_nomenclature('PREUVE_EXIST', '2' )
 		END AS id_nomenclature_exist_proof, -- si collecte échantillon oui sinon non
 		ref_nomenclatures.get_id_nomenclature('STATUT_VALID', '1' ) AS id_nomenclature_valid_status, -- certain / très probable
-		(oc.data->'id_nomenclature_life_stage')::integer as id_nomenclature_life_stage, -- STADE_VIE
-		(oc.data->'id_nomenclature_sex')::integer as id_nomenclature_sex, -- SEXE
+		(oc.data->>'id_nomenclature_life_stage')::integer as id_nomenclature_life_stage, -- STADE_VIE
+		(oc.data->>'id_nomenclature_sex')::integer as id_nomenclature_sex, -- SEXE
  		ref_nomenclatures.get_id_nomenclature('OBJ_DENBR', 'IND' ) AS id_nomenclature_obj_count, -- l'objet du dénombrement est le nombre d'individus
  		ref_nomenclatures.get_id_nomenclature('TYP_DENBR', 'Co') AS id_nomenclature_type_count, -- les individuas sont comptés
  		-- id_nomenclature_sensitivity, --SENSIBILITE
@@ -94,8 +94,8 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
         ref_nomenclatures.get_id_nomenclature('OCC_COMPORTEMENT', '1') AS id_nomenclature_behaviour, -- non renseigné
 		ref_nomenclatures.get_id_nomenclature('STATUT_SOURCE', 'Te') AS id_nomenclature_source_status, -- la source est le terrain
 		ref_nomenclatures.get_id_nomenclature('TYP_INF_GEO', '1') AS id_nomenclature_info_geo_type, -- la localisation est réalisée par Géoréférencement
-		(oc.data->'effectif')::integer AS count_min,
-		(oc.data->'effectif')::integer AS count_max,
+		(oc.data->>'effectif')::integer AS count_min,
+		(oc.data->>'effectif')::integer AS count_max,
 		o.id_observation,
 		o.cd_nom,
 		t.nom_complet AS nom_cite,
@@ -109,12 +109,12 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 		s.geom_local as the_geom_local,
 		v.date_min,
 		v.date_max,
-		(oc.data->'determiner')::integer as validator,
+		(oc.data->>'determiner')::integer as validator,
 		--validation_comment
 		obs.observers,
-		(oc.data->'determiner')::integer AS determiner,
+		(oc.data->>'determiner')::integer AS determiner,
 		v.id_digitiser,
-		(oc.data->'id_nomenclature_determination_method')::integer AS id_nomenclature_determination_method,
+		(oc.data->>'id_nomenclature_determination_method')::integer AS id_nomenclature_determination_method,
 		--meta_validation_date
 		--v.meta_create_date,
 		--v.meta_update_date,

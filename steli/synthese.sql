@@ -22,12 +22,14 @@ DROP VIEW IF EXISTS gn_monitoring.v_synthese_:module_code;
 CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 
 WITH source AS (
-		SELECT
-			id_source
-		FROM gn_synthese.t_sources
-		WHERE name_source = CONCAT('MONITORING_', UPPER(:'module_code'))
-		LIMIT 1
-	),sites AS (
+		SELECT 
+			sc.id_source,
+			mo.id_module
+		FROM gn_synthese.t_sources sc
+		LEFT JOIN gn_commons.t_modules mo ON 'MONITORING_' || UPPER(mo.module_code) = sc.name_source
+		WHERE sc.name_source = CONCAT('MONITORING_', UPPER(:'module_code'))
+	),
+	sites AS (
 		SELECT
 			s.id_base_site,
 			(tsg.data ->> 'id_dataset')::integer as id_dataset,
@@ -80,7 +82,6 @@ WITH source AS (
 		v.uuid_base_visit AS unique_id_sinp_grp,
 		source.id_source,
 		o.id_observation AS entity_source_pk_value,
-		o.id_observation ,
 		CASE 
 			WHEN s.id_dataset IS NULL THEN 1388
 			ELSE s.id_dataset
@@ -137,9 +138,9 @@ WITH source AS (
 			' | gestion : ' || COALESCE((v.data ->> 'gestion'), '/')  || 
 			' | milieu terrestre : ' ||  COALESCE((ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_mt')::integer)), '/') || 
 			' | milieu aquatique : ' || COALESCE((ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_ma')::integer)), '/') || 
-			' | vent : ' || ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_vt')::integer)|| 
-			' | couverture_nuageuse : ' || ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_cn')::integer)|| 
-			' | temperature : ' || ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_tp')::integer) 
+			' | vent : ' || COALESCE(ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_vt')::integer),'Non renseigné')|| 
+			' | couverture_nuageuse : ' || COALESCE(ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_cn')::integer),'Non renseigné')|| 
+			' | temperature : ' || COALESCE(ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_tp')::integer),'Non renseigné') 
 		) AS comment_context,
 		CASE 
 			WHEN v.comments IS NULL AND NOT o.comments IS NULL THEN o.comments
@@ -153,9 +154,9 @@ WITH source AS (
 				'hab_1', (v.data ->> 'hab_1'),
 				'hab_2', (v.data ->> 'hab_2'),
 				'occ_sol', (v.data ->> 'occ_sol'),
-				'vent', ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_vt')::integer),
-				'couverture_nuageuse', ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_cn')::integer),
-				'temperature', ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_tp')::integer)
+				'id_nomenclature_vt', (v.data ->>'id_nomenclature_vt')::integer, 
+				'id_nomenclature_cn', (v.data ->>'id_nomenclature_cn')::integer,
+				'id_nomenclature_tp', (v.data ->>'id_nomenclature_tp')::integer
 			)
 		) as additional_data,
 		obs.ids_observers,
