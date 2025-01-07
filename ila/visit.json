@@ -67,7 +67,7 @@
     "heure_debut": {
       "type_widget": "time",
       "attribut_label": "Heure de début du passage",
-      "required": true
+      "required": false
     },
     "heure_fin": {
       "type_widget": "time",

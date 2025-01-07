@@ -241,9 +241,9 @@
     {
       "type": "CENN_GEST",
       "cd_nomenclature": "CENN_GEST02",
-      "mnemonique": "Débrouissaillage",
-      "label_default": "Débrouissaillage",
-      "definition_default": "Débrouissaillage"
+      "mnemonique": "Débroussaillage",
+      "label_default": "Débroussaillage",
+      "definition_default": "Débroussaillage"
     },
     {
       "type": "CENN_GEST",
@@ -286,13 +286,6 @@
       "mnemonique": "Sans gestion",
       "label_default": "Sans gestion",
       "definition_default": "Sans gestion"
-    },
-    {
-      "type": "CENN_GEST",
-      "cd_nomenclature": "CENN_GEST",
-      "mnemonique": "",
-      "label_default": "",
-      "definition_default": ""
     }
   ]
 }

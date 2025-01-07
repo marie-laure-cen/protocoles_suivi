@@ -2,29 +2,13 @@
   "description_field_name":"cd_nom",
   "genre":"F",
   "display_properties": [
-    "determiner",
     "cd_nom",
-    "effectif",
     "comments"
   ],
   "display_list": [
     "cd_nom"
   ],
-  "keep": [
-    "determiner"
-  ],
   "specific": {
-    "determiner":{
-      "type_widget": "datalist",
-      "attribut_label": "Déterminateur",
-      "api": "users/menu/__MODULE.ID_LIST_OBSERVER",
-      "application": "GeoNature",
-      "keyValue": "id_role",
-      "keyLabel": "nom_complet",
-      "type_util": "user",
-      "multiple": false,
-      "required": false
-    },
     "cd_nom": {
       "type_widget": "taxonomy",
       "attribut_label": "Espèce observée",
@@ -33,13 +17,6 @@
       "application": "TaxHub",
       "required": true,
       "type_util": "taxonomy"
-    },
-    "effectif": {
-      "type_widget": "number",
-      "attribut_label": "Effectif total",
-      "min": 0,
-      "required": false,
-      "definition": "Effectif total"
     }
   }
 }
