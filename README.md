@@ -20,6 +20,32 @@ Les modules suivants sont en cours de développement:
 
 Des développements peuvent être envisagés pour les relevés du PRELE et du PRAM. Des exemples de modules de suivis sont disponibles dans la dossier [exemples](exemples).
 
+## Script d'installation des modules
+
+Dans le dossier geoa, lancer les commandes suivantes avec l'utilisateur administrateur de GeoNature (et non root)
+
+```bash
+source ~/geonature/backend/venv/bin/activate
+
+mkdir geonature/backend/media/monitorings
+
+ln -s /home/geoa/modules/ila ~/geonature/backend/media/monitorings/ila
+ln -s /home/geoa/modules/piezo ~/geonature/backend/media/monitorings/piezo
+ln -s /home/geoa/modules/steli ~/geonature/backend/media/monitorings/steli
+ln -s /home/geoa/modules/sterf ~/geonature/backend/media/monitorings/sterf
+ln -s /home/geoa/modules/syrhetflore ~/geonature/backend/media/monitorings/syrhetflore
+ln -s /home/geoa/modules/syrhetheteroceres ~/geonature/backend/media/monitorings/syrhetheteroceres
+ln -s /home/geoa/modules/syrhetsyrphes ~/geonature/backend/media/monitorings/syrhetsyrphes
+
+geonature monitorings install ila
+geonature monitorings install piezo
+geonature monitorings install steli
+geonature monitorings install sterf
+geonature monitorings install syrhetflore
+geonature monitorings install syrhetheteroceres
+geonature monitorings install syrhetsyrphes
+```
+
 ## Intégration des données pré-existantes
 
 La démarche suivante se base sur le protocole ILA, anciennement hébergé sur une base MySql.

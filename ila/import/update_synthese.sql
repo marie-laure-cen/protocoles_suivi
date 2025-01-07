@@ -140,4 +140,4 @@ CREATE OR REPLACE VIEW gn_monitoring.v_hors_synthese_ila
   WHERE date_part('year'::text, v.date_min) > 2023::double precision AND synth.id_synthese IS NULL
   ORDER BY v.date_min;
 
-SELECT gn_synthese.import_row_from_table('id_module', '32', 'gn_monitoring.v_hors_synthese_sterf', 1000, 0);
+SELECT gn_synthese.import_row_from_table('id_module', '33', 'gn_monitoring.v_hors_synthese_ila', 1000, 0);
