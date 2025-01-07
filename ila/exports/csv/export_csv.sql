@@ -384,7 +384,7 @@ AS
 		FROM gn_monitoring.t_base_sites tbs
 			LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
 		 	LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
-			LEFT JOIN gn_commons.t_modules tm ON tm.id_module = tsg.id_module
+			LEFT JOIN gn_commons.t_modules tm ON tm.id_module = tsc.id_module
 		 	LEFT JOIN ref_geo.l_areas la ON tsg.sites_group_name::text = la.area_code::text
 		WHERE tm.module_code = 'ila'
 		ORDER BY tsg.sites_group_name, tbs.base_site_name
@@ -599,7 +599,7 @@ AS
 		FROM gn_monitoring.t_base_sites tbs
 			LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
 		 	LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
-			LEFT JOIN gn_commons.t_modules tm ON tm.id_module = tsg.id_module
+			LEFT JOIN gn_commons.t_modules tm ON tm.id_module = tsc.id_module
 		 	LEFT JOIN ref_geo.l_areas la ON tsg.sites_group_name::text = la.area_code::text
 		WHERE tm.module_code = 'ila'
 		ORDER BY tsg.sites_group_name, tbs.base_site_name
@@ -784,7 +784,7 @@ AS
 		FROM gn_monitoring.t_base_sites tbs
 			LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
 		 	LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
-			LEFT JOIN gn_commons.t_modules tm ON tm.id_module = tsg.id_module
+			LEFT JOIN gn_commons.t_modules tm ON tm.id_module = tsc.id_module
 		 	LEFT JOIN ref_geo.l_areas la ON tsg.sites_group_name::text = la.area_code::text
 		WHERE tm.module_code = 'ila'
 		ORDER BY tsg.sites_group_name, tbs.base_site_name
