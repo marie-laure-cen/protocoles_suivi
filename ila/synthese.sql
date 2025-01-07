@@ -149,7 +149,7 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 		JOIN taxonomie.taxref t ON t.cd_nom = o.cd_nom
 		JOIN source ON v.id_module = source.id_module
 		LEFT JOIN observers obs ON obs.id_base_visit = v.id_base_visit
-  WHERE date_part('year'::text, v.date_min) > 2023::double precision
+  WHERE date_part('year'::text, v.date_min) > 2023::double precision OR toc.data->>'id_obs_mysql' IS NULL
   ORDER BY v.date_min ASC
 ;
 

@@ -83,7 +83,6 @@ WITH
 		v.uuid_base_visit AS unique_id_sinp_grp,
 		source.id_source,
 		o.id_observation AS entity_source_pk_value,
-		o.id_observation ,
 		CASE 
 			WHEN s.id_dataset IS NULL THEN 1342 
 			ELSE s.id_dataset
@@ -137,12 +136,12 @@ WITH
 		v.id_module,
 		(
 			'num_passage : ' || (v.data ->> 'num_passage') || 
-			' | hab_1 : ' || (v.data ->> 'hab_1') || 
+			' | hab_1 : ' ||  COALESCE((v.data ->> 'hab_1'), '/') || 
 			' | hab_2 : ' || COALESCE((v.data ->> 'hab_2'), '/') || 
-			' | occ_sol : ' || (v.data ->> 'occ_sol')|| 
-			' | vent : ' || ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_vt')::integer)|| 
-			' | couverture_nuageuse : ' || ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_cn')::integer)|| 
-			' | temperature : ' || ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_tp')::integer) 
+			' | occ_sol : ' ||  COALESCE((v.data ->> 'occ_sol'), '/') || 
+			' | vent : ' || COALESCE(ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_vt')::integer), 'Non renseigné') || 
+			' | couverture_nuageuse : ' || COALESCE(ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_cn')::integer), 'Non renseigné') || 
+			' | temperature : ' || COALESCE(ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_tp')::integer) , 'Non renseigné') 
 		) AS comment_context,
 		CASE 
 			WHEN v.comments IS NULL AND NOT o.comments IS NULL THEN o.comments
@@ -156,9 +155,9 @@ WITH
 				'hab_1', (v.data ->> 'hab_1'),
 				'hab_2', (v.data ->> 'hab_2'),
 				'occ_sol', (v.data ->> 'occ_sol'),
-				'vent', ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_vt')::integer),
-				'couverture_nuageuse', ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_cn')::integer),
-				'temperature', ref_nomenclatures.get_nomenclature_label((v.data ->> 'id_nomenclature_tp')::integer)
+				'id_nomenclature_vt', (v.data ->>'id_nomenclature_vt')::integer, 
+				'id_nomenclature_cn', (v.data ->>'id_nomenclature_cn')::integer,
+				'id_nomenclature_tp', (v.data ->>'id_nomenclature_tp')::integer
 			)
 		) as additional_data,
 		obs.ids_observers,
@@ -176,7 +175,7 @@ WITH
 	LEFT JOIN source 
 		ON v.id_module = source.id_module
 	LEFT JOIN observers obs ON obs.id_base_visit = v.id_base_visit
-	WHERE extract(year from v.date_min) > 2023
+	WHERE extract(year from v.date_min) > 2023 OR toc.data->>'id_obs_mysql' IS NULL
 	ORDER BY v.date_min ASC
 	;
 
