@@ -4,7 +4,6 @@
   "display_properties": [
     "determiner",
     "cd_nom",
-    "recouvrement",
     "strate",
     "abondance",
     "recouvrement",
@@ -26,8 +25,7 @@
     "id_nomenclature_obs_technique",
     "id_nomenclature_determination_method",
     "determiner",
-    "strate",
-    "visit_time"
+    "strate"
   ],
   "specific": {
     "determiner":{

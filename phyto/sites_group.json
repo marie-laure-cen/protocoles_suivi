@@ -15,6 +15,7 @@
     "commune",
     "annee_debut",
     "annee_fin",
+    "id_dataset",
     "sentinelle_climat"
   ],
   "display_list": [
@@ -31,6 +32,12 @@
     "sites_group_name":{
       "attribut_label": "Nom du site",
       "definition": "Lieu-dit où se situe la zone de prospection."
+    },
+    "id_dataset": {
+      "type_widget": "dataset",
+      "attribut_label": "Jeu de données",
+      "type_util": "dataset",
+      "required": true
     },
     "annee_debut": {
       "type_widget": "number",

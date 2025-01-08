@@ -30,7 +30,7 @@
   ],
   "specific": {
     "nb_visits":{
-      "attribut_label": "Nb. passages"
+      "attribut_label": "Nb. relevés"
     },
     "base_site_code":{
       "attribut_label": "Code de la placette"

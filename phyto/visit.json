@@ -17,8 +17,10 @@
     "compl_forme",
     "gestion",
     "recouv_tot",
-    "recouv_arbore",
-    "h_arbore",
+    "recouv_arbor_1",
+    "h_arbo_1",
+    "recouv_arbor_2",
+    "h_arbo_2",
     "recouv_arbust_1",
     "h_arbust_1",
     "recouv_arbust_2",
@@ -190,35 +192,40 @@
       "required": false,
       "hidden": false
     },
-    "h_arbore":{
-      "attribut_label": "Ht st. arborée (m)",
+    "h_arbo_1":{
+      "attribut_label": "Ht st. arborée haute (m)",
       "type_widget": "number",
       "hidden":  "({value}) => value.recouv_arbore > 0"
+    },
+    "h_arbo_2":{
+      "attribut_label": "Ht st. arborée basse (m)",
+      "type_widget": "number",
+      "hidden":  "({value}) => value.recouv_arbor_2 = 0"
     },
     "h_arbust_1":{
       "attribut_label": "Ht st. arbustive haute (m)",
       "type_widget": "number",
-      "hidden":  "({value}) => value.recouv_arbust_1 > 0"
+      "hidden":  "({value}) => value.recouv_arbust_1 = 0"
     },
     "h_arbust_2":{
       "attribut_label": "Ht st. arbustive basse (m)",
       "type_widget": "number",
-      "hidden":  "({value}) => value.recouv_arbust_2 > 0"
+      "hidden":  "({value}) => value.recouv_arbust_2 = 0"
     },
     "h_herb":{
       "attribut_label": "Ht st. herbacée (m)",
       "type_widget": "number",
-      "hidden":  "({value}) => value.recouv_herb > 0"
+      "hidden":  "({value}) => value.recouv_herb = 0"
     },
     "h_crypto":{
       "attribut_label": "Ht des st. cryptogammes (m)",
       "type_widget": "number",
-      "hidden":  "({value}) => value.recouv_bryo > 0 ||  value.recouv_lich > 0 ||  value.recouv_alg > 0 "
+      "hidden":  "({value}) => value.recouv_bryo = 0 && value.recouv_lich = 0 && value.recouv_alg = 0 "
     },
     "nb_st_herb":{
       "attribut_label": "N strates herbacées",
       "type_widget": "number",
-      "hidden": "({value}) => value.recouv_herb > 0"
+      "hidden": "({value}) => value.recouv_herb = 0"
     }
   }
 }

@@ -1,7 +1,7 @@
 {
-  "module_code": "syrhetflore",
-  "module_label":"SYRHET Flore",
-  "module_desc":"Module pour le protocole de suivi SYRHET de la flore",
+  "module_code": "phyto",
+  "module_label":"Relevés phyto",
+  "module_desc":"Module pour le protocole de relevés phytosociologiques",
   "specific": {
     "b_draw_sites_group": {
       "hidden": false

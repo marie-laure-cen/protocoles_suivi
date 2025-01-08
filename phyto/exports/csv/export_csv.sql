@@ -1,36 +1,38 @@
 -- alter table gn_monitoring.t_base_sites alter column id_nomenclature_type_site drop not null;
 
 -------------------------------------------------final --rhomeoodonate standard------------------------------------------
--- View: gn_monitoring.v_export_rhomeoodonate_standard
+-- View: gn_monitoring.v_export_phyto
 
-DROP VIEW  IF EXISTS  gn_monitoring.v_export_syrhetflore_standard;
+DROP VIEW  IF EXISTS  gn_monitoring.v_export_phyto
 
-CREATE OR REPLACE VIEW gn_monitoring.v_export_syrhetflore_standard AS
-
+CREATE OR REPLACE VIEW gn_monitoring.v_export_phyto AS
 WITH 
 	srce AS (
-		SELECT
-			id_source
-		FROM gn_synthese.t_sources
-		WHERE name_source = CONCAT('MONITORING_', UPPER(:'module_code'))
-		LIMIT 1
-
+		SELECT 
+			sc.id_source,
+			mo.id_module
+		FROM gn_synthese.t_sources sc
+		LEFT JOIN gn_commons.t_modules mo ON 'MONITORING_PHYTO' = sc.name_source
+		WHERE sc.name_source = CONCAT('MONITORING_PHYTO')
 	), 
 	sites AS (
 		SELECT
 			tbs.id_base_site,
+			(tsg.data ->> 'id_dataset')::integer AS id_dataset,
+			tbs.base_site_code,
+			tbs.base_site_name,
 			tbs.altitude_min,
 			tbs.altitude_max,
 			tsg.sites_group_name,
 			tsg.sites_group_code,
 			tsc.data,
 			tbs.geom AS the_geom_4326,
+			ST_CENTROID(tbs.geom) AS the_geom_point,
 			tbs.geom_local as geom_local
         FROM gn_monitoring.t_base_sites tbs
 		LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
 		LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
-		LEFT JOIN gn_commons.t_modules m ON tsg.id_module = m.id_module
-		WHERE m.module_code = :'module_code'
+		INNER JOIN srce s ON tsc.id_module = s.id_module
 	), 
 	visits AS (
 		SELECT
@@ -40,19 +42,22 @@ WITH
 			tbv.id_base_site,
 			tbv.id_dataset,
 			tbv.id_digitiser,
-			tbv.visit_date_min AS date_min,
-			COALESCE (tbv.visit_date_max, tbv.visit_date_min) AS date_max,
+			CONCAT(tr.nom_role, ' ', tr.prenom_role) AS rel_numerisateur,
+			tbv.visit_date_min AS rel_date_min,
+			COALESCE (tbv.visit_date_max, tbv.visit_date_min) AS rel_date_max,
 			tbv.comments,
 			tbv.id_nomenclature_tech_collect_campanule,
 			tbv.id_nomenclature_grp_typ,
 			tvc.data
 		FROM gn_monitoring.t_base_visits tbv
 		LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
-	),
+		LEFT JOIN utilisateurs.t_roles tr ON tbv.id_digitiser = tr.id_role
+		INNER JOIN srce s ON tbv.id_module = s.id_module
+	), 
 	observers AS (
 		SELECT
 			array_agg(r.id_role) AS ids_observers,
-			STRING_AGG(CONCAT(r.nom_role, ' ', prenom_role), ' ; ') AS observers,
+			STRING_AGG(CONCAT(r.nom_role, ' ', r.prenom_role), ' ; ') AS observers,
 			id_base_visit
 		FROM gn_monitoring.cor_visit_observer cvo
 		JOIN utilisateurs.t_roles r
@@ -60,62 +65,79 @@ WITH
 		GROUP BY id_base_visit
 	)
 	SELECT
-		o.id_observation as obs_id,
-		v.id_base_site as releve_id,
-		-- Piège
-		s.sites_group_code as piege_code,
-		s.sites_group_name as piege_nom,
-		s.altitude_min as piege_altitude,
-		-- Relevé
-		ref_nomenclatures.get_nomenclature_label_by_cdnom_mnemonique('TYP_GRP', 'REL') AS releve_type, -- Relevé phytosociologique
-        --ref_nomenclatures.get_nomenclature_label_by_cdnom_mnemonique('NAT_OBJ_GEO', 'In') AS geo_object_nature, -- Inventoriel
-		ref_nomenclatures.get_nomenclature_label((s.data -> 'id_nomenclature_tech_collect_campanule')::integer) AS releve_tech_collect, 
-		ref_nomenclatures.get_nomenclature_label_by_cdnom_mnemonique('STATUT_SOURCE', 'Te') AS releve_source, -- la source est le terrain
-		v.date_min as releve_date,
-		utilisateurs.get_name_by_id_role(v.id_digitiser) as releve_numerisateur,
-		v.data -> 'aire' as releve_aire,
-		v.data -> 'compl_aire' as releve_aire_compl,
-		v.comments AS releve_commentaire,
-		-- Observation
-		oc.data -> 'strate' as obs_strate,
+		-- ID UNIQUE
+		o.id_observation,
+		-- RELEVES
+		COALESCE(s.id_dataset, v.id_dataset) as jdd_id,
+		td.dataset_name as jdd_nom,
+		s.sites_group_name as site_nom,
+		s.base_site_code as placette_code,
+		s.base_site_name as placette_nom,
+		v.rel_date_min,
+		v.rel_date_max,
+		v.rel_numerisateur,
+		obs.observers as rel_observateurs,
+		ref_nomenclatures.get_id_nomenclature('TYP_GRP', 'REL') AS id_nomenclature_grp_typ, -- Relevé phytosociologique
+		s.altitude_min,
+		s.altitude_max,
+		ref_nomenclatures.get_nomenclature_label((oc.data->'id_nomenclature_obs_technique')::integer) as rel_techn_collecte,
+		v.data ->> 'surface',
+		v.data ->> 'forme_releve',
+		v.data ->> 'ecologie',
+		v.data ->> 'synsysteme',
+		v.data->>'gestion',
+		v.data ->> 'recouv_tot',
+		v.data ->> 'recouv_arbor_1',
+		v.data ->> 'h_arbo_1',
+		v.data ->> 'recouv_arbor_2',
+		v.data ->> 'h_arbo_2',
+		v.data ->> 'recouv_arbust_1',
+		v.data ->> 'h_arbust_1',
+		v.data ->> 'recouv_arbust_2',
+		v.data ->> 'h_arbust_2',
+		v.data ->> 'recouv_herb',
+		v.data ->> 'h_herb',
+		v.data ->> 'nb_st_herb',
+		v.data ->> 'recouv_bryo',
+		v.data ->> 'recouv_lich',
+		v.data ->> 'recouv_alg',
+		v.data ->> 'recouv_lit',
+		v.data ->> 'h_crypto',
+		v.comments AS rel_comment,
+		-- OBSERVATIONS
 		o.cd_nom as obs_cd_nom,
-		t.nom_complet AS obs_nom_cite,
-		obs.observers as obs.observateurs,
-		utilisateurs.get_name_by_id_role((oc.data->'determiner')::integer) as obs.determinateur,
-		-- Dénombrement
- 		ref_nomenclatures.get_nomenclature_label_by_cdnom_mnemonique('STATUT_OBS', 'Pr') AS obs_statut, -- le taxon est présent
-		(CASE WHEN 
-			(oc.data->'recouvrement')::integer = 0 THEN (oc.data->'recouvrement')::integer + (oc.data->'recouv_2')::integer
-			ELSE (oc.data->'recouvrement')::integer
-		END ) as obs_recouvrement,	
- 		ref_nomenclatures.get_nomenclature_label_by_cdnom_mnemonique('OBJ_DENBR', 'SURF' ) AS obs_obj_denomb, -- l'objet du dénombrement est une surface
- 		ref_nomenclatures.get_nomenclature_label_by_cdnom_mnemonique('TYP_DENBR', 'Es') AS obs_type_denomb, -- estimés
-		ref_nomenclatures.get_nomenclature_label((oc.data->'id_nomenclature_obs_technique')::integer) as obs_technique, -- METH_OBS
-		ref_nomenclatures.get_nomenclature_label((oc.data->'id_nomenclature_determination_method')::integer) AS obs_method_determ,
-		o.comments AS obs_commentaire,
-		-- Identifiants supplémentaires
+		tx.lb_nom as obs_nom,
+		(oc.data->'determiner')::integer as obs_determinateur,
+ 		CASE 
+			WHEN (oc.data ->> 'recouvrement')::integer = 0 OR (oc.data ->> 'recouvrement')::integer IS NULL 
+			THEN 'Non observé'
+			ELSE 'Présent'
+		END AS obs_status, 
+		-- DENOMBREMENTS
+		oc.data ->> 'strate' as obs_strate,
+		(oc.data ->> 'recouvrement')::integer as obs_recouvrement,
+		oc.data ->> 'abondance' as obs_abondance,
+		oc.data ->> 'sociabilite' as obs_sociabilite,
+		oc.data ->> 'vitalite' as obs_vitalite,
+		-- CHAMPS ADDITIONNELS
+		-- ## Colonnes complémentaires qui ont leur utilité dans la fonction synthese.import_row_from_table
 		obs.ids_observers,
 		srce.id_source,
 		v.id_module,
-		v.id_dataset,
-		v.uuid_base_visit AS unique_id_sinp_grp,
+		v.id_base_site,
+		v.uuid_base_visit,
 		v.id_base_visit,
-		o.uuid_observation AS unique_id_sinp,
-		o.id_observation AS entity_source_pk_value,
+		o.uuid_observation ,
 		s.the_geom_4326,
+		s.the_geom_point,
 		s.geom_local as the_geom_local
     FROM gn_monitoring.t_observations o 
 	LEFT JOIN gn_monitoring.t_observation_complements oc USING (id_observation)
-    JOIN visits v
-        ON v.id_base_visit = o.id_base_visit
-    JOIN sites s
-        ON s.id_base_site = v.id_base_site
-	LEFT JOIN gn_commons.t_modules m
-        ON m.id_module = v.id_module
-	JOIN taxonomie.taxref t
-        ON t.cd_nom = o.cd_nom
-	LEFT JOIN srce
-        ON TRUE
+    JOIN visits v ON v.id_base_visit = o.id_base_visit
+    JOIN sites s ON s.id_base_site = v.id_base_site
+	LEFT JOIN gn_commons.t_modules m ON m.id_module = v.id_module
+	JOIN taxonomie.taxref tx ON tx.cd_nom = o.cd_nom
+	INNER JOIN srce ON v.id_module = srce.id_module
 	JOIN observers obs ON obs.id_base_visit = v.id_base_visit
-	WHERE m.module_code = :'module_code'
+	LEFT JOIN gn_meta.t_datasets td ON COALESCE(s.id_dataset, v.id_dataset) = td.id_dataset
 ;
