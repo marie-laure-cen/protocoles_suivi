@@ -6,37 +6,84 @@
     {"prop": "visit_date_min", "dir": "desc"}
   ],
   "display_properties": [
-    "observers",
+    "transect",
+    "quadrat",
     "visit_date_min",
-    "habitat_associe",
+    "observers",
+    "determiner",
     "taux_recouvrement",
     "hauteur_vegetation",
-    "quadrat",
+    "strate_bryo",
     "comments"
   ],
   "display_list": [
     "visit_date_min",
+    "transect",
+    "quadrat",
     "observers",
-    "type_aire",
     "nb_observations"
   ],
   "keep": [
     "observers",  
-    "habitat_associe",  
-    "aire",
-    "rayon"
+    "transect",
+    "visit_date_min"
   ],
   "specific": {
     "visit_date_min":{
-      "attribut_label": "Date de début du passage",
+      "attribut_label": "Date du passage",
       "required": true
     },
     "visit_date_max":{
-      "required": false  ,
+      "required": false,
       "hidden": true
+    },
+    "determiner":{
+      "type_widget": "datalist",
+      "attribut_label": "Déterminateur",
+      "api": "users/menu/__MODULE.ID_LIST_OBSERVER",
+      "application": "GeoNature",
+      "keyValue": "id_role",
+      "keyLabel": "nom_complet",
+      "type_util": "user",
+      "multiple": false,
+      "required": false
     },
     "id_dataset":{
       "hidden": true
+    },
+    "transect":{
+      "type_widget": "number",
+      "attribut_label": "Numéro de transect",
+      "required": true,
+      "min":1,
+      "value":1
+    },
+    "quadrat":{
+      "type_widget": "number",
+      "attribut_label": "Numéro de quadrat",
+      "required": true,
+      "min":1,
+      "max":20,
+      "value":1
+    },
+    "taux_recouvrement":{
+      "type_widget": "number",
+      "attribut_label": "Taux de recouvrement",
+      "required": true,
+      "min":1,
+      "max":100
+    },
+    "hauteur_vegetation":{
+      "type_widget": "number",
+      "attribut_label": "Hauteur de la végétation (m)",
+      "required": true,
+      "min":0
+    },
+    "strate_bryo": {
+      "type_widget": "number",
+      "attribut_label": "Strate bryolichenique",
+      "required": true,
+      "min":0
     }
   }
 }

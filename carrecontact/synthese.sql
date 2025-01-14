@@ -24,16 +24,17 @@ DROP VIEW IF EXISTS gn_monitoring.v_synthese_:module_code;
 CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 	WITH 
 	srce AS (
-		SELECT
-			id_source
-		FROM gn_synthese.t_sources
-		WHERE name_source = CONCAT('MONITORING_', UPPER(:'module_code'))
-		LIMIT 1
-
+		SELECT 
+			sc.id_source,
+			mo.id_module
+		FROM gn_synthese.t_sources sc
+		LEFT JOIN gn_commons.t_modules mo ON 'MONITORING_' || UPPER(mo.module_code) = sc.name_source
+		WHERE sc.name_source = CONCAT('MONITORING_', UPPER(:'module_code'))
 	), 
 	sites AS (
 		SELECT
 			tbs.id_base_site,
+			(tsg.data ->> 'id_dataset'::text)::integer AS id_dataset,
 			tbs.altitude_min,
 			tbs.altitude_max,
 			tsg.sites_group_name,
@@ -45,8 +46,7 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
         FROM gn_monitoring.t_base_sites tbs
 		LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
 		LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
-		LEFT JOIN gn_commons.t_modules m ON tsg.id_module = m.id_module
-		WHERE m.module_code = :'module_code'
+		JOIN srce s ON tsc.id_module = s.id_module
 	), 
 	visits AS (
 		SELECT
@@ -54,16 +54,17 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 			tbv.uuid_base_visit,
 			tbv.id_module,
 			tbv.id_base_site,
-			tbv.id_dataset,
 			tbv.id_digitiser,
 			tbv.visit_date_min AS date_min,
 			COALESCE (tbv.visit_date_max, tbv.visit_date_min) AS date_max,
 			tbv.comments,
 			tbv.id_nomenclature_tech_collect_campanule,
 			tbv.id_nomenclature_grp_typ,
-			tvc.data
+			tvc.data,
+			s.id_source
 		FROM gn_monitoring.t_base_visits tbv
 		LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
+		JOIN srce s ON tbv.id_module = s.id_module
 	), 
 	observers AS (
 		SELECT
@@ -77,27 +78,27 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 	)
 	SELECT
 		o.id_observation,
-		v.id_dataset,o.cd_nom,
-		t.nom_complet AS nom_cite,
+		s.id_dataset,
+		o.cd_nom,
+		tx.nom_complet AS nom_cite,
 		v.date_min,
 		v.date_max,
 		v.comments AS comment_context,
-		o.comments AS comment_description,
+		(v.data->>'determiner')::integer  AS comment_description,
 		obs.observers,
-		(oc.data->'determiner')::integer as determiner,
-		(oc.data->'determiner')::integer as validator,
-        ref_nomenclatures.get_id_nomenclature('NAT_OBJ_GEO', 'In') AS id_nomenclature_geo_object_nature, -- Stationnel
-		ref_nomenclatures.get_id_nomenclature('TYP_GRP', 'REL') AS id_nomenclature_grp_typ, -- Relevé phytosociologique
+		'Coefficient de recouvrement : ' || (oc.data->>'coefficient') as comment_context,
+		ref_nomenclatures.get_id_nomenclature('TECHNIQUE_OBS', '59') AS id_nomenclature_tech_collect_campanule, -- Observation directe diurne
+        ref_nomenclatures.get_id_nomenclature('NAT_OBJ_GEO', 'St') AS id_nomenclature_geo_object_nature, -- Stationnel
+		ref_nomenclatures.get_id_nomenclature('TYP_GRP', 'REL') AS id_nomenclature_grp_typ, -- Relevé
 		(oc.data->'id_nomenclature_obs_technique')::integer as id_nomenclature_obs_technique, -- METH_OBS
-		(s.data -> 'id_nomenclature_tech_collect_campanule')::integer AS id_nomenclature_tech_collect_campanule, -- Piégeage lumineux automatique à fluorescence
+		(oc.data->'id_nomenclature_determination_method')::integer AS id_nomenclature_determination_method, -- METH_DETERMIN
 		ref_nomenclatures.get_id_nomenclature('STATUT_BIO', '1') AS id_nomenclature_bio_status, -- Non renseigné
-		(oc.data->'id_nomenclature_determination_method')::integer AS id_nomenclature_determination_method,
 		ref_nomenclatures.get_id_nomenclature('ETA_BIO', '1') AS id_nomenclature_bio_condition, -- Non renseigné
 		ref_nomenclatures.get_id_nomenclature('NATURALITE', '1' ) AS id_nomenclature_naturalness, -- Sauvage
 		ref_nomenclatures.get_id_nomenclature('PREUVE_EXIST', '2' ) AS id_nomenclature_exist_proof, --  non
 		ref_nomenclatures.get_id_nomenclature('STATUT_VALID', '1' ) AS id_nomenclature_valid_status, -- certain / très probable
 		ref_nomenclatures.get_id_nomenclature('SEXE', '6' ) AS id_nomenclature_sex, --non renseigné
- 		ref_nomenclatures.get_id_nomenclature('OBJ_DENBR', 'SURF' ) AS id_nomenclature_obj_count, -- l'objet du dénombrement est le nombre d'individus
+ 		ref_nomenclatures.get_id_nomenclature('OBJ_DENBR', 'NSP' ) AS id_nomenclature_obj_count, -- ne sait pas
  		ref_nomenclatures.get_id_nomenclature('TYP_DENBR', 'Es') AS id_nomenclature_type_count, -- les individuas sont comptés
  		-- id_nomenclature_sensitivity, --SENSIBILITE
  		ref_nomenclatures.get_id_nomenclature('STATUT_OBS', 'Pr') AS id_nomenclature_observation_status, -- le taxon est présent
@@ -118,16 +119,16 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 		--last_action,
 		s.altitude_min,
 		s.altitude_max,
-		s.sites_group_name as place_name,
+		s.sites_group_name || '('|| (s.data->>'commune')  || ') | T' || (v.data->> 'transect')  || 'Q' || (v.data->> 'quadrat') as place_name,
 		jsonb_build_object(
-			'strate', oc.data -> 'strate',
-			'recouvrement', oc.data -> 'recouvrement',
-			'aire', v.data -> 'aire',
-			'aire_compl', v.data -> 'compl_aire'
+			'rel_recouvrement', v.data ->> 'taux_recouvrement',
+			'rel_ht_vegetation', v.data ->> 'hauteur_vegetation',
+			'rel_strate_bryo', v.data ->> 'strate_bryo',
+			'espece_recouvrement', oc.data ->> 'coefficient'
 		) as additionnal_data,
 		-- ## Colonnes complémentaires qui ont leur utilité dans la fonction synthese.import_row_from_table
 		obs.ids_observers,
-		srce.id_source,
+		v.id_source,
 		v.id_module,
 		v.id_base_site,
 		v.uuid_base_visit AS unique_id_sinp_grp,
@@ -143,12 +144,7 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
         ON v.id_base_visit = o.id_base_visit
     JOIN sites s
         ON s.id_base_site = v.id_base_site
-	LEFT JOIN gn_commons.t_modules m
-        ON m.id_module = v.id_module
-	JOIN taxonomie.taxref t
-        ON t.cd_nom = o.cd_nom
-	LEFT JOIN srce
-        ON TRUE
+	JOIN taxonomie.taxref tx
+        ON tx.cd_nom = o.cd_nom
 	JOIN observers obs ON obs.id_base_visit = v.id_base_visit
-	WHERE m.module_code = :'module_code'
 ;

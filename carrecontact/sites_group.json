@@ -10,7 +10,6 @@
   "display_properties": [
     "sites_group_code",
     "sites_group_name",
-    "sites_group_description",
     "id_resp",
     "commune",
     "annee_debut",
@@ -22,6 +21,11 @@
     "commune",
     "sites_group_name",
     "nb_sites"
+  ],
+  "keep": [
+    "annee_debut",
+    "sentinelle_climat",
+    "id_resp"
   ],
   "specific": {
     "sites_group_code": {

@@ -10,7 +10,6 @@
   "display_properties": [
     "sites_group_name",
     "sites_group_code",
-    "site_group_description",
     "id_resp",
     "commune",
     "annee_debut",
@@ -19,19 +18,19 @@
     "sentinelle_climat"
   ],
   "display_list": [
-    "commune",
     "sites_group_name",
+    "commune",
+    "sites_group_code",
     "nb_sites"
   ],
   "specific": {
     "sites_group_code": {
       "required": false,
-      "attribut_label": "Code du site",
+      "attribut_label": "Opé. de gestion",
       "hidden": false
     },
     "sites_group_name":{
-      "attribut_label": "Nom du site",
-      "definition": "Lieu-dit où se situe la zone de prospection."
+      "attribut_label": "Nom du site"
     },
     "id_dataset": {
       "type_widget": "dataset",
@@ -69,8 +68,18 @@
       "keyLabel": "nom_complet",
       "type_util": "user",
       "multiple": false,
-      "required": false,
-      "definition": "Si déterminateur différent de l'observateur"
+      "required": false
+    },
+    "commune":{
+      "type_widget": "text",
+      "attribut_label": "Commune"
+    },
+    "nb_sites": {
+      "attribut_label": "Nb. placettes",
+      "hidden": false
+    },
+    "nb_visits": {
+      "attribut_label": "Nb. relevés"
     }
   },
   "change": [

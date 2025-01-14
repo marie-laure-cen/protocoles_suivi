@@ -1,6 +1,6 @@
 {
   "module_code": "carrecontact",
-  "module_label":"Carré contacy",
+  "module_label":"CARRE CONTACT",
   "module_desc":"Module pour le protocole de suivi carré contact",
   "specific": {
     "b_draw_sites_group": {

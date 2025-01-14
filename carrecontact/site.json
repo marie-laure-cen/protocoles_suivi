@@ -84,7 +84,7 @@
         "Prairie piquetée",
         "Roselière"
       ],
-      "required": true,
+      "required": false,
       "hidden": false
     },
     "gestion":{
@@ -99,7 +99,7 @@
         "Pas d'intervention",
         "Pâturage"
       ],
-      "required": true,
+      "required": false,
       "hidden": false
     },
     "nb_visits": {
@@ -107,10 +107,10 @@
     },
     "impact":{
       "type_widget": "select",
-      "required": false,
       "attribut_label": "Dernier impact de gestion",
       "values": ["OUI", "NON"],
       "value": "NON",
+      "required": false,
       "hidden":false
     }
   }

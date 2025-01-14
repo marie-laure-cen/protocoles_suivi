@@ -28,8 +28,8 @@ WITH
 			sc.id_source,
 			mo.id_module
 		FROM gn_synthese.t_sources sc
-		LEFT JOIN gn_commons.t_modules mo ON 'MONITORING_' || UPPER('PHYTO') = sc.name_source
-		WHERE sc.name_source = 'MONITORING_PHYTO'
+		LEFT JOIN gn_commons.t_modules mo ON 'MONITORING_' || UPPER(mo.module_code) = sc.name_source
+		WHERE  sc.name_source = CONCAT('MONITORING_', UPPER(:'module_code'))
 	), 
 	sites AS (
 		SELECT

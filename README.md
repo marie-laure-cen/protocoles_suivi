@@ -30,6 +30,7 @@ source ~/geonature/backend/venv/bin/activate
 mkdir geonature/backend/media/monitorings
 
 ln -s /home/geoa/modules/ila ~/geonature/backend/media/monitorings/ila
+ln -s ~/modules/phyto ~/geonature/backend/media/monitorings/phyto
 ln -s /home/geoa/modules/piezo ~/geonature/backend/media/monitorings/piezo
 ln -s /home/geoa/modules/steli ~/geonature/backend/media/monitorings/steli
 ln -s /home/geoa/modules/sterf ~/geonature/backend/media/monitorings/sterf
@@ -38,12 +39,15 @@ ln -s /home/geoa/modules/syrhetheteroceres ~/geonature/backend/media/monitorings
 ln -s /home/geoa/modules/syrhetsyrphes ~/geonature/backend/media/monitorings/syrhetsyrphes
 
 geonature monitorings install ila
+geonature monitorings install phyto
 geonature monitorings install piezo
 geonature monitorings install steli
 geonature monitorings install sterf
 geonature monitorings install syrhetflore
 geonature monitorings install syrhetheteroceres
 geonature monitorings install syrhetsyrphes
+
+geonature permissions supergrant --group --nom "Administrateurs_CEN"
 ```
 
 ## Intégration des données pré-existantes

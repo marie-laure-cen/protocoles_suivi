@@ -1,18 +1,18 @@
 -- alter table gn_monitoring.t_base_sites alter column id_nomenclature_type_site drop not null;
 
 -------------------------------------------------final --rhomeoodonate standard------------------------------------------
--- View: gn_monitoring.v_export_phyto
+-- View: gn_monitoring.v_export_phyto_standard
 
-DROP VIEW  IF EXISTS  gn_monitoring.v_export_phyto
+DROP VIEW  IF EXISTS  gn_monitoring.v_export_phyto_standard
 
-CREATE OR REPLACE VIEW gn_monitoring.v_export_phyto AS
+CREATE OR REPLACE VIEW gn_monitoring.v_export_phyto_standard AS
 WITH 
 	srce AS (
 		SELECT 
 			sc.id_source,
 			mo.id_module
 		FROM gn_synthese.t_sources sc
-		LEFT JOIN gn_commons.t_modules mo ON 'MONITORING_PHYTO' = sc.name_source
+		LEFT JOIN gn_commons.t_modules mo ON 'MONITORING_' || UPPER(mo.module_code) = sc.name_source
 		WHERE sc.name_source = CONCAT('MONITORING_PHYTO')
 	), 
 	sites AS (

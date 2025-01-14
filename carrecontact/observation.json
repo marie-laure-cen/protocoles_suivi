@@ -2,40 +2,24 @@
   "description_field_name":"cd_nom",
   "genre":"F",
   "display_properties": [
-    "determiner",
     "cd_nom",
     "coefficient",
-    "strate_bryo",
     "id_nomenclature_obs_technique",
     "id_nomenclature_determination_method",
     "comments"
   ],
   "display_list": [
     "cd_nom",
-    "coefficient",
-    "strate_bryo"
+    "coefficient"
   ],
   "sorts": [
     {"prop": "cd_nom", "dir": "asc"}
   ],
   "keep": [
     "id_nomenclature_obs_technique",
-    "id_nomenclature_determination_method",
-    "determiner",
-    "coefficient"
+    "id_nomenclature_determination_method"
   ],
   "specific": {
-    "determiner":{
-      "type_widget": "datalist",
-      "attribut_label": "Déterminateur",
-      "api": "users/menu/__MODULE.ID_LIST_OBSERVER",
-      "application": "GeoNature",
-      "keyValue": "id_role",
-      "keyLabel": "nom_complet",
-      "type_util": "user",
-      "multiple": false,
-      "required": false
-    },
     "cd_nom": {
       "type_widget": "taxonomy",
       "attribut_label": "Espèce observée",
@@ -51,14 +35,6 @@
       "min": 0,
       "max": 100,
       "required": true
-    },
-    "strate_bryo": {
-      "type_widget": "nomenclature",
-      "attribut_label": "Strate de l'espèce",
-      "code_nomenclature_type": "RP_STRATE",
-      "cd_nomenclatures": ["A","a1", "a2", "h"],
-      "required": true,
-      "type_util": "nomenclature"
     },
     "id_nomenclature_obs_technique": {
       "type_widget": "datalist",
