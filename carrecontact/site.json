@@ -5,7 +5,7 @@
   "geometry_type": "Point",
   "map_label_field_name": "base_site_code",
   "sorts": [
-    {"prop": "base_site_name", "dir": "asc"}
+    {"prop": "base_site_code", "dir": "asc"}
   ],
   "display_properties": [
     "id_sites_group",
@@ -20,7 +20,6 @@
  ],
   "display_list": [
     "base_site_code",
-    "base_site_name",
     "nb_visits"
   ],
   "keep": [
@@ -103,7 +102,7 @@
       "hidden": false
     },
     "nb_visits": {
-      "attribut_label": "Nb. passages"
+      "attribut_label": "Nb. relevés"
     },
     "impact":{
       "type_widget": "select",

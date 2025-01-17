@@ -29,6 +29,7 @@ source ~/geonature/backend/venv/bin/activate
 
 mkdir geonature/backend/media/monitorings
 
+ln -s /home/geoa/modules/carrecontact ~/geonature/backend/media/monitorings/carrecontact
 ln -s /home/geoa/modules/ila ~/geonature/backend/media/monitorings/ila
 ln -s ~/modules/phyto ~/geonature/backend/media/monitorings/phyto
 ln -s /home/geoa/modules/piezo ~/geonature/backend/media/monitorings/piezo
@@ -38,6 +39,7 @@ ln -s /home/geoa/modules/syrhetflore ~/geonature/backend/media/monitorings/syrhe
 ln -s /home/geoa/modules/syrhetheteroceres ~/geonature/backend/media/monitorings/syrhetheteroceres
 ln -s /home/geoa/modules/syrhetsyrphes ~/geonature/backend/media/monitorings/syrhetsyrphes
 
+geonature monitorings install carrecontact
 geonature monitorings install ila
 geonature monitorings install phyto
 geonature monitorings install piezo

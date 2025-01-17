@@ -1,16 +1,14 @@
 {
   "genre":"M",
-  "label": "relevé phytosociologique",
-  "label_list": "relevés phytosociologiques",
+  "label": "relevé",
+  "label_list": "relevés",
   "sorts": [
     {"prop": "visit_date_min", "dir": "desc"}
   ],
   "display_properties": [
-    "transect",
     "quadrat",
     "visit_date_min",
     "observers",
-    "determiner",
     "taux_recouvrement",
     "hauteur_vegetation",
     "strate_bryo",
@@ -18,9 +16,7 @@
   ],
   "display_list": [
     "visit_date_min",
-    "transect",
     "quadrat",
-    "observers",
     "nb_observations"
   ],
   "keep": [
@@ -36,17 +32,6 @@
     "visit_date_max":{
       "required": false,
       "hidden": true
-    },
-    "determiner":{
-      "type_widget": "datalist",
-      "attribut_label": "Déterminateur",
-      "api": "users/menu/__MODULE.ID_LIST_OBSERVER",
-      "application": "GeoNature",
-      "keyValue": "id_role",
-      "keyLabel": "nom_complet",
-      "type_util": "user",
-      "multiple": false,
-      "required": false
     },
     "id_dataset":{
       "hidden": true
