@@ -4,12 +4,21 @@ ALTER TABLE gn_imports.sh
 ADD COLUMN observers text[][];
 */
 
+
+-- DIFFERENCE REL PHYTO ET CARRE CONTACT
+
+UPDATE gn_imports.sh sh
+SET rel_phyto = (CASE WHEN sh.quadrat = '/' OR sh.quadrat IS NULL THEN true ELSE false END)
+WHERE sh.rel_phyto IS NULL
+;
+
 -- Création des groupes de sites
 WITH sh as (
 	SELECT
 		TRIM(UPPER(id_site)) as id_site
 	FROM gn_imports.sh
 	WHERE NOT id_site in ('00AAA' ,'27AN2')
+	AND NOT rel_phyto IS true
 	GROUP BY UPPER(id_site)
 )
 INSERT INTO gn_monitoring.t_sites_groups (
@@ -53,6 +62,7 @@ UPDATE gn_imports.sh sh
 FROM gn_monitoring.t_sites_groups tsg
 WHERE (tsg.data->> 'id_site_my_sql') = sh.id_site
 AND tsg.id_module = 39
+AND NOT rel_phyto IS true
 
 -- Ajout de la date de lancement
 with sh as (
@@ -90,6 +100,7 @@ WITH plot as (
 		MAX(CASE WHEN coord_y = 0 OR coord_y IS NULL THEN 0 ELSE coord_y END) as coord_y
 	FROM gn_imports.sh sh 
 	WHERE NOT sh.id_sites_group IS NULL
+	AND NOT rel_phyto IS true
 	AND id_base_site IS NULL
 	GROUP BY
 		id_sites_group,
@@ -125,6 +136,7 @@ resp as (
 		tr.nom_role,
 		tr.prenom_role
 	FROM gn_imports.sh 
+	WHERE NOT rel_phyto IS true
 	LEFT JOIN utilisateurs.t_roles tr ON LOWER(responsable) = LOWER( tr.prenom_role || ' ' || tr.nom_role )
 	WHERE time_plot = annee and not responsable = 'Non renseigné'
 	GROUP BY 
@@ -170,6 +182,7 @@ WHERE tbs.base_site_name = 'T' || sh.transect || sh.plot
 AND tbs.base_site_description = sh.id_sites_group::text
 AND tbs.id_nomenclature_type_site = 1070
 AND sh.id_base_site IS NULL
+AND NOT rel_phyto IS true
 ;
 
 -- Insertion dans la table des complements
@@ -425,6 +438,7 @@ WITH sites as (
 		id_base_site,
 		STRING_AGG(DISTINCT site_comment, ', ') as commentaire
 	FROM gn_imports.sh
+	WHERE NOT id_base_site IS NULL
 	GROUP BY id_base_site
 )
 UPDATE gn_monitoring.t_base_sites tbs
@@ -465,6 +479,7 @@ SELECT
 FROM gn_imports.sh sh
 WHERE NOT id_base_site IS NULL 
 AND NOT id_sites_group IS NULL
+AND NOT rel_phyto IS true
 GROUP BY
 	id_base_site,
 	date_suivi,
@@ -514,7 +529,7 @@ SET id_base_visit = rel_obs.id_base_visit
 FROM rel_obs
 WHERE sh.id_suivi_habitat::text = rel_obs.id_suivi_habitat
 AND sh.id_base_visit IS NULL
-;
+AND NOT rel_phyto IS true
 ;
 
 -- Ajout des compléments à la visite
@@ -533,6 +548,7 @@ SELECT
 	--observers,
 FROM gn_imports.sh sh
 WHERE NOT id_base_visit IS NULL 
+AND NOT rel_phyto IS true
 GROUP BY
 	id_base_site,
 	id_base_visit
@@ -546,6 +562,7 @@ WITH obs as (
 		UNNEST (observers) as observateur
 	FROM gn_imports.sh sh
 	WHERE NOT id_base_visit IS NULL 
+	AND NOT rel_phyto IS true
 	ORDER BY id_base_visit
 )
 INSERT INTO gn_monitoring.cor_visit_observer(
@@ -694,4 +711,259 @@ GROUP BY
 UPDATE gn_monitoring.t_base_visits tbv
 SET comments = NULL
 WHERE tbv.id_module = 39
+;
+
+-- Changement de module des relevés phytos
+
+WITH type_rel as (
+	SELECT
+		id_base_site,
+		id_base_visit,
+		bool_or(rel_phyto) as is_cc_rp,
+		bool_and(rel_phyto) as is_only_rp
+	FROM gn_imports.sh
+	GROUP BY
+		id_base_site,
+		id_base_visit,
+		rel_phyto
+	ORDER BY
+		id_base_site,
+		id_base_visit,
+		rel_phyto
+)
+SELECT
+	*
+FROM type_rel
+WHERE is_cc_rp =true
+ORDER BY 
+	id_base_site, 
+	id_base_visit
+;
+
+with 
+rp as (
+	SELECT
+		id_base_site,
+		--id_base_visit,
+		BOOL_AND(rel_phyto) as u_rp
+	FROM gn_imports.sh sh 
+	WHERE NOT id_base_site IS NULL AND NOT id_base_visit IS NULL
+	GROUP BY 		
+		id_base_site--,id_base_visit
+),
+site as (
+	SELECT 
+		*
+	FROM gn_monitoring.t_base_sites tbs 
+	LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
+	WHERE tsc.id_module = 39
+),
+rel as (
+	SELECT
+		id_base_visit,
+		id_base_site,
+		(tvc.data ->>'quadrat') as quadrat
+	FROM gn_monitoring.t_base_visits tbv
+	LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
+	LEFT JOIN site USING (id_base_site)
+	WHERE tbv.id_module = 39
+	AND (tvc.data ->>'quadrat') = '/' OR (tvc.data ->>'quadrat') IS NULL
+)
+SELECT
+	*
+FROM site
+INNER JOIN rp USING (id_base_site)
+WHERE u_rp = true
+ORDER BY 1
+;
+
+with 
+rp as (
+	SELECT
+		id_base_site,
+		--id_base_visit,
+		BOOL_AND(rel_phyto) as u_rp
+	FROM gn_imports.sh sh 
+	WHERE NOT id_base_site IS NULL AND NOT id_base_visit IS NULL
+	GROUP BY 		
+		id_base_site--,id_base_visit
+),
+site as (
+	SELECT 
+		*
+	FROM gn_monitoring.t_base_sites tbs 
+	LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
+	INNER JOIN rp USING (id_base_site)
+	WHERE tsc.id_module = 39 AND u_rp = true
+),
+rel as (
+	SELECT
+		id_base_visit,
+		id_base_site,
+		(tvc.data ->>'quadrat') as quadrat
+	FROM gn_monitoring.t_base_visits tbv
+	LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
+	LEFT JOIN site USING (id_base_site)
+	WHERE tbv.id_module = 39
+	AND (tvc.data ->>'quadrat') = '/' OR (tvc.data ->>'quadrat') IS NULL
+)
+UPDATE gn_monitoring.t_site_complements s 
+SET id_module = 38
+FROM site
+WHERE site.id_base_site = s.id_base_site
+/*
+SELECT *
+FROM  gn_monitoring.t_site_complements s 
+INNER JOIN site USING (id_base_site)
+ORDER BY 1*/
+;
+UPDATE gn_monitoring.t_base_visits tbv
+	SET id_module = 38 
+FROM gn_monitoring.t_site_complements tsc 
+WHERE tsc.id_base_site = tbv.id_base_site
+AND tsc.id_module = 38 
+AND tbv.id_module = 39
+;
+
+With 
+rp as (
+	SELECT
+		id_sites_group,
+		--id_base_visit,
+		BOOL_AND(rel_phyto) as u_rp
+	FROM gn_imports.sh sh 
+	WHERE NOT id_sites_group IS NULL AND NOT id_base_site IS NULL AND NOT id_base_visit IS NULL
+	GROUP BY 		
+		id_sites_group--,id_base_visit
+)
+UPDATE gn_monitoring.t_sites_groups tsg
+	SET id_module = 38
+FROM rp WHERE tsg.id_sites_group = rp.id_sites_group
+AND tsg.id_module = 39 
+AND u_rp = true
+;
+WITH sm as (
+	SELECT
+		id_sites_group,
+		id_module
+	FROM gn_monitoring.t_site_complements tsc
+	WHERE tsc.id_module = 38 
+	GROUP BY 	
+		id_sites_group,
+		id_module
+)
+INSERT INTO gn_monitoring.t_sites_groups (
+	sites_group_name,
+	sites_group_code,
+	id_module,
+	comments,
+	data
+)
+SELECT
+	tsg.sites_group_name,
+	tsg.sites_group_code,
+	38 as id_module,
+	id_sites_group as comments,
+	tsg.data
+FROM gn_monitoring.t_sites_groups tsg 
+INNER JOIN sm USING (id_sites_group)
+WHERE tsg.id_module= 39
+;
+WITH sm as (
+	SELECT
+		id_sites_group,
+		id_base_site
+	FROM gn_monitoring.t_site_complements tsc
+	LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
+	WHERE tsc.id_module = 38 AND tsg.id_module = 39
+),
+gp as (
+	SELECT
+		*
+	FROM gn_monitoring.t_sites_groups tsg 
+	WHERE id_module = 38
+	AND NOT comments IS NULL
+)
+UPDATE gn_monitoring.t_site_complements s
+SET id_sites_group = gp.id_sites_group
+FROM sm
+LEFT JOIN gp ON gp.comments = sm.id_sites_group::text
+WHERE sm.id_base_site = s.id_base_site
+AND s.id_module = 38
+;
+
+-- OBSERVATIONS
+
+-- Ajout des espèces
+WITH obs as (
+	SELECT
+		sh.id_base_visit,
+		sh.cd_nom,
+		jsonb_build_object(
+			'id_sh_mysql' , sh.id_suivi_habitat,
+			'nom_cite', sh.nom_cite
+		)::text as comments
+	FROM gn_imports.sh sh
+	WHERE NOT rel_phyto IS TRUE
+	AND id_observation IS NULL
+	AND NOT id_base_visit IS NULL
+	GROUP BY 	
+		sh.id_base_visit,
+		sh.cd_nom,
+		sh.nom_cite,
+		sh.id_suivi_habitat
+)
+INSERT INTO gn_monitoring.t_observations (
+	id_base_visit,
+	cd_nom,
+	comments
+)
+SELECT
+	*
+FROM obs
+ORDER BY id_base_visit, cd_nom
+;
+
+-- Ajout des id_observation dans la base d'import
+WITH obs_gn as (
+	SELECT
+		id_observation,
+		(o.comments::jsonb ->>'id_sh_mysql')::integer as id_suivi_habitat
+	FROM gn_monitoring.t_observations o
+	LEFT JOIN gn_monitoring.t_base_visits USING (id_base_visit)
+	WHERE id_module = 39
+)
+UPDATE gn_imports.sh sh
+SET id_observation = obs_gn.id_observation
+FROM obs_gn
+WHERE obs_gn.id_suivi_habitat = sh.id_suivi_habitat
+;
+
+-- Ajout des compléments et mise à jour des commentaires
+WITH obs as (
+	SELECT
+		sh.id_observation,
+		jsonb_build_object(
+			'id_sh_mysql' , sh.id_suivi_habitat
+		) as data
+	FROM gn_imports.sh sh
+	WHERE NOT id_observation IS NULL
+	GROUP BY 	
+		sh.id_observation,
+		sh.id_suivi_habitat
+)
+INSERT INTO gn_monitoring.t_observation_complements (
+	id_observation,
+	data
+)
+SELECT
+	*
+FROM obs
+ORDER BY id_observation
+;
+UPDATE gn_monitoring.t_observations o
+SET comments = sh.nom_cite
+FROM gn_imports.sh sh
+WHERE sh.id_observation = o.id_observation
+AND NOT nom_cite IS NULL
 ;

@@ -1,113 +1,137 @@
--- alter table gn_monitoring.t_base_sites alter column id_nomenclature_type_site drop not null;
+------------------------------------------------- EXPORT DES OBSERVATIONS AVEC VALEURS ENVIRONNEMENTALES ------------------------------------------
+--View: gn_monitoring.v_export_carrecontact_obs
 
--------------------------------------------------final --rhomeoodonate standard------------------------------------------
--- View: gn_monitoring.v_export_rhomeoodonate_standard
+DROP VIEW  IF EXISTS  gn_monitoring.v_export_carrecontact_obs ;
 
-DROP VIEW  IF EXISTS  gn_monitoring.v_export_syrhetflore_standard;
-
-CREATE OR REPLACE VIEW gn_monitoring.v_export_syrhetflore_standard AS
-
-WITH 
-	com as(
-		SELECT
-			id_base_site,
-			area_code,
-			area_name
-		FROM gn_monitoring.cor_site_area
-		LEFT JOIN ref_geo.l_areas USING (id_area)
-		WHERE id_type = 25
+CREATE OR REPLACE VIEW gn_monitoring.v_export_carrecontact_obs AS 
+	WITH 
+	srce AS (
+		SELECT 
+			sc.id_source,
+			mo.id_module
+		FROM gn_synthese.t_sources sc
+		LEFT JOIN gn_commons.t_modules mo ON 'MONITORING_' || UPPER(mo.module_code) = sc.name_source
+		WHERE sc.name_source = 'MONITORING_CARRECONTACT'
 	),
-	site as (
+	dpt as (
+		SELECT
+			area_code::integer as dep,
+			geom
+		FROM ref_geo.l_areas WHERE id_type = 26
+	),
+	sites AS (
+		SELECT
+			tbs.id_base_site,
+			(tsg.data ->> 'id_dataset')::integer AS id_dataset,
+			tbs.base_site_code,
+			tbs.base_site_name,
+			tbs.altitude_min,
+			tbs.altitude_max,
+			tsg.sites_group_name,
+			tsg.sites_group_code,
+			dpt.dep,
+			tsc.data,
+			ST_CENTROID(tbs.geom) AS geom
+        FROM gn_monitoring.t_base_sites tbs
+		LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
+		LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
+		LEFT JOIN dpt ON ST_INTERSECTS(tbs.geom_local, dpt.geom)
+		INNER JOIN srce s ON tsc.id_module = s.id_module
+	), 
+	visits AS (
+		SELECT
+			tbv.id_base_visit,
+			tbv.uuid_base_visit,
+			tbv.id_module,
+			tbv.id_base_site,
+			tbv.id_digitiser,
+			CONCAT(tr.nom_role, ' ', tr.prenom_role) AS numerisateur,
+			tbv.visit_date_min,
+			tbv.comments,
+			tvc.data
+		FROM gn_monitoring.t_base_visits tbv
+		LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
+		LEFT JOIN utilisateurs.t_roles tr ON tbv.id_digitiser = tr.id_role
+		INNER JOIN srce s ON tbv.id_module = s.id_module
+	), 
+	observers AS (
+		SELECT
+			array_agg(r.id_role) AS ids_observers,
+			STRING_AGG(CONCAT(r.nom_role, ' ', r.prenom_role), ' ; ') AS observers,
+			id_base_visit
+		FROM gn_monitoring.cor_visit_observer cvo
+		JOIN utilisateurs.t_roles r
+		ON r.id_role = cvo.id_role
+		GROUP BY id_base_visit
+	),
+	ta as (
+		SELECT
+			cd_ref,
+			STRING_AGG(CASE WHEN id_attribut = 37 THEN valeur_attribut ELSE NULL END, ', ') as classe_etea,
+			STRING_AGG(CASE WHEN id_attribut = 61 THEN valeur_attribut ELSE NULL END, ', ') as dynamique,
+			STRING_AGG(CASE WHEN id_attribut = 62 THEN valeur_attribut ELSE NULL END, ', ') as ecologie,
+			STRING_AGG(CASE WHEN id_attribut = 60 THEN valeur_attribut ELSE NULL END, ', ') as humidite,
+			STRING_AGG(CASE WHEN id_attribut = 63 THEN valeur_attribut ELSE NULL END, ', ') as granulometrie,
+			STRING_AGG(CASE WHEN id_attribut = 64 THEN valeur_attribut ELSE NULL END, ', ') as nutriment,
+			STRING_AGG(CASE WHEN id_attribut = 65 THEN valeur_attribut ELSE NULL END, ', ') as reaction,
+			STRING_AGG(CASE WHEN id_attribut = 66 THEN valeur_attribut ELSE NULL END, ', ') as salinite,
+			STRING_AGG(CASE WHEN id_attribut = 67 THEN valeur_attribut ELSE NULL END, ', ') as luminosite
+		FROM taxonomie.cor_taxon_attribut
+		WHERE id_attribut in (37, 60,61,62,63,64,65,66,67,68)
+		GROUP BY 
+			cd_ref
+	),
+	tx as (
 		SELECT
 			*
-		FROM gn_monitoring.t_base_sites tbs
-		LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
-		LEfT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
-		LEFT JOIN gn_commons.t_modules tm ON tsc.id_module = tm.id_module
-		WHERE tm.module_code = 'syrhetflore'
-),
-visit as (
+		FROM taxonomie.taxref
+		LEFT JOIN ta USING (cd_ref)
+		WHERE regne = 'Plantae'
+	)
 	SELECT
-		*
-	FROM gn_monitoring.t_base_visits tbv
-	LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
-),
-obs as (
-	SELECT
-		*
-	FROM gn_monitoring.t_observations o
-	LEFT JOIN gn_monitoring.t_observation_complements toc USING (id_observation)
-	LEFT JOIN taxonomie.taxref tx USING (cd_nom)
-),
-observers AS (
-	SELECT
-		array_agg(r.id_role) AS ids_observers,
-		STRING_AGG(CONCAT(r.nom_role, ' ', prenom_role), ' ; ') AS observers,
-		id_base_visit
-	FROM gn_monitoring.cor_visit_observer cvo
-	JOIN utilisateurs.t_roles r
-	ON r.id_role = cvo.id_role
-	GROUP BY id_base_visit
-)
-SELECT
-	obs.id_observation,
-	obs.id_base_visit,
-	-- Site
-	LEFT(com.area_code, 2)::integer as dep,
-	com.area_name as commune,
-	site.sites_group_name as lieu_dit,
-	-- Relevé
-	site.base_site_name as nom_releve,
-	ref_nomenclatures.get_id_nomenclature('TYP_GRP', 'REL') AS id_nomenclature_grp_typ, -- Relevé phytosociologique
-	visit_date_min as date,
-	observers.observers,
-	(visit.data -> 'rayon')::integer as rayon_m,
-	(CASE
-		WHEN (visit.data -> 'forme_areale')::text = 'null' OR (visit.data -> 'forme_areale')::text IS NULL THEN NULL
-	 	ELSE (visit.data -> 'forme_areale')::text
-	END ) as forme_areale,
-	(CASE
-		WHEN (visit.data -> 'habitat_associe')::text = 'null' OR (visit.data -> 'habitat_associe')::text IS NULL THEN NULL
-	 	ELSE (visit.data -> 'habitat_associe')::integer
-	END ) as habitat,
-	(CASE
-		WHEN (visit.data -> 'recouv_arbore')::text = 'null' OR (visit.data -> 'recouv_arbore')::text IS NULL THEN NULL
-	 	ELSE (visit.data -> 'recouv_arbore')::text
-	END ) as recouv_strate_arboree,
-	(CASE
-		WHEN (visit.data -> 'recouv_arbust_1')::text = 'null' OR (visit.data -> 'recouv_arbust_1')::text IS NULL THEN NULL
-	 	ELSE (visit.data -> 'recouv_arbust_1')::text
-	END ) as recouv_strate_arbust_haute,
-	(CASE
-		WHEN (visit.data -> 'recouv_arbust_2')::text = 'null' OR (visit.data -> 'recouv_arbust_2')::text IS NULL THEN NULL
-	 	ELSE (visit.data -> 'recouv_arbust_2')::text
-	END ) as recouv_strate_arbust_basse,
-	(CASE
-		WHEN (visit.data -> 'recouv_herb')::text = 'null' OR (visit.data -> 'recouv_herb')::text IS NULL THEN NULL
-	 	ELSE (visit.data -> 'recouv_herb')::text
-	END ) as recouv_strate_herbacee,
-	-- Observation
-	obs.cd_nom,
-	obs.nom_complet,
-	obs.nom_vern,
-	ref_nomenclatures.get_nomenclature_label((obs.data -> 'strate')::integer) as strate,
-	(CASE
-		WHEN (obs.data -> 'determiner')::text = 'null' OR (obs.data -> 'determiner')::text IS NULL THEN observers.observers
-	 	ELSE utilisateurs.get_name_by_id_role((obs.data -> 'determiner')::integer)
-	END ) as determinateur,
-	(CASE WHEN obs.data -> 'recouvrement' IS NULL THEN 0
-	 	WHEN (obs.data -> 'recouvrement')::text = '0' THEN (obs.data -> 'recouvrement'):: integer + (obs.data -> 'recouv_2') ::integer
-		ELSE (obs.data -> 'recouvrement'):: integer
-	END ) as pourcent_recouvrement,
-	ref_nomenclatures.get_nomenclature_label((obs.data -> 'id_nomenclature_determination_method')::integer) as methode_determination,
-	visit.comments || obs.comments as commentaire, 
-	-- Géométrie relevé
-	site.geom_local
-FROM obs
-INNER JOIN visit USING (id_base_visit)
-LEFT JOIN observers USING (id_base_visit)
-INNER JOIN site USING (id_base_site)
-LEFT JOIN com USING (id_base_site)
+		-- ID UNIQUE
+		o.id_observation,
+		-- SITE ET PLACETTE
+		s.dep,
+		s.sites_group_code as id_site,
+		s.sites_group_name as nom_site,
+		s.base_site_code as placette,
+		s.altitude_min as altitude,
+		-- RELEVES
+		v.visit_date_min as date_obs,
+		obs.observers as observateurs,
+		v.data ->> 'taux_recouvrement' as taux_recouvrement,
+		v.data ->> 'hauteur_vegetation' as hauteur_vegetation,
+		v.data ->> 'strate_bryo' as strate_bryolichenique,
+		v.comments AS commentaire_releve,
+		-- OBSERVATIONS
+		o.cd_nom as cd_nom,
+		tx.lb_nom as nom_taxon,
+		tx.id_rang as rang_taxon,
+		o.comments as commentaire_observation,
+		tx.classe_etea,
+		tx.dynamique,
+		tx.ecologie,
+		tx.humidite,
+		tx.granulometrie,
+		tx.nutriment,
+		tx.reaction,
+		tx.salinite,
+		tx.luminosite,
+ 		-- CHAMPS ADDITIONNELS
+		-- ## Colonnes complémentaires qui ont leur utilité dans la fonction synthese.import_row_from_table
+		v.numerisateur,
+		oc.data ->> 'id_sh_mysql' as id_sh_mysql,
+		o.uuid_observation ,
+		s.geom
+    FROM gn_monitoring.t_observations o 
+	LEFT JOIN gn_monitoring.t_observation_complements oc USING (id_observation)
+	LEFT JOIN tx USING(cd_nom)
+    JOIN visits v ON v.id_base_visit = o.id_base_visit
+    JOIN sites s ON s.id_base_site = v.id_base_site
+	INNER JOIN srce ON v.id_module = srce.id_module
+	JOIN observers obs ON obs.id_base_visit = v.id_base_visit
+	ORDER BY visit_date_min DESC
 ;
 
-GRANT SELECT ON TABLE gn_monitoring.v_export_syrhetflore_standard TO geonat_visu;
+GRANT SELECT ON TABLE gn_monitoring.v_export_carrecontact_obs TO geonat_visu;

@@ -9,9 +9,9 @@
   },
   "export_csv": [
     {
-      "label": "Test",
+      "label": "Observations carré contact",
       "type": "csv",
-      "method": "standard"
+      "method": "obs"
     }
   ]
 }

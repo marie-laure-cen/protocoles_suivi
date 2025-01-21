@@ -5,32 +5,36 @@
   "map_label_field_name": "base_site_code",
   "b_draw_sites_group": true,
   "sorts": [
-    {"prop": "commune"}
+    {"prop": "sites_group_name"}
   ],
   "display_properties": [
-    "sites_group_name",
     "sites_group_code",
-    "id_resp",
+    "sites_group_name",
     "commune",
+    "sites_group_description",
+    "id_resp",
     "annee_debut",
     "annee_fin",
     "id_dataset",
     "sentinelle_climat"
   ],
   "display_list": [
+    "sites_group_code",
     "sites_group_name",
     "commune",
-    "sites_group_code",
     "nb_sites"
   ],
   "specific": {
-    "sites_group_code": {
+    "sites_group_description": {
       "required": false,
       "attribut_label": "Opé. de gestion",
       "hidden": false
     },
     "sites_group_name":{
-      "attribut_label": "Nom du site"
+      "attribut_label": "Site"
+    },
+    "sites_group_code":{
+      "attribut_label": "Code site"
     },
     "id_dataset": {
       "type_widget": "dataset",

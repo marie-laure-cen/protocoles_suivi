@@ -4,9 +4,9 @@
   "display_properties": [
     "determiner",
     "cd_nom",
-    "strate",
     "abondance",
     "recouvrement",
+    "strate",
     "sociabilite",
     "vitalite",
     "id_nomenclature_obs_technique",
@@ -48,13 +48,6 @@
       "required": true,
       "type_util": "taxonomy"
     },
-    "recouvrement": {
-      "type_widget": "number",
-      "attribut_label": "Pourcentage de recouvrement",
-      "min": 0,
-      "max": 100,
-      "required": true
-    },
     "abondance": {
       "type_widget": "nomenclature",
       "attribut_label": "Abondance/dominance",
@@ -62,11 +55,18 @@
       "required": true,
       "type_util": "nomenclature"
     },
+    "recouvrement": {
+      "type_widget": "number",
+      "attribut_label": "Pourcentage de recouvrement",
+      "min": 0,
+      "max": 100,
+      "required": false
+    },
     "strate": {
       "type_widget": "nomenclature",
       "attribut_label": "Strate de l'espèce",
       "code_nomenclature_type": "RP_STRATE",
-      "required": true,
+      "required": false,
       "type_util": "nomenclature"
     },
     "sociabilite":{

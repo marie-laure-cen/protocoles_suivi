@@ -3,14 +3,12 @@
   "genre":"F",
   "display_properties": [
     "cd_nom",
-    "coefficient",
     "id_nomenclature_obs_technique",
     "id_nomenclature_determination_method",
     "comments"
   ],
   "display_list": [
-    "cd_nom",
-    "coefficient"
+    "cd_nom"
   ],
   "sorts": [
     {"prop": "cd_nom", "dir": "asc"}
@@ -28,13 +26,6 @@
       "application": "TaxHub",
       "required": true,
       "type_util": "taxonomy"
-    },
-    "coefficient": {
-      "type_widget": "number",
-      "attribut_label": "Pourcentage de recouvrement",
-      "min": 0,
-      "max": 100,
-      "required": true
     },
     "id_nomenclature_obs_technique": {
       "type_widget": "datalist",
