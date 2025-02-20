@@ -4,8 +4,6 @@
   "display_properties": [
     "cd_nom",
     "effectif",
-    "nb_male",
-    "nb_femelle",
     "comments"
   ],
   "display_list": [
@@ -32,21 +30,8 @@
     "effectif": {
       "type_widget": "number",
       "attribut_label": "Effectif total",
-      "min": 0,
       "value": 1,
       "required": true
-    },
-    "nb_male": {
-      "type_widget": "number",
-      "attribut_label": "Effectif de mâle(s)",
-      "min": 1,
-      "required": false
-    },
-    "nb_femelle": {
-      "type_widget": "number",
-      "attribut_label": "Effectif de femelle(s)",
-      "min": 1,
-      "required": false
     },
     "id_nomenclature_obs_technique": {
       "type_widget": "datalist",

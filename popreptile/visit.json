@@ -57,13 +57,12 @@
       "required": false,
       "attribut_label": "Météo",
       "values": [
-        "", 
         "Belles éclaircies", 
+        "Ciel voilé", 
         "Nuageux prédominant", 
         "Très nuageux", 
-        "Orageux", 
         "Pluvieux", 
-        "Ciel voilé"
+        "Orageux"
       ]
     },  
     "vent": {

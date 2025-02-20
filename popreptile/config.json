@@ -9,5 +9,10 @@
         }
       }
     }
+  },
+  "data": {
+    "taxonomy": {
+      "id_list": "__ID_COMPONENT_TAXONOMY"
+    }
   }
 }

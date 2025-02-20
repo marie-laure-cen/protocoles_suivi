@@ -31,23 +31,8 @@
       "type_widget": "number",
       "attribut_label": "Effectif total",
       "min": 0,
-      "value": 1,
       "required": true,
       "definition": "Effectif total"
-    },
-    "nb_male": {
-      "type_widget": "number",
-      "attribut_label": "Effectif de mâle(s)",
-      "min": 1,
-      "required": false,
-      "definition": "Nombre de mâle dans l'effectif total"
-    },
-    "nb_femelle": {
-      "type_widget": "number",
-      "attribut_label": "Effectif de femelle(s)",
-      "min": 1,
-      "required": false,
-      "definition": "Nombre de femelle dans l'effectif total"
     },
     "id_nomenclature_obs_technique": {
       "type_widget": "datalist",

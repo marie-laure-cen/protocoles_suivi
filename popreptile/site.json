@@ -27,7 +27,6 @@
     "nb_visits"
   ],
   "specific": {
-    
     "id_sites_group": {
       "type_widget": "datalist",
       "attribut_label": "Aire",
@@ -59,7 +58,7 @@
     },
     "base_site_code": {
       "type_widget": "text",
-      "attribut_label": "Numéro plaque",
+      "attribut_label": "Code du transect",
       "required": false,
       "hidden": true
     },

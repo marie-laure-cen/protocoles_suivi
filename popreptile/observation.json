@@ -8,7 +8,7 @@
   "cd_nom",
   "stade_vie",
   "abondance",
-  "type_denombrement",
+  "id_nomenclature_type_count",
   "nombre_compte",
   "nombre_estime_min",
   "nombre_estime_max",
@@ -52,14 +52,19 @@
     "abondance": {
       "type_widget": "checkbox",
       "attribut_label": "Abondance",
-      "values": ["Nombre d'individus observés à vue", "Nombre d'individus observés sur/sous plaques"],
+      "values": [
+        "Nombre d'individus observés à vue",
+        "Nombre d'individus observés sur/sous plaques"
+      ],
       "hidden":"({value}) => value.presence === 'Non'"
     },
-    "type_denombrement": {
-      "type_widget": "radio",
+    "id_nomenclature_type_count": {
       "attribut_label": "Précision du dénombrement",
-      "values": ["Compté", "Estimé"],
-      "hidden":"({value}) => value.presence === 'Non'"
+      "type_util": "nomenclature",
+      "code_nomenclature_type": "TYP_DENBR",
+      "cd_nomenclature":["Co","Es"],
+      "required":"({value}) => value.presence != 'Non'",
+      "hidden": "({value}) => value.presence === 'Non'"
     },
     "nombre_compte": {
       "type_widget": "number",
@@ -67,19 +72,20 @@
       "required": false,
       "min": 0,
       "max": 100,
-      "hidden": "({value}) => value.type_denombrement != 'Compté'"
+      "hidden": "({value}) => value.type_denombrement != 89"
     },
     "nombre_estime_min": {
       "type_widget": "number",
       "attribut_label": "Nombre minimal (estimé)",
+      "min": 0,
 	    "required": false,
-      "hidden": "({value}) => value.type_denombrement != 'Estimé'"
+      "hidden": "({value}) => value.type_denombrement != 90"
     },
     "nombre_estime_max": {
       "type_widget": "number",
       "attribut_label": "Nombre maximal (estimé)",
       "required": false,
-      "hidden": "({value}) => value.type_denombrement != 'Estimé'"
+      "hidden": "({value}) => value.type_denombrement != 90"
     },
     "comments": {
       "type_widget": "textarea",

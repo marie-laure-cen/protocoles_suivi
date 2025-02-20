@@ -5,6 +5,7 @@
   "display_properties": [
     "sites_group_code",
     "sites_group_name",
+    "site_cen",
     "departement",
     "commune",
     "habitat_principal",
@@ -18,7 +19,7 @@
   "display_list": [
     "departement",
     "commune",
-    "sites_group_name",
+    "site_cen",
     "nb_sites"
   ],
   "keep":[
@@ -37,7 +38,13 @@
       "definition": "Code de l'aire dans le programme Sentinelle du climat",
       "link_definition":"https://lashf.org/popreptile/"
     },
-    "sites_group_name":{
+    "sites_group_name": {
+      "type_widget": "text",
+      "attribut_label": "Nom de l'aire",
+      "required": true,
+      "definition": "Nom du groupe site." 
+    },
+    "site_cen":{
       "type_widget": "datalist",
       "attribut_label": "Nom du site CENN",
       "required": true,
