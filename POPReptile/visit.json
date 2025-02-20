@@ -52,17 +52,24 @@
       "attribut_label": "Heure de fin",
       "required": true
     },
-    "meteo": {
-      "type_widget": "select",
-      "required": false,
+    "meteo": { 
+      "type_widget": "nomenclature",
+      "type_util": "nomenclature",
       "attribut_label": "Météo",
-      "values": ["Ensoleillé", "Belles éclaircies", "Nuageux prédominant", "Très nuageux", "Orageux", "Pluvieux", "Ciel voilé"]
+      "code_nomenclature_type": "METEO",
+      "required": true
     },  
     "vent": {
-      "type_widget": "select",
-      "required": false,
+      "type_widget": "nomenclature",
+      "type_util": "nomenclature",
       "attribut_label": "Vent",
-      "values": ["Absence de vent", "Vent faible", "Vent fort"]
+      "code_nomenclature_type": "SUIVI_VT",
+      "cd_nomenclatures": [
+        "VT01b",
+        "VT02b",
+        "VT04"
+      ],
+      "required": true
     },
     "comments": {
       "type_widget": "textarea",
