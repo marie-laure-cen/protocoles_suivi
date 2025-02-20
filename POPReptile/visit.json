@@ -56,7 +56,7 @@
       "type_widget": "nomenclature",
       "type_util": "nomenclature",
       "attribut_label": "Météo",
-      "code_nomenclature_type": "METEO",
+      "code_nomenclature_type": "SUIVI_METEO",
       "required": true
     },  
     "vent": {
