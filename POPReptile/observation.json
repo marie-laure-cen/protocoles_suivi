@@ -55,11 +55,13 @@
       "values": ["Nombre d'individus observés à vue", "Nombre d'individus observés sur/sous plaques"],
       "hidden":"({value}) => value.presence === 'Non'"
     },
-    "type_denombrement": {
-      "type_widget": "radio",
+    "id_nomenclature_type_count": {
       "attribut_label": "Précision du dénombrement",
-      "values": ["Compté", "Estimé"],
-      "hidden":"({value}) => value.presence === 'Non'"
+      "type_util": "nomenclature",
+      "code_nomenclature_type": "TYP_DENBR",
+      "cd_nomenclature":["Co","Es"],
+      "required":"({value}) => value.presence != 'Non'",
+      "hidden": "({value}) => value.presence === 'Non'"
     },
     "nombre_compte": {
       "type_widget": "number",
