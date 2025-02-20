@@ -75,7 +75,7 @@
       "type_widget": "number",
       "attribut_label": "Nombre minimal (estimé)",
 	    "required": false,
-      "hidden": "({value}) => value.type_denombrement != 'Estimé'"
+      "hidden": "({value}) => value.type_denombrement != 90"
     },
     "nombre_estime_max": {
       "type_widget": "number",
