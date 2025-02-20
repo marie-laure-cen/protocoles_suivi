@@ -37,11 +37,7 @@ AS WITH source AS (
     END AS id_nomenclature_life_stage,
     ref_nomenclatures.get_id_nomenclature('SEXE'::character varying, '6'::character varying) AS id_nomenclature_sex,
     ref_nomenclatures.get_id_nomenclature('OBJ_DENBR'::character varying, 'IND'::character varying) AS id_nomenclature_obj_count,
-    CASE
-        WHEN json_extract_path(oc.data::json,'type_denombrement')::text = 'Compté' THEN ref_nomenclatures.get_id_nomenclature('TYP_DENBR'::character varying, 'Co'::character varying)
-        WHEN json_extract_path(oc.data::json,'type_denombrement')::text = 'Estimé' THEN ref_nomenclatures.get_id_nomenclature('TYP_DENBR'::character varying, 'Es'::character varying)
-        ELSE ref_nomenclatures.get_id_nomenclature('TYP_DENBR'::character varying, 'NSP'::character varying)
-    END AS id_nomenclature_type_count,
+    json_extract_path(oc.data::json,'id_nomenclature_type_count')::text AS id_nomenclature_type_count,
     CASE 
          WHEN json_extract_path(oc.data::json,'presence')::text = 'Oui' THEN ref_nomenclatures.get_id_nomenclature('STATUT_OBS'::character varying, 'Pr'::character varying) 
          ELSE ref_nomenclatures.get_id_nomenclature('STATUT_OBS'::character varying, 'No'::character varying)
