@@ -8,7 +8,7 @@
   "cd_nom",
   "stade_vie",
   "abondance",
-  "type_denombrement",
+  "id_nomenclature_type_count",
   "nombre_compte",
   "nombre_estime_min",
   "nombre_estime_max",
