@@ -35,8 +35,8 @@ INSERT INTO  gn_monitoring.t_base_visits
 )
 SELECT
 	sterf_transect.id_base_site,
-	1342 as id_dataset, -- jdd STELI
-	32 as id_module, -- module STELI
+	1342 as id_dataset, -- jdd STERF
+	32 as id_module, -- module STERF
 	visits.id_role as id_digitiser,
 	visits.visit_date_min,
 	visits.visit_date_min,
@@ -47,6 +47,57 @@ FROM visits
 LEFT JOIN sterf_transect on lower(sterf_transect.base_site_name) = lower(visits.transect)
 ORDER BY extract(year from visit_date_min ), id_base_site, visit_date_min
 ;
+/*
+WITH 
+sterf_transect as (
+	SELECT
+		*
+	FROM gn_monitoring.t_base_sites tbs
+	LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
+	WHERE id_module = 32
+),
+visits as (
+	SELECT
+		s.transect,
+		r.id_role,
+		s.visit_date_min,
+		s.transect || '_' || s.num_passage as comments
+	FROM gn_imports.sterf_import s
+	LEFT JOIN utilisateurs.t_roles r ON lower(s.determiner) = lower(r.nom_role || ' ' || r.prenom_role)
+	WHERE id_base_visit IS NULL
+	GROUP BY 	 
+		s.transect,
+		r.id_role,
+		s.num_passage,
+		s.visit_date_min
+)
+INSERT INTO  gn_monitoring.t_base_visits 
+(
+	id_base_site,
+	id_dataset,
+	id_module,
+	id_digitiser,
+	visit_date_min,
+	visit_date_max,
+	id_nomenclature_tech_collect_campanule,
+	id_nomenclature_grp_typ,
+	comments
+)
+SELECT
+	sterf_transect.id_base_site,
+	1342 as id_dataset, -- jdd STERF
+	32 as id_module, -- module STERF
+	visits.id_role as id_digitiser,
+	visits.visit_date_min,
+	visits.visit_date_min,
+	240 as id_nomenclature_tech_collect_campanule , -- Observation directe terrestre diurne (chasse à vue de jour)
+	132 as id_nomenclature_grp_typ , -- Passage
+	visits.comments
+FROM visits
+LEFT JOIN sterf_transect on lower(sterf_transect.base_site_name) = lower(visits.transect)
+ORDER BY extract(year from visit_date_min ), id_base_site, visit_date_min
+;
+*/
 
 UPDATE gn_imports.sterf_import s
 	SET id_base_visit = tbv.id_base_visit
@@ -55,6 +106,16 @@ WHERE tbv.comments = s.id_visit_sterf::text
 AND tbv.id_module = 32
 AND s.id_base_visit IS NULL
 ;
+
+/*
+UPDATE gn_imports.sterf_import s
+	SET id_base_visit = tbv.id_base_visit
+FROM  gn_monitoring.t_base_visits tbv
+WHERE tbv.comments = s.transect || '_' || s.num_passage
+AND tbv.id_module = 32
+AND tbv.visit_date_min = s.visit_date_min
+AND s.id_base_visit IS NULL
+*/
 
 WITH
 	nomen_cn as (
@@ -145,6 +206,98 @@ FROM visits v
 ORDER BY v.id_base_visit
 ;
 
+/*
+
+WITH
+	nomen_cn as (
+		SELECT
+			id_nomenclature as id_nomenclature_cn,
+			mnemonique as cn
+		FROM ref_nomenclatures.t_nomenclatures WHERE id_type = 173
+	),
+	nomen_tp as (
+		SELECT
+			id_nomenclature as id_nomenclature_tp,
+			mnemonique as tp
+		FROM ref_nomenclatures.t_nomenclatures WHERE id_type = 172
+	),
+	nomen_vt as (
+		SELECT
+			id_nomenclature as id_nomenclature_vt,
+			mnemonique as vt
+		FROM ref_nomenclatures.t_nomenclatures WHERE id_type = 183
+	), observers as (
+		SELECT
+			r.id_role,
+			s.id_visit_sterf
+		FROM gn_imports.sterf_import s
+		LEFT JOIN utilisateurs.t_roles r ON lower(s.determiner) =  lower(r.nom_role || ' ' || r.prenom_role)
+		WHERE s.annee = 2024
+		GROUP BY s.id_visit_sterf, r.id_role
+	),
+	visits as (
+	SELECT
+		s.transect,
+		s.id_base_visit,
+		s.id_visit_sterf,
+		s.determiner,
+		1342 as id_dataset,
+		32 as id_module,
+		s.visit_date_min,
+		240 as id_nomenclature_tech_collect_campanule,
+		132 as id_nomenclature_grp_typ,
+		visit_comment,
+		jsonb_build_object(
+			'annee', 2024,
+			--'id_horaire_meteo', s.id_visit_sterf,
+			--'id_unique_mysql', s.transect || '_' || s.annee || '_' || s.num_passage,
+			'num_passage', s.num_passage,
+			'id_nomenclature_cn', nomen_cn.id_nomenclature_cn,
+			'id_nomenclature_tp', nomen_tp.id_nomenclature_tp,
+			'id_nomenclature_vt', nomen_vt.id_nomenclature_vt,
+			'source', 'Excel',
+			'heure_debut', STRING_AGG(DISTINCT s.heure_min, ', '),
+			'hab_1', STRING_AGG(DISTINCT s.hab_1, ', '),
+			'hab_2',  STRING_AGG(DISTINCT s.hab_2, ', '),
+			'occ_sol', STRING_AGG(DISTINCT s.os_1, ', '),
+			'occ_sol_detail',  STRING_AGG(DISTINCT s.os_2, ', ')
+		) as data
+	FROM gn_imports.sterf_import s
+		LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
+		LEFT JOIN nomen_cn USING (cn)
+		LEFT JOIN nomen_tp USING (tp)
+		LEFT JOIN nomen_vt USING (vt)
+		WHERE tvc.id_base_visit IS NULL --AND s.annee = 2024
+	GROUP BY 	 
+		s.transect, 
+		s.id_transect_sterf,
+		s.id_base_visit,
+		s.num_passage,
+		s.determiner,
+		s.id_visit_sterf,
+		s.annee,
+		s.visit_date_min,
+		s.visit_comment,
+		nomen_cn.id_nomenclature_cn,
+		nomen_tp.id_nomenclature_tp,
+		nomen_vt.id_nomenclature_vt
+	ORDER BY 
+		s.transect, 
+		s.num_passage,
+		s.visit_date_min
+)
+INSERT INTO gn_monitoring.t_visit_complements (
+	id_base_visit,
+	data
+)
+SELECT
+	v.id_base_visit,
+	v.data
+FROM visits v
+ORDER BY v.id_base_visit
+;
+*/
+
 WITH observers as (
 	SELECT
 		i.id_base_visit,
@@ -166,6 +319,13 @@ GROUP BY id_base_visit, id_role
 ON CONFLICT DO NOTHING
 ;
 
+/*
+UPDATE gn_imports.sterf_import s
+	SET cd_nom = tx.cd_nom
+FROM taxonomie.taxref tx 
+WHERE  s.cd_nom is NULL AND regexp_replace(s.nom_complet, ' sp', '') = tx.lb_nom
+*/
+
 INSERT INTO gn_monitoring.t_observations (
 	id_base_visit,
 	cd_nom,
@@ -178,8 +338,25 @@ SELECT
 FROM gn_imports.sterf_import s
 WHERE  s.id_observation IS NULL
 AND NOT id_base_visit IS NULL
+AND NOT cd_nom IS NULL
 --AND s.annee = 2024
 ;
+
+/*
+INSERT INTO gn_monitoring.t_observations (
+	id_base_visit,
+	cd_nom,
+	comments
+)
+SELECT 
+	s.id_base_visit,
+	s.cd_nom,
+	s.fid::text
+FROM gn_imports.sterf_import s
+WHERE  s.id_observation IS NULL
+AND NOT id_base_visit IS NULL
+AND NOT cd_nom IS NULL
+*/
 
 UPDATE gn_imports.sterf_import i
 	SET id_observation = o.id_observation
@@ -188,6 +365,16 @@ LEFT JOIN gn_monitoring.t_base_visits v USING (id_base_visit)
 WHERE v.id_module = 32 AND i.id_obs_sterf::text = o.comments
 AND i.id_observation IS NULL 
 ;
+
+/*
+UPDATE gn_imports.sterf_import i
+	SET id_observation = o.id_observation
+FROM gn_monitoring.t_observations o
+LEFT JOIN gn_monitoring.t_base_visits v USING (id_base_visit)
+WHERE v.id_module = 32 AND i.fid::text = o.comments
+AND i.id_observation IS NULL 
+;
+*/
 
 WITH obs as (
 	SELECT
@@ -208,7 +395,7 @@ SELECT
 			'effectif', i.effectif,
 			'nb_male', i.nb_male,
 			'nb_femelle', i.nb_femelle,
-			'determiner', i.determiner,
+			--'determiner', i.determiner,
 			'id_obs_mysql', i.id_obs_sterf,
 			'id_nomenclature_obs_technique', 37,
 			'id_nomenclature_determination_method', 453,
@@ -219,6 +406,7 @@ SELECT
 FROM gn_imports.sterf_import i
 LEFT JOIN obs USING (id_observation)
 WHERE obs.id_observation IS NULL
+AND NOT i.id_observation IS NULL
 ORDER BY i.id_observation
 ;
 

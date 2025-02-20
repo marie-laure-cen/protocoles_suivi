@@ -2,7 +2,7 @@
   "genre":"M",
   "label": "Site suivi",
   "label_list": "Site suivi",
-  "map_label_field_name": "sites_group_description",
+  "map_label_field_name": "base_site_name",
   "b_draw_sites_group": false,
   "sorts": [
     {"prop": "commune"}
@@ -59,21 +59,14 @@
       "keyLabel": "nom_complet",
       "type_util": "user",
       "multiple": false,
-      "required": false,
-      "definition": "Si déterminateur différent de l'observateur"
+      "required": false
     },
     "id_dataset": {
-      "type_widget": "datalist",
-      "attribut_label": "Jeu de données",
-      "api": "meta/datasets",
-      "application": "GeoNature",
-      "keyValue": "id_dataset",
-      "keyLabel": "dataset_name",
+      "type_widget": "dataset",
       "type_util": "dataset",
+      "attribut_label": "Jeu de données",
       "required": true,
-      "default": {
-        "id_dataset": 1342
-      }
+      "value": 1342
     },
     "sites_group_name":{
       "attribut_label": "Code",

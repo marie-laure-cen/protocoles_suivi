@@ -5,12 +5,7 @@
     "effectif",
     "nb_male",
     "nb_femelle",
-    "determiner",
-    "comments",
-    "id_nomenclature_obs_technique",
-    "id_nomenclature_determination_method",
-    "id_nomenclature_type_count",
-    "id_nomenclature_obj_count"
+    "comments"
   ],
   "display_list": [
     "cd_nom",
@@ -20,29 +15,14 @@
     "id_nomenclature_obs_technique",
     "id_nomenclature_determination_method",
     "id_nomenclature_type_count",
-    "id_nomenclature_obj_count",
-    "determiner"
+    "id_nomenclature_obj_count"
   ],
   "specific": {
-    "determiner":{
-      "type_widget": "datalist",
-      "attribut_label": "Déterminateur",
-      "api": "users/menu/__MODULE.ID_LIST_OBSERVER",
-      "application": "GeoNature",
-      "keyValue": "id_role",
-      "keyLabel": "nom_complet",
-      "type_util": "user",
-      "multiple": false,
-      "required": false,
-      "definition": "Si déterminateur différent de l'observateur"
-    },
     "cd_nom": {
-      "type_widget": "datalist",
-      "attribut_label": "Taxon",
-      "keyValue": "cd_nom",
-      "keyLabel": "__MODULE.TAXONOMY_DISPLAY_FIELD_NAME",
+      "type_widget": "taxonomy",
+      "attribut_label": "Espèce observée",
       "multiple": false,
-      "api": "taxref/allnamebylist/__MODULE.ID_LIST_TAXONOMY",
+      "id_list": "__MODULE.ID_LIST_TAXONOMY",
       "application": "TaxHub",
       "required": true,
       "type_util": "taxonomy"
@@ -51,7 +31,7 @@
       "type_widget": "number",
       "attribut_label": "Effectif total",
       "min": 0,
-      "value": 0,
+      "value": 1,
       "required": true,
       "definition": "Effectif total"
     },

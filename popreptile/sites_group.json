@@ -1,43 +1,45 @@
 {
   "genre":"F",
-  "label": "Aire",
-  "export_pdf": [
-    {
-      "template": "fiche_aire.html",
-      "label": "Export PDF"
-    }
-  ],
-  "label_list": "Aires",
+  "label": "aire",
+  "label_list": "aires",
   "display_properties": [
     "sites_group_code",
     "sites_group_name",
     "departement",
     "commune",
-    "sites_group_description",
-    "id_resp",
+    "habitat_principal",
+    "id_inventor",
+    "expertise",
     "annee_debut",
     "annee_fin",
-    "sentinelle_climat"
+    "sentinelle_climat",
+    "sites_group_description"
   ],
   "display_list": [
+    "departement",
     "commune",
     "sites_group_name",
-    "sites_group_code",
     "nb_sites"
   ],
   "keep":[
+    "departement",
+    "habitat_principal",
+    "id_inventor",
+    "expertise",
+    "annee_debut",
     "sentinelle_climat"
   ],
   "specific": {
     "sites_group_code": {
       "attribut_label": "Code de l'aire",
-      "definition": "Code de l'aire dans le programme Sentinelle du climat",
       "hidden": false,
-      "required": false
+      "required": false,
+      "definition": "Code de l'aire dans le programme Sentinelle du climat",
+      "link_definition":"https://lashf.org/popreptile/"
     },
     "sites_group_name":{
       "type_widget": "datalist",
-      "attribut_label": "Nom du site",
+      "attribut_label": "Nom du site CENN",
       "required": true,
       "keyValue": "area_name",
       "keyLabel": "area_name",
@@ -45,15 +47,39 @@
       "data_path": "data",
       "application": "GeoNature"
     },
-    "sites_group_description":{
-      "attribut_label": "Commentaire site",
-      "hidden": false
-    },
     "departement":{
       "attribut_label": "Numéro de département",
       "type_widget": "select",
       "required": true,
+      "value":14,
       "values": [14,27,50,61,76]
+    },
+    "commune":{
+      "type_widget": "text",
+      "attribut_label": "Commune"
+    },
+    "habitat_principal": {
+      "type_widget": "nomenclature",
+      "type_util": "nomenclature",
+      "attribut_label": "Habitat principal",
+      "code_nomenclature_type": "PR_HAB",
+      "hidden": false,
+      "required": true
+    },
+    "id_inventor":{
+      "attribut_label": "Responsable du suivi"
+    },
+    "expertise": {
+      "type_widget": "nomenclature",
+      "type_util": "nomenclature",
+      "attribut_label": "Expertise",
+      "code_nomenclature_type": "SUIVI_XP",
+      "hidden": false,
+      "required": true,
+      "value": {
+        "code_nomenclature_type": "SUIVI_XP",
+        "cd_nomenclature": "XP03"
+      }
     },
     "annee_debut": {
       "type_widget": "number",
@@ -76,23 +102,12 @@
       "value": "Oui",
       "hidden":false
     },
-    "id_resp": {
-      "type_widget": "datalist",
-      "attribut_label": "Responsable du suivi",
-      "api": "users/menu/__MODULE.ID_LIST_OBSERVER",
-      "application": "GeoNature",
-      "keyValue": "id_role",
-      "keyLabel": "nom_complet",
-      "type_util": "user",
-      "multiple": false,
-      "required": true
-    },
-    "commune":{
-      "type_widget": "text",
-      "attribut_label": "Commune"
+    "sites_group_description":{
+      "attribut_label": "Commentaire site",
+      "hidden": false
     },
     "nb_sites": {
-      "attribut_label": "Nb. transects",
+      "attribut_label": "Nb. plaques",
       "hidden": false
     },
     "nb_visits": {

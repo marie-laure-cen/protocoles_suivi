@@ -1,7 +1,7 @@
 {
   "genre":"M",
-  "label": "Passage",
-  "label_list": "Passages",
+  "label": "passage",
+  "label_list": "passages",
   "display_properties": [
     "observers",
     "id_dataset",
@@ -56,13 +56,27 @@
       "type_widget": "select",
       "required": false,
       "attribut_label": "Météo",
-      "values": ["Ensoleillé", "Belles éclaircies", "Nuageux prédominant", "Très nuageux", "Orageux", "Pluvieux", "Ciel voilé"]
+      "values": [
+        "", 
+        "Belles éclaircies", 
+        "Nuageux prédominant", 
+        "Très nuageux", 
+        "Orageux", 
+        "Pluvieux", 
+        "Ciel voilé"
+      ]
     },  
     "vent": {
-      "type_widget": "select",
-      "required": false,
+      "type_widget": "nomenclature",
+      "type_util": "nomenclature",
       "attribut_label": "Vent",
-      "values": ["Absence de vent", "Vent faible", "Vent fort"]
+      "code_nomenclature_type": "SUIVI_VT",
+      "cd_nomenclatures": [
+        "VT01b",
+        "VT02b",
+        "VT04"
+      ],
+      "required": true
     },
     "comments": {
       "type_widget": "textarea",

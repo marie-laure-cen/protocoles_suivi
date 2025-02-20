@@ -1,10 +1,11 @@
 {
+  "description_field_name": "num_passage",
   "genre":"M",
   "label": "Passage",
   "label_list": "Passages",
   "display_properties": [
-    "observers",
     "num_passage",
+    "observers",
     "annee",
     "visit_date_min",
     "visit_date_max",
@@ -19,8 +20,7 @@
     "id_nomenclature_cn",
     "id_nomenclature_vt",
     "gestion",
-    "comments",
-    "source"
+    "comments"
   ],
   "display_list": [
     "num_passage",
@@ -115,7 +115,12 @@
       "type_widget": "select",
       "required": true,
       "attribut_label": "Source de la donnée",
-      "values": ["Intranet SER", "GeoNature", "Qfield/Qgis"],
+      "values": [        
+        "Intranet SER", 
+        "Excel", 
+        "GeoNature", 
+        "Qfield/Qgis"
+      ],
       "value": "GeoNature",
       "hidden":false
     },

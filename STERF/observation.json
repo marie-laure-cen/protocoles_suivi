@@ -6,12 +6,7 @@
     "effectif",
     "nb_male",
     "nb_femelle",
-    "determiner",
-    "comments",
-    "id_nomenclature_obs_technique",
-    "id_nomenclature_determination_method",
-    "id_nomenclature_type_count",
-    "id_nomenclature_obj_count"
+    "comments"
   ],
   "display_list": [
     "cd_nom",
@@ -22,22 +17,9 @@
     "id_nomenclature_obs_technique",
     "id_nomenclature_determination_method",
     "id_nomenclature_type_count",
-    "id_nomenclature_obj_count",
-    "determiner"
+    "id_nomenclature_obj_count"
   ],
   "specific": {
-    "determiner":{
-      "type_widget": "datalist",
-      "attribut_label": "Déterminateur",
-      "api": "users/menu/__MODULE.ID_LIST_OBSERVER",
-      "application": "GeoNature",
-      "keyValue": "id_role",
-      "keyLabel": "nom_complet",
-      "type_util": "user",
-      "multiple": false,
-      "required": false,
-      "definition": "Si déterminateur différent de l'observateur"
-    },
     "cd_nom": {
       "type_widget": "taxonomy",
       "attribut_label": "Espèce observée",
@@ -50,23 +32,21 @@
     "effectif": {
       "type_widget": "number",
       "attribut_label": "Effectif total",
-      "min": 1,
-      "required": true,
-      "definition": "Effectif total"
+      "min": 0,
+      "value": 1,
+      "required": true
     },
     "nb_male": {
       "type_widget": "number",
       "attribut_label": "Effectif de mâle(s)",
       "min": 1,
-      "required": false,
-      "definition": "Nombre de mâle dans l'effectif total"
+      "required": false
     },
     "nb_femelle": {
       "type_widget": "number",
       "attribut_label": "Effectif de femelle(s)",
       "min": 1,
-      "required": false,
-      "definition": "Nombre de femelle dans l'effectif total"
+      "required": false
     },
     "id_nomenclature_obs_technique": {
       "type_widget": "datalist",
@@ -74,10 +54,11 @@
       "api": "nomenclatures/nomenclature/METH_OBS",
       "application": "GeoNature",
       "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
+      "keyLabel": "mnemonique",
       "data_path": "values",
       "type_util": "nomenclature",
       "required": true,
+      "hidden": true,
       "default": {
         "cd_nomenclature": "0"
       }
@@ -88,10 +69,11 @@
       "api": "nomenclatures/nomenclature/METH_DETERMIN",
       "application": "GeoNature",
       "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
+      "keyLabel": "mnemonique",
       "data_path": "values",
       "type_util": "nomenclature",
       "required": true,
+      "hidden": true,
       "default": {
         "cd_nomenclature": "18"
       }
@@ -102,10 +84,11 @@
       "api": "nomenclatures/nomenclature/TYP_DENBR",
       "application": "GeoNature",
       "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
+      "keyLabel": "mnemonique",
       "data_path": "values",
       "type_util": "nomenclature",
       "required": true,
+      "hidden": true,
       "default": {
         "cd_nomenclature": "Co"
       }
@@ -116,10 +99,11 @@
       "api": "nomenclatures/nomenclature/OBJ_DENBR",
       "application": "GeoNature",
       "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
+      "keyLabel": "mnemonique",
       "data_path": "values",
       "type_util": "nomenclature",
       "required": true,
+      "hidden": true,
       "default": {
         "cd_nomenclature": "IND"
       }

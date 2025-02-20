@@ -42,6 +42,7 @@ WITH
 			s.altitude_min,
 			s.altitude_max,
 			tsg.data,
+			tsc.id_sites_group,
 			s.geom AS the_geom_4326,
 			ST_CENTROID(s.geom) AS the_geom_point,
 			s.geom_local as geom_local
@@ -87,27 +88,16 @@ WITH
 			WHEN s.id_dataset IS NULL THEN 1342 
 			ELSE s.id_dataset
 		END as id_dataset, -- v.id_dataset
-		ref_nomenclatures.get_id_nomenclature('NAT_OBJ_GEO', 'St') AS id_nomenclature_geo_object_nature,
-		v.id_nomenclature_grp_typ, -- TYP_GRP
-		v.id_nomenclature_tech_collect_campanule,  --TECHNIQUE_OBS
-		(toc.data ->> 'id_nomenclature_obs_technique')::integer AS id_nomenclature_obs_technique, -- METH_OBS
-		--id_nomenclature_bio_status, -- STATUT_BIO
-		--id_nomenclature_bio_condition, -- ETA_BIO
-		--id_nomenclature_naturalness, -- NATURALITE
-		--id_nomenclature_exist_proof, -- PREUVE_EXIST
-		--id_nomenclature_valid_status,  --STATUT_VALID
-		--id_nomenclature_diffusion_level, -- NIV_PRECIS
-		--id_nomenclature_life_stage, -- STADE_VIE
-		--id_nomenclature_sex, -- SEXE
-		(toc.data ->> 'id_nomenclature_obj_count')::integer AS id_nomenclature_obj_count,
-		(toc.data ->> 'id_nomenclature_type_count')::integer AS id_nomenclature_type_count,
-		-- id_nomenclature_sensitivity, --SENSIBILITE
-		ref_nomenclatures.get_id_nomenclature('STATUT_OBS', 'Pr') AS id_nomenclature_observation_status, 
-		-- id_nomenclature_blurring, -- DEE_FLOU
-		-- id_nomenclature_behaviour, -- OCC_COMPORTEMENT
-		ref_nomenclatures.get_id_nomenclature('STATUT_SOURCE', 'Te') AS id_nomenclature_source_status,
-		ref_nomenclatures.get_id_nomenclature('TYP_INF_GEO', '1') AS id_nomenclature_info_geo_type,
-		(toc.data ->> 'effectif'):: integer AS count_min,
+		ref_nomenclatures.get_id_nomenclature('NAT_OBJ_GEO'::character varying, 'St'::character varying) AS id_nomenclature_geo_object_nature,
+    	ref_nomenclatures.get_id_nomenclature('TYP_GRP'::character varying, 'PASS'::character varying) AS id_nomenclature_grp_typ,
+    	ref_nomenclatures.get_id_nomenclature('TECHNIQUE_OBS'::character varying, '59'::character varying) AS id_nomenclature_tech_collect_campanule,
+    	ref_nomenclatures.get_id_nomenclature('METH_OBS'::character varying, '0'::character varying) AS id_nomenclature_obs_technique,
+    	ref_nomenclatures.get_id_nomenclature('OBJ_DENBR'::character varying, 'IND'::character varying) AS id_nomenclature_obj_count,
+    	ref_nomenclatures.get_id_nomenclature('TYP_DENBR'::character varying, 'Co'::character varying) AS id_nomenclature_type_count,
+   	 	ref_nomenclatures.get_id_nomenclature('STATUT_OBS'::character varying, 'Pr'::character varying) AS id_nomenclature_observation_status,
+   	 	ref_nomenclatures.get_id_nomenclature('STATUT_SOURCE'::character varying, 'Te'::character varying) AS id_nomenclature_source_status,
+    	ref_nomenclatures.get_id_nomenclature('TYP_INF_GEO'::character varying, '1'::character varying) AS id_nomenclature_info_geo_type,
+    	(toc.data ->> 'effectif'):: integer AS count_min,
 		(toc.data ->> 'effectif'):: integer AS count_max,
 		id_observation,
 		o.cd_nom,
@@ -126,7 +116,7 @@ WITH
 		--validator,
 		--validation_comment,
 		obs.observers,
-		(toc.data ->> 'determiner') as determiner,
+   		det.nom_role || ' ' || det.prenom_role AS determiner,
 		v.id_digitiser,
 		(toc.data ->> 'id_nomenclature_determination_method')::integer AS id_nomenclature_determination_method,
 		--meta_validation_date,
@@ -162,10 +152,12 @@ WITH
 		) as additional_data,
 		obs.ids_observers,
 		-- ## Colonnes complémentaires qui ont leur utilité dans la fonction synthese.import_row_from_table
+		s.id_sites_group,
 		v.id_base_site,
 		v.id_base_visit
 	FROM gn_monitoring.t_observations o
 	LEFT JOIN gn_monitoring.t_observation_complements toc USING (id_observation)
+	LEFT JOIN utilisateurs.t_roles det ON (toc.data ->> 'determiner')::integer = id_role
 	INNER JOIN visits v
 		ON v.id_base_visit = o.id_base_visit
 	INNER JOIN sites s 

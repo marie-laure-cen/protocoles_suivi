@@ -87,8 +87,8 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 			ELSE s.id_dataset
 		END AS id_dataset,
 		ref_nomenclatures.get_id_nomenclature('NAT_OBJ_GEO'::character varying, 'St'::character varying) AS id_nomenclature_geo_object_nature,
-		v.id_nomenclature_grp_typ,
-		v.id_nomenclature_tech_collect_campanule,
+    	ref_nomenclatures.get_id_nomenclature('TYP_GRP'::character varying, 'PASS'::character varying) AS id_nomenclature_grp_typ,
+    	ref_nomenclatures.get_id_nomenclature('TECHNIQUE_OBS'::character varying, '59'::character varying) AS id_nomenclature_tech_collect_campanule,
 		ref_nomenclatures.get_id_nomenclature('METH_OBS'::character varying, '0'::character varying) AS id_nomenclature_obs_technique,
 		ref_nomenclatures.get_id_nomenclature('OBJ_DENBR'::character varying, 'IND'::character varying) AS id_nomenclature_obj_count,
 		ref_nomenclatures.get_id_nomenclature('TYP_DENBR'::character varying, 'Co'::character varying) AS id_nomenclature_type_count,
@@ -109,7 +109,7 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 		v.date_min,
 		v.date_max,
 		obs.observers,
-		toc.data ->> 'determiner'::text AS determiner,
+   		obs.observers AS determiner,
 		v.id_digitiser,
 		(toc.data ->> 'id_nomenclature_determination_method'::text)::integer AS id_nomenclature_determination_method,
 		v.id_module,
@@ -144,7 +144,7 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 		v.id_base_visit
 	FROM gn_monitoring.t_observations o
 		LEFT JOIN gn_monitoring.t_observation_complements toc USING (id_observation)
-		JOIN visits v ON v.id_base_visit = o.id_base_visit
+		INNER JOIN visits v ON v.id_base_visit = o.id_base_visit
 		JOIN sites s ON s.id_base_site = v.id_base_site
 		JOIN taxonomie.taxref t ON t.cd_nom = o.cd_nom
 		JOIN source ON v.id_module = source.id_module

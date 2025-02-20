@@ -76,7 +76,9 @@
       "attribut_label": "Dernier hab. principal",
       "type_widget": "text",
       "required": true,
-      "hidden": false
+      "hidden": false,
+      "definition": "Habitat du protocole STERF",
+      "link_definition":"https://www.vigienature.fr/sites/vigienature/files/atoms/files/sterf_classification_habitats.pdf"
     },
     "lisiere":{
       "type_widget": "select",

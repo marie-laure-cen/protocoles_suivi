@@ -3,13 +3,14 @@
   "label": "Passage",
   "label_list": "Passages",
   "display_properties": [
+    "num_releve",
     "visit_date_min",
     "visit_date_max",
     "observers",
     "comments"
   ],
   "display_list": [
-    "id_dataset",
+    "num_releve",
     "visit_date_min",
     "visit_date_max",
     "nb_observations"
@@ -17,6 +18,10 @@
   "specific": {
     "id_dataset": {
       "hidden": true
+    },
+    "num_releve": {
+      "type_widget": "text",
+      "attribut_label": "Relevé"
     },
     "visit_date_min": {
       "attribut_label": "Date début de collecte",

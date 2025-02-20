@@ -9,10 +9,17 @@
   ],
   "display_properties": [
     "sites_group_name",
+    "commune",
     "site_group_description"
   ],
   "display_list": [
     "sites_group_name",
     "nb_sites"
-  ]
+  ],
+  "specific": {
+    "commune":{
+      "type_widget": "text",
+      "attribut_label": "Commune"
+    }
+  }
 }

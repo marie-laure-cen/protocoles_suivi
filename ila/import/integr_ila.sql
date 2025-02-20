@@ -1,26 +1,37 @@
 UPDATE gn_imports.ila_import i SET id_digitiser = r.id_role
-FROM utilisateurs.t_roles r WHERE lower(i.determiner) = lower(r.nom_role || ' ' || r.prenom_role)
+FROM utilisateurs.t_roles r 
+WHERE lower(i.determiner) = lower(r.nom_role || ' ' || r.prenom_role)
+AND id.id_digitiser is NULL
 ;
 
-WITH ila_transect as (
+WITH 
+	ila_transect as (
+		SELECT
+			*
+		FROM gn_monitoring.t_base_sites tbs
+		LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
+		WHERE id_module = 33
+	),
+	visits as (
 	SELECT
-		*
-	FROM gn_monitoring.t_base_sites tbs
-	LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
-	WHERE id_module = 33
-),visits as (
-SELECT
-	s.transect,
-	s.id_visit_ila,
-	s.id_digitiser,
-	s.visit_date_min
-FROM gn_imports.ila_import s
-GROUP BY 	 
-	s.transect,
-	s.id_digitiser,
-	s.id_visit_ila,
-	s.visit_date_min
-)
+		s.transect,
+		s.id_base_site,
+		s.id_visit_ila,
+		s.id_digitiser,
+		s.num_passage,
+		s.annee,
+		s.visit_date_min
+	FROM gn_imports.ila_import s
+	WHERE s.id_base_visit IS NULL
+	GROUP BY 	 
+		s.transect,
+		s.id_base_site,
+		s.id_digitiser,
+		s.id_visit_ila,
+		s.visit_date_min,
+		s.num_passage,
+		s.annee
+	)
 INSERT INTO  gn_monitoring.t_base_visits 
 (
 	id_base_site,
@@ -34,19 +45,20 @@ INSERT INTO  gn_monitoring.t_base_visits
 	comments
 )
 SELECT
-	ila_transect.id_base_site,
-	1343,
-	33 ,
+	COALESCE(visits.id_base_site, ila_transect.id_base_site) as id_base_site,
+	1343 as id_dataset,
+	33 as id_module,
 	visits.id_digitiser,
 	visits.visit_date_min,
 	visits.visit_date_min,
-	240 ,
-	132 ,
+	240 as id_nomenclature_tech_collect_campanule,
+	132 as id_nomenclature_grp_typ,
 	CASE WHEN visits.id_visit_ila > 0 THEN visits.id_visit_ila::text
 	ELSE visits.transect || '_' || visits.num_passage|| '_' || visits.annee::text
 	END 
 FROM visits
 LEFT JOIN ila_transect on ila_transect.base_site_name = visits.transect
+ORDER BY visits.visit_date_min
 ;
 
 UPDATE gn_imports.ila_import s
@@ -61,6 +73,7 @@ AND s.id_base_visit IS NULL
 ;
 
 SELECT id_base_visit FROM gn_imports.ila_import s
+WHERE s.id_observation is null
 GROUP BY s.id_base_visit
 ;
 
@@ -188,7 +201,6 @@ SELECT
 			'effectif', min(i.effectif),
 			'nb_male', min(i.nb_male),
 			'nb_femelle', min(i.nb_femelle),
-			'determiner', min(i.determiner),
 			'id_obs_mysql', CASE WHEN  i.id_obs_ila> 0 THEN i.id_obs_ila ELSE NULL END,
 			'id_nomenclature_obs_technique', 37,
 			'id_nomenclature_determination_method', 453,
@@ -197,6 +209,7 @@ SELECT
 		)
 	) as data
 FROM gn_imports.ila_import i
+INNER JOIN gn_monitoring.t_observations o USING (id_observation)
 LEFT JOIN gn_monitoring.t_observation_complements toc USING (id_observation)
 WHERE toc.id_observation IS NULL
 AND NOT i.id_observation is null

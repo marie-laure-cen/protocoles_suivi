@@ -5,7 +5,7 @@
   "map_label_field_name": "base_site_name",
   "b_draw_sites_group": false,
   "sorts": [
-    {"prop": "sites_group_name"}
+    {"prop": "commune"}
   ],
   "display_properties": [
     "sites_group_code",
@@ -16,8 +16,7 @@
     "commune",
     "annee_debut",
     "annee_fin",
-    "sentinelle_climat",
-    "sites_group_description"
+    "sentinelle_climat"
   ],
   "display_list": [
     "commune",
@@ -28,12 +27,6 @@
     "sites_group_code": {
       "attribut_label": "Code site",
       "hidden": false,
-      "required": true
-    },
-    "id_dataset": {
-      "type_widget": "dataset",
-      "attribut_label": "Jeu de données",
-      "type_util": "dataset",
       "required": true
     },
     "annee_debut": {
@@ -59,13 +52,20 @@
     },
     "id_resp": {
       "type_widget": "datalist",
-      "attribut_label": "Responsable du suivi ILA",
+      "attribut_label": "Responsable du suivi",
       "api": "users/menu/__MODULE.ID_LIST_OBSERVER",
       "application": "GeoNature",
       "keyValue": "id_role",
       "keyLabel": "nom_complet",
       "type_util": "user",
       "multiple": false,
+      "required": false
+    },
+    "id_dataset": {
+      "type_widget": "dataset",
+      "attribut_label": "Jeu de données",
+      "type_util": "dataset",
+      "value": 1343,
       "required": true
     },
     "sites_group_name":{

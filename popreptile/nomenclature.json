@@ -11,6 +11,11 @@
       "definition_default": "Classes des vents des protocoles ILA, STELI et STERF"
     },
     {
+      "mnemonique": "METEO",
+      "label_default": "Classes de températures du protocole ILA, STELI et STERF",
+      "definition_default": "Classes de températures du protocole ILA, STELI et STERF"
+    },
+    {
       "mnemonique": "SUIVI_TP",
       "label_default": "Classes de températures du protocole ILA, STELI et STERF",
       "definition_default": "Classes de températures du protocole ILA, STELI et STERF"
@@ -19,6 +24,46 @@
       "mnemonique": "SUIVI_CN",
       "label_default": "Classes de couvertures nuageuses du protocole ILA, STELI et STERF",
       "definition_default": "Classes de couvertures nuageuses du protocole ILA, STELI et STERF"
+    },
+    {
+      "mnemonique": "SUIVI_XP",
+      "label_default": "Expertise de l'observateur ",
+      "definition_default": "Classes de couvertures nuageuses du protocole ILA, STELI et STERF"
+    },
+    {
+      "mnemonique": "PR_HAB",
+      "label_default": "Classes de couvertures nuageuses du protocole ILA, STELI et STERF",
+      "definition_default": "Classes de couvertures nuageuses du protocole ILA, STELI et STERF"
+    },
+    {
+      "mnemonique": "PR_MICRO_HAB",
+      "label_default": "Micro-habitats favorables pour les reptiles",
+      "definition_default": "Micro-habitats favorables pour les reptiles (protocole de suivi POPReptile)"
+    },
+    {
+      "mnemonique": "MILIEUX_BORDIERS",
+      "label_default": "Milieux bordiers",
+      "definition_default": "Milieux bordiers (protocole de suivi POPReptile)"
+    },
+    {
+      "mnemonique": "MILIEUX_MOSAIQUE",
+      "label_default": "Milieux mosaïque végétale basse",
+      "definition_default": "Milieux mosaïque végétale basse (protocole de suivi POPReptile"
+    },
+    {
+      "mnemonique": "MILIEUX_HOMOGENE",
+      "label_default": "Milieux structuration végétale homogène",
+      "definition_default": "Milieux structuration végétale homogène (protocole de suivi POPReptile)"
+    },
+    {
+      "mnemonique": "MILIEUX_ANTHROPIQUE",
+      "label_default": "Milieux anthropiques",
+      "definition_default": "Milieux anthropiques (protocole de suivi POPReptile)"
+    },
+    {
+      "mnemonique": "PR_FH",
+      "label_default": "Fréquentation humaine",
+      "definition_default": "Fréquentation humaine (protocole de suivi POPReptile)"
     }
   ],
   "nomenclatures": [
@@ -28,6 +73,282 @@
       "mnemonique": "Site suivi par le protocole POPReptile",
       "label_default": "Site suivi par le protocole POPReptile",
       "definition_default": "Site suivi par le protocole POPReptile"
+    },{
+      "type": "SUIVI_XP",
+      "cd_nomenclature": "XP01",
+      "mnemonique": "Débutant",
+      "label_default": "Débutant",
+      "definition_default": "Débutant"
+    },{
+      "type": "SUIVI_XP",
+      "cd_nomenclature": "XP02",
+      "mnemonique": "Assez expérimenté",
+      "label_default": "Assez expérimenté",
+      "definition_default": "Assez expérimenté"
+    },{
+      "type": "SUIVI_XP",
+      "cd_nomenclature": "XP03",
+      "mnemonique": "Chevronné",
+      "label_default": "Chevronné",
+      "definition_default": "Chevronné"
+    },{
+      "type": "PR_HAB",
+      "cd_nomenclature": "PR_HAB01",
+      "mnemonique": "Forêt",
+      "label_default": "Forêt",
+      "definition_default": "Forêt"
+    },{
+      "type": "PR_HAB",
+      "cd_nomenclature": "PR_HAB02",
+      "mnemonique": "Buisson / haie",
+      "label_default": "Buisson / haie (< 5 m de hauteur)",
+      "definition_default": "Buisson / haie (< 5 m de hauteur)"
+    },{
+      "type": "PR_HAB",
+      "cd_nomenclature": "PR_HAB03",
+      "mnemonique": "Milieu agricole (prairie, élevage)",
+      "label_default": "Milieu agricole (prairie, élevage)",
+      "definition_default": "Milieu agricole (prairie, élevage)"
+    },{
+      "type": "PR_HAB",
+      "cd_nomenclature": "PR_HAB04",
+      "mnemonique": "Milieu agricole (culture, autre)",
+      "label_default": "Milieu agricole (culture, autre)",
+      "definition_default": "Milieu agricole (culture, autre)"
+    },{
+      "type": "PR_HAB",
+      "cd_nomenclature": "PR_HAB05",
+      "mnemonique": "Milieu ouvert non agricole",
+      "label_default": "Milieu ouvert non agricole (lande, steppe)",
+      "definition_default": "Milieu ouvert non agricole (lande, steppe)"
+    },{
+      "type": "PR_HAB",
+      "cd_nomenclature": "PR_HAB06",
+      "mnemonique": "Sol sans végétation",
+      "label_default": "Sol sans végétation (dune, sol rocheux)",
+      "definition_default": "Sol sans végétation (dune, sol rocheux)"
+    },{
+      "type": "PR_HAB",
+      "cd_nomenclature": "PR_HAB07",
+      "mnemonique": "Zone urbaine, espace vert",
+      "label_default": "Zone urbaine, espace vert",
+      "definition_default": "Zone urbaine, espace vert"
+    },{
+      "type": "PR_MICRO_HAB",
+      "cd_nomenclature": "AV_1",
+      "mnemonique": "Aucun",
+      "label_default": "Aucun microhabitat favorable",
+      "definition_default": "Aucun microhabitat favorable"
+    },{
+      "type": "PR_MICRO_HAB",
+      "cd_nomenclature": "AV_2",
+      "mnemonique": "Pierres",
+      "label_default": "Pierres",
+      "definition_default": "Microhabitat favorable de type pierres"
+    },{
+      "type": "PR_MICRO_HAB",
+      "cd_nomenclature": "AV_3",
+      "mnemonique": "Souches",
+      "label_default": "Souches",
+      "definition_default": "Microhabitat favorable de type souches"
+    },{
+      "type": "PR_MICRO_HAB",
+      "cd_nomenclature": "AV_4",
+      "mnemonique": "Tas de bois",
+      "label_default": "Tas de bois",
+      "definition_default": "Microhabitat favorable de type tas de bois"
+    },{
+      "type": "PR_FH",
+      "cd_nomenclature": "FH_4",
+      "mnemonique": "Absente/rare",
+      "label_default": "Absente ou rare",
+      "definition_default": "Absente ou rare"
+    },{
+      "type": "PR_FH",
+      "cd_nomenclature": "FH_3",
+      "mnemonique": "Ponctuelle",
+      "label_default": "Ponctuelle",
+      "definition_default": "Ponctuelle"
+    },{
+      "type": "PR_FH",
+      "cd_nomenclature": "FH_2",
+      "mnemonique": "Moyenne",
+      "label_default": "Moyenne",
+      "definition_default": "Moyenne"
+    },{
+      "type": "PR_FH",
+      "cd_nomenclature": "FH_1",
+      "mnemonique": "Importante",
+      "label_default": "Importante",
+      "definition_default": "Importante"
+    },{
+      "type": "MILIEUX_BORDIERS",
+      "cd_nomenclature": "MB_1",
+      "mnemonique": "Lisière_intra",
+      "label_default": "Lisière intra-forestière",
+      "definition_default": "Lisière intra-forestière"
+    },{
+      "type": "MILIEUX_BORDIERS",
+      "cd_nomenclature": "MB_2",
+      "mnemonique": "Lisière_périphérie",
+      "label_default": "Lisière périphérie forestière",
+      "definition_default": "Lisière périphérie forestière"
+    },{
+      "type": "MILIEUX_BORDIERS",
+      "cd_nomenclature": "MB_3",
+      "mnemonique": "Haie",
+      "label_default": "Haie bocagère",
+      "definition_default": "Haie bocagère"
+    },{
+      "type": "MILIEUX_BORDIERS",
+      "cd_nomenclature": "MB_4",
+      "mnemonique": "Muret",
+      "label_default": "Muret entre parcelle",
+      "definition_default": "Muret entre parcelle"
+    },{
+      "type": "MILIEUX_BORDIERS",
+      "cd_nomenclature": "MB_5",
+      "mnemonique": "Talus",
+      "label_default": "Talus entre parcelle",
+      "definition_default": "Talus entre parcelle"
+    },{
+      "type": "MILIEUX_BORDIERS",
+      "cd_nomenclature": "MB_6",
+      "mnemonique": "Bord_route",
+      "label_default": "Bord de chemin ou bord de route",
+      "definition_default": "Bord de chemin ou bord de route"
+    },{
+      "type": "MILIEUX_BORDIERS",
+      "cd_nomenclature": "MB_7",
+      "mnemonique": "Chemin_fer",
+      "label_default": "Voie de chemin de fer",
+      "definition_default": "Voie de chemin de fer"
+    },{
+      "type": "MILIEUX_BORDIERS",
+      "cd_nomenclature": "MB_8",
+      "mnemonique": "Bord_canal",
+      "label_default": "Bord de canal ou rivière",
+      "definition_default": "Bord de canal ou rivière"
+    },{
+      "type": "MILIEUX_BORDIERS",
+      "cd_nomenclature": "MB_9",
+      "mnemonique": "Marais",
+      "label_default": "Périphérie étang ou mare ou marais",
+      "definition_default": "Périphérie étang ou mare ou marais"
+    },{
+      "type": "MILIEUX_MOSAIQUE",
+      "cd_nomenclature": "MM_1",
+      "mnemonique": "ouvert",
+      "label_default": "Mosaïque ouverte",
+      "definition_default": ""
+    },{
+      "type": "MILIEUX_MOSAIQUE",
+      "cd_nomenclature": "MM_2",
+      "mnemonique": "intermédiaire",
+      "label_default": "Mosaïque intermédiaire",
+      "definition_default": "Mosaïque intermédiaire"
+    },{
+      "type": "MILIEUX_MOSAIQUE",
+      "cd_nomenclature": "MM_3",
+      "mnemonique": "fermé",
+      "label_default": "Mosaïque fermée",
+      "definition_default": "Mosaïque fermée"
+    },{
+      "type": "MILIEUX_HOMOGENE",
+      "cd_nomenclature": "MH_1",
+      "mnemonique": "Fermé arboré",
+      "label_default": "Milieu fermé arboré",
+      "definition_default": "Milieu fermé arboré (arbre de haut jet)"
+    },{
+      "type": "MILIEUX_HOMOGENE",
+      "cd_nomenclature": "MH_2",
+      "mnemonique": "Fermé non-arboré",
+      "label_default": "Milieu fermé non-arboré",
+      "definition_default": "Milieu fermé non-arboré (arbuste, arbrisseaux < 4m)"
+    },{
+      "type": "MILIEUX_HOMOGENE",
+      "cd_nomenclature": "MH_3",
+      "mnemonique": "Ouvert vég. haute",
+      "label_default": "Milieu ouvert à végétation haute",
+      "definition_default": "Milieu ouvert à végétation haute (1-2m, arbrisseaux-sous arbrisseaux)"
+    },{
+      "type": "MILIEUX_HOMOGENE",
+      "cd_nomenclature": "MH_4",
+      "mnemonique": "Ouvert vég. moyenne",
+      "label_default": "Milieu ouvert à végétation moyenne",
+      "definition_default": "Milieu ouvert à végétation moyenne (50cm-1m, arbrisseaux-sous arbrisseaux, herbacées"
+    },{
+      "type": "MILIEUX_HOMOGENE",
+      "cd_nomenclature": "MH_5",
+      "mnemonique": "Ouvert vég. basse",
+      "label_default": "Milieu ouvert à végétation basse",
+      "definition_default": "Milieu ouvert à végétation basse (herbacée < 50cm) ou absente"
+    },{
+      "type": "MILIEUX_ANTHROPIQUE",
+      "cd_nomenclature": "MA_1",
+      "mnemonique": "Habitation",
+      "label_default": "Habitation",
+      "definition_default": "Habitation"
+    },{
+      "type": "MILIEUX_ANTHROPIQUE",
+      "cd_nomenclature": "MA_2",
+      "mnemonique": "Ruines",
+      "label_default": "Ruines",
+      "definition_default": "Ruines"
+    },{
+      "type": "MILIEUX_ANTHROPIQUE",
+      "cd_nomenclature": "MA_3",
+      "mnemonique": "Bâti agricole",
+      "label_default": "Bâtiments agricoles",
+      "definition_default": "Bâtiments agricoles"
+    },{
+      "type": "MILIEUX_ANTHROPIQUE",
+      "cd_nomenclature": "MA_4",
+      "mnemonique": "ZI",
+      "label_default": "Zone industrielle",
+      "definition_default": "Zone industrielle"
+    },{
+      "type": "MILIEUX_ANTHROPIQUE",
+      "cd_nomenclature": "MA_5",
+      "mnemonique": "Stockage/déchets",
+      "label_default": "Zones de stockage/déchets",
+      "definition_default": "Zones de stockage/déchets"
+    },{
+      "type": "METEO",
+      "cd_nomenclature": "METEO_1",
+      "mnemonique": "",
+      "label_default": "",
+      "definition_default": ""
+    },{
+      "type": "METEO",
+      "cd_nomenclature": "METEO_2",
+      "mnemonique": "",
+      "label_default": "",
+      "definition_default": ""
+    },{
+      "type": "METEO",
+      "cd_nomenclature": "METEO_3",
+      "mnemonique": "",
+      "label_default": "",
+      "definition_default": ""
+    },{
+      "type": "METEO",
+      "cd_nomenclature": "METEO_4",
+      "mnemonique": "Ensoleillé",
+      "label_default": "Ensoleillé",
+      "definition_default": "Météo ensoleillée"
+    },{
+      "type": "METEO",
+      "cd_nomenclature": "METEO_5",
+      "mnemonique": "",
+      "label_default": "",
+      "definition_default": ""
+    },{
+      "type": "METEO",
+      "cd_nomenclature": "METEO_6",
+      "mnemonique": "",
+      "label_default": "",
+      "definition_default": ""
     },{
       "type": "SUIVI_TP",
       "cd_nomenclature": "SUIVI_TP01b",
@@ -100,28 +421,42 @@
       "cd_nomenclature": "VT01",
       "mnemonique": "Nul",
       "label_default": "Nul",
-      "definition_default": "Vent nul."
+      "definition_default": "Vent nul"
+    },
+    {
+      "type": "SUIVI_VT",
+      "cd_nomenclature": "VT01b",
+      "mnemonique": "Absent",
+      "label_default": "Absence de vent",
+      "definition_default": "Absence de vent"
     },
     {
       "type": "SUIVI_VT",
       "cd_nomenclature": "VT02",
       "mnemonique": "Léger",
       "label_default": "Léger",
-      "definition_default": "Vent léger."
+      "definition_default": "Vent léger ou faible"
+    },
+    {
+      "type": "SUIVI_VT",
+      "cd_nomenclature": "VT02b",
+      "mnemonique": "Faible",
+      "label_default": "Faible",
+      "definition_default": "Vent faible"
     },
     {
       "type": "SUIVI_VT",
       "cd_nomenclature": "VT03",
       "mnemonique": "Modéré",
       "label_default": "Modéré",
-      "definition_default": "Vent modéré."
+      "definition_default": "Vent modéré"
     },
     {
       "type": "SUIVI_VT",
       "cd_nomenclature": "VT04",
       "mnemonique": "Fort",
       "label_default": "Fort",
-      "definition_default": "Vent fort."
+      "definition_default": "Vent fort"
     }
   ]
 }
