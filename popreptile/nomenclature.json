@@ -11,7 +11,7 @@
       "definition_default": "Classes des vents des protocoles ILA, STELI et STERF"
     },
     {
-      "mnemonique": "METEO",
+      "mnemonique": "SUIVI_METEO",
       "label_default": "Classes de températures du protocole ILA, STELI et STERF",
       "definition_default": "Classes de températures du protocole ILA, STELI et STERF"
     },
@@ -314,41 +314,47 @@
       "label_default": "Zones de stockage/déchets",
       "definition_default": "Zones de stockage/déchets"
     },{
-      "type": "METEO",
+      "type": "SUIVI_METEO",
       "cd_nomenclature": "METEO_1",
-      "mnemonique": "",
-      "label_default": "",
-      "definition_default": ""
-    },{
-      "type": "METEO",
-      "cd_nomenclature": "METEO_2",
-      "mnemonique": "",
-      "label_default": "",
-      "definition_default": ""
-    },{
-      "type": "METEO",
-      "cd_nomenclature": "METEO_3",
-      "mnemonique": "",
-      "label_default": "",
-      "definition_default": ""
-    },{
-      "type": "METEO",
-      "cd_nomenclature": "METEO_4",
       "mnemonique": "Ensoleillé",
       "label_default": "Ensoleillé",
       "definition_default": "Météo ensoleillée"
     },{
-      "type": "METEO",
-      "cd_nomenclature": "METEO_5",
-      "mnemonique": "",
-      "label_default": "",
-      "definition_default": ""
+      "type": "SUIVI_METEO",
+      "cd_nomenclature": "METEO_2",
+      "mnemonique": "Belles éclaircies",
+      "label_default": "Belles éclaircies",
+      "definition_default": "Météo présentant de belles éclaircies"
     },{
-      "type": "METEO",
+      "type": "SUIVI_METEO",
+      "cd_nomenclature": "METEO_3",
+      "mnemonique": "Ciel voilé",
+      "label_default": "Ciel voilé",
+      "definition_default": "Météo avec un ciel voilé"
+    },{
+      "type": "SUIVI_METEO",
+      "cd_nomenclature": "METEO_4",
+      "mnemonique": "Nuageux prédominant",
+      "label_default": "Nuageux prédominant",
+      "definition_default": "Météo avec un ciel plutôt nuageux"
+    },{
+      "type": "SUIVI_METEO",
+      "cd_nomenclature": "METEO_5",
+      "mnemonique": "Très nuageux",
+      "label_default": "Très nuageux",
+      "definition_default": "Météo avec un ciel très nuageux"
+    },{
+      "type": "SUIVI_METEO",
       "cd_nomenclature": "METEO_6",
-      "mnemonique": "",
-      "label_default": "",
-      "definition_default": ""
+      "mnemonique": "Pluvieux",
+      "label_default": "Pluvieux",
+      "definition_default": "Météo pluvieuse"
+    },{
+      "type": "SUIVI_METEO",
+      "cd_nomenclature": "METEO_7",
+      "mnemonique": "Orageux",
+      "label_default": "Orageux",
+      "definition_default": "Météo orageuse"
     },{
       "type": "SUIVI_TP",
       "cd_nomenclature": "SUIVI_TP01b",

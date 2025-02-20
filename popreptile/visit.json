@@ -52,18 +52,12 @@
       "attribut_label": "Heure de fin",
       "required": true
     },
-    "meteo": {
-      "type_widget": "select",
-      "required": false,
+    "meteo": { 
+      "type_widget": "nomenclature",
+      "type_util": "nomenclature",
       "attribut_label": "Météo",
-      "values": [
-        "Belles éclaircies", 
-        "Ciel voilé", 
-        "Nuageux prédominant", 
-        "Très nuageux", 
-        "Pluvieux", 
-        "Orageux"
-      ]
+      "code_nomenclature_type": "METEO",
+      "required": true
     },  
     "vent": {
       "type_widget": "nomenclature",
