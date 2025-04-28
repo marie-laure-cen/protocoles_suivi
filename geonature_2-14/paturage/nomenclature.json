@@ -1,0 +1,477 @@
+{
+	"types": [
+		{
+			"mnemonique": "TYPE_SITE",
+			"label_default": "Type de sites",
+			"definition_default": "Nomenclatures des types de sites"
+		},
+		{
+			"mnemonique": "PT_OBJ",
+			"label_default": "Grand(s) objectif(s) de gestion",
+			"definition_default": "Grand(s) objectif(s) de gestion des sites du CEN Normandie"
+		},{
+			"mnemonique": "PT_RES",
+			"label_default": "Résultats des travaux ou du pâturage",
+			"definition_default": "Résultats des travaux ou du pâturage"
+		},{
+			"mnemonique": "PT_CAUSE",
+			"label_default": "Type d'élément expliquant le résultat de gestion",
+			"definition_default": "Type d'élément expliquant le résultat de gestion"
+		},{
+			"mnemonique": "PT_REAJ",
+			"label_default": "Type de réajustements de gestion",
+			"definition_default": "Type de réajustements de gestion"
+		},{
+			"mnemonique": "PT_ETAT",
+			"label_default": "Etat des fiches/actions travaux ou pâturage",
+			"definition_default": "Etat des fiches/actions travaux ou pâturage"
+		},{
+			"mnemonique": "PT_INT",
+			"label_default": "Intervenants sur les actions de travaux / pâturage",
+			"definition_default": "Intervenants sur les actions de travaux / pâturage"
+		},{
+			"mnemonique": "PT_PARC",
+			"label_default": "Type de parc",
+			"definition_default": "Type de parc pour le pâturage"
+		},{
+			"mnemonique": "PT_CHEPTEL",
+			"label_default": "Type de cheptel",
+			"definition_default": "Type de cheptel utilisé pour le pâturage"
+		},{
+			"mnemonique": "PT_SANIT",
+			"label_default": "Etat sanitaire du cheptel",
+			"definition_default": "Etat sanitaire du cheptel"
+		}
+	],
+	"nomenclatures": [
+		{
+			"type": "TYPE_SITE",
+			"cd_nomenclature": "PATURAGE",
+			"mnemonique": "Parcelle de pâturage",
+			"label_default": "Parcelle de pâturage",
+			"definition_default": "Parcelle de pâturage des sites du CEN Normandie",
+			"label_fr": "Parcelle de pâturage"
+		},
+		{
+			"type": "PT_CHEPTEL",
+			"cd_nomenclature": "CAM1",
+			"mnemonique": "Camarguais 0-24 mois",
+			"label_default": "Equin camarguais 0-24 mois",
+			"definition_default": "Cheval camarguais entre 0 et 24 mois",
+			"label_fr": "Equin camarguais 0-24 mois"
+		},{
+			"type": "PT_CHEPTEL",
+			"cd_nomenclature": "CAM2",
+			"mnemonique": "Camarguais +24 mois",
+			"label_default": "Equin camarguais +24 mois",
+			"definition_default": "Cheval camarguais de plus de 24 mois",
+			"label_fr": "Equin camarguais +24 mois"
+		},{
+			"type": "PT_CHEPTEL",
+			"cd_nomenclature": "KON1",
+			"mnemonique": "Konick Polski 0-24 mois",
+			"label_default": "Equin Konick Polski 0-24 mois",
+			"definition_default": "Cheval Konick Polski entre 0 et 24 mois",
+			"label_fr": "Equin Konick Polski 0-24 mois"
+		},{
+			"type": "PT_CHEPTEL",
+			"cd_nomenclature": "KON2",
+			"mnemonique": "Konick Polski +24 mois",
+			"label_default": "Equin Konick Polski +24 mois",
+			"definition_default": "Cheval Konick Polski entre de plus de 24 mois",
+			"label_fr": "Equin Konick Polski +24 mois"
+		},{
+			"type": "PT_CHEPTEL",
+			"cd_nomenclature": "ANE",
+			"mnemonique": "Âne",
+			"label_default": "Equin Âne",
+			"definition_default": "Ane",
+			"label_fr": "Equin Âne"
+		},{
+			"type": "PT_CHEPTEL",
+			"cd_nomenclature": "EQ_AUT",
+			"mnemonique": "Equin autre",
+			"label_default": "Equin autre",
+			"definition_default": "Autre équidé",
+			"label_fr": "Equin autre"
+		},{
+			"type": "PT_CHEPTEL",
+			"cd_nomenclature": "SOL",
+			"mnemonique": "Solognot +2 mois",
+			"label_default": "Ovin Solognot +2 mois",
+			"definition_default": "Ovin Solognot de plus de 2 mois",
+			"label_fr": "Ovin Solognot +2 mois"
+		},{
+			"type": "PT_CHEPTEL",
+			"cd_nomenclature": "IDF",
+			"mnemonique": "Ovin Ile-de-France +2 mois",
+			"label_default": "Ovin Ile-de-France +2 mois",
+			"definition_default": "Ovin Ile-de-France de plus de 2 mois",
+			"label_fr": "Ovin Ile-de-France +2 mois"
+		},{
+			"type": "PT_CHEPTEL",
+			"cd_nomenclature": "OV_AUT",
+			"mnemonique": "Ovin autre",
+			"label_default": "Ovin autre",
+			"definition_default": "Autres ovins",
+			"label_fr": "Ovin autre"
+		},{
+			"type": "PT_CHEPTEL",
+			"cd_nomenclature": "BPN1",
+			"mnemonique": "Bretonne Pie Noire 0-24 mois",
+			"label_default": "Bovin Bretonne Pie Noire 0-24 mois",
+			"definition_default": "Bovin Bretonne Pie Noire de 0 à 24 mois",
+			"label_fr": "Bovin Bretonne Pie Noire 0-24 mois"
+		},{
+			"type": "PT_CHEPTEL",
+			"cd_nomenclature": "BPN2",
+			"mnemonique": "Bretonne Pie Noire +24 mois",
+			"label_default": "Bovin Bretonne Pie Noire +24 mois",
+			"definition_default": "Bovin Bretonne Pie Noire de plus de 24 mois",
+			"label_fr": "Bovin Bretonne Pie Noire +24 mois"
+		},{
+			"type": "PT_CHEPTEL",
+			"cd_nomenclature": "BOV_AUT",
+			"mnemonique": "Bovin autre",
+			"label_default": "Bovin autre",
+			"definition_default": "Autres types de bovins",
+			"label_fr": "Bovin autre"
+		},{
+			"type": "PT_CHEPTEL",
+			"cd_nomenclature": "CO_1",
+			"mnemonique": "Commune de l'Ouest 0-24 mois",
+			"label_default": "Caprin Commune de l'Ouest 0-24 mois",
+			"definition_default": "Caprin Commune de l'Ouest de 0 à 24 mois",
+			"label_fr": "Caprin Commune de l'Ouest 0-24 mois"
+		},{
+			"type": "PT_CHEPTEL",
+			"cd_nomenclature": "CO_2",
+			"mnemonique": "Commune de l'Ouest +24 mois",
+			"label_default": "Caprin Commune de l'Ouest +24 mois",
+			"definition_default": "Caprin Commune de l'Ouest de plus de 24 mois",
+			"label_fr": "Caprin Commune de l'Ouest +24 mois"
+		},{
+			"type": "PT_CHEPTEL",
+			"cd_nomenclature": "CAP_AUT",
+			"mnemonique": "Caprin autre",
+			"label_default": "Caprin autre",
+			"definition_default": "Autres types de caprins",
+			"label_fr": "Caprin autre"
+		},{
+			"type": "PT_ETAT",
+			"cd_nomenclature": "PREVISIONNEL",
+			"mnemonique": "Etat prévisionnel",
+			"label_default": "Etat prévisionnel de la fiche ou de l'action travaux/pâturage",
+			"definition_default": "Etat prévisionnel de la fiche ou de l'action travaux/pâturage",
+			"label_fr": "Etat prévisionnel de la fiche ou de l'action travaux/pâturage"		
+		},{
+			"type": "PT_ETAT",
+			"cd_nomenclature": "REALISE",
+			"mnemonique": "Etat réalisé",
+			"label_default": "Etat réalisé de la fiche ou de l'action travaux/pâturage",
+			"definition_default": "Etat réalisé de la fiche ou de l'action travaux/pâturage",
+			"label_fr": "Etat réalisé de la fiche ou de l'action travaux/pâturage"		
+		},{
+			"type": "PT_OBJ",
+			"cd_nomenclature": "PT_OBJ_1",
+			"mnemonique": "Restaurer le(s) milieu(x)",
+			"label_default": "Restaurer le(s) milieu(x) d'intérêt du site",
+			"definition_default": "Restaurer le(s) milieu(x) d'intérêt du site",
+			"label_fr": "Restaurer le(s) milieu(x) d'intérêt du site"
+		},{
+			"type": "PT_OBJ",
+			"cd_nomenclature": "PT_OBJ_2",
+			"mnemonique": "Entretenir/maintenir le(s) milieu(x)",
+			"label_default": "Entretenir/maintenir le(s) milieu(x) d'intérêt du site",
+			"definition_default": "Entretenir/maintenir le(s) milieu(x) d'intérêt du site",
+			"label_fr": "Entretenir/maintenir le(s) milieu(x) d'intérêt du site"
+		},{
+			"type": "PT_OBJ",
+			"cd_nomenclature": "PT_OBJ_3",
+			"mnemonique": "Diversifier le(s) milieu(x)",
+			"label_default": "Diversifier le(s) milieu(x) d'intérêt du site",
+			"definition_default": "Diversifier le(s) milieu(x) d'intérêt du site",
+			"label_fr": "Diversifier le(s) milieu(x) d'intérêt du site"
+		},{
+			"type": "PT_OBJ",
+			"cd_nomenclature": "PT_OBJ_4",
+			"mnemonique": "Préparer un changement de gestion",
+			"label_default": "Préparer le site pour un changement de gestion",
+			"definition_default": "Préparer le site pour un changement de gestion",
+			"label_fr": "Préparer le site pour un changement de gestion"
+		},{
+			"type": "PT_OBJ",
+			"cd_nomenclature": "PT_OBJ_5",
+			"mnemonique": "Lutter contre les espèces exotiques envahissantes",
+			"label_default": "Lutter contre les espèces exotiques envahissantes (EEE)",
+			"definition_default": "Lutter contre les espèces exotiques envahissantes (EEE)",
+			"label_fr": "Lutter contre les espèces exotiques envahissantes (EEE)"
+		},{
+			"type": "PT_OBJ",
+			"cd_nomenclature": "PT_OBJ_6",
+			"mnemonique": "Contrôler la végétation (hors EEE)",
+			"label_default": "Contrôler la végétation hors espèce exotique envahissante (EEE)",
+			"definition_default": "Contrôler la végétation hors espèce exotique envahissante (EEE)",
+			"label_fr": "Contrôler la végétation hors espèce exotique envahissante (EEE)"
+		},{
+			"type": "PT_OBJ",
+			"cd_nomenclature": "PT_OBJ_7",
+			"mnemonique": "Aménager pour l'accueil du public",
+			"label_default": "Aménager le site pour l'accueil du public",
+			"definition_default": "Aménager le site pour l'accueil du public",
+			"label_fr": "Aménager le site pour l'accueil du public"
+		},{
+			"type": "PT_OBJ",
+			"cd_nomenclature": "PT_OBJ_8",
+			"mnemonique": "Entretenir les aménagements",
+			"label_default": "Entretenir les aménagements du site",
+			"definition_default": "Entretenir les aménagements du site",
+			"label_fr": "Entretenir les aménagements du site"
+		},{
+			"type": "PT_INT",
+			"cd_nomenclature": "PT_I7",
+			"mnemonique": "Autre intervenant",
+			"label_default": "Autre intervenant",
+			"definition_default": "Autre intervenant",
+			"label_fr": "Autre intervenant"
+		},{
+			"type": "PT_INT",
+			"cd_nomenclature": "PT_I8",
+			"mnemonique": "Zootechniciens CEN",
+			"label_default": "Zootechniciens CEN",
+			"definition_default": "Zootechniciens CEN",
+			"label_fr": "Zootechniciens CEN"
+		},{
+			"type": "PT_INT",
+			"cd_nomenclature": "PT_I9",
+			"mnemonique": "Eleveur",
+			"label_default": "Eleveur",
+			"definition_default": "Eleveur",
+			"label_fr": "Eleveur"
+		},{
+			"type": "PT_RES",
+			"cd_nomenclature": "PT_RES_1",
+			"mnemonique": "Bon impact général",
+			"label_default": "Bon impact général des travaux et/ou du pâturage",
+			"definition_default": "Bon impact général des travaux et/ou du pâturage",
+			"label_fr": "Bon impact général des travaux et/ou du pâturage"
+		},{
+			"type": "PT_RES",
+			"cd_nomenclature": "PT_RES_2",
+			"mnemonique": "Sur-pâturage global",
+			"label_default": "Parc(s) globalement sur-pâturé(s)",
+			"definition_default": "Parc(s) globalement sur-pâturé(s)",
+			"label_fr": "Parc(s) globalement sur-pâturé(s)"
+		},{
+			"type": "PT_RES",
+			"cd_nomenclature": "PT_RES_3",
+			"mnemonique": "Sur-pâturage partiel ou ponctuel",
+			"label_default": "Présence de zone(s) sur-pâturée(s) dans le(s) parc(s)",
+			"definition_default": "Présence de zone(s) sur-pâturée(s) dans le(s) parc(s)",
+			"label_fr": "Présence de zone(s) sur-pâturée(s) dans le(s) parc(s)"
+		},{
+			"type": "PT_RES",
+			"cd_nomenclature": "PT_RES_4",
+			"mnemonique": "Sous-pâturage global",
+			"label_default": "Parc(s) globalement sous-pâturé(s)",
+			"definition_default": "Parc(s) globalement sous-pâturé(s)",
+			"label_fr": "Parc(s) globalement sous-pâturé(s)"
+		},{
+			"type": "PT_RES",
+			"cd_nomenclature": "PT_RES_5",
+			"mnemonique": "Sous-pâturage partiel ou ponctuel",
+			"label_default": "Présence de zone(s) sous-pâturée(s) dans le(s) parc(s)",
+			"definition_default": "Présence de zone(s) sous-pâturée(s) dans le(s) parc(s)",
+			"label_fr": "Présence de zone(s) sous-pâturée(s) dans le(s) parc(s)"
+		},{
+			"type": "PT_RES",
+			"cd_nomenclature": "PT_RES_6",
+			"mnemonique": "Impact insuffisant sur végétation ligneuse",
+			"label_default": "Impact insuffisant sur la végétation ligneuse",
+			"definition_default": "Impact insuffisant sur la végétation ligneuse",
+			"label_fr": "Impact insuffisant sur la végétation ligneuse"
+		},{
+			"type": "PT_CAUSE",
+			"cd_nomenclature": "PT_C_1",
+			"mnemonique": "Période de pâturage insuffisante",
+			"label_default": "Résultat de gestion inadéquat pour cause de période de pâturage insuffisante",
+			"definition_default": "Résultat de gestion inadéquat pour cause de période de pâturage insuffisante",
+			"label_fr": "Résultat de gestion inadéquat pour cause de période de pâturage insuffisante"
+		},{
+			"type": "PT_CAUSE",
+			"cd_nomenclature": "PT_C_2",
+			"mnemonique": "Zone trop embrouissallée",
+			"label_default": "Résultat de gestion inadéquat pour cause de zone trop embrouissallée",
+			"definition_default": "Résultat de gestion inadéquat pour cause de zone trop embrouissallée",
+			"label_fr": "Résultat de gestion inadéquat pour cause de zone trop embrouissallée"
+		},{
+			"type": "PT_CAUSE",
+			"cd_nomenclature": "PT_C_3",
+			"mnemonique": "Zone trop étroite ou trop petite",
+			"label_default": "Résultat de gestion inadéquat pour cause de zone trop étroite ou trop petite",
+			"definition_default": "Résultat de gestion inadéquat pour cause de zone trop étroite ou trop petite",
+			"label_fr": "Résultat de gestion inadéquat pour cause de zone trop étroite ou trop petite"
+		},{
+			"type": "PT_CAUSE",
+			"cd_nomenclature": "PT_C_4",
+			"mnemonique": "Végétation peu appétente",
+			"label_default": "Résultat de gestion inadéquat pour cause de végétation peu appétente",
+			"definition_default": "Résultat de gestion inadéquat pour cause de végétation peu appétente",
+			"label_fr": "Résultat de gestion inadéquat pour cause de végétation peu appétente"
+		},{
+			"type": "PT_CAUSE",
+			"cd_nomenclature": "PT_C_5",
+			"mnemonique": "Très forte pente",
+			"label_default": "Résultat de gestion inadéquat pour cause de très forte pente",
+			"definition_default": "Résultat de gestion inadéquat pour cause de très forte pente",
+			"label_fr": "Résultat de gestion inadéquat pour cause de très forte pente"
+		},{
+			"type": "PT_CAUSE",
+			"cd_nomenclature": "PT_C_6",
+			"mnemonique": "Période de pâturage trop importante",
+			"label_default": "Résultat de gestion inadéquat pour cause de période de pâturage trop importante",
+			"definition_default": "Résultat de gestion inadéquat pour cause de période de pâturage trop importante",
+			"label_fr": "Résultat de gestion inadéquat pour cause de période de pâturage trop importante"
+		},{
+			"type": "PT_CAUSE",
+			"cd_nomenclature": "PT_C_7",
+			"mnemonique": "Végétation très appétente",
+			"label_default": "Résultat de gestion inadéquat pour cause de végétation très appétente",
+			"definition_default": "Résultat de gestion inadéquat pour cause de végétation très appétente",
+			"label_fr": "Résultat de gestion inadéquat pour cause de végétation très appétente"
+		},{
+			"type": "PT_CAUSE",
+			"cd_nomenclature": "PT_C_8",
+			"mnemonique": "Facteur externe à la gestion",
+			"label_default": "Résultat de gestion inadéquat à cause d'un facteur externe (sécheresse...)",
+			"definition_default": "Résultat de gestion inadéquat à cause d'un facteur externe (sécheresse...)",
+			"label_fr": "Résultat de gestion inadéquat à cause d'un facteur externe (sécheresse...)"
+		},{
+			"type": "PT_REAJ",
+			"cd_nomenclature": "PT_REAJ_1",
+			"mnemonique": "Intégrer ou renforcer la mixité des cheptels",
+			"label_default": "Intégrer ou renforcer la mixité des cheptels mis à pâturer sur le site",
+			"definition_default": "Intégrer ou renforcer la mixité des cheptels mis à pâturer sur le site",
+			"label_fr": "Intégrer ou renforcer la mixité des cheptels mis à pâturer sur le site"
+		},{
+			"type": "PT_REAJ",
+			"cd_nomenclature": "PT_REAJ_2",
+			"mnemonique": "Changer le(s) type(s) de cheptel",
+			"label_default": "Changer le(s) type(s) de cheptel mis à pâturer sur le site",
+			"definition_default": "Changer le(s) type(s) de cheptel mis à pâturer sur le site",
+			"label_fr": "Changer le(s) type(s) de cheptel mis à pâturer sur le site"
+		},{
+			"type": "PT_REAJ",
+			"cd_nomenclature": "PT_REAJ_3",
+			"mnemonique": "Modifier le parc",
+			"label_default": "Modifier le parc (type de clôture, taille de l'enclos, ...)",
+			"definition_default": "Modifier le parc (type de clôture, taille de l'enclos, ...)",
+			"label_fr": "Modifier le parc (type de clôture, taille de l'enclos, ...)"
+		},{
+			"type": "PT_REAJ",
+			"cd_nomenclature": "PT_REAJ_4",
+			"mnemonique": "Augmenter la pression de pâturage",
+			"label_default": "Augmenter la pression de pâturage (durée, nombre d'animaux...)",
+			"definition_default": "Augmenter la pression de pâturage (durée, nombre d'animaux...)",
+			"label_fr": "Augmenter la pression de pâturage (durée, nombre d'animaux...)"
+		},{
+			"type": "PT_REAJ",
+			"cd_nomenclature": "PT_REAJ_5",
+			"mnemonique": "Baisser la pression de pâturage",
+			"label_default": "Baisser la pression de pâturage (durée, nombre d'animaux...)",
+			"definition_default": "Baisser la pression de pâturage (durée, nombre d'animaux...)",
+			"label_fr": "Baisser la pression de pâturage (durée, nombre d'animaux...)"
+		},{
+			"type": "PT_REAJ",
+			"cd_nomenclature": "PT_REAJ_6",
+			"mnemonique": "Optimiser le pâturage en lisière",
+			"label_default": "Optimiser le pâturage en lisière",
+			"definition_default": "Optimiser le pâturage en lisière",
+			"label_fr": "Optimiser le pâturage en lisière"
+		},{
+			"type": "PT_REAJ",
+			"cd_nomenclature": "PT_REAJ_7",
+			"mnemonique": "Augmenter le débroussaillage",
+			"label_default": "Augmenter le débroussaillage (couloirs, refus...)",
+			"definition_default": "Augmenter le débroussaillage (couloirs, refus...)",
+			"label_fr": "Augmenter le débroussaillage (couloirs, refus...)"
+		},{
+			"type": "PT_REAJ",
+			"cd_nomenclature": "PT_REAJ_8",
+			"mnemonique": "Apporter des compléments",
+			"label_default": "Apporter des compléments (fourrage...)",
+			"definition_default": "Apporter des compléments (fourrage...)",
+			"label_fr": "Apporter des compléments (fourrage...)"
+		},{
+			"type": "PT_REAJ",
+			"cd_nomenclature": "PT_REAJ_9",
+			"mnemonique": "Modifier la période d'intervention",
+			"label_default": "Modifier la période d'intervention (pâturage ou travaux)",
+			"definition_default": "Modifier la période d'intervention (pâturage ou travaux)",
+			"label_fr": "Modifier la période d'intervention (pâturage ou travaux)"
+		},{
+			"type": "PT_REAJ",
+			"cd_nomenclature": "PT_REAJ_10",
+			"mnemonique": "Mieux respecter les engagements de gestion",
+			"label_default": "Mieux respecter les engagements de gestion (N2000...)",
+			"definition_default": "Mieux respecter les engagements de gestion (N2000...)",
+			"label_fr": "Mieux respecter les engagements de gestion (N2000...)"
+		},{
+			"type": "PT_SANIT",
+			"cd_nomenclature": "PT_SANIT_1",
+			"mnemonique": "Très bon",
+			"label_default": "Etat sanitaire très bon",
+			"definition_default": "Etat sanitaire très bo",
+			"label_fr": "Etat sanitaire très bo"
+		},{
+			"type": "PT_SANIT",
+			"cd_nomenclature": "PT_SANIT_2",
+			"mnemonique": "Bon",
+			"label_default": "Etat sanitaire bon",
+			"definition_default": "Etat sanitaire bon",
+			"label_fr": "Etat sanitaire bon"
+		},{
+			"type": "PT_SANIT",
+			"cd_nomenclature": "PT_SANIT_3",
+			"mnemonique": "Moyen",
+			"label_default": "Etat sanitaire moyen",
+			"definition_default": "Etat sanitaire moyen",
+			"label_fr": "Etat sanitaire moyen"
+		},{
+			"type": "PT_SANIT",
+			"cd_nomenclature": "PT_SANIT_4",
+			"mnemonique": "Mauvais",
+			"label_default": "Etat sanitaire mauvais",
+			"definition_default": "Etat sanitaire mauvais",
+			"label_fr": "Etat sanitaire mauvais"
+		},{
+			"type": "PT_SANIT",
+			"cd_nomenclature": "PT_SANIT_5",
+			"mnemonique": "Très mauvais",
+			"label_default": "Etat sanitaire très mauvais",
+			"definition_default": "Etat sanitaire très mauvais",
+			"label_fr": "Etat sanitaire très mauvais"
+		},{
+			"type": "PT_PARC",
+			"cd_nomenclature": "PT_PARC_1",
+			"mnemonique": "Fixe",
+			"label_default": "Enclos fixe",
+			"definition_default": "Enclos fixe",
+			"label_fr": "Enclos fixe"
+		},{
+			"type": "PT_PARC",
+			"cd_nomenclature": "PT_PARC_2",
+			"mnemonique": "Semi-mobile",
+			"label_default": "Enclos semi-mobile",
+			"definition_default": "Enclos semi-mobile",
+			"label_fr": "Enclos semi-mobile"
+		},{
+			"type": "PT_PARC",
+			"cd_nomenclature": "PT_PARC_3",
+			"mnemonique": "Mobile",
+			"label_default": "Enclos mobile",
+			"definition_default": "Enclos mobile",
+			"label_fr": "Enclos mobile"
+		}
+	]
+}

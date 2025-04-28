@@ -1,0 +1,91 @@
+{
+  "genre":"M",
+  "label": "Site suivi",
+  "label_list": "Site suivi",
+  "map_label_field_name": "base_site_code",
+  "b_draw_sites_group": true,
+  "sorts": [
+    {"prop": "sites_group_name"}
+  ],
+  "display_properties": [
+    "sites_group_code",
+    "sites_group_name",
+    "commune",
+    "sites_group_description",
+    "id_resp",
+    "annee_debut",
+    "annee_fin",
+    "id_dataset",
+    "sentinelle_climat"
+  ],
+  "display_list": [
+    "sites_group_code",
+    "sites_group_name",
+    "commune",
+    "nb_sites"
+  ],
+  "specific": {
+    "sites_group_description": {
+      "required": false,
+      "attribut_label": "Opé. de gestion",
+      "hidden": false
+    },
+    "sites_group_name":{
+      "attribut_label": "Site"
+    },
+    "sites_group_code":{
+      "attribut_label": "Code site"
+    },
+    "id_dataset": {
+      "type_widget": "dataset",
+      "attribut_label": "Jeu de données",
+      "type_util": "dataset",
+      "required": true
+    },
+    "annee_debut": {
+      "type_widget": "number",
+      "attribut_label": "Année de lancement du suivi",
+      "min" : 1993,
+      "value": 2024,
+      "required": true
+    },
+    "annee_fin": {
+      "type_widget": "number",
+      "attribut_label": "Année d'arrêt du suivi",
+      "min" : 1993,
+      "required": false
+    },
+    "sentinelle_climat":{
+      "type_widget": "select",
+      "required": true,
+      "attribut_label": "Programme Sentinelle du Climat",
+      "values": ["Oui", "Non"],
+      "value": "Non",
+      "hidden":false
+    },
+    "id_resp": {
+      "type_widget": "datalist",
+      "attribut_label": "Responsable du suivi",
+      "api": "users/menu/__MODULE.ID_LIST_OBSERVER",
+      "application": "GeoNature",
+      "keyValue": "id_role",
+      "keyLabel": "nom_complet",
+      "type_util": "user",
+      "multiple": false,
+      "required": false
+    },
+    "commune":{
+      "type_widget": "text",
+      "attribut_label": "Commune"
+    },
+    "nb_sites": {
+      "attribut_label": "Nb. placettes",
+      "hidden": false
+    },
+    "nb_visits": {
+      "attribut_label": "Nb. relevés"
+    }
+  },
+  "change": [
+  ]
+}

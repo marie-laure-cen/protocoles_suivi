@@ -1,0 +1,118 @@
+{
+  "description_field_name":"cd_nom",
+  "genre":"F",
+  "display_properties": [
+    "determiner",
+    "cd_nom",
+    "abondance",
+    "recouvrement",
+    "strate",
+    "sociabilite",
+    "vitalite",
+    "id_nomenclature_obs_technique",
+    "id_nomenclature_determination_method",
+    "comments"
+  ],
+  "display_list": [
+    "cd_nom",
+    "strate",
+    "abondance"
+  ],
+  "sorts": [
+    {"prop": "strate", "dir": "asc"}
+  ],
+  "keep": [
+    "id_nomenclature_obs_technique",
+    "id_nomenclature_determination_method",
+    "determiner",
+    "strate"
+  ],
+  "specific": {
+    "determiner":{
+      "type_widget": "datalist",
+      "attribut_label": "Déterminateur",
+      "api": "users/menu/__MODULE.ID_LIST_OBSERVER",
+      "application": "GeoNature",
+      "keyValue": "id_role",
+      "keyLabel": "nom_complet",
+      "type_util": "user",
+      "multiple": false,
+      "required": false
+    },
+    "cd_nom": {
+      "type_widget": "taxonomy",
+      "attribut_label": "Espèce observée",
+      "multiple": false,
+      "id_list": "__MODULE.ID_LIST_TAXONOMY",
+      "application": "TaxHub",
+      "required": true,
+      "type_util": "taxonomy"
+    },
+    "abondance": {
+      "type_widget": "nomenclature",
+      "attribut_label": "Abondance/dominance",
+      "code_nomenclature_type": "BRAUNBLANQABDOM",
+      "required": true,
+      "type_util": "nomenclature"
+    },
+    "recouvrement": {
+      "type_widget": "number",
+      "attribut_label": "Pourcentage de recouvrement",
+      "min": 0,
+      "max": 100,
+      "required": false
+    },
+    "strate": {
+      "type_widget": "nomenclature",
+      "attribut_label": "Strate de l'espèce",
+      "code_nomenclature_type": "RP_STRATE",
+      "required": false,
+      "type_util": "nomenclature"
+    },
+    "sociabilite":{
+      "type_widget": "nomenclature",
+      "attribut_label": "Sociabilité",
+      "code_nomenclature_type": "SOCIAB",
+      "required": false,
+      "type_util": "nomenclature"
+    },
+    "vitalite":{
+      "type_widget": "nomenclature",
+      "attribut_label": "Vitalité",
+      "code_nomenclature_type": "BRAUNPAVVIT",
+      "required": false,
+      "type_util": "nomenclature"
+    },
+    "id_nomenclature_obs_technique": {
+      "type_widget": "datalist",
+      "attribut_label": "Technique d'observation",
+      "api": "nomenclatures/nomenclature/METH_OBS",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": true,
+      "hidden" : true,
+      "default": {
+        "cd_nomenclature": "0"
+      },
+      "filters":{"cd_nomenclature": ["0", "2","18", "17"]}
+    },
+    "id_nomenclature_determination_method": {
+      "type_widget": "datalist",
+      "attribut_label": "Méthode de détermination",
+      "api": "nomenclatures/nomenclature/METH_DETERMIN",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": true,
+      "default": {
+        "cd_nomenclature": "18"
+      },
+      "filters":{"cd_nomenclature": ["18", "21", "20", "22", "11", "12", "2"]}
+    }
+  }
+}

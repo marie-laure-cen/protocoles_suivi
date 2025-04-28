@@ -1,0 +1,98 @@
+{
+	"genre":"M",
+	"label": "Cheptel",
+	"label_list": "cheptel",
+  "export_csv": [
+    {
+      "label": "Format analyses CSV", "type":"csv" , "method": "fiche" 
+    }
+  ],
+  "sorts": [
+	  {"prop":"visit_date_min", "dir": "asc"}
+	],
+	"keep": [
+		"visit_date_min",
+		"visit_date_max"
+	  ],
+	"display_properties": [
+		"type_cheptel",
+		"nb_animaux",
+		"nb_j_pat",
+		"visit_date_min",
+		"visit_date_max",
+		"etat_sanit_min",
+		"etat_sanit_max",
+		"comments"
+	],
+	"display_list": [
+		"type_cheptel",
+		"nb_animaux",
+		"nb_j_pat",
+		"etat_sanit_max",
+		"ugb"
+	],
+	"specific":
+	{
+		"type_cheptel":{
+			"type_widget": "nomenclature",
+			"attribut_label": "Type de cheptel",
+			"code_nomenclature_type": "PT_CHEPTEL",
+			"required": true,
+			"type_util": "nomenclature"
+		},
+		"observers": {
+			"hidden": true,
+			"required": false
+		},
+		"nb_animaux":{
+			"type_widget": "number",
+			"attribut_label": "Nombre d'animaux du cheptel",
+			"min": 0
+		},
+		"nb_j_pat":{
+			"type_widget": "number",
+			"attribut_label": "Nombre de jours pâturés",
+			"min": 0
+		},
+		"visit_date_min":{
+			"attribut_label": "Date de début du pâturage"
+		},
+		"visit_date_max":{
+			"attribut_label": "Date de fin du pâturage"
+		},
+		"etat_sanit_min":{
+			"type_widget": "nomenclature",
+			"attribut_label": "Etat sanitaire d'arrivée",
+			"code_nomenclature_type": "PT_SANIT",
+			"required": true,
+			"type_util": "nomenclature"
+		},
+		"etat_sanit_max":{
+			"type_widget": "nomenclature",
+			"attribut_label": "Etat sanitaire de départ",
+			"code_nomenclature_type": "PT_SANIT",
+			"required": true,
+			"type_util": "nomenclature"
+		},
+		"ugb": {
+			"type_widget": "number",
+			"attribut_label": "UGB du cheptel",
+			"required": true,
+			"hidden": "({value}) => { value.ugb == 0 }"
+		},
+		"comments":{
+			"attribut_label": "Commentaire",
+			"hidden": false
+		}
+	},
+	"change": [
+		"({objForm, meta}) => {",
+			"const nb_j_pat = (objForm.value.date_visit_max) - (objForm.value.date_visit_max ) +1 ;",
+			"if (!objForm.controls.nb_j_pat.dirty) {",
+				"objForm.patchValue({nb_j_pat})",
+			"}",
+		"}",
+		""
+	]
+}
+

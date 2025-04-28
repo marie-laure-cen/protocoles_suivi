@@ -1,0 +1,62 @@
+{
+  "description_field_name":"cd_nom",
+  "genre":"F",
+  "display_properties": [
+    "cd_nom",
+    "id_nomenclature_obs_technique",
+    "id_nomenclature_determination_method",
+    "comments"
+  ],
+  "display_list": [
+    "cd_nom"
+  ],
+  "sorts": [
+    {"prop": "cd_nom", "dir": "asc"}
+  ],
+  "keep": [
+    "id_nomenclature_obs_technique",
+    "id_nomenclature_determination_method"
+  ],
+  "specific": {
+    "cd_nom": {
+      "type_widget": "taxonomy",
+      "attribut_label": "Espèce observée",
+      "multiple": false,
+      "id_list": "__MODULE.ID_LIST_TAXONOMY",
+      "application": "TaxHub",
+      "required": true,
+      "type_util": "taxonomy"
+    },
+    "id_nomenclature_obs_technique": {
+      "type_widget": "datalist",
+      "attribut_label": "Technique d'observation",
+      "api": "nomenclatures/nomenclature/METH_OBS",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": true,
+      "hidden" : true,
+      "default": {
+        "cd_nomenclature": "0"
+      },
+      "filters":{"cd_nomenclature": ["0", "2","18", "17"]}
+    },
+    "id_nomenclature_determination_method": {
+      "type_widget": "datalist",
+      "attribut_label": "Méthode de détermination",
+      "api": "nomenclatures/nomenclature/METH_DETERMIN",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": true,
+      "default": {
+        "cd_nomenclature": "18"
+      },
+      "filters":{"cd_nomenclature": ["18", "21", "20", "22", "11", "12", "2"]}
+    }
+  }
+}

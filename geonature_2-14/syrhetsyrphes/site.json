@@ -1,0 +1,59 @@
+{
+  "genre":"M",
+  "label": "Piège",
+  "label_list": "pièges",
+  "geometry_type": "Point",
+  "map_label_field_name": "base_site_name",
+  "sorts": [
+    {"prop": "base_site_name", "dir": "asc"}
+  ],
+  "display_properties": [
+    "base_site_code",
+    "base_site_name",
+    "id_inventor",
+    "habitat",
+    "first_use_date"
+ ],
+  "display_list": [
+    "base_site_code",
+    "id_inventor",
+    "first_use_date",
+    "nb_visits"
+  ],
+  "specific": {
+    "base_site_code": {
+      "hidden": false,
+      "required": true
+    },
+    "id_sites_group": {
+      "type_widget": "datalist",
+      "attribut_label": "Groupe de site",
+      "type_util": "sites_group",
+      "keyValue": "id_sites_group",
+      "keyLabel": "sites_group_name",
+      "api": "__MONITORINGS_PATH/list/__MODULE.MODULE_CODE/sites_group?id_module=__MODULE.ID_MODULE",
+      "application": "GeoNature",
+      "required": false,
+      "hidden": true
+    },
+    "id_nomenclature_type_site": {
+      "attribut_label": "Type site",
+      "type_util": "nomenclature",
+      "value": {
+        "code_nomenclature_type": "TYPE_SITE",
+        "cd_nomenclature": "SYRHET_Het"
+      },
+      "hidden": true
+    },
+    "habitat": {
+      "type_widget": "multiselect",
+      "required": false,
+      "attribut_label": "Habitat",
+      "values": [
+        "Lisière clairière dans boisement alluvial", 
+        "Layon dans boisement alluvial", 
+        "Lisière magnocariçaie"
+      ]
+    }
+  }
+}

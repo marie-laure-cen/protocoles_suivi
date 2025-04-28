@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Fiche travaux</title>
+    <link rel="stylesheet" type="text/css" href="fiche_travaux.css">
+</head>
+<body>
+	<div class="header">
+		<table>
+		<tr>
+		   <td><img class="bandeau" src="./images/logo_cen.png" alt="Bandeau"></td>
+		   <td ><p class="title">{{data.module_code}}</p></td>
+		</tr>
+		</table>
+	</div>
+	<div class="content" >
+		<div class="flex">
+			<div class="map">
+				<img src="{{data.map_image}}" />
+			</div>
+
+			<div style="padding-left:10px">
+				<div class="fiche">
+					<h2>BD Travaux | Site : "{{data.monitoring_object.properties.sites_group_name}}"</h2>
+				</div>
+					<div class="encart">
+							<h2>Fiche Travaux - {{data.extra_data.resolved_properties.annee}}</h2>
+
+							<div><strong>Nom de la parcelle de travaux: </strong>{{data.monitoring_object.properties.sites_group_name}}</div>
+							<div><strong>Responsable: </strong>{{data.extra_data.resolved_properties.id_inventor}}</div>
+							<br>
+							<div><strong>Objectifs: </strong>{{data.extra_data.resolved_properties.obj_principal}}</div>
+							<div><strong>Bilan: </strong>{{data.extra_data.resolved_properties.bilan}}</div>
+							<div><strong>Réajustements: </strong>{{data.extra_data.resolved_properties.reajust}}</div>
+							<div><strong>Réajustements: </strong>{{data.extra_data.resolved_properties.comments}}</div>
+					</div>
+					<br>
+					<div class="legend" >
+						<h2>Légende</h2>
+						<div class="site"><img  src="{{ data.static_pdf_dir }}/images/site.png" alt="site"  > <label style="font-size: 16px;">Sites du CEN </label></div>
+						<div class="site"><img  src="{{ data.static_pdf_dir }}/images/aire.png" alt="aire"  > <label style="font-size: 16px;">Parcelle de travaux</label></div>
+						<div style="text-align: center">______________________</div>
+						<div class="north"><img  src="{{ data.static_pdf_dir }}/images/north.png" alt="north"  /></div>
+					</div>
+			</div>
+		</div>
+	</div>
+</body>

@@ -1,0 +1,306 @@
+{
+	"types": [
+		{
+			"mnemonique": "TYPE_SITE",
+			"label_default": "Type de sites",
+			"definition_default": "Nomenclatures des types de sites"
+		},{
+			"mnemonique": "PT_OBJ",
+			"label_default": "Grand(s) objectif(s) de gestion",
+			"definition_default": "Grand(s) objectif(s) de gestion des sites du CEN Normandie"
+		},{
+			"mnemonique": "PT_RES",
+			"label_default": "Résultats des travaux ou du pâturage",
+			"definition_default": "Résultats des travaux ou du pâturage"
+		},{
+			"mnemonique": "PT_CAUSE",
+			"label_default": "Type d'élément expliquant le résultat de gestion",
+			"definition_default": "Type d'élément expliquant le résultat de gestion"
+		},{
+			"mnemonique": "PT_REAJ",
+			"label_default": "Type de réajustements de gestion",
+			"definition_default": "Type de réajustements de gestion"
+		},{
+			"mnemonique": "PT_ETAT",
+			"label_default": "Etat des fiches/actions travaux ou pâturage",
+			"definition_default": "Etat des fiches/actions travaux ou pâturage"
+		},{
+			"mnemonique": "PT_INT",
+			"label_default": "Intervenants sur les actions de travaux / pâturage",
+			"definition_default": "Intervenants sur les actions de travaux / pâturage"
+		},{
+			"mnemonique": "PT_CLASSE",
+			"label_default": "Classe de travaux du CENN",
+			"definition_default": "Classe de travaux du CENN"
+		}
+	],
+	"nomenclatures": [
+		{
+			"type": "TYPE_SITE",
+			"cd_nomenclature": "TRAVAUX",
+			"mnemonique": "Parcelle de travaux",
+			"label_default": "Parcelle de travaux",
+			"definition_default": "Parcelle de travaux de la BD travaux",
+			"label_fr": "Parcelle de travaux"
+		},{
+			"type": "PT_ETAT",
+			"cd_nomenclature": "PREVISIONNEL",
+			"mnemonique": "Etat prévisionnel",
+			"label_default": "Etat prévisionnel de la fiche ou de l'action travaux/pâturage",
+			"definition_default": "Etat prévisionnel de la fiche ou de l'action travaux/pâturage",
+			"label_fr": "Etat prévisionnel de la fiche ou de l'action travaux/pâturage"		
+		},{
+			"type": "PT_ETAT",
+			"cd_nomenclature": "REALISE",
+			"mnemonique": "Etat réalisé",
+			"label_default": "Etat réalisé de la fiche ou de l'action travaux/pâturage",
+			"definition_default": "Etat réalisé de la fiche ou de l'action travaux/pâturage",
+			"label_fr": "Etat réalisé de la fiche ou de l'action travaux/pâturage"		
+		},{
+			"type": "PT_OBJ",
+			"cd_nomenclature": "PT_OBJ_1",
+			"mnemonique": "Restaurer le(s) milieu(x)",
+			"label_default": "Restaurer le(s) milieu(x) d'intérêt du site",
+			"definition_default": "Restaurer le(s) milieu(x) d'intérêt du site",
+			"label_fr": "Restaurer le(s) milieu(x) d'intérêt du site"
+		},{
+			"type": "PT_OBJ",
+			"cd_nomenclature": "PT_OBJ_2",
+			"mnemonique": "Entretenir/maintenir le(s) milieu(x)",
+			"label_default": "Entretenir/maintenir le(s) milieu(x) d'intérêt du site",
+			"definition_default": "Entretenir/maintenir le(s) milieu(x) d'intérêt du site",
+			"label_fr": "Entretenir/maintenir le(s) milieu(x) d'intérêt du site"
+		},{
+			"type": "PT_OBJ",
+			"cd_nomenclature": "PT_OBJ_3",
+			"mnemonique": "Diversifier le(s) milieu(x)",
+			"label_default": "Diversifier le(s) milieu(x) d'intérêt du site",
+			"definition_default": "Diversifier le(s) milieu(x) d'intérêt du site",
+			"label_fr": "Diversifier le(s) milieu(x) d'intérêt du site"
+		},{
+			"type": "PT_OBJ",
+			"cd_nomenclature": "PT_OBJ_4",
+			"mnemonique": "Préparer un changement de gestion",
+			"label_default": "Préparer le site pour un changement de gestion",
+			"definition_default": "Préparer le site pour un changement de gestion",
+			"label_fr": "Préparer le site pour un changement de gestion"
+		},{
+			"type": "PT_OBJ",
+			"cd_nomenclature": "PT_OBJ_5",
+			"mnemonique": "Lutter contre les espèces exotiques envahissantes",
+			"label_default": "Lutter contre les espèces exotiques envahissantes (EEE)",
+			"definition_default": "Lutter contre les espèces exotiques envahissantes (EEE)",
+			"label_fr": "Lutter contre les espèces exotiques envahissantes (EEE)"
+		},{
+			"type": "PT_OBJ",
+			"cd_nomenclature": "PT_OBJ_6",
+			"mnemonique": "Contrôler la végétation (hors EEE)",
+			"label_default": "Contrôler la végétation hors espèce exotique envahissante (EEE)",
+			"definition_default": "Contrôler la végétation hors espèce exotique envahissante (EEE)",
+			"label_fr": "Contrôler la végétation hors espèce exotique envahissante (EEE)"
+		},{
+			"type": "PT_OBJ",
+			"cd_nomenclature": "PT_OBJ_7",
+			"mnemonique": "Aménager pour l'accueil du public",
+			"label_default": "Aménager le site pour l'accueil du public",
+			"definition_default": "Aménager le site pour l'accueil du public",
+			"label_fr": "Aménager le site pour l'accueil du public"
+		},{
+			"type": "PT_OBJ",
+			"cd_nomenclature": "PT_OBJ_8",
+			"mnemonique": "Entretenir les aménagements",
+			"label_default": "Entretenir les aménagements du site",
+			"definition_default": "Entretenir les aménagements du site",
+			"label_fr": "Entretenir les aménagements du site"
+		},{
+			"type": "PT_OBJ",
+			"cd_nomenclature": "PT_OBJ_9",
+			"mnemonique": "Sécuriser le site",
+			"label_default": "Sécuriser le site",
+			"definition_default": "Sécuriser le site",
+			"label_fr": "Sécuriser le site"
+		},{
+			"type": "PT_INT",
+			"cd_nomenclature": "PT_I1",
+			"mnemonique": "Equipe technique",
+			"label_default": "Equipe technique",
+			"definition_default": "Equipe technique",
+			"label_fr": "Equipe technique"
+		},{
+			"type": "PT_INT",
+			"cd_nomenclature": "PT_I2",
+			"mnemonique": "Responsable technique",
+			"label_default": "Responsable technique",
+			"definition_default": "Responsable technique",
+			"label_fr": "Responsable technique"
+		},{
+			"type": "PT_INT",
+			"cd_nomenclature": "PT_I3",
+			"mnemonique": "Chantier bénévoles",
+			"label_default": "Chantier bénévoles",
+			"definition_default": "Chantier de bénévoles",
+			"label_fr": "Chantier bénévoles"
+		},{
+			"type": "PT_INT",
+			"cd_nomenclature": "PT_I4",
+			"mnemonique": "Prestataire",
+			"label_default": "Prestataire",
+			"definition_default": "Prestataire",
+			"label_fr": "Prestataire"
+		},{
+			"type": "PT_INT",
+			"cd_nomenclature": "PT_I5",
+			"mnemonique": "Locataire/propriétaire",
+			"label_default": "Locataire/propriétaire",
+			"definition_default": "Locataire/propriétaire",
+			"label_fr": "Locataire/propriétaire"
+		},{
+			"type": "PT_INT",
+			"cd_nomenclature": "PT_I7",
+			"mnemonique": "Autre intervenant",
+			"label_default": "Autre intervenant",
+			"definition_default": "Autre intervenant",
+			"label_fr": "Autre intervenant"
+		},{
+			"type": "PT_RES",
+			"cd_nomenclature": "PT_RES_1",
+			"mnemonique": "Bon impact général",
+			"label_default": "Bon impact général des travaux et/ou du pâturage",
+			"definition_default": "Bon impact général des travaux et/ou du pâturage",
+			"label_fr": "Bon impact général des travaux et/ou du pâturage"
+		},{
+			"type": "PT_RES",
+			"cd_nomenclature": "PT_RES_6",
+			"mnemonique": "Impact insuffisant sur végétation ligneuse",
+			"label_default": "Impact insuffisant sur la végétation ligneuse",
+			"definition_default": "Impact insuffisant sur la végétation ligneuse des travaux et/ou du pâturage",
+			"label_fr": "Impact insuffisant sur la végétation ligneuse"
+		},{
+			"type": "PT_RES",
+			"cd_nomenclature": "PT_RES_7",
+			"mnemonique": "Impact insuffisant sur EEE",
+			"label_default": "Impact insuffisant sur les espèces exotiques envahissantes",
+			"definition_default": "Impact insuffisant sur les espèces exotiques envahissantes",
+			"label_fr": "Impact insuffisant sur les espèces exotiques envahissantes"
+		},{
+			"type": "PT_RES",
+			"cd_nomenclature": "PT_RES_8",
+			"mnemonique": "Impact insuffisant sur les espèces/habitats d'intérêt",
+			"label_default": "Impact insuffisant sur les espèces/habitats d'intérêt",
+			"definition_default": "Impact insuffisant sur les espèces/habitats d'intérêt",
+			"label_fr": "Impact insuffisant sur les espèces/habitats d'intérêt"
+		},{
+			"type": "PT_RES",
+			"cd_nomenclature": "PT_RES_9",
+			"mnemonique": "Réaction négative des habitants/usagers",
+			"label_default": "Réaction négative des habitants/usagers",
+			"definition_default": "Réaction négative des habitants/usagers",
+			"label_fr": "Réaction négative des habitants/usagers"
+		},{
+			"type": "PT_RES",
+			"cd_nomenclature": "PT_RES_10",
+			"mnemonique": "Réaction positive des habitants/usagers",
+			"label_default": "Réaction positive des habitants/usagers",
+			"definition_default": "Réaction positive des habitants/usagers",
+			"label_fr": "Réaction positive des habitants/usagers"
+		},{
+			"type": "PT_REAJ",
+			"cd_nomenclature": "PT_REAJ_7",
+			"mnemonique": "Augmenter le débroussaillage",
+			"label_default": "Augmenter le débroussaillage (couloirs, refus...)",
+			"definition_default": "Augmenter le débroussaillage (couloirs, refus...)",
+			"label_fr": "Augmenter le débroussaillage (couloirs, refus...)"
+		},{
+			"type": "PT_REAJ",
+			"cd_nomenclature": "PT_REAJ_9",
+			"mnemonique": "Modifier la période d'intervention",
+			"label_default": "Modifier la période d'intervention (pâturage ou travaux)",
+			"definition_default": "Modifier la période d'intervention (pâturage ou travaux)",
+			"label_fr": "Modifier la période d'intervention (pâturage ou travaux)"
+		},{
+			"type": "PT_REAJ",
+			"cd_nomenclature": "PT_REAJ_10",
+			"mnemonique": "Mieux respecter les engagements de gestion",
+			"label_default": "Mieux respecter les engagements de gestion (N2000...)",
+			"definition_default": "Mieux respecter les engagements de gestion (N2000...)",
+			"label_fr": "Mieux respecter les engagements de gestion (N2000...)"
+		},{
+			"type": "PT_REAJ",
+			"cd_nomenclature": "PT_REAJ_11",
+			"mnemonique": "Intensifier l'intervention",
+			"label_default": "Intensifier l'intervention (nombre de jours, fréquence...)",
+			"definition_default": "Intensifier l'intervention (nombre de jours, fréquence...)",
+			"label_fr": "Intensifier l'intervention (nombre de jours, fréquence...)"
+		},{
+			"type": "PT_REAJ",
+			"cd_nomenclature": "PT_REAJ_12",
+			"mnemonique": "Atténuer l'intervention",
+			"label_default": "Atténuer l'intervention (nombre de jours, fréquence...)",
+			"definition_default": "Atténuer l'intervention (nombre de jours, fréquence...)",
+			"label_fr": "Atténuer l'intervention (nombre de jours, fréquence...)"
+		},{
+			"type": "PT_REAJ",
+			"cd_nomenclature": "PT_REAJ_13",
+			"mnemonique": "Définir des zones/habitats prioritaires",
+			"label_default": "Définir des zones/habitats prioritaires",
+			"definition_default": "Définir des zones/habitats prioritaires pour les interventions",
+			"label_fr": "Définir des zones/habitats prioritaires"
+		},{
+			"type": "PT_REAJ",
+			"cd_nomenclature": "PT_REAJ_14",
+			"mnemonique": "Modifier le type d'intervention",
+			"label_default": "Modifier le type d'intervention",
+			"definition_default": "Modifier le type d'intervention",
+			"label_fr": "Modifier le type d'intervention"
+		},{
+			"type": "PT_CLASSE",
+			"cd_nomenclature": "PT_CL_1",
+			"mnemonique": "Abattage / élagage",
+			"label_default": "Abattage / élagage",
+			"definition_default": "Abattage / élagage",
+			"label_fr": "Abattage / élagage"
+		},{
+			"type": "PT_CLASSE",
+			"cd_nomenclature": "PT_CL_2",
+			"mnemonique": "Aménagement",
+			"label_default": "Aménagement",
+			"definition_default": "Aménagement",
+			"label_fr": "Aménagement"
+		},{
+			"type": "PT_CLASSE",
+			"cd_nomenclature": "PT_CL_3",
+			"mnemonique": "Débrouissaillage",
+			"label_default": "Débrouissaillage",
+			"definition_default": "Débrouissaillage",
+			"label_fr": "Débrouissaillage"
+		},{
+			"type": "PT_CLASSE",
+			"cd_nomenclature": "PT_CL_4",
+			"mnemonique": "Devenir des rémanents",
+			"label_default": "Devenir des rémanents",
+			"definition_default": "Devenir des rémanents",
+			"label_fr": "Devenir des rémanents"
+		},{
+			"type": "PT_CLASSE",
+			"cd_nomenclature": "PT_CL_5",
+			"mnemonique": "Fauche",
+			"label_default": "Fauche",
+			"definition_default": "Fauche",
+			"label_fr": "Fauche"
+		},{
+			"type": "PT_CLASSE",
+			"cd_nomenclature": "PT_CL_6",
+			"mnemonique": "Plantation",
+			"label_default": "Plantation",
+			"definition_default": "Plantation",
+			"label_fr": "Plantation"
+		},{
+			"type": "PT_CLASSE",
+			"cd_nomenclature": "PT_CL_7",
+			"mnemonique": "Autre",
+			"label_default": "Autre",
+			"definition_default": "Autre",
+			"label_fr": "Autre"
+		}
+	]
+}

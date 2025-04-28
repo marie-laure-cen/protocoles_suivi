@@ -1,0 +1,202 @@
+{
+  "genre":"F",
+  "label": "intervention travaux",
+  "label_list": "interventions travaux",
+  "sorts": [
+	  {"prop": "visit_date_max", "dir": "desc"}
+  ],
+  "display_properties": [
+    "intervenant",
+    "temps",
+    "visit_date_min",
+    "visit_date_max",
+    "type_travaux",
+    "produits",
+    "materiel_travaux",
+    "comments"
+  ],
+  "display_list": [
+    "visit_date_min",
+    "visit_date_max",
+    "intervenant",
+    "type_travaux"
+  ],
+  "keep" : [
+    "intervenant",
+    "temps",
+    "type_travaux",
+    "produits",
+    "materiel_travaux"
+  ],
+  "specific": {
+    "observers": {
+      "hidden": true,
+      "required": false
+    },
+    "id_dataset": {
+      "hidden": true
+    },
+    "id_base_site": {
+      "type_widget": "site",
+      "required": true,
+      "attribut_label": "Site"
+    },
+    "intervenant": {
+      "type_widget": "nomenclature",
+      "attribut_label": "Intervenant",
+      "code_nomenclature_type": "PT_INT",
+      "type_util": "nomenclature",
+      "required": true
+    },
+    "temps":{
+      "type_widget": "number",
+      "required": true,
+      "min": 0,
+      "max": 24,
+      "value":1,
+      "attribut_label": "Nb. heures",
+      "definition": "Temps d'intervention de l'intervenant (1j = 7h)"
+    },
+    "visit_date_min": {
+    "type_widget": "date",
+    "attribut_label": "Date de début des travaux",
+    "required": true
+    },
+    "visit_date_max": {
+      "type_widget": "date",
+      "attribut_label": "Date de fin des travaux",
+      "required": true
+    },
+    "produits":{
+      "type_widget": "multiselect",
+      "required": true,
+      "attribut_label": "Devenir des produits issus des travaux",
+      "value": "Pas de produit",
+      "values": [
+        "Broyage",
+        "Brûlage sur sol",
+        "Brûlage sur tôle",
+        "Exportation",
+        "Stockage sur place",
+        "Autre technique",
+        "Pas de produit"
+      ]
+    },
+    "type_travaux":{
+      "type_widget": "multiselect",
+      "required" : true,
+      "attribut_label": "Type(s) de travaux",
+      "values":[
+        "Abattage - Bûcheronnage",
+        "Arrachage de la végétation",
+        "Broyage des ligneux ou rémanents",
+        "Coupe des chablis",
+        "Coupe/reprise des rejets",
+        "Création de mare",
+        "Création de passage (fossé...)",
+        "Curage",
+        "Débardage",
+        "Déboisement",
+        "Débroussaillage",
+        "Débroussaillage sélectif",
+        "Décapage",
+        "Déchaumage",
+        "Démontage du mobilier",
+        "Démontage de clôtures",
+        "Dessouchage",
+        "Ecorçage",
+        "Elagage",
+        "Entretien des vergers",
+        "Etrépage",
+        "Evacuation des produits de coupe",
+        "Evacuation d'ordures ou détritus",
+        "Fanage",
+        "Fascinage",
+        "Fauche",
+        "Fauche sélective",
+        "Gestion des embâcles",
+        "Gyrobroyage au sol",
+        "Installation d'infrastructure (bergerie...)",
+        "Lazurage",
+        "Mise en stère",
+        "Mise en tas de produits de coupe",
+        "Ouverture de fossés",
+        "Pose de clôtures",
+        "Pose de grilles pour chiroptères",
+        "Pose de mobilier",
+        "Pose d'un parc de contention",
+        "Plantation de haie",
+        "Plantation autre",
+        "Pressage",
+        "Réparation de clôtures",
+        "Réparation de mobilier",
+        "Reprofilage de berges",
+        "Semis",
+        "Taille de haie",
+        "Tressage",
+        "Autre"
+      ]
+    },
+    "comments": {
+      "type_widget": "textarea",
+      "attribut_label": "Commentaire"
+    },
+    "materiel_travaux": {
+      "type_widget": "multiselect",
+      "required" : true,
+      "attribut_label": "Matériel(s) utilisé(s)",
+      "values":[
+        "Accessoires arrimage",
+        "Andaineuse",
+        "Bâche",
+        "Balai",
+        "Bateau/barque",
+        "Batte à feu",
+        "Bec",
+        "Brouette à chenille",
+        "Broyeur à branche",
+        "Broyeur Saelen",
+        "Caisse à outils",
+        "Coin d'abattage",
+        "Coin éclateur",
+        "Coradage escalade",
+        "Crocs",
+        "Débrousailleuse",
+        "Disqueuse",
+        "Faucheuse (barre de coupe)",
+        "Fontaine de nettoyage",
+        "Fourche",
+        "Giro broyeur",
+        "Groupe électrogène",
+        "Harnais",
+        "Houe",
+        "Masse",
+        "Matériel clotûre",
+        "Merlin",
+        "Mini-presse",
+        "Nettoyeur haute-pression thermique",
+        "Panneaux de signalisation sécurité",
+        "Pelle",
+        "Perceuse",
+        "Perche thermique",
+        "Pioche",
+        "Ponceuse",
+        "Quad et remorque forestière",
+        "Râteau",
+        "Rogneuse de souches",
+        "Sac de transport",
+        "Scie à main",
+        "Souffleur",
+        "Taille-haie",
+        "Tire-fort 3 tonnes",
+        "Tire-fort 750 kg",
+        "Tondeuse",
+        "Tondeuse broyeur",
+        "Treuil thermique",
+        "Tronçonneuse",
+        "Visseuse",
+        "Autre matériel"
+      ]
+    }
+  }
+}

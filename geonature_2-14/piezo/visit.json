@@ -1,0 +1,33 @@
+{
+  "genre":"M",
+  "label": "Sondage",
+  "label_list": "Sondage",
+  "display_properties": [
+    "observers",
+    "num_sondage",
+    "observers",
+    "visit_date_min",
+    "comments"
+  ],
+  "display_list": [
+    "num_sondage",
+    "visit_date_min",
+    "observers",
+    "nb_observations"
+  ],
+  "keep": [
+    "observers"
+  ],
+  "specific": {
+    "num_sondage": {
+      "type_widget": "number",
+      "attribut_label": "Numéro de sondage",
+      "min" : 1,
+      "required": true
+    },
+    "visit_date_min":{
+      "attribut_label": "Date du sondage",
+      "required": true
+    }
+  }
+}

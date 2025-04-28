@@ -1,0 +1,137 @@
+{
+  "genre":"F",
+  "label": "Fiche pâturage site annuelle",
+  "map_label_field_name": "sites_group_name",
+  "export_pdf": [
+    {
+      "template": "fiche_site.html",
+      "label": "Export PDF"
+    }
+  ],
+  "label_list": "fiche_site",
+  "sorts": [
+	  {"prop":"annee", "dir": "des"}
+	],
+  "display_properties": [
+    "site_cen",
+    "sites_group_code",
+    "etat",
+    "annee",
+    "admin",
+    "id_numerisateur",
+    "code_analytique",
+    "milieux",
+    "surface_totale",
+    "nb_jours_total",
+    "objectif",
+    "comments"
+  ],
+  "display_list": [
+    "site_cen",
+    "sites_group_code",
+    "annee",
+    "milieux",
+    "surface_totale",
+    "nb_jours_total",
+    "objectif",
+    "nb_sites"
+  ],
+  "keep": [
+	  "id_numerisateur",
+    "annee"
+	],
+  "specific": {
+    "sites_group_code":{
+      "attribut_label": "Numéro de la fiche pâturage"
+    },
+    "sites_group_name":{
+      "hidden": true,
+      "required": false
+    },
+    "site_cen": {
+      "type_widget": "datalist",
+      "attribut_label": "Site CEN rattaché aux travaux",
+      "hidden": false,
+      "required": true,
+      "keyValue": "area_code",
+      "keyLabel": "area_name",
+      "type_util": "areas",
+      "api": "/geo/areas",
+      "filters": {
+        "id_type": [12]
+      },
+      "application": "GeoNature",
+      "definition": "Nom du site CEN dans lequelle sont localisées les parcelles" 
+    },
+    "etat": {
+      "type_widget": "nomenclature",
+      "attribut_label": "Etat de la fiche pâturage",
+      "code_nomenclature_type": "PT_ETAT",
+      "required": true,
+      "value" : "Etat prévisionnel",
+      "type_util": "nomenclature"
+    },
+    "admin":{
+      "type_widget": "select",
+      "hidden": "true",
+      "required": false,
+      "definition": "Commune ou EPCI d'accueil des actions de pâturage"
+    },
+    "id_numerisateur": {
+      "type_widget": "datalist",
+      "attribut_label": "Numérisateur",
+      "api": "users/menu/__MODULE.ID_LIST_OBSERVER",
+      "application": "GeoNature",
+      "keyValue": "id_role",
+      "keyLabel": "nom_complet",
+      "type_util": "user",
+      "multiple": false,
+      "required": true,
+      "definition": "Personne responsable du suivi des travaux sur le site CEN" 
+    },
+    "annee": {
+      "attribut_label": "Année",
+      "type_widget": "number",
+      "min": 2013,
+      "definition": "Année de conduite du pâturage",
+      "required": true
+    },
+    "surface_totale":{
+      "attribut_label": "Surface pâturée totale",
+      "type_widget": "number",
+      "min": 0,
+      "definition": "Surface pâturée totale - se calcule tout seul en fonction des parcelles travaux",
+      "required": false
+    },
+    "nb_jours_total":{
+      "attribut_label": "Nombre total de jour pâturé",
+      "type_widget": "number",
+      "min": 0,
+      "definition": "Nombre total de jour pâturé - se calcule tout seul en fonction des parcelles travaux",
+      "required": false
+    },
+    "objectif":{
+      "type_widget": "datalist",
+      "attribut_label": "Objectif(s)",
+      "api": "nomenclatures/nomenclature/PT_OBJ",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "mnemonique",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "multiple": true,
+      "required": false
+    },    
+    "nb_sites": {
+      "attribut_label": "Nombre de parcelles pâturées",
+      "hidden": false
+    },
+    "sites_group_description": {
+      "hidden":true
+    },
+    "comments":{
+      "hidden":false,
+      "attribut_label": "Commentaire"
+    }
+  }
+}   

@@ -1,0 +1,10 @@
+,
+    "change": [
+      "({objForm, meta}) => {",
+          "const id_inventor = meta.value.id_role;",
+          "if (!objForm.controls.id_inventor.dirty) {",
+              "objForm.patchValue({id_inventor})",
+          "}",
+      "}",
+      ""
+    ]

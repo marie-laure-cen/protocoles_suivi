@@ -1,0 +1,74 @@
+{
+  "genre":"M",
+  "label": "relevé",
+  "label_list": "relevés",
+  "sorts": [
+    {"prop": "visit_date_min", "dir": "desc"}
+  ],
+  "display_properties": [
+    "quadrat",
+    "visit_date_min",
+    "observers",
+    "taux_recouvrement",
+    "hauteur_vegetation",
+    "strate_bryo",
+    "comments"
+  ],
+  "display_list": [
+    "visit_date_min",
+    "quadrat",
+    "nb_observations"
+  ],
+  "keep": [
+    "observers",  
+    "transect",
+    "visit_date_min"
+  ],
+  "specific": {
+    "visit_date_min":{
+      "attribut_label": "Date du passage",
+      "required": true
+    },
+    "visit_date_max":{
+      "required": false,
+      "hidden": true
+    },
+    "id_dataset":{
+      "hidden": true
+    },
+    "transect":{
+      "type_widget": "number",
+      "attribut_label": "Numéro de transect",
+      "required": true,
+      "min":1,
+      "value":1
+    },
+    "quadrat":{
+      "type_widget": "number",
+      "attribut_label": "Numéro de quadrat",
+      "required": true,
+      "min":1,
+      "max":20,
+      "value":1
+    },
+    "taux_recouvrement":{
+      "type_widget": "number",
+      "attribut_label": "Taux de recouvrement",
+      "required": true,
+      "min":1,
+      "max":100
+    },
+    "hauteur_vegetation":{
+      "type_widget": "number",
+      "attribut_label": "Hauteur de la végétation (m)",
+      "required": true,
+      "min":0
+    },
+    "strate_bryo": {
+      "type_widget": "number",
+      "attribut_label": "Strate bryolichenique",
+      "required": true,
+      "min":0
+    }
+  }
+}

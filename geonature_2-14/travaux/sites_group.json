@@ -1,0 +1,48 @@
+{
+  "genre":"F",
+  "label": "fiche annuelle site",
+  "map_label_field_name": "sites_group_name",
+  "label_list": "fiches annuelles sites",
+  "sorts": [
+	  {"prop":"commune", "dir": "asc"}
+	],
+  "display_properties": [
+    "sites_group_code",
+    "sites_group_name",
+    "commune",
+    "sites_group_description",
+    "nb_sites"
+  ],
+  "display_list": [
+    "commune",
+    "sites_group_code",
+    "sites_group_name",
+    "nb_sites"
+  ],
+  "specific": {
+    "sites_group_code": {
+      "attribut_label": "Code site CENN"
+    },
+    "sites_group_name": {
+      "attribut_label": "Nom site CENN",
+      "required": true,
+      "hidden":false
+    },
+    "sites_group_description": {
+      "attribut_label": "Description",
+      "hidden":false
+    },
+    "commune": {
+      "type_widget": "text",
+      "attribut_label": "Commune(s)",
+      "hidden":false
+    },
+    "comments":{
+      "hidden":true
+    },
+    "nb_sites": {
+      "attribut_label": "Nombre de fiches travaux",
+      "hidden": false
+    }
+  }
+}   

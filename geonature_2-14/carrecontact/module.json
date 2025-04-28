@@ -1,0 +1,17 @@
+{
+  "module_code": "carrecontact",
+  "module_label":"CARRE CONTACT",
+  "module_desc":"Module pour le protocole de suivi carré contact",
+  "specific": {
+    "b_draw_sites_group": {
+      "hidden": false
+    }
+  },
+  "export_csv": [
+    {
+      "label": "Observations carré contact",
+      "type": "csv",
+      "method": "obs"
+    }
+  ]
+}

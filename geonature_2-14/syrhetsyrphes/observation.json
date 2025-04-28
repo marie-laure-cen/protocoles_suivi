@@ -1,0 +1,81 @@
+{
+  "description_field_name":"cd_nom",
+  "genre":"F",
+  "sorts": [
+    {"prop": "cd_nom", "dir": "asc"}
+  ],
+  "display_properties": [
+    "observers",
+    "cd_nom",
+    "id_nomenclature_obs_technique",
+    "id_nomenclature_determination_method",
+    "conservation",
+    "id_echantillon",
+    "comments"
+  ],
+  "display_list": [
+    "cd_nom", 
+    "id_nomenclature_determination_method"
+  ],
+  "keep": [
+    "id_nomenclature_obs_technique",
+    "id_nomenclature_determination_method"
+  ],
+  "specific": {
+    "observers":{
+      "type_widget": "datalist",
+      "attribut_label": "Déterminateur",
+      "api": "users/menu/__MODULE.ID_LIST_OBSERVER",
+      "application": "GeoNature",
+      "keyValue": "id_role",
+      "keyLabel": "nom_complet",
+      "type_util": "user",
+      "multiple": false,
+      "required": true
+    },
+    "cd_nom": {
+      "type_widget": "taxonomy",
+      "attribut_label": "Espèce observée",
+      "multiple": false,
+      "id_list": "__MODULE.ID_LIST_TAXONOMY",
+      "application": "TaxHub",
+      "required": true,
+      "type_util": "taxonomy"
+    },
+    "id_nomenclature_obs_technique": {
+      "type_widget": "nomenclature",
+      "type_util": "nomenclature",
+      "code_nomenclature_type": "METH_OBS",
+      "attribut_label": "Technique d'observation",
+      "required": true,
+      "value": {
+        "code_nomenclature_type": "METH_OBS",
+        "cd_nomenclature": "0"
+      }
+    },
+    "id_nomenclature_determination_method": {
+      "type_widget": "nomenclature",
+      "type_util": "nomenclature",
+      "code_nomenclature_type": "METH_DETERMIN",
+      "attribut_label": "Méthode de détermination",
+      "required": true,
+      "value": {
+        "code_nomenclature_type": "METH_DETERMIN",
+        "cd_nomenclature": "20"
+      }
+    },
+    "conservation":{
+      "type_widget": "radio",
+      "required": true,
+      "attribut_label": "Collecte de l'individu",
+      "values": ["Oui", "Non"],
+      "value": "Non"
+    },
+    "id_echantillon":{
+      "type_widget": "text",
+      "attribut_label": "Identifiant de l'échantillon collecté",
+      "hidden": false,
+      "required": false
+    }
+  }
+}

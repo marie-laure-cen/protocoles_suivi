@@ -1,0 +1,10 @@
+{
+  "module_code": "prat",
+  "module_label":"PRAT",
+  "module_desc":"Module pour la prélocalisation des tourbières du PRAT Normandie",
+  "specific": {
+    "b_draw_sites_group": {
+      "hidden": false
+    }
+  }
+}

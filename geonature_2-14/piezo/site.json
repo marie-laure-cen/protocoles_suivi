@@ -1,0 +1,89 @@
+{
+  "genre":"M",
+  "label": "Piézomètre",
+  "label_list": "Piézomètres",
+  "geometry_type": "Point",
+  "map_label_field_name": "base_site_name",
+  "sorts": [
+    {"prop": "base_site_code", "dir": "asc"}
+  ],
+  "display_properties": [
+    "id_sites_group",
+    "base_site_code",
+    "base_site_name",
+    "etat",
+    "modele",
+    "protocole",
+    "profondeur",
+    "base_site_description"
+ ],
+  "display_list": [
+    "base_site_name",
+    "etat",
+    "altitude_min",
+    "profondeur",
+    "nb_visits"
+  ],
+  "specific": {
+    "nb_visits":{
+      "attribut_label": "Nb. sondages"
+    },
+    "base_site_code":{
+      "attribut_label": "Code du piézomètre"
+    },
+    "base_site_name":{
+      "attribut_label": "Nom du piézomètre"
+    },
+    "base_site_description":{
+      "attribut_label": "Commentaires"
+    },
+    "id_sites_group": {
+      "type_widget": "datalist",
+      "attribut_label": "Site CEN du suivi",
+      "type_util": "sites_group",
+      "keyValue": "id_sites_group",
+      "keyLabel": "sites_group_code",
+      "api": "__MONITORINGS_PATH/list/__MODULE.MODULE_CODE/sites_group?id_module=__MODULE.ID_MODULE",
+      "application": "GeoNature",
+      "required": true,
+      "hidden": false
+    },
+    "id_nomenclature_type_site": {
+      "attribut_label": "Type site",
+      "type_util": "nomenclature",
+      "code_nomenclature_type": "TYPE_SITE",
+      "value": {
+          "code_nomenclature_type": "TYPE_SITE",
+          "cd_nomenclature": "PIEZO"
+      },
+      "hidden": true
+    },
+    "etat": {
+      "type_widget": "select",
+      "required": true,
+      "attribut_label": "Etat du piézomètre",
+      "values": ["Fonctionnel", "Non fonctionnel", "Pressenti", "Inconnu"],
+      "value": "Inconnu"
+    },
+    "modele":{
+      "type_widget": "text",
+      "attribut_label": "Modèle",
+      "required": false
+    },
+    "protocole":{
+      "type_widget": "text",
+      "attribut_label": "Protocole",
+      "required": false
+    },
+    "profondeur":{
+      "type_widget": "number",
+      "attribut_label": "Profondeur",
+      "definition": "Profondeur du piézomètre en m",
+      "required": false
+    },
+    "altitude_min": {
+      "attribut_label": "Altitude",
+      "definition": "Altitude de pose du piézomètre en m"
+    }
+  }
+}

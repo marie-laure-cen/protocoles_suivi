@@ -1,0 +1,114 @@
+{
+  "types": [
+    {
+      "mnemonique": "TYPE_SITE",
+      "label_default": "Type de sites",
+      "definition_default": "Nomenclature des types de sites suivi dans gn_monitoring."
+    },
+    {
+      "mnemonique": "BEAUFORT",
+      "label_default": "Echelle de Beaufort",
+      "definition_default": "Echelle des vents selon la nomenclature de Beaufort"
+    }
+  ],
+  "nomenclatures": [
+    {
+      "type": "BEAUFORT",
+      "cd_nomenclature": "BEAU_01",
+      "mnemonique": "Calme",
+      "label_default": "Calme",
+      "definition_default": "La mer est comme un miroir, lisse et sans vague. Vent de moins de 1 km/h."
+    },
+    {
+      "type": "BEAUFORT",
+      "cd_nomenclature": "BEAU_02",
+      "mnemonique": "Très légere brise",
+      "label_default": "Très légère brise",
+      "definition_default": "Quelques rides (appelées risée ou risette) ressemblant à des écailles de poisson, mais sans aucune écume. Vagues de 0 à 0,2 m. Vent de 1 à 5 km/h."
+    },
+    {
+      "type": "BEAUFORT",
+      "cd_nomenclature": "BEAU_03",
+      "mnemonique": "Légere brise",
+      "label_default": "Légère brise",
+      "definition_default": "Vaguelettes ne déferlant pas, de 0,2 à 0,5 m. Vent de 6 à 11 km/h."
+    },
+    {
+      "type": "BEAUFORT",
+      "cd_nomenclature": "BEAU_04",
+      "mnemonique": "Petite brise",
+      "label_default": "Petite brise",
+      "definition_default": "Très petites vagues de 0,5 à 1 m. Les crêtes d'écume blanche (appelées moutons) commencent à déferler çà et là. Écume d'aspect vitreux. Vent de 12 à 19 km/h."
+    },
+    {
+      "type": "BEAUFORT",
+      "cd_nomenclature": "BEAU_05",
+      "mnemonique": "Jolie brise",
+      "label_default": "Jolie brise",
+      "definition_default": "Petites vagues de 1 à 2 m, de nombreux moutons. Vent de 20 à 28 km/h."
+    },
+    {
+      "type": "BEAUFORT",
+      "cd_nomenclature": "BEAU_06",
+      "mnemonique": "Bonne brise",
+      "label_default": "Bonne brise",
+      "definition_default": "Vagues modérées 2 à 3 m, moutons, éventuellement embruns. Vent de 29 à 38 km/h."
+    },
+    {
+      "type": "BEAUFORT",
+      "cd_nomenclature": "BEAU_07",
+      "mnemonique": "Vent frais",
+      "label_default": "Vent frais",
+      "definition_default": "Crêtes d'écume blanches, lames, embruns, vagues de 3 à 4 m. Vent de 39 à 49 km/h."
+    },
+    {
+      "type": "BEAUFORT",
+      "cd_nomenclature": "BEAU_08",
+      "mnemonique": "Grand frais",
+      "label_default": "Grand frais",
+      "definition_default": "Trainées d'écume, lames déferlantes, vagues de 4 à 5,5 m. Vent de 50 à 61 km/h."
+    },
+    {
+      "type": "BEAUFORT",
+      "cd_nomenclature": "BEAU_09",
+      "mnemonique": "Coup de vent",
+      "label_default": "Coup de vent",
+      "definition_default": "Tourbillons d'écume à la crête des lames, trainées d'écume, vagues de 5,5 à 7,5 m Vent de 62 à 74 km/h."
+    },
+    {
+      "type": "BEAUFORT",
+      "cd_nomenclature": "BEAU_10",
+      "mnemonique": "Fort coup de vent",
+      "label_default": "Fort coup de vent",
+      "definition_default": "Lames déferlantes grosses à énormes, visibilité réduite par les embruns, vagues de 7 à 10 m. Vent de 75 à 88 km/h."
+    },
+    {
+      "type": "BEAUFORT",
+      "cd_nomenclature": "BEAU_11",
+      "mnemonique": "Tempête",
+      "label_default": "Tempête",
+      "definition_default": "Très grosses lames à longue crête en panache. L'écume produite s'agglomère en larges bancs et est soufflée dans le lit du vent en épaisses trainées blanches. Le déferlement en rouleaux devient intense et brutal. Visibilité réduite. Vagues de 9 à 12,5 m. Vent de 89 à 102 km/h."
+    },
+    {
+      "type": "BEAUFORT",
+      "cd_nomenclature": "BEAU_12",
+      "mnemonique": "Violente tempête",
+      "label_default": "Violente tempête",
+      "definition_default": "Lames exceptionnellement hautes. La mer est complètement recouverte de bancs d'écume blanche élongés dans la direction du vent. Partout, le bord de la crête des lames est soufflé et donne de la mousse. Visibilité réduite. Vagues de 11,5 à 16 m. Vent de 103 à 117 km/h."
+    },
+    {
+      "type": "BEAUFORT",
+      "cd_nomenclature": "BEAU_13",
+      "mnemonique": "Ouragan",
+      "label_default": "Ouragan ou bombe météorologique",
+      "definition_default": "Conditions exceptionnelles : l'air est plein d'embruns. La mer est entièrement blanche du fait des bancs d'écume dérivants. Visibilité fortement réduite. Vagues supérieures à 14 m. Vent de plus de 118 km/h."
+    },
+    {
+      "type": "TYPE_SITE",
+      "cd_nomenclature": "SYRHET_Syr",
+      "mnemonique": "Site SYRHET Syrphes",
+      "label_default": "Site SYRHET Syrphes",
+      "definition_default": "Site de relevé du protocole SYRHET Syrphes"
+    }
+  ]
+}

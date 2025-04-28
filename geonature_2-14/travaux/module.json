@@ -1,0 +1,36 @@
+{
+    "module_code": "travaux",
+    "module_label": "Travaux",
+    "module_desc": "Module de saisie des travaux du CEN Normandie",
+    "export_csv": [
+        {
+            "label": "Sites ayant fait l'objet de travaux",
+            "type": "csv",
+            "method": "sites"
+        },{
+            "label": "Parcelles de travaux",
+            "type": "csv",
+            "method": "parc"
+        },
+        {
+            "label": "Fiches travaux année N",
+            "type": "csv",
+            "method": "trav_n"
+        },
+        {
+            "label": "Fiches travaux année n-1",
+            "type": "csv",
+            "method": "trav_n1"
+        },
+        {
+            "label": "Ensemble des fiches travaux",
+            "type": "csv",
+            "method": "trav"
+        },
+        {
+            "label": "Ensemble des interventions de travaux",
+            "type": "csv",
+            "method": "interv"
+        }
+    ]
+}

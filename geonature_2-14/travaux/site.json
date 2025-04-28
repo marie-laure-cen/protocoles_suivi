@@ -1,0 +1,136 @@
+{
+  "genre":"F",
+  "label": "fiche travaux",
+  "label_list": "fiches travaux",
+  "map_label_field_name": "base_site_code",
+  "geometry_type": "Polygon",
+  "display_properties": [
+    "id_sites_group",
+    "base_site_code",
+    "base_site_name",
+    "annee",
+    "etat",
+    "obj_principal",
+    "result",
+    "reajust",
+    "classe_travaux",
+    "nb_j",
+    "base_site_description",
+    "id_inventor",
+    "first_use_date"
+  ],
+  "display_list": [
+    "base_site_code",
+    "annee",
+    "etat"
+  ],
+  "sorts": [
+    {"prop": "annee", "dir": "desc"}
+  ],
+  "specific": {
+    "id_inventor":{
+      "attribut_label": "Responsable suivi travaux"
+    },
+    "base_site_name":{
+      "attribut_label": "Nom de la fiche"
+    },
+    "base_site_code":{
+      "attribut_label": "Code analytique"
+    },
+    "annee":{
+      "type_widget":"number",
+      "required":true,
+      "attribut_label":"Année",
+      "value": 2024
+    },
+    "etat":{
+      "type_widget":"radio",
+      "required":true,
+      "attribut_label":"Etat",
+      "value": "Prévisionnelle",
+      "values": ["Prévisionnelle","Réalisée"]
+    },
+    "obj_principal":{
+      "type_widget": "datalist",
+      "attribut_label": "Objectif(s)",
+      "api": "nomenclatures/nomenclature/PT_OBJ",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "multiple": true,
+      "required": "({value}) => value.etat == 'Réalisée'"
+    },
+    "result":{
+      "type_widget": "datalist",
+      "attribut_label": "Résultat(s)",
+      "api": "nomenclatures/nomenclature/PT_RES",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "multiple": true,
+      "hidden": "({value}) => value.etat != 'Réalisée'",
+      "required": "({value}) => value.etat == 'Réalisée'"
+    },
+    "reajust":{
+      "type_widget": "datalist",
+      "attribut_label": "Réajustements",
+      "api": "nomenclatures/nomenclature/PT_REAJ",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "multiple": true,
+      "hidden": "({value}) => value.etat != 'Réalisée'",
+      "required": "({value}) => value.etat == 'Réalisée'"
+    },
+    "classe_travaux":{
+      "type_widget": "nomenclature",
+      "attribut_label": "Classe de travaux",
+      "code_nomenclature_type": "PT_CLASSE",
+      "type_util": "nomenclature",
+      "required": "({value}) => value.etat == 'Réalisée'"
+    },
+    "nb_j":{
+      "type_widget": "number",
+      "required": true,
+      "min": 0,
+      "max": 365,
+      "value":1,
+      "attribut_label": "Nombre de jours des travaux"
+    },
+    "base_site_description":{
+      "attribut_label": "Commentaires, bilan"
+    },
+    "id_nomenclature_type_site": {
+      "type_widget": "nomenclature",
+      "attribut_label": "Type site",
+      "code_nomenclature_type": "TYPE_SITE",
+      "type_util": "nomenclature",
+      "required": true,
+      "value": {
+        "code_nomenclature_type": "TYPE_SITE",
+        "cd_nomenclature": "TRAVAUX"
+      },
+      "hidden": true
+    },
+    "id_sites_group": {
+      "type_widget": "datalist",
+      "attribut_label": "Groupe de site",
+      "type_util": "sites_group",
+      "keyValue": "id_sites_group",
+      "keyLabel": "sites_group_name",
+      "api": "__MONITORINGS_PATH/list/__MODULE.MODULE_CODE/sites_group?id_module=__MODULE.ID_MODULE",
+      "application": "GeoNature",
+      "required": false,
+      "hidden": true
+    },
+    "first_use_date":{
+      "hidden": true
+    }
+  }
+}

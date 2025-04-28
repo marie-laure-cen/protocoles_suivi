@@ -1,0 +1,179 @@
+{
+  "genre":"F",
+  "label": "tourbière",
+  "label_list": "tourbières",
+  "geometry_type": "Polygon",
+  "map_label_field_name": "base_site_name",
+  "sorts": [
+    {"prop": "dep", "dir": "asc"}
+  ],
+  "display_properties": [
+    "dep",
+    "base_site_code",
+    "base_site_name",
+    "id_inventor",
+    "statut_tourbiere",
+    "type_tourbiere",
+    "niv_flore",
+    "niv_bryoflore",
+    "niv_habitat",
+    "niv_pedologie",
+    "gestion_cen",
+    "validation",
+    "enjeu_connaissance",
+    "enjeu_protection",
+    "enjeu_gestion",
+    "proportionnel_intersection",
+    "base_site_description"
+ ],
+  "display_list": [
+    "dep",
+    "base_site_name",
+    "first_use_date",
+    "nb_visits"
+  ],
+  "keep": [
+    "dep"
+  ],
+  "specific": {
+    "dep": {
+      "type_widget": "select",
+      "attribut_label": "Code du département",
+      "required": true,
+      "values": [14,27,50,61,76]
+    },
+    "base_site_code":{
+      "attribut_label": "Code de la tourbière potentielle"
+    },
+    "base_site_name": {
+      "attribut_label": "Nom de la tourbière potentielle",
+      "required": false
+    }, 
+    "id_inventor": {
+      "hidden " :false,
+      "required": true
+    },   
+    "statut_tourbiere": {
+      "attribut_label": "Statut",
+      "type_widget": "select",
+      "required": true,
+      "values": ["Avérée", "Potentielle", "Invalide"]
+    },
+    "type_tourbiere":{
+      "attribut_label": "Type de tourbière",
+      "type_widget": "select",
+      "required": true,
+      "values": [
+        "Bas-marais", 
+        "Marais arrière-littoraux et pannes dunaires",
+        "Tourbière acide à sphaigne et Ericacées",
+        "Tourbière de pente",
+        "Tourbière de queue d’étang",
+        "Tourbières dont la nature est inconnue"
+      ]
+    },
+    "niv_flore": {
+      "attribut_label": "Niveau flore",
+      "type_widget": "select",
+      "required": true,
+      "values": [
+        "Bon", 
+        "Moyen",
+        "Faible",
+        "Nul"
+      ]
+    },
+    "niv_bryoflore": {
+      "attribut_label": "Niveau bryoflore",
+      "type_widget": "select",
+      "required": true,
+      "values": [
+        "Bon", 
+        "Moyen",
+        "Faible",
+        "Nul"
+      ]
+    },
+    "niv_habitat": {
+      "attribut_label": "Niveau habitat",
+      "type_widget": "select",
+      "required": true,
+      "values": [
+        "Bon", 
+        "Moyen",
+        "Faible",
+        "Nul"
+      ]
+    },
+    "niv_pedologie": {
+      "attribut_label": "Niveau pédologie",
+      "type_widget": "select",
+      "required": true,
+      "values": [
+        "Bon", 
+        "Moyen",
+        "Faible",
+        "Nul"
+      ]
+    },
+    "gestion_cen": {
+      "attribut_label": "Gestion CENN",
+      "type_widget": "select",
+      "required": true,
+      "values": ["Oui", "Partielle","Non","Ne sais pas"]
+    },
+    "validation": {
+      "attribut_label": "Validation",
+      "type_widget": "select",
+      "required": true,
+      "values": [true, false],
+      "value": false
+    },
+    "enjeu_connaissance": {
+      "attribut_label": "Enjeu de connaissance",
+      "type_widget": "select",
+      "required": true,
+      "values": [
+        "Indispensable",
+        "Hautement prioritaire", 
+        "Important",
+        "Perfectible"
+      ]
+    },
+    "enjeu_protection": {
+      "attribut_label": "Enjeu de protection",
+      "type_widget": "select",
+      "required": true, 
+      "values": [true, false]
+    },
+    "enjeu_gestion": {
+      "attribut_label": "Niveau flore",
+      "type_widget": "select",
+      "required": true,
+      "values": [
+        "Prioritaire", 
+        "A renforcer",
+        "Non prioritaire"
+      ]
+    },
+    "proportionnel_intersection": {
+      "type_widget": "number",
+      "attribut_label": "Intersection",
+      "required": true,
+      "min": 0,
+      "max": 100
+    },
+    "base_site_description":{
+      "attribut_label": "Commentaires"
+    },
+    "id_nomenclature_type_site": {
+      "attribut_label": "Type site",
+      "type_util": "nomenclature",
+      "value": {
+          "code_nomenclature_type": "TYPE_SITE",
+          "cd_nomenclature": "preloc_prat"
+      },
+      "hidden": true
+    }
+  }
+}

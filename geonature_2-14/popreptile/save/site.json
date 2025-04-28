@@ -1,0 +1,202 @@
+{
+  "genre":"F",
+  "geometry_type": "Point",
+  "label": "plaque",
+  "label_list": "plaques",
+  "display_properties": [
+    "id_sites_group",
+    "base_site_name",
+    "base_site_code",
+    "methode_prospection",
+    "type_materiaux",
+    "nb_plaques",
+    "milieu_transect",
+    "milieu_bordier",
+    "milieu_mosaique_vegetale",
+    "milieu_homogene",
+    "milieu_anthropique",
+    "milieu_transect_autre",
+    "microhabitat_favorable",
+    "frequentation_humaine",
+    "comment"
+  ],
+  "display_list": [
+    "base_site_name",
+    "id_sites_group",
+    "last_visit",
+    "nb_visits"
+  ],
+  "specific": {
+    "id_nomenclature_type_site": {
+      "type_widget": "text",
+      "attribut_label": "Type site",
+      "type_util": "nomenclature",
+      "value": {
+          "code_nomenclature_type": "TYPE_SITE",
+          "cd_nomenclature": "7"
+      },
+      "hidden": true
+    },
+    "id_sites_group": {
+      "type_widget": "datalist",
+      "attribut_label": "Aire",
+      "type_util": "sites_group",
+      "keyValue": "id_sites_group",
+      "keyLabel": "sites_group_name",
+      "api": "__MONITORINGS_PATH/list/__MODULE.MODULE_CODE/sites_group?id_module=__MODULE.ID_MODULE",
+      "application": "GeoNature",
+      "required": true,
+      "hidden": false
+    },
+    "base_site_name": {
+      "type_widget": "select",
+      "attribut_label": "Nom du transect",
+      "values": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "I",
+        "J",
+        "K",
+        "Témoin"
+      ],
+      "required": true
+    },
+    "base_site_code": {
+      "type_widget": "text",
+      "attribut_label": "Code du transect",
+      "required": false,
+      "hidden": true
+    },
+    "methode_prospection": {
+      "type_widget": "radio",
+      "attribut_label": "Méthode de prospection",
+      "values": [
+        "Observation directe seule", 
+        "Plaques seules", 
+        "Plaques et observation directe"
+      ],
+      "value": "Plaques seules"
+    },
+	  "nb_plaques": {
+      "type_widget": "number",
+      "attribut_label": "Nombre de plaques sur le transect",
+      "required": false,
+      "min": 1,
+      "max":99,
+      "value": 1,
+      "hidden": "({value}) => value.methode_prospection === 'Par observation directe uniquement'"
+    },
+    "type_materiaux": {
+      "type_widget": "select",
+      "required": false,
+      "attribut_label": "Type de matériaux",
+      "hidden": "({value}) => value.methode_prospection === 'Par observation directe uniquement'",
+      "values": [
+        "Tapis de Carrière", 
+        "Fibrociment", 
+        "Tôle métallique", 
+        "Autre"
+      ]
+    },
+    "milieu_transect": {
+      "type_widget": "radio",
+      "attribut_label": "Description de la configuration du milieu autour du transect",
+      "values": [
+        "Milieux bordiers", 
+        "Milieux mosaïque végétale", 
+        "Milieux structuration végétale homogène", 
+        "Milieux anthropiques"
+      ]
+    },
+    "milieu_bordier": {
+      "type_widget": "datalist",
+      "attribut_label": "Milieux bordiers (linéaires)",
+      "api": "nomenclatures/nomenclature/MILIEUX_BORDIERS",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "hidden": "({value}) => value.milieu_transect != 'Milieux bordiers'",
+      "required": true
+    },
+    "milieu_mosaique_vegetale": {
+      "type_widget": "datalist",
+      "attribut_label": "Milieux mosaïque végétale",
+      "api": "nomenclatures/nomenclature/MILIEUX_MOSAIQUE",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "hidden": "({value}) => value.milieu_transect != 'Milieux mosaïque végétale'",
+      "required": true
+    },
+    "milieu_homogene": {
+      "type_widget": "datalist",
+      "attribut_label": "Milieux à structuration végétale homogène",
+      "api": "nomenclatures/nomenclature/MILIEUX_HOMOGENE",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "hidden": "({value}) => value.milieu_transect != 'Milieux structuration végétale homogène'",
+      "required": true
+    },
+    "milieu_anthropique": {
+      "type_widget": "datalist",
+      "attribut_label": "Milieux anthropiques",
+      "api": "nomenclatures/nomenclature/MILIEUX_ANTHROPIQUE",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "hidden": "({value}) => value.milieu_transect != 'Milieux anthropiques'",
+      "required": true
+    },
+    "milieu_transect_autre": {
+      "type_widget": "text",
+      "attribut_label": "Autres (préciser)",
+      "hidden": "({value}) => value.milieu_anthropique != 'Autre (préciser)'"
+    },
+    "microhabitat_favorable": {
+      "type_widget": "datalist",
+      "attribut_label": "Présence de micro-habitats favorables",
+      "api": "nomenclatures/nomenclature/PR_MICRO_HAB",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": false
+    },
+    "frequentation_humaine": {
+      "type_widget": "datalist",
+      "attribut_label": "Fréquentation humaine",
+      "api": "nomenclatures/nomenclature/PR_FH",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": false
+    },
+    "base_site_description": {
+      "hidden":true
+    },
+    "nb_visits": {
+      "attribut_label": "Nb. de passages"
+    },
+    "last_visit": {
+      "attribut_label": "Dernier passage",
+      "type_util": "date"
+    }
+  }
+}

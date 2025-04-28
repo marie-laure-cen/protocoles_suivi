@@ -1,0 +1,17 @@
+{
+  "module_code": "steli",
+  "module_label":"STELI",
+  "module_desc":"Module pour le protocole de suivi des odonates STELI",
+  "specific": {
+    "b_draw_sites_group": {
+      "hidden": false
+    }
+  },
+  "export_csv": [
+    { "label": "Transects STELI", "type":"csv" , "method": "transect"},
+    { "label": "Ensemble des suivis STELI", "type":"csv" , "method": "obs"},
+    { "label": "Ensemble des suivis STELI avec statuts", "type":"csv", "method": "obs_2" },
+    { "label": "Suivis STELI de l'année en cours", "type":"csv" , "method": "obs_n" },
+    { "label": "Suivis STELI de l'année passée", "type":"csv" , "method": "obs_n1" }
+ ]
+}

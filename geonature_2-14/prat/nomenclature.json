@@ -1,0 +1,18 @@
+{
+  "types": [
+    {
+      "mnemonique": "TYPE_SITE",
+      "label_default": "Type de sites",
+      "definition_default": "Nomenclature des types de sites suivi dans gn_monitoring."
+    }
+  ],
+  "nomenclatures": [
+    {
+      "type": "TYPE_SITE",
+      "cd_nomenclature": "preloc_prat",
+      "mnemonique": "Prélocalisation des tourbières",
+      "label_default": "Prélocalisation des tourbières du PRAT Normandie",
+      "definition_default": "Prélocalisation des tourbières du Programme Régional d'Actions en faveur des Tourbières (PRAT) de Normandie"
+    }
+  ]
+}

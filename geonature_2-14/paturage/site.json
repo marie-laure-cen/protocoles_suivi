@@ -1,0 +1,170 @@
+{
+  "genre":"F",
+  "label": "Parcelle pâturée",
+  "label_list": "parcelle",
+  "map_label_field_name": "base_site_name",
+  "geometry_type": "Polygon",
+  "export_pdf": [
+    {
+      "template": "fiche_parcelle.html",
+      "label": "Export PDF de la fiche parcelle"
+    }
+  ],
+  "sorts": [
+	  {"prop": "base_site_name", "dir": "asc"}
+  ],
+  "display_properties": [
+    "base_site_name", 
+    "etat",
+    "surface_m2",
+    "surface_ha",
+    "intervenant",
+    "ugb_parc",
+    "duree",
+    "objectif",
+    "resultat",
+    "cause",
+    "reajust",
+    "comment"
+	],
+  "display_list": [
+    "base_site_name", 
+    "etat",
+    "surface_m2",
+    "surface_ha",
+    "intervenant",
+    "ugb_parc",
+    "duree",
+    "objectif",
+    "resultat",
+    "reajust"
+  ],
+  "keep": [
+    "etat"
+  ],
+  "specific": {
+    "base_site_name": {
+      "required": true,
+      "hidden": false,
+      "attribut_label": "Nom de la parcelle de pâturage"
+    },
+    "etat":{
+      "type_widget": "nomenclature",
+			"attribut_label": "Etat de la fiche parc",
+			"code_nomenclature_type": "PT_ETAT",
+			"required": true,
+      "value" : "Etat prévisionnel",
+			"type_util": "nomenclature"
+    },
+    "surface_m2":{
+      "type_widget": "number",
+      "attribut_label": "Surface en m²",
+      "min": 0,
+      "required": false,
+      "hidden":true,
+      "definition": "Calcul automatique de la surface de la parcelle de pâturage"
+    },
+    "surface_ha":{
+      "type_widget": "number",
+      "attribut_label": "Surface en ha",
+      "min": 0,
+      "required": false,
+      "hidden":true,
+      "definition": "Calcul automatique de la surface en m²"
+    },
+    "intervenant": {
+      "type_widget": "datalist",
+      "attribut_label": "Intervenants sur la parcelle de pâturage",
+      "api": "nomenclatures/nomenclature/PT_INT",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "mnemonique",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "multiple": true,
+      "required": true,
+      "default": {
+          "cd_nomenclature": "PT_I8"
+      }
+    },
+    "ugb_parc":{
+      "type_widget": "number",
+      "attribut_label": "UGB totale de la parcelle",
+      "min": 0,
+      "required": false,
+      "hidden":true,
+      "definition": "Calcul automatique depuis l'UGB des fiches cheptel"
+    },
+    "duree":{
+      "type_widget": "number",
+      "attribut_label": "Nombre de jours de pâturage sur la parcelle",
+      "min": 0,
+      "required": false,
+      "hidden":true,
+      "definition": "Calcul automatique depuis la durée des fiches cheptel"
+    },
+    "objectif":{
+      "type_widget": "datalist",
+      "attribut_label": "Objectif de gestion",
+      "api": "nomenclatures/nomenclature/PT_OBJ",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "mnemonique",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "multiple": true,
+      "required": true
+    },
+    "resultat":{
+      "type_widget": "nomenclature",
+			"attribut_label": "Résultat du pâturage",
+			"code_nomenclature_type": "PT_RES",
+			"required": "({value}) => { value.etat != 'Etat prévisionnel' }" ,
+			"type_util": "nomenclature",
+      "hidden": "({value}) => { value.etat == 'Etat prévisionnel'} "
+    },
+    "cause":{
+      "type_widget": "datalist",
+      "attribut_label": "Cause(s) du résultat du pâturage",
+      "api": "nomenclatures/nomenclature/PT_CAUSE",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "mnemonique",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "multiple": true,
+      "required": "({value}) => { value.resultat != 'PT_RES_1' || value.etat != 'Etat prévisionnel' } ",
+      "hidden": "({value}) => { value.resultat == 'PT_RES_1' || value.etat == 'Etat prévisionnel' }"
+    },
+    "reajust":{      
+      "type_widget": "datalist",
+      "attribut_label": "Réajustements à réaliser sur le pâturage",
+      "api": "nomenclatures/nomenclature/PT_REAJ",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "mnemonique",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "multiple": true,
+      "required": "({value}) => { value.resultat != 'PT_RES_1' || value.etat != 'Etat prévisionnel' } ",
+      "hidden": "({value}) => { value.resultat == 'PT_RES_1' || value.etat == 'Etat prévisionnel' }"
+    },
+    "comments":{
+      "attribut_label": "Commentaire",
+      "hidden":false
+    },
+    "base_site_code": {
+      "hidden": true,
+      "required": false
+    },
+    "first_use_date": {
+      "hidden": true,
+      "required": false
+    },
+    "base_site_description": {
+      "type_widget": "textarea",
+      "attribut_label": "Description / commentaire",
+      "hidden":true
+    }
+  }
+}

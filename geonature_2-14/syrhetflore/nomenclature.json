@@ -1,0 +1,105 @@
+{
+  "types": [
+    {
+      "mnemonique": "TYPE_SITE",
+      "label_default": "Type de sites",
+      "definition_default": "Nomenclature des types de sites suivi dans gn_monitoring"
+    },
+    {
+      "mnemonique": "RP_STRATE",
+      "label_default": "Strates de végétation",
+      "definition_default": "Nomenclature des strates de végétation pour les relevés phytosociologiques"
+    },
+    {
+      "mnemonique": "RP_AIRE",
+      "label_default": "Forme de l'aire de relevé",
+      "definition_default": "Forme de l'aire de relevé pour les relevés phytosociologiques"
+    }
+  ],
+  "nomenclatures": [
+    {
+      "type": "TYPE_SITE",
+      "cd_nomenclature": "SYRHET_Flo",
+      "mnemonique": "Site SYRHET Flore",
+      "label_default": "Site SYRHET Flore",
+      "definition_default": "Site de relevé du protocole SYRHET flore"
+    },
+    {
+      "type": "RP_STRATE",
+      "cd_nomenclature": "A",
+      "mnemonique": "Arborescente ",
+      "label_default": "Strate arborescente",
+      "definition_default": "Strate arborescente"
+    },
+    {
+      "type": "RP_STRATE",
+      "cd_nomenclature": "A1",
+      "mnemonique": "Arborescente haute",
+      "label_default": "Strate arborescente haute ou dominante",
+      "definition_default": "Strate arborescente haute ou dominante"
+    },
+    {
+      "type": "RP_STRATE",
+      "cd_nomenclature": "A2",
+      "mnemonique": "Arborescente basse",
+      "label_default": "Strate arborescente basse ou dominée",
+      "definition_default": "Strate arborescente basse ou dominée"
+    },
+    {
+      "type": "RP_STRATE",
+      "cd_nomenclature": "a1",
+      "mnemonique": "Arbustive haute",
+      "label_default": "Strate arbustive haute (>3m)",
+      "definition_default": "Strate arbustive haute (>3m)"
+    },
+    {
+      "type": "RP_STRATE",
+      "cd_nomenclature": "a2",
+      "mnemonique": "Arbustive basse",
+      "label_default": "Strate arbustive basse (<3m)",
+      "definition_default": "Strate arbustive basse (<3m)"
+    },
+    {
+      "type": "RP_STRATE",
+      "cd_nomenclature": "h",
+      "mnemonique": "Herbacée",
+      "label_default": "Strate herbacée",
+      "definition_default": "Strate herbacée"
+    },
+    {
+      "type": "RP_AIRE",
+      "cd_nomenclature": "Car",
+      "mnemonique": "Carré",
+      "label_default": "Aire de relevé de forme carrée",
+      "definition_default": "Aire du relevé phytosociologique de forme carrée (planche, placette...)"
+    },
+    {
+      "type": "RP_AIRE",
+      "cd_nomenclature": "Cer",
+      "mnemonique": "Cercle",
+      "label_default": "Aire de relevé de forme circulaire",
+      "definition_default": "Aire du relevé phytosociologique de forme circulaire"
+    },
+    {
+      "type": "RP_AIRE",
+      "cd_nomenclature": "Rec",
+      "mnemonique": "Rectangle",
+      "label_default": "Aire de relevé de forme rectangulaire",
+      "definition_default": "Aire du relevé phytosociologique de forme rectangulaire"
+    },
+    {
+      "type": "RP_AIRE",
+      "cd_nomenclature": "Lin",
+      "mnemonique": "Linéaire",
+      "label_default": "Aire de relevé de forme linéaire",
+      "definition_default": "Aire du relevé phytosociologique de forme linéaire (transect...)"
+    },
+    {
+      "type": "RP_AIRE",
+      "cd_nomenclature": "Aut",
+      "mnemonique": "Autre",
+      "label_default": "Autre forme de l'aire de relevé",
+      "definition_default": "Autre forme de l'aire du relevé phytosociologique (à détailler)"
+    }
+  ]
+}

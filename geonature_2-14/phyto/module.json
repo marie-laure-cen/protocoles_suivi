@@ -1,0 +1,17 @@
+{
+  "module_code": "phyto",
+  "module_label":"PHYTO",
+  "module_desc":"Module pour le protocole de relevés phytosociologiques",
+  "specific": {
+    "b_draw_sites_group": {
+      "hidden": false
+    }
+  },
+  "export_csv": [
+    {
+      "label": "Relevés phytosociologiques",
+      "type": "csv",
+      "method": "standard"
+    }
+  ]
+}

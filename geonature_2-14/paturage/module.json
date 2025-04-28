@@ -1,0 +1,22 @@
+{
+    "module_code": "paturage",
+    "module_label": "Pâturage",
+    "module_desc": "Module de suivi du pâturage du CEN Normandie",
+    "export_csv": [
+        {
+            "label": "Liste des Sites",
+            "type": "csv",
+            "method": "sites"
+        },
+        {
+            "label": "Etat prévisionnel",
+            "type": "csv",
+            "method": "etat_previ"
+        },
+        {
+            "label": "Etat réalisé",
+            "type": "csv",
+            "method": "etat_real"
+        }
+    ]
+}
