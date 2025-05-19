@@ -10,7 +10,6 @@
   "display_properties": [
     "sites_group_code",
     "sites_group_name",
-    "sites_group_description",
     "id_dataset",
     "id_resp",
     "commune",
@@ -72,9 +71,6 @@
       "attribut_label": "Nom site",
       "hidden":false,
       "required":false
-    },
-    "sites_group_description":{
-      "hidden": false
     },
     "commune":{
       "type_widget": "text",

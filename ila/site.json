@@ -3,7 +3,6 @@
   "label": "Transect",
   "label_list": "Transects",
   "geometry_type": "LineString",
-  "map_label_field_name": "base_site_code",
   "sorts": [
     {"prop": "base_site_name", "dir": "asc"}
   ],
@@ -54,15 +53,6 @@
     "id_inventor": {
       "hidden " : true,
       "required": false
-    },
-    "id_nomenclature_type_site": {
-      "attribut_label": "Type site",
-      "type_util": "nomenclature",
-      "code_nomenclature_type": "TYPE_SITE",
-      "value": {
-          "code_nomenclature_type": "TYPE_SITE",
-          "cd_nomenclature": "ILA"
-      }
     },
     "habitat":{
       "attribut_label": "Dernier habitat",

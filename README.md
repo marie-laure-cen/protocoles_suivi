@@ -29,16 +29,17 @@ source ~/geonature/backend/venv/bin/activate
 
 mkdir geonature/backend/media/monitorings
 
-ln -s /home/geoa/modules/carrecontact ~/geonature/backend/media/monitorings/carrecontact
-ln -s /home/geoa/modules/ila ~/geonature/backend/media/monitorings/ila
-ln -s ~/modules/phyto ~/geonature/backend/media/monitorings/phyto
-ln -s /home/geoa/modules/piezo ~/geonature/backend/media/monitorings/piezo
-ln -s /home/geoa/modules/popreptile ~/geonature/backend/media/monitorings/popreptile
-ln -s /home/geoa/modules/steli ~/geonature/backend/media/monitorings/steli
-ln -s /home/geoa/modules/sterf ~/geonature/backend/media/monitorings/sterf
-ln -s /home/geoa/modules/syrhetflore ~/geonature/backend/media/monitorings/syrhetflore
-ln -s /home/geoa/modules/syrhetheteroceres ~/geonature/backend/media/monitorings/syrhetheteroceres
-ln -s /home/geoa/modules/syrhetsyrphes ~/geonature/backend/media/monitorings/syrhetsyrphes
+ln -s /home/geoa/suivis/carrecontact ~/geonature/backend/media/monitorings/carrecontact
+ln -s /home/geoa/suivis/ila ~/geonature/backend/media/monitorings/ila
+ln -s /home/geoa/suivis/phyto ~/geonature/backend/media/monitorings/phyto
+ln -s /home/geoa/suivis/prat ~/geonature/backend/media/monitorings/prat
+ln -s /home/geoa/suivis/piezo ~/geonature/backend/media/monitorings/piezo
+ln -s /home/geoa/suivis/popreptile ~/geonature/backend/media/monitorings/popreptile
+ln -s /home/geoa/suivis/steli ~/geonature/backend/media/monitorings/steli
+ln -s /home/geoa/suivis/sterf ~/geonature/backend/media/monitorings/sterf
+ln -s /home/geoa/suivis/syrhetflore ~/geonature/backend/media/monitorings/syrhetflore
+ln -s /home/geoa/suivis/syrhetheteroceres ~/geonature/backend/media/monitorings/syrhetheteroceres
+ln -s /home/geoa/suivis/syrhetsyrphes ~/geonature/backend/media/monitorings/syrhetsyrphes
 
 geonature monitorings install carrecontact
 geonature monitorings install ila

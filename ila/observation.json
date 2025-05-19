@@ -35,60 +35,52 @@
       "definition": "Effectif total"
     },
     "id_nomenclature_obs_technique": {
-      "type_widget": "datalist",
+      "type_widget": "nomenclature",
       "attribut_label": "Technique d'observation",
-      "api": "nomenclatures/nomenclature/METH_OBS",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
+      "code_nomenclature_type": "METH_OBS",
       "type_util": "nomenclature",
-      "required": true,
-      "default": {
+      "value": {
+        "code_nomenclature_type": "METH_OBS",
         "cd_nomenclature": "0"
-      }
+      },
+      "required": true,
+      "hidden": false
     },
     "id_nomenclature_determination_method": {
-      "type_widget": "datalist",
+      "type_widget": "nomenclature",
       "attribut_label": "Méthode de détermination",
-      "api": "nomenclatures/nomenclature/METH_DETERMIN",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
+      "code_nomenclature_type": "METH_DETERMIN",
       "type_util": "nomenclature",
-      "required": true,
-      "default": {
+      "value": {
+        "code_nomenclature_type": "METH_DETERMIN",
         "cd_nomenclature": "18"
-      }
+      },
+      "required": true,
+      "hidden": false
     },
     "id_nomenclature_type_count": {
-      "type_widget": "datalist",
+      "type_widget": "nomenclature",
       "attribut_label": "Type de dénombrement",
-      "api": "nomenclatures/nomenclature/TYP_DENBR",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
+      "code_nomenclature_type": "TYP_DENBR",
       "type_util": "nomenclature",
-      "required": true,
-      "default": {
+      "value": {
+        "code_nomenclature_type": "TYP_DENBR",
         "cd_nomenclature": "Co"
-      }
+      },
+      "required": true,
+      "hidden": false
     },
     "id_nomenclature_obj_count": {
-      "type_widget": "datalist",
+      "type_widget": "nomenclature",
       "attribut_label": "Objet du dénombrement",
-      "api": "nomenclatures/nomenclature/OBJ_DENBR",
-      "application": "GeoNature",
-      "keyValue": "id_nomenclature",
-      "keyLabel": "label_fr",
-      "data_path": "values",
+      "code_nomenclature_type": "OBJ_DENBR",
       "type_util": "nomenclature",
-      "required": true,
-      "default": {
+      "value": {
+        "code_nomenclature_type": "OBJ_DENBR",
         "cd_nomenclature": "IND"
-      }
+      },
+      "required": true,
+      "hidden": false
     }
   }
 }

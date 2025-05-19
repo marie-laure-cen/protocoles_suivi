@@ -19,9 +19,9 @@
 -- ne pas remplacer cette variable, elle est indispensable pour les scripts d'installations
 -- le module pouvant être installé avec un code différent de l'original
 
-DROP VIEW IF EXISTS gn_monitoring.v_synthese_:module_code;
+DROP VIEW IF EXISTS gn_monitoring.v_synthese_carrecontact;
 
-CREATE VIEW gn_monitoring.v_synthese_:module_code AS
+CREATE VIEW gn_monitoring.v_synthese_carrecontact AS
 	WITH 
 	srce AS (
 		SELECT 
@@ -29,7 +29,7 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 			mo.id_module
 		FROM gn_synthese.t_sources sc
 		LEFT JOIN gn_commons.t_modules mo ON 'MONITORING_' || UPPER(mo.module_code) = sc.name_source
-		WHERE sc.name_source = CONCAT('MONITORING_', UPPER(:'module_code'))
+		WHERE sc.name_source = 'MONITORING_CARRECONTACT'
 	), 
 	sites AS (
 		SELECT
@@ -43,10 +43,11 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 			tbs.geom AS the_geom_4326,
 			ST_CENTROID(tbs.geom) AS the_geom_point,
 			tbs.geom_local as geom_local
-        FROM gn_monitoring.t_base_sites tbs
-		LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
-		LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
-		JOIN srce s ON tsc.id_module = s.id_module
+       FROM gn_monitoring.t_base_sites tbs
+             LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
+             LEFT JOIN gn_monitoring.cor_site_module csm USING (id_base_site)
+             LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
+             JOIN srce ON csm.id_module = srce.id_module
 	), 
 	visits AS (
 		SELECT
@@ -147,4 +148,5 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 	JOIN taxonomie.taxref tx
         ON tx.cd_nom = o.cd_nom
 	JOIN observers obs ON obs.id_base_visit = v.id_base_visit
+	WHERE extract(year from v.date_min) > 2023 OR oc.data->>'id_sh_mysql' IS NULL
 ;

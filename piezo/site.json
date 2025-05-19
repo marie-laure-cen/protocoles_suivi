@@ -3,7 +3,6 @@
   "label": "Piézomètre",
   "label_list": "Piézomètres",
   "geometry_type": "Point",
-  "map_label_field_name": "base_site_name",
   "sorts": [
     {"prop": "base_site_code", "dir": "asc"}
   ],
@@ -84,6 +83,9 @@
     "altitude_min": {
       "attribut_label": "Altitude",
       "definition": "Altitude de pose du piézomètre en m"
+    },
+     "types_site": {
+      "required": false
     }
   }
 }

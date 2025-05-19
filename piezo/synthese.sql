@@ -22,11 +22,12 @@ DROP VIEW IF EXISTS gn_monitoring.v_synthese_:module_code;
 CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 
 WITH source AS (
-		SELECT
-			id_source
-		FROM gn_synthese.t_sources
-		WHERE name_source = CONCAT('MONITORING_', UPPER(:'module_code'))
-		LIMIT 1
+		SELECT 
+			sc.id_source,
+			mo.id_module
+		FROM gn_synthese.t_sources sc
+		LEFT JOIN gn_commons.t_modules mo ON 'MONITORING_' || UPPER(mo.module_code) = sc.name_source
+		WHERE sc.name_source = CONCAT('MONITORING_', UPPER(:'module_code'))
 	),
 	sites AS (
 		SELECT
@@ -43,8 +44,10 @@ WITH source AS (
 			ST_CENTROID(tbs.geom) AS the_geom_point,
 			tbs.geom_local as geom_local
         FROM gn_monitoring.t_base_sites tbs
-		LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
-		LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
+        LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
+        LEFT JOIN gn_monitoring.cor_site_module csm USING (id_base_site)
+        LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
+        JOIN source source_1 ON csm.id_module = source_1.id_module
 	),
 	observers AS (
 		SELECT

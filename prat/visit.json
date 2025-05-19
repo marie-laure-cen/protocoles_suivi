@@ -4,7 +4,6 @@
   "label_list": "relevés",
   "display_properties": [
     "source",
-    "observers",
     "observers_txt",
     "visit_date_min",
     "visit_date_max",
@@ -20,16 +19,6 @@
       "type_widget": "select",
       "required": true, 
       "values": ["Terrain", "Bibliographie"]
-    },
-    "observers":{
-      "required":"({value}) => value.source == 'Terrain'",
-      "hidden": "({value}) => value.source != 'Terrain'"
-    },
-    "observers_txt": {
-      "type_widget": "text",
-      "attribut_label": "Observateurs historiques",
-      "required":"({value}) => value.source != 'Terrain'",
-      "hidden": "({value}) => value.source == 'Terrain'"
     },
     "visit_date_min":{
       "attribut_label": "Date de début",

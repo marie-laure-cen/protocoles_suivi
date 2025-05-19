@@ -19,16 +19,17 @@
 -- ne pas remplacer cette variable, elle est indispensable pour les scripts d'installations
 -- le module pouvant être installé avec un code différent de l'original
 
-DROP VIEW IF EXISTS gn_monitoring.v_synthese_:module_code;
+DROP VIEW IF EXISTS gn_monitoring.v_synthese_syrhetflore;
 
-CREATE VIEW gn_monitoring.v_synthese_:module_code AS
+CREATE VIEW gn_monitoring.v_synthese_syrhetflore AS
 	WITH 
 	srce AS (
-		SELECT
-			id_source
-		FROM gn_synthese.t_sources
-		WHERE name_source = CONCAT('MONITORING_', UPPER(:'module_code'))
-		LIMIT 1
+		SELECT 
+			sc.id_source,
+			mo.id_module
+		FROM gn_synthese.t_sources sc
+		LEFT JOIN gn_commons.t_modules mo ON 'MONITORING_' || UPPER(mo.module_code) = sc.name_source
+		WHERE name_source = 'MONITORING_SYRHETFLORE'
 
 	), 
 	sites AS (
@@ -43,15 +44,16 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 			ST_CENTROID(tbs.geom) AS the_geom_point,
 			tbs.geom_local as geom_local
         FROM gn_monitoring.t_base_sites tbs
-		LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
-		LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
-		LEFT JOIN gn_commons.t_modules m ON tsg.id_module = m.id_module
-		WHERE m.module_code = :'module_code'
+             LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
+             LEFT JOIN gn_monitoring.cor_site_module csm USING (id_base_site)
+             LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
+             JOIN srce ON csm.id_module = srce.id_module
 	), 
 	visits AS (
 		SELECT
 			tbv.id_base_visit,
 			tbv.uuid_base_visit,
+			srce.id_source,
 			tbv.id_module,
 			tbv.id_base_site,
 			tbv.id_dataset,
@@ -64,6 +66,7 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 			tvc.data
 		FROM gn_monitoring.t_base_visits tbv
 		LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
+		INNER JOIN srce USING (id_module)
 	), 
 	observers AS (
 		SELECT
@@ -127,7 +130,7 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
 		) as additionnal_data,
 		-- ## Colonnes complémentaires qui ont leur utilité dans la fonction synthese.import_row_from_table
 		obs.ids_observers,
-		srce.id_source,
+		v.id_source,
 		v.id_module,
 		v.id_base_site,
 		v.uuid_base_visit AS unique_id_sinp_grp,
@@ -147,8 +150,5 @@ CREATE VIEW gn_monitoring.v_synthese_:module_code AS
         ON m.id_module = v.id_module
 	JOIN taxonomie.taxref t
         ON t.cd_nom = o.cd_nom
-	LEFT JOIN srce
-        ON TRUE
 	JOIN observers obs ON obs.id_base_visit = v.id_base_visit
-	WHERE m.module_code = :'module_code'
 ;

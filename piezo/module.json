@@ -2,11 +2,6 @@
   "module_code": "piezo",
   "module_label":"PIEZO",
   "module_desc":"Module de suivi piézométrique du CEN Normandie",
-  "specific": {
-    "b_draw_sites_group": {
-      "hidden": true
-    }
-  },
   "export_csv": [
     {"label": "Export CSV des piézomètres", "type":"csv" , "method": "site"} ,
     {"label": "Format CSV des sondages", "type":"csv" , "method": "visit" }    

@@ -2,11 +2,6 @@
   "genre":"M",
   "label": "Site",
   "label_list": "Site",
-  "map_label_field_name": "base_site_code",
-  "b_draw_sites_group": false,
-  "sorts": [
-    {"prop": "sites_group_code"}
-  ],
   "display_properties": [
     "sites_group_code",
     "sites_group_name"
@@ -17,9 +12,6 @@
     "nb_sites"
   ],
   "specific": {
-    "sites_group_description":{
-      "hidden": true
-    },
     "nb_sites": {
       "attribut_label": "Nb. piézomètres",
       "hidden": false

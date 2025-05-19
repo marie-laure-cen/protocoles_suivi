@@ -33,29 +33,31 @@ WITH
 	), 
 	sites AS (
 		SELECT
-			s.id_base_site,
+			tbs.id_base_site,
 			(tsg.data ->> 'id_dataset')::integer as id_dataset,
 			tsg.sites_group_name,
 			tsg.sites_group_description,
-			s.base_site_name,
-			s.base_site_code,
-			s.altitude_min,
-			s.altitude_max,
+			tbs.base_site_name,
+			tbs.base_site_code,
+			tbs.altitude_min,
+			tbs.altitude_max,
 			tsg.data,
 			tsc.id_sites_group,
-			s.geom AS the_geom_4326,
-			ST_CENTROID(s.geom) AS the_geom_point,
-			s.geom_local as geom_local
-		FROM gn_monitoring.t_base_sites s
-		LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
-		LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
-		INNER JOIN source ON tsc.id_module = source.id_module
+			tbs.geom AS the_geom_4326,
+			ST_CENTROID(tbs.geom) AS the_geom_point,
+			tbs.geom_local as geom_local
+		FROM gn_monitoring.t_base_sites tbs
+             LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
+             LEFT JOIN gn_monitoring.cor_site_module csm USING (id_base_site)
+             LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
+             JOIN srce ON csm.id_module = srce.id_module
 	), 
 	visits AS (
 		SELECT
 			v.id_base_visit,
 			v.uuid_base_visit,
 			v.id_module,
+			srce.id_source,
 			v.id_base_site,
 			v.id_dataset,
 			v.id_digitiser,
@@ -67,7 +69,7 @@ WITH
 			tvc.data
 		FROM gn_monitoring.t_base_visits v
 		LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
-		INNER JOIN source USING (id_module)
+		INNER JOIN srce USING (id_module)
 	), 
 	observers AS (
 		SELECT
@@ -82,7 +84,7 @@ WITH
 	SELECT
 		o.uuid_observation AS unique_id_sinp, 
 		v.uuid_base_visit AS unique_id_sinp_grp,
-		source.id_source,
+		v.id_source,
 		o.id_observation AS entity_source_pk_value,
 		CASE 
 			WHEN s.id_dataset IS NULL THEN 1342 
@@ -164,8 +166,6 @@ WITH
 		ON s.id_base_site = v.id_base_site
 	JOIN taxonomie.taxref t 
 		ON t.cd_nom = o.cd_nom
-	LEFT JOIN source 
-		ON v.id_module = source.id_module
 	LEFT JOIN observers obs ON obs.id_base_visit = v.id_base_visit
 	WHERE extract(year from v.date_min) > 2023 OR toc.data->>'id_obs_mysql' IS NULL
 	ORDER BY v.date_min ASC
