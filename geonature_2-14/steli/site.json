@@ -56,7 +56,7 @@
       "attribut_label": "Site CEN du suivi",
       "type_util": "sites_group",
       "keyValue": "id_sites_group",
-      "keyLabel": "sites_group_name",
+      "keyLabel": "sites_group_code",
       "api": "__MONITORINGS_PATH/list/__MODULE.MODULE_CODE/sites_group?id_module=__MODULE.ID_MODULE",
       "application": "GeoNature",
       "required": true,

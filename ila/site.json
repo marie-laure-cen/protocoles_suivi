@@ -55,7 +55,7 @@
       "required": false
     },
     "habitat":{
-      "attribut_label": "Dernier habitat",
+      "attribut_label": "Habitat",
       "type_widget": "select",
       "values": [
         "Berges",
@@ -78,7 +78,7 @@
       "hidden": false
     },
     "gestion":{
-      "attribut_label": "Dernière gestion",
+      "attribut_label": "Gestion",
       "type_widget": "select",
       "values": [
         "Autre",
@@ -98,7 +98,7 @@
     "impact":{
       "type_widget": "select",
       "required": false,
-      "attribut_label": "Dernier impact de gestion",
+      "attribut_label": "Impact de la gestion",
       "values": ["OUI", "NON"],
       "value": "NON",
       "hidden":false

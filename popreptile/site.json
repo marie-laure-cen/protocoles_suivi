@@ -1,12 +1,15 @@
 {
-  "genre":"M",
-  "geometry_type": "LineString",
-  "label": "Transect",
-  "label_list": "Transects",
+  "genre":"F",
+  "geometry_type": "Point",
+  "label": "Plaque",
+  "label_list": "Plaques",
+  "description_field_name": "base_site_code",
   "display_properties": [
     "id_sites_group",
     "id_inventor",
+    "transect",
     "base_site_name",
+    "base_site_code",
     "first_use_date",
     "habitat_a",
     "habitat_b",
@@ -16,23 +19,12 @@
     "comment"
   ],
   "display_list": [
-    "base_site_name",
-    "id_sites_group",
+    "base_site_code",
     "last_visit",
     "nb_visits"
   ],
   "specific": {
-    "id_nomenclature_type_site": {
-      "attribut_label": "Type site",
-      "type_util": "nomenclature",
-      "code_nomenclature_type": "TYPE_SITE",
-      "value": {
-          "code_nomenclature_type": "TYPE_SITE",
-          "cd_nomenclature": "POPR"
-      },
-      "hidden": true
-    },
-    "base_site_name": {
+    "transect": {
       "type_widget": "select",
       "attribut_label": "Nom du transect",
       "values": [
@@ -51,10 +43,13 @@
       "required": true
     },
     "base_site_code": {
-      "type_widget": "text",
-      "attribut_label": "Code du transect",
-      "required": false,
-      "hidden": true
+      "attribut_label": "Code de la plaque"
+    },
+    "base_site_name": {
+      "attribut_label": "Numéro de la plaque",
+      "type_widget": "number",
+      "min": 1,
+      "max":6
     },
     "id_sites_group": {
       "type_widget": "datalist",
@@ -190,5 +185,14 @@
       "attribut_label": "Dernier passage",
       "type_util": "date"
     }
-  }
+  },
+  "change": [
+    "({objForm, meta}) => {",
+    "const base_site_code = '' + (objForm.value.transect || '') + '_' + (objForm.value.base_site_name || '');",
+    "if (!objForm.controls.base_site_code.dirty) {",
+      "objForm.patchValue({base_site_code})",
+      "}",
+    "}",
+    ""
+  ]
 }

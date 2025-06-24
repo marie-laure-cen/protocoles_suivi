@@ -11,10 +11,10 @@
     "visit_date_max",
     "heure_debut",
     "heure_fin",
-    "habitat",
     "id_nomenclature_tp",
     "id_nomenclature_cn",
     "id_nomenclature_vt",
+    "habitat",
     "gestion",
     "impact",
     "comments"
@@ -164,8 +164,18 @@
       "required": false,
       "attribut_label": "Impact de la gestion",
       "values": ["OUI", "NON"],
-      "value": "NON",
       "hidden":false
     }
-  }
+  },
+  "change": [
+      "({objForm, meta}) => {",
+          "const habitat = (meta.parents.site.properties.habitat);",
+          "const gestion = (meta.parents.site.properties.gestion);",
+          "const impact = (meta.parents.site.properties.impact);",
+          "(objForm.value.habitat == (null || undefined)  && meta.parents.site.properties.habitat != (null || undefined) ? objForm.patchValue({habitat}) : '');",
+          "(objForm.value.gestion == (null || undefined) ? objForm.patchValue({gestion}) : '');",
+          "(objForm.value.impact == (null || undefined) ? objForm.patchValue({impact}) : '');",
+          "}",
+      ""
+  ]
 }

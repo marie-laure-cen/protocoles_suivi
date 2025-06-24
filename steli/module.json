@@ -1,5 +1,4 @@
 {
-  "module_code": "steli",
   "module_label":"STELI",
   "module_desc":"Module pour le protocole de suivi des odonates STELI",
   "specific": {

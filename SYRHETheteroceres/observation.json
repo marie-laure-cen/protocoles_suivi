@@ -73,7 +73,7 @@
       "data_path": "values",
       "type_util": "nomenclature",
       "required": true,
-      "hidden" : true,
+      "hidden" : false,
       "default": {
         "cd_nomenclature": "0"
       },

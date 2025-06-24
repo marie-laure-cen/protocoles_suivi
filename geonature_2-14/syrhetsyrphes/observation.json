@@ -30,7 +30,7 @@
       "keyValue": "id_role",
       "keyLabel": "nom_complet",
       "type_util": "user",
-      "multiple": false,
+      "multiple": true,
       "required": true
     },
     "cd_nom": {

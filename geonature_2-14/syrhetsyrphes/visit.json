@@ -7,6 +7,7 @@
     "visit_date_min",
     "visit_date_max",
     "observers",
+    "id_nomenclature_tech_collect_campanule",
     "comments"
   ],
   "display_list": [
@@ -29,6 +30,21 @@
     },
     "visit_date_max": {
       "attribut_label": "Date fin de collecte",
+      "hidden": false
+    },
+    "id_nomenclature_tech_collect_campanule": {
+      "type_widget": "datalist",
+      "attribut_label": "Technique de collecte (Campanule)",
+      "api": "nomenclatures/nomenclature/TECHNIQUE_OBS",
+      "application": "GeoNature",
+      "keyValue": "id_nomenclature",
+      "keyLabel": "label_fr",
+      "data_path": "values",
+      "type_util": "nomenclature",
+      "required": false,
+      "filters": {
+          "cd_nomenclature": ["59", "100"]
+      },
       "hidden": false
     }
   }

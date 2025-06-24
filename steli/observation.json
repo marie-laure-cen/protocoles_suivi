@@ -18,7 +18,6 @@
   ],
   "display_list": [
     "cd_nom",
-    "effectif",
     "comments"
   ],
   "keep": [
@@ -43,23 +42,12 @@
       "required": false,
       "definition": "Si déterminateur différent de l'observateur"
     },
-    "cd_nom": {
-      "type_widget": "datalist",
-      "attribut_label": "Taxon",
-      "keyValue": "cd_nom",
-      "keyLabel": "__MODULE.TAXONOMY_DISPLAY_FIELD_NAME",
-      "multiple": false,
-      "api": "taxref/allnamebylist/__MODULE.ID_LIST_TAXONOMY",
-      "application": "TaxHub",
-      "required": true,
-      "type_util": "taxonomy"
-    },
     "id_nomenclature_ab": {
       "type_widget": "nomenclature",
       "attribut_label": "Abondance",
       "code_nomenclature_type": "STELI_AB",
       "type_util": "nomenclature",
-      "required": true,
+      "required": "({value}) => value.effectif == (null || undefined) ",
       "hidden": false
     },
     "effectif": {
@@ -67,20 +55,22 @@
       "attribut_label": "Effectif total",
       "min": 0,
       "value": 0,
-      "required": true
+      "required": "({value}) => value.id_nomenclature_ab == (null || undefined) ",
+      "hidden": "({value}) => value.id_nomenclature_ab != (null || undefined) "
     },
     "autochtonie":{
       "type_widget": "select",
       "attribut_label": "Autochtonie",
       "required" : true,
-      "values": ["Certaine", "Probable", "Possible", "Improbable", "Inconnue"]
+      "values": ["Certaine", "Probable", "Possible", "Improbable", "Inconnue"],
+      "value": "Inconnue"
     },
     "id_nomenclature_ir": {
       "type_widget": "nomenclature",
       "attribut_label": "Indice de reproduction",
       "code_nomenclature_type": "STELI_IR",
       "type_util": "nomenclature",
-      "required": true,
+      "required": false,
       "hidden": false
     },
     "id_nomenclature_obs_technique": {
@@ -93,7 +83,8 @@
         "cd_nomenclature": "0"
       },
       "required": true,
-      "hidden": false
+      "hidden": false,
+      "filters":{"cd_nomenclature": ["0","5"]}
     },
     "id_nomenclature_determination_method": {
       "type_widget": "nomenclature",
@@ -105,7 +96,8 @@
         "cd_nomenclature": "18"
       },
       "required": true,
-      "hidden": false
+      "hidden": false,
+      "filters":{"cd_nomenclature": ["18","14", "21"]}
     },
     "id_nomenclature_type_count": {
       "type_widget": "nomenclature",
@@ -129,7 +121,8 @@
         "cd_nomenclature": "IND"
       },
       "required": true,
-      "hidden": false
+      "hidden": false,
+      "filters":{"cd_nomenclature": ["IND","PON", "CPL"]}
     }
   }
 }

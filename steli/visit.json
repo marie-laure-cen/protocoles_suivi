@@ -3,9 +3,9 @@
   "label": "Passage",
   "label_list": "Passages",
   "display_properties": [
-    "observers",
     "periode",
     "num_passage",
+    "observers",
     "visit_date_min",
     "visit_date_max",
     "heure_debut",
@@ -73,7 +73,7 @@
     "heure_debut": {
       "type_widget": "time",
       "attribut_label": "Heure d'arrivée",
-      "required": true
+      "required": false
     },
     "heure_fin": {
       "type_widget": "time",
@@ -235,5 +235,28 @@
       "required": false,
       "hidden": false
     }
-  }
+  },
+  "change": [
+      "({objForm, meta}) => {",
+          "const id_nomenclature_mt = (meta.parents.site.properties.id_nomenclature_mt);",
+          "const id_nomenclature_ah = (meta.parents.site.properties.id_nomenclature_ah);",
+          "const id_nomenclature_ma = (meta.parents.site.properties.id_nomenclature_ma);",
+          "const id_nomenclature_ri = (meta.parents.site.properties.id_nomenclature_ri);",
+          "const id_nomenclature_ve = (meta.parents.site.properties.id_nomenclature_ve);",
+          "const id_nomenclature_eu = (meta.parents.site.properties.id_nomenclature_eu);",
+          "const id_nomenclature_co = (meta.parents.site.properties.id_nomenclature_co);",
+          "const id_nomenclature_va = (meta.parents.site.properties.id_nomenclature_va);",
+          "const gestion = (meta.parents.site.properties.gestion);",
+          "(objForm.value.id_nomenclature_mt == (null || undefined)  && meta.parents.site.properties.id_nomenclature_mt != (null || undefined) ? objForm.patchValue({id_nomenclature_mt}) : '');",
+          "(objForm.value.id_nomenclature_ah == (null || undefined) ? objForm.patchValue({id_nomenclature_ah}) : '');",
+          "(objForm.value.id_nomenclature_ma == (null || undefined) ? objForm.patchValue({id_nomenclature_ma}) : '');",
+          "(objForm.value.id_nomenclature_ri == (null || undefined) ? objForm.patchValue({id_nomenclature_ri}) : '');",
+          "(objForm.value.id_nomenclature_ve == (null || undefined) ? objForm.patchValue({id_nomenclature_ve}) : '');",
+          "(objForm.value.id_nomenclature_eu == (null || undefined) ? objForm.patchValue({id_nomenclature_eu}) : '');",
+          "(objForm.value.id_nomenclature_co == (null || undefined) ? objForm.patchValue({id_nomenclature_co}) : '');",
+          "(objForm.value.id_nomenclature_va == (null || undefined) ? objForm.patchValue({id_nomenclature_va}) : '');",
+          "(objForm.value.gestion == (null || undefined) ? objForm.patchValue({gestion}) : '');",
+        "}",
+      ""
+  ]
 }

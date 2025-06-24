@@ -11,14 +11,14 @@
     "visit_date_max",
     "heure_debut",
     "heure_fin",
+    "id_nomenclature_tp",
+    "id_nomenclature_cn",
+    "id_nomenclature_vt",
     "occ_sol",
     "occ_sol_detail",
     "hab_1",
     "lisiere",
     "hab_2",
-    "id_nomenclature_tp",
-    "id_nomenclature_cn",
-    "id_nomenclature_vt",
     "gestion",
     "comments"
   ],
@@ -52,7 +52,7 @@
       "type_widget": "number",
       "attribut_label": "Année",
       "min" : 1993,
-      "value": 2024,
+      "value": 2025,
       "required": true
     },
     "visit_date_min":{
@@ -108,6 +108,9 @@
       "keyLabel": "label_fr",
       "data_path": "values",
       "type_util": "nomenclature",
+      "filters" : {
+        "cd_nomenclature": ["VT01","VT02","VT03","VT04"]
+      },
       "multiple": false,
       "required": true
     },
@@ -185,5 +188,24 @@
       "required": false,
       "hidden": false
     }
-  }
+  },
+  "change": [
+      "({objForm, meta}) => {",
+          "const occ_sol = (meta.parents.site.properties.occ_sol);",
+          "const occ_sol_detail = (meta.parents.site.properties.occ_sol_detail);",
+          "const hab_1 = (meta.parents.site.properties.hab_1);",
+          "const lisiere = (meta.parents.site.properties.lisiere);",
+          "const hab_2 = (meta.parents.site.properties.hab_2);",
+          "const gestion = (meta.parents.site.properties.gestion);",
+          "const observers = (meta.parents.sites_group.properties.id_resp);",
+          "(objForm.value.occ_sol == (null || undefined)  && meta.parents.site.properties.occ_sol != (null || undefined) ? objForm.patchValue({occ_sol}) : '');",
+          "(objForm.value.occ_sol_detail == (null || undefined) ? objForm.patchValue({occ_sol_detail}) : '');",
+          "(objForm.value.hab_1 == (null || undefined) ? objForm.patchValue({hab_1}) : '');",
+          "(objForm.value.lisiere == (null || undefined) ? objForm.patchValue({lisiere}) : '');",
+          "(objForm.value.hab_2 == (null || undefined) ? objForm.patchValue({hab_2}) : '');",
+          "(objForm.value.gestion == (null || undefined) ? objForm.patchValue({gestion}) : '');",
+          "(objForm.value.observers == (null || undefined)  && meta.parents.sites_group.properties.id_resp != (null || undefined) ? objForm.patchValue({observers}) : '');",
+      "}",
+      ""
+  ]
 }

@@ -5,6 +5,7 @@
   "display_properties": [
     "sites_group_code",
     "sites_group_name",
+    "id_site",
     "id_inventor",
     "departement",
     "commune",
@@ -42,6 +43,12 @@
       "attribut_label": "Nom de l'aire",
       "required": true,
       "definition": "Si des données sur cette aire ont été transmises antérieurement via un fichier Excel, veuillez noter exactement le même nom d'aire OU informer la SHF (geomaticien@lashf.org) si vous souhaitez modifier le nom"
+    },
+    "id_site": {
+      "attribut_label": "Code du site CENN",
+      "type_widget": "text",
+      "hidden": false,
+      "required": true
     },
     "id_inventor": {
       "type_widget": "datalist",

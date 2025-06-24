@@ -18,7 +18,7 @@
     "etat_site",
     "date_changement_etat_site",
     "gestion",
-    "remarque_gestion",
+    "gestion_en_cours",
     "impact",
     "frequentation_humaine",
     "abris",
@@ -110,7 +110,7 @@
       "hidden": "({value}) => value.etat_site === 'Transect existant' || (value.num_passage !== 1) ||  value.accessibility === 'Non' "
     },
     "gestion": {
-      "attribut_label": "Gestion lors du passage",
+      "attribut_label": "Gestion globale",
       "type_widget": "multiselect",
       "values": [
         "Autre",
@@ -129,17 +129,18 @@
       "required": "({value}) => value.accessibility === 'Oui'",
       "hidden": "({value}) => value.accessibility === 'Non'"
     },
+    "gestion_en_cours": {
+      "attribut_label": "Gestion lors du passage",
+      "type_widget": "text",
+      "required": false,
+      "hidden": "({value}) => value.accessibility === 'Non'"
+    },
     "impact":{
       "type_widget": "select",
       "attribut_label": "Impact de la gestion",
-      "values": ["OUI", "NON"],
-      "value": "NON",
+      "values": ["Oui", "Non"],
+      "value": "Non",
       "required": "({value}) => value.accessibility === 'Oui'|| (value.gestion != 'Pas d'intervention')",
-      "hidden": "({value}) => value.accessibility === 'Non'"
-    },
-    "remarque_gestion":{
-      "type_widget": "text",
-      "attribut_label": "Complément d'info gestion",
       "hidden": "({value}) => value.accessibility === 'Non'"
     },
     "frequentation_humaine": {
@@ -162,7 +163,7 @@
         "Souches",
         "Tas de bois",
         "Autre",
-        "Pas d'abri"
+        "Pas d'abris"
       ],
       "required": "({value}) => value.accessibility === 'Oui' ",
       "hidden": "({value}) => value.accessibility === 'Non' "
