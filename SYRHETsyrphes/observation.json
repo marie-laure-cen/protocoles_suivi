@@ -69,7 +69,7 @@
       "required": true,
       "attribut_label": "Collecte de l'individu",
       "values": ["Oui", "Non"],
-      "value": "Non"
+      "value": "Oui"
     },
     "id_echantillon":{
       "type_widget": "text",

@@ -1,13 +1,21 @@
 -- alter table gn_monitoring.t_base_sites alter column id_nomenclature_type_site drop not null;
 
 
-DROP VIEW  IF EXISTS  gn_monitoring.v_export_syrhetsyrphes;
+DROP VIEW  IF EXISTS  gn_monitoring.v_export_syrhetsyrphes_obs;
 
-CREATE OR REPLACE VIEW gn_monitoring.v_export_syrhetsyrphes AS
+CREATE OR REPLACE VIEW gn_monitoring.v_export_syrhetsyrphes_obs AS
 
 WITH  
+ 	srce AS (
+        SELECT sc.id_source,
+            mo.id_module
+    	FROM gn_synthese.t_sources sc
+        	LEFT JOIN gn_commons.t_modules mo ON ('MONITORING_'::text || upper(mo.module_code::text)) = sc.name_source::text
+        WHERE sc.name_source::text = 'MONITORING_SYRHETSYRPHES'::text
+        LIMIT 1
+    ),
  	sites AS (
-         SELECT 
+    	SELECT 
 	 		tbs.id_base_site,
 	 		tsg.id_sites_group,
             tsg.sites_group_name::text as site,
@@ -19,11 +27,11 @@ WITH
             st_centroid(tbs.geom) AS the_geom_point,
             tbs.geom_local
 	 	FROM gn_monitoring.t_base_sites tbs
-	 	LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
-	 	LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
-	 	LEFT JOIN gn_commons.t_modules tm ON tm.id_module = tsc.id_module
-	 	WHERE LOWER(tm.module_code) = 'syrhetsyrphes'
- 	), 
+            LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
+            LEFT JOIN gn_monitoring.cor_site_module csm USING (id_base_site)
+            LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
+            JOIN srce ON csm.id_module = srce.id_module
+ 	),  
 	visits AS (
 		SELECT 
 			tbv.id_base_visit,

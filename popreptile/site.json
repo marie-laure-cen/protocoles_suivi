@@ -11,8 +11,8 @@
     "base_site_name",
     "base_site_code",
     "first_use_date",
-    "habitat_a",
-    "habitat_b",
+    "hab_eunis_a",
+    "hab_eunis_b",
     "milieu_transect",
     "milieu_a",
     "milieu_b",
@@ -62,7 +62,7 @@
       "required": true,
       "hidden": false
     },
-    "habitat_a": {
+    "hab_eunis_a": {
       "type_widget": "datalist",
       "attribut_label": "Habitat EUNIS côté A",
       "api": "habref/habitats/autocomplete",
@@ -73,15 +73,12 @@
       "params": {
           "cd_typo": 7,
           "search_name": "",
-          "limit": "9"
-      },
-      "filters": {
-        "lb_code": ["D4.1","X10", "G", "F","E5", "E1","E3","E2","D2"]
+          "limit": 5000
       },
       "required": true,
       "multiple": false
     },
-    "habitat_b": {
+    "hab_eunis_b": {
       "type_widget": "datalist",
       "attribut_label": "Habitat EUNIS côté B (si différent de A)",
       "api": "habref/habitats/autocomplete",
@@ -92,10 +89,7 @@
       "params": {
           "cd_typo": 7,
           "search_name": "",
-          "limit": "9"
-      },
-      "filters": {
-        "lb_code": ["D4.1","X10", "G", "F","E5", "E1","E3","E2","D2"]
+          "limit": 5000
       },
       "multiple": false
     },

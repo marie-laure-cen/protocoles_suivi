@@ -2,6 +2,9 @@
   "module_code": "syrhetheteroceres",
   "module_label":"SYRHET Hétérocères",
   "module_desc":"Module pour le protocole de suivi SYRHET des hétérocères",
+  "export_csv": [
+    { "label": "Observations des hérérocères du protocole SYRHET", "type":"csv" , "method": "obs" }
+  ],
   "specific": {
     "b_draw_sites_group": {
       "hidden": false

@@ -50,7 +50,7 @@
       "type_widget": "number",
       "attribut_label": "Période",
       "min" : 1,
-      "max": 2,
+      "max": 3,
       "required": true
     },
     "num_passage": {

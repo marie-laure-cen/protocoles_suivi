@@ -3,7 +3,7 @@
   "module_label":"SYRHET syrphes",
   "module_desc":"Module pour le protocole de suivi SYRHET des syrphes",
   "export_csv": [
-    { "label": "Observations", "type":"csv" , "method": "syrhetsyrphes" }
+    { "label": "Observations des syrphes du protocole SYRHET", "type":"csv" , "method": "obs" }
   ],
   "specific": {
     "b_draw_sites_group": {
