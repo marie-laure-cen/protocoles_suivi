@@ -19,6 +19,24 @@
     "observers"
   ],
   "specific": {
+    "id_base_site": {
+      "type_widget": "datalist",
+      "attribut_label": "Site",
+      "type_util": "site",
+      "keyValue": "id_base_site",
+      "keyLabel": "base_site_name",
+      "api": "__MONITORINGS_PATH/list/__MODULE.MODULE_CODE/site",
+      "params": [
+        "({meta}) => ({",
+        "id_module: __MODULE.ID_MODULE,",
+        "id_sites_group: meta.parents.site && meta.parents.site.properties.id_sites_group,",
+        "order_by: 'base_site_name*'",
+        "})"
+      ],
+      "application": "GeoNature",
+      "required": true,
+      "hidden": "({meta, value}) => !meta.bChainInput && value.id_base_site"
+    },
     "num_sondage": {
       "type_widget": "number",
       "attribut_label": "Numéro de sondage",

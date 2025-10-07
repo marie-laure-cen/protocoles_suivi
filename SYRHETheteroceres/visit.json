@@ -27,7 +27,6 @@
       "type_widget": "number",
       "attribut_label": "Numéro de passage",
       "min" : 1,
-      "max": 8,
       "required": true
     },
     "visit_date_min":{

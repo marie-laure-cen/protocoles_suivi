@@ -43,14 +43,13 @@
       "attribut_label": "Numéro de passage",
       "min" : 1,
       "max": 4,
-      "value": 1,
       "required": true
     },
     "annee": {
       "type_widget": "number",
       "attribut_label": "Année",
       "min" : 1993,
-      "value": 2024,
+      "value": 2025,
       "required": true
     },
     "visit_date_min":{

@@ -1,8 +1,0 @@
-{
-  "chained": false,
-  "label": "Secteurs",
-  "label_list": "Secteurs",
-  "sorts": [
-    {"prop": "sites_group_name"}
-  ]
-}

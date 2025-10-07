@@ -2,7 +2,9 @@
   "tree": {
     "module": {
       "sites_group": {
-        "site": null
+        "site":{
+          "visit":  null
+      }
       }
     }
   }
