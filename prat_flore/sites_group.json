@@ -1,0 +1,48 @@
+{
+  "genre":"F",
+  "label": "Tourbière potentielle ou avérée",
+  "label_list": "tourbières",
+  "map_label_field_name": "base_site_name",
+  "b_draw_sites_group": false,
+  "sorts": [
+    {"prop": "commune"}
+  ],
+  "display_properties": [
+    "sites_group_code",
+    "sites_group_name",
+    "sites_group_description",
+    "commune"
+  ],
+  "display_list": [
+    "commune",
+    "sites_group_name",
+    "nb_sites"
+  ],
+  "specific": {
+    "sites_group_code": {
+      "attribut_label": "Identifiant",
+      "hidden": false,
+      "required": true
+    },
+    "sites_group_name":{
+      "attribut_label": "Nom du site",
+      "hidden":false,
+      "required":true
+    },
+    "sites_group_description":{
+      "attribut_label": "Commentaire",
+      "hidden": false
+    },
+    "commune":{
+      "type_widget": "text",
+      "attribut_label": "Commune"
+    },
+    "nb_sites": {
+      "attribut_label": "Nb. sondages",
+      "hidden": false
+    },
+    "nb_visits": {
+      "attribut_label": "Nb. relevés"
+    }
+  }
+}

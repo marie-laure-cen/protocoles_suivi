@@ -1,0 +1,18 @@
+{
+  "types": [
+    {
+      "mnemonique": "TYPE_SITE",
+      "label_default": "Type de sites",
+      "definition_default": "Nomenclature des types de sites suivi dans gn_monitoring."
+    }
+  ],
+  "nomenclatures": [
+    {
+      "type": "TYPE_SITE",
+      "cd_nomenclature": "PRAT",
+      "mnemonique": "Site PRAT",
+      "label_default": "Site du Programme Régional d'Actions en faveur des Tourbières (PRAT) de Normandie",
+      "definition_default": "Site suivi par le Programme Régional d'Actions en faveur des Tourbières (PRAT) de Normandie: tourbière potentielle ou avérée."
+    }
+  ]
+}

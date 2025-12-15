@@ -1,0 +1,14 @@
+{
+  "module_code": "prat_sondage",
+  "module_label":"Sondages du PRAT",
+  "module_desc":"Module concernant la délimitation des tourbières par sondage",
+  "specific": {
+    "b_draw_sites_group": {
+      "hidden": false
+    }
+  },
+  "export_csv": [
+    { "label": "Tourbières", "type":"csv" , "method": "tourbieres"},
+    { "label": "Sondages", "type":"csv" , "method": "sondages"}
+  ]
+}

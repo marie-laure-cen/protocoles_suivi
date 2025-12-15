@@ -1,0 +1,14 @@
+{
+  "module_code": "prat_flore",
+  "module_label":"Relevés botaniques du PRAT",
+  "module_desc":"Module concernant la délimitation des tourbières grâce à des relevés botaniques.",
+  "specific": {
+    "b_draw_sites_group": {
+      "hidden": false
+    }
+  },
+  "export_csv": [
+    { "label": "Tourbières", "type":"csv" , "method": "tourbieres"},
+    { "label": "Relevés botaniques", "type":"csv" , "method": "rel_bota"}
+  ]
+}

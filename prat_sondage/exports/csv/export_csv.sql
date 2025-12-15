@@ -1,6 +1,10 @@
-DROP VIEW  IF EXISTS  gn_monitoring.v_export_sterf_transect;
+-------------------------------------------------
+-- Export des tourbières ------------------------
+-------------------------------------------------
 
-CREATE OR REPLACE VIEW gn_monitoring.v_export_sterf_transect AS
+DROP VIEW  IF EXISTS  gn_monitoring.v_export_prat_sondage_tourbieres;
+
+CREATE OR REPLACE VIEW gn_monitoring.v_export_prat_sondage_tourbieres AS
 	SELECT
 		tbs.id_base_site,
 		taf.id_dataset,
@@ -26,12 +30,12 @@ CREATE OR REPLACE VIEW gn_monitoring.v_export_sterf_transect AS
 ;
 
 -------------------------------------------------
--- Export de l'ensemble des observations --------
+-- Export de l'ensemble des sondages ------------
 -------------------------------------------------
 
-DROP VIEW IF EXISTS gn_monitoring.v_export_sterf_obs;
+DROP VIEW IF EXISTS gn_monitoring.v_export_prat_sondage_releves;
 
-CREATE OR REPLACE VIEW gn_monitoring.v_export_sterf_obs
+CREATE OR REPLACE VIEW gn_monitoring.v_export_prat_sondage_releves
  AS
  	WITH 
  		patri_hn AS (
@@ -223,194 +227,4 @@ CREATE OR REPLACE VIEW gn_monitoring.v_export_sterf_obs
 		((pass.data ->> 'annee')::integer) DESC, 
 		((pass.data ->> 'num_passage')::integer) DESC, 
 		obs.nom_valide
-;
-
-CREATE OR REPLACE VIEW gn_monitoring.v_export_sterf_opie
-AS 
-WITH tr AS (
-     select
-     	tbs.id_base_site,
-		ds.dataset_name as jdd,
-	    tsg.sites_group_name AS transect_id,
-	    tsg.sites_group_description AS transect_nom,
-	    'C' as transect_t_ou_c,
-	    null as transect_rmq,
-	    la.area_name as transect_lieudit,
-	    tbs.base_site_code as section_id,
-	    tbs.base_site_name AS section_name,
-	    ST_XMin(tbs.geom) as geom_start_x,
-		ST_YMin(tbs.geom) geom_start_y,
-		ST_XMax(tbs.geom) geom_end_x,
-		ST_YMax(tbs.geom) geom_end_y,
-		st_centroid(tbs.geom) as geom_centroid,
-		st_astext(tbs.geom) AS geom_ewkt ,
-		tbs.geom as geom_4326 ,
-		ST_GeometryType(tbs.geom) as geom_type,
-		ST_Length(tbs.geom_local) as section_length ,
-		tbs.altitude_min as section_alt_min ,
-		tbs.altitude_max as section_alt_max ,
-		(tbs.altitude_max + tbs.altitude_min ) / 2 AS transect_alt_avg,
-		NULL AS transect_carre_stoc,
-		NULL as flowers_avail , -- disponibilité florale (valeurs de natureo ci-dessous)
-		NULL as flowers_rmq  -- remarque sur la dispo florale (par exemple, espèces des fleurs)
-	FROM gn_monitoring.t_base_sites tbs
-		LEFT JOIN gn_monitoring.t_site_complements tsc USING (id_base_site)
-		LEFT JOIN gn_monitoring.t_sites_groups tsg USING (id_sites_group)
-	    LEFT JOIN gn_monitoring.cor_sites_group_module csgm USING (id_sites_group)
-	    LEFT JOIN gn_monitoring.cor_site_module csm USING (id_base_site)
-	    LEFT JOIN gn_commons.t_modules mo ON mo.id_module = COALESCE(csm.id_module, csgm.id_module)
-	    LEFT JOIN ref_geo.l_areas la ON tsg.sites_group_name::text = la.area_code::text
-	    left join gn_meta.t_datasets ds on (tsg.data ->> 'id_dataset')::integer = ds.id_dataset
-    WHERE mo.module_code::text = 'sterf'::text
-), 
-com AS (
-	SELECT
-		id_base_site, 
-		string_agg( DISTINCT area_code, ', ') AS transect_insee ,
-		string_agg( DISTINCT area_name, ', ') AS transect_com
-	FROM gn_monitoring.cor_site_area csa
-	LEFT JOIN ref_geo.l_areas c USING (id_area)
-	WHERE id_type = 25
-	GROUP BY id_base_site
-),
-dep AS (
-	SELECT
-		id_base_site, 
-		string_agg( DISTINCT area_name, ', ') AS transect_dep
-	FROM gn_monitoring.cor_site_area csa
-	LEFT JOIN ref_geo.l_areas d USING (id_area)
-	WHERE id_type = 26
-	GROUP BY id_base_site
-),
-pass AS (
-	SELECT 
-		tbv.id_base_visit,
-		tbv.id_base_site,
-		tbv.visit_date_min::date AS visit_date,
-		regexp_replace(lower(tvc.data ->> 'heure_debut'), 'h', ':') AS time_start,
-		regexp_replace(lower((tvc.data ->> 'heure_fin')), 'h', ':') AS time_end,
-		tbv.meta_create_date as integ_time,
-		(tvc.data ->> 'occ_sol') AS occ_sol_gen,
-		(tvc.data ->> 'occ_sol_detail') AS occ_sol_det,
-		NULL AS habitat_side1,
-		NULL AS habitat_side2,
-		(tvc.data ->> 'hab_1') AS habitat_sterf_princ , -- code de l’habitat sterf principal (par exemple Ab2a)
-		(tvc.data ->> 'hab_2') AS habitat_sterf_sec , -- code de l’habitat sterf secondaire (par exemple Ab2a)
-		NULL AS habitat_sterf1_desc , -- description textuelle de l’habitat sterf (récupéré à partir du code habitat_sterf_princ)
-		NULL AS habitat_sterf2_desc , -- description textuelle de l’habitat sterf (récupéré à partir du code habitat_sterf_sec)
-		(tvc.data ->> 'comments') AS habitat_rmq,  -- remarque sur l’habitat
-		(tvc.data ->> 'gestion') AS area_managmt,
-		NULL AS area_managmt_rmq,
-		ref_nomenclatures.get_nomenclature_label((tvc.data ->> 'id_nomenclature_tp'::text)::integer, 'fr'::character varying) AS temperature,
-		ref_nomenclatures.get_nomenclature_label((tvc.data ->> 'id_nomenclature_cn'::text)::integer, 'fr'::character varying) AS cloud,
-		ref_nomenclatures.get_nomenclature_label((tvc.data ->> 'id_nomenclature_vt'::text)::integer, 'fr'::character varying) AS wind,
-		TRUE AS complete,
-		tbv.comments AS visit_rmq
-	FROM gn_monitoring.t_base_visits tbv
-	LEFT JOIN gn_monitoring.t_visit_complements tvc USING (id_base_visit)
-	LEFT JOIN gn_commons.t_modules tm ON tm.id_module = tbv.id_module
-	LEFT JOIN utilisateurs.t_roles tr ON tbv.id_digitiser = tr.id_role
-	WHERE tm.module_code::text = 'sterf'::text
-), 
-obs AS (
-	SELECT 
-		o.id_observation,
-		o.id_base_visit,
-	    tx.nom_valide AS species_name,
-		(toc.data ->> 'effectif')::integer AS "count",
-	    o.cd_nom AS species_cd_nom,
-		NULL AS species_sterf_name ,
-		'Examen visuel à distance' AS ident_method,
-		'Indéterminé' AS sexe,
-		'Indéterminé' AS behavor,
-	    o.comments AS obs_rmq,
-		o.uuid_observation AS obs_uuid
-	FROM gn_monitoring.t_observations o
-	LEFT JOIN gn_monitoring.t_observation_complements toc USING (id_observation)
-	LEFT JOIN taxonomie.taxref tx USING (cd_nom)
-), 
-observers AS (
-	SELECT 
-		array_agg(r.id_role) AS recorder_id,
-        string_agg(concat(r.nom_role, ' ', r.prenom_role), ' ; '::text) AS recorder_name,
-        cvo.id_base_visit
-	FROM gn_monitoring.cor_visit_observer cvo
-    JOIN utilisateurs.t_roles r ON r.id_role = cvo.id_role
-    GROUP BY cvo.id_base_visit
-)
- SELECT 
- 	jdd,
-	integ_time ,
-	----------------------------
-	-- Transect (Site) ---------
-	----------------------------
-	transect_id , -- uuid
-	transect_nom , -- nom
-	transect_dep , -- département
-	transect_insee , -- insee de la commune
-	transect_com , -- nom de la commune
-	transect_lieudit ,
-	transect_alt_avg , -- altitude moyenne du transect
-	transect_carre_stoc , -- numéro du carré STOC le cas échéant
-	transect_t_ou_c , -- tiré au sort ou choisi (2 valeurs possibles : T, C)
-	transect_rmq , -- remarque sur le transect
-	-- Section (correspond aux transects dans l’ancienne dénomination Sterf)
-	section_id , -- identifiant sériel
-	geom_start_x ,
-	geom_start_y ,
-	geom_end_x ,
-	geom_end_y ,
-	geom_centroid ,
-	geom_ewkt ,
-	geom_4326 ,
-	geom_type ,
-	section_length ,
-	section_alt_min ,
-	section_alt_max ,
-	flowers_avail , -- disponibilité florale (valeurs de natureo ci-dessous)
-	flowers_rmq , -- remarque sur la dispo florale (par exemple, espèces des fleurs)
-	area_managmt , -- gestion du terrain
-	area_managmt_rmq , -- remarque sur la gestion du terrain
-	occ_sol_gen , -- occupation du sol
-	occ_sol_det ,
-	habitat_side1,
-	habitat_side2 ,
-	habitat_sterf_princ , -- code de l’habitat sterf principal (par exemple Ab2a)
-	habitat_sterf_sec , -- code de l’habitat sterf secondaire (par exemple Ab2a)
-	habitat_sterf1_desc , -- description textuelle de l’habitat sterf (récupéré à partir du code habitat_sterf_princ)
-	habitat_sterf2_desc , -- description textuelle de l’habitat sterf (récupéré à partir du code habitat_sterf_sec)
-	habitat_rmq , -- remarque sur l’habitat
-	----------------------------
-	-- Visit -------------------
-	----------------------------
-	pass.id_base_visit AS visit_id , -- identifiant sériel
-	recorder_id , -- identifiant observateurice dans la base de production
-	recorder_name , -- NOM Prénom
-	visit_date , -- date (exemple : 2025-06-23)
-	time_start , -- heure de début (exemple : 15:20:00)
-	time_end , -- heure de fin
-	(time_end::time - time_start::time) as time_duration , -- durée
-	temperature , -- température
-	cloud , -- couverture nuageuse
-	wind , -- vent
-	complete , -- info de si le transect a été fait jusqu’au bout
-	visit_rmq ,
-	----------------------------
-	-- Obs ---------------------
-	----------------------------
-	species_name , -- nom de l’espèce, tel que saisi initialement
-	count , -- nombre d’individus de l’espèce
-	species_sterf_name , -- regroupement taxonomique sterf
-	species_cd_nom ,
-	ident_method , -- méthode d’identification
-	sexe , -- remarque sur le sexe des individus observés
-	behavor , -- remarque sur le comportement des individus observés
-	obs_rmq , -- remarque d’observation
-	obs_uuid  -- identifiant unique de l’observat
-   FROM obs
-     LEFT JOIN observers USING (id_base_visit)
-     JOIN pass USING (id_base_visit)
-     LEFT JOIN tr USING (id_base_site)
-     LEFT JOIN com USING (id_base_site)
-     LEFT JOIN dep USING (id_base_site)
 ;
