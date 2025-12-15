@@ -45,7 +45,6 @@
       "type_widget": "number",
       "attribut_label": "Numéro de passage",
       "min" : 1,
-      "max": 4,
       "required": true
     },
     "annee": {

@@ -54,7 +54,6 @@
       "type_widget": "number",
       "attribut_label": "Effectif total",
       "min": 0,
-      "value": 0,
       "required": "({value}) => value.id_nomenclature_ab == (null || undefined) ",
       "hidden": "({value}) => value.id_nomenclature_ab != (null || undefined) "
     },
@@ -71,7 +70,8 @@
       "code_nomenclature_type": "STELI_IR",
       "type_util": "nomenclature",
       "required": false,
-      "hidden": false
+      "hidden": false,
+      "multiple": true
     },
     "id_nomenclature_obs_technique": {
       "type_widget": "nomenclature",
